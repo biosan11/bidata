@@ -1,0 +1,2232 @@
+
+20190716144839开始执行2019-07-15数据加载日志:
+SQL开始执行时间：20190716144839
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190716144839
+SQL开始执行时间：20190716144839
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190716144840
+
+20190717004038开始执行2019-07-16数据加载日志:
+SQL开始执行时间：20190717004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190717004038
+SQL开始执行时间：20190717004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190717004038
+
+20190718004039开始执行2019-07-17数据加载日志:
+SQL开始执行时间：20190718004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190718004039
+SQL开始执行时间：20190718004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190718004039
+
+20190719004039开始执行2019-07-18数据加载日志:
+SQL开始执行时间：20190719004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190719004039
+SQL开始执行时间：20190719004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190719004039
+
+20190720004039开始执行2019-07-19数据加载日志:
+SQL开始执行时间：20190720004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190720004039
+SQL开始执行时间：20190720004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190720004039
+
+20190721004038开始执行2019-07-20数据加载日志:
+SQL开始执行时间：20190721004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190721004038
+SQL开始执行时间：20190721004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190721004038
+
+20190722004039开始执行2019-07-21数据加载日志:
+SQL开始执行时间：20190722004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190722004039
+SQL开始执行时间：20190722004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190722004039
+
+20190723004039开始执行2019-07-22数据加载日志:
+SQL开始执行时间：20190723004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190723004039
+SQL开始执行时间：20190723004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190723004039
+
+20190724004038开始执行2019-07-23数据加载日志:
+SQL开始执行时间：20190724004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190724004038
+SQL开始执行时间：20190724004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190724004039
+
+20190725004038开始执行2019-07-24数据加载日志:
+SQL开始执行时间：20190725004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190725004038
+SQL开始执行时间：20190725004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190725004038
+
+20190726004039开始执行2019-07-25数据加载日志:
+SQL开始执行时间：20190726004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190726004039
+SQL开始执行时间：20190726004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190726004039
+
+20190727004040开始执行2019-07-26数据加载日志:
+SQL开始执行时间：20190727004040
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190727004040
+SQL开始执行时间：20190727004040
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190727004040
+
+20190728004040开始执行2019-07-27数据加载日志:
+SQL开始执行时间：20190728004040
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190728004040
+SQL开始执行时间：20190728004040
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190728004040
+
+20190729004039开始执行2019-07-28数据加载日志:
+SQL开始执行时间：20190729004040
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190729004040
+SQL开始执行时间：20190729004040
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190729004040
+
+20190730004040开始执行2019-07-29数据加载日志:
+SQL开始执行时间：20190730004040
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190730004040
+SQL开始执行时间：20190730004040
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190730004040
+
+20190731004041开始执行2019-07-30数据加载日志:
+SQL开始执行时间：20190731004041
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190731004041
+SQL开始执行时间：20190731004041
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190731004041
+
+20190801004039开始执行2019-07-31数据加载日志:
+SQL开始执行时间：20190801004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190801004039
+SQL开始执行时间：20190801004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190801004040
+
+20190802004040开始执行2019-08-01数据加载日志:
+SQL开始执行时间：20190802004040
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190802004040
+SQL开始执行时间：20190802004040
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190802004040
+
+20190803004039开始执行2019-08-02数据加载日志:
+SQL开始执行时间：20190803004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190803004039
+SQL开始执行时间：20190803004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190803004039
+
+20190804004038开始执行2019-08-03数据加载日志:
+SQL开始执行时间：20190804004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190804004038
+SQL开始执行时间：20190804004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190804004038
+
+20190805004039开始执行2019-08-04数据加载日志:
+SQL开始执行时间：20190805004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190805004039
+SQL开始执行时间：20190805004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190805004039
+
+20190806004037开始执行2019-08-05数据加载日志:
+SQL开始执行时间：20190806004037
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190806004037
+SQL开始执行时间：20190806004037
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190806004037
+
+20190807004038开始执行2019-08-06数据加载日志:
+SQL开始执行时间：20190807004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190807004038
+SQL开始执行时间：20190807004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190807004038
+
+20190808004038开始执行2019-08-07数据加载日志:
+SQL开始执行时间：20190808004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190808004038
+SQL开始执行时间：20190808004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190808004038
+
+20190809004038开始执行2019-08-08数据加载日志:
+SQL开始执行时间：20190809004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190809004038
+SQL开始执行时间：20190809004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190809004038
+
+20190810004038开始执行2019-08-09数据加载日志:
+SQL开始执行时间：20190810004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190810004038
+SQL开始执行时间：20190810004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190810004038
+
+20190811004038开始执行2019-08-10数据加载日志:
+SQL开始执行时间：20190811004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190811004038
+SQL开始执行时间：20190811004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190811004039
+
+20190812004039开始执行2019-08-11数据加载日志:
+SQL开始执行时间：20190812004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190812004039
+SQL开始执行时间：20190812004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190812004039
+
+20190813004038开始执行2019-08-12数据加载日志:
+SQL开始执行时间：20190813004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190813004038
+SQL开始执行时间：20190813004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190813004038
+
+20190814004037开始执行2019-08-13数据加载日志:
+SQL开始执行时间：20190814004037
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190814004037
+SQL开始执行时间：20190814004037
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190814004038
+
+20190815004038开始执行2019-08-14数据加载日志:
+SQL开始执行时间：20190815004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190815004038
+SQL开始执行时间：20190815004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190815004038
+
+20190816004037开始执行2019-08-15数据加载日志:
+SQL开始执行时间：20190816004037
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190816004037
+SQL开始执行时间：20190816004037
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190816004037
+
+20190817004038开始执行2019-08-16数据加载日志:
+SQL开始执行时间：20190817004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190817004038
+SQL开始执行时间：20190817004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190817004038
+
+20190818004039开始执行2019-08-17数据加载日志:
+SQL开始执行时间：20190818004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190818004039
+SQL开始执行时间：20190818004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190818004039
+
+20190819004039开始执行2019-08-18数据加载日志:
+SQL开始执行时间：20190819004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190819004039
+SQL开始执行时间：20190819004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190819004039
+
+20190820004039开始执行2019-08-19数据加载日志:
+SQL开始执行时间：20190820004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190820004039
+SQL开始执行时间：20190820004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190820004039
+
+20190821004038开始执行2019-08-20数据加载日志:
+SQL开始执行时间：20190821004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190821004038
+SQL开始执行时间：20190821004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190821004038
+
+20190822004038开始执行2019-08-21数据加载日志:
+SQL开始执行时间：20190822004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190822004038
+SQL开始执行时间：20190822004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190822004038
+
+20190823004038开始执行2019-08-22数据加载日志:
+SQL开始执行时间：20190823004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190823004038
+SQL开始执行时间：20190823004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190823004038
+
+20190824004038开始执行2019-08-23数据加载日志:
+SQL开始执行时间：20190824004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190824004038
+SQL开始执行时间：20190824004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190824004038
+
+20190825004038开始执行2019-08-24数据加载日志:
+SQL开始执行时间：20190825004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190825004038
+SQL开始执行时间：20190825004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190825004039
+
+20190826004038开始执行2019-08-25数据加载日志:
+SQL开始执行时间：20190826004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190826004038
+SQL开始执行时间：20190826004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190826004038
+
+20190827004039开始执行2019-08-26数据加载日志:
+SQL开始执行时间：20190827004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190827004039
+SQL开始执行时间：20190827004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190827004039
+
+20190828004040开始执行2019-08-27数据加载日志:
+SQL开始执行时间：20190828004040
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190828004040
+SQL开始执行时间：20190828004040
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190828004040
+
+20190829004039开始执行2019-08-28数据加载日志:
+SQL开始执行时间：20190829004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190829004039
+SQL开始执行时间：20190829004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190829004039
+
+20190830004039开始执行2019-08-29数据加载日志:
+SQL开始执行时间：20190830004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190830004039
+SQL开始执行时间：20190830004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190830004040
+
+20190831004038开始执行2019-08-30数据加载日志:
+SQL开始执行时间：20190831004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190831004038
+SQL开始执行时间：20190831004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190831004038
+
+20190901004038开始执行2019-08-31数据加载日志:
+SQL开始执行时间：20190901004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190901004038
+SQL开始执行时间：20190901004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190901004038
+
+20190902004038开始执行2019-09-01数据加载日志:
+SQL开始执行时间：20190902004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190902004038
+SQL开始执行时间：20190902004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190902004038
+
+20190903004040开始执行2019-09-02数据加载日志:
+SQL开始执行时间：20190903004040
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190903004040
+SQL开始执行时间：20190903004040
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190903004040
+
+20190904004039开始执行2019-09-03数据加载日志:
+SQL开始执行时间：20190904004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190904004039
+SQL开始执行时间：20190904004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190904004039
+
+20190905004037开始执行2019-09-04数据加载日志:
+SQL开始执行时间：20190905004037
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190905004037
+SQL开始执行时间：20190905004037
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190905004037
+
+20190906004038开始执行2019-09-05数据加载日志:
+SQL开始执行时间：20190906004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190906004038
+SQL开始执行时间：20190906004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190906004038
+
+20190907004038开始执行2019-09-06数据加载日志:
+SQL开始执行时间：20190907004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190907004038
+SQL开始执行时间：20190907004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190907004039
+
+20190908004037开始执行2019-09-07数据加载日志:
+SQL开始执行时间：20190908004037
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190908004037
+SQL开始执行时间：20190908004037
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190908004038
+
+20190909004037开始执行2019-09-08数据加载日志:
+SQL开始执行时间：20190909004037
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190909004037
+SQL开始执行时间：20190909004037
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190909004037
+
+20190910004037开始执行2019-09-09数据加载日志:
+SQL开始执行时间：20190910004037
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190910004037
+SQL开始执行时间：20190910004037
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190910004037
+
+20190911004037开始执行2019-09-10数据加载日志:
+SQL开始执行时间：20190911004037
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190911004037
+SQL开始执行时间：20190911004037
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190911004038
+
+20190912004041开始执行2019-09-11数据加载日志:
+SQL开始执行时间：20190912004041
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190912004041
+SQL开始执行时间：20190912004041
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190912004042
+
+20190913004038开始执行2019-09-12数据加载日志:
+SQL开始执行时间：20190913004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190913004038
+SQL开始执行时间：20190913004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190913004038
+
+20190914004038开始执行2019-09-13数据加载日志:
+SQL开始执行时间：20190914004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190914004038
+SQL开始执行时间：20190914004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190914004039
+
+20190915004039开始执行2019-09-14数据加载日志:
+SQL开始执行时间：20190915004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190915004039
+SQL开始执行时间：20190915004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190915004039
+
+20190916004038开始执行2019-09-15数据加载日志:
+SQL开始执行时间：20190916004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190916004038
+SQL开始执行时间：20190916004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190916004038
+
+20190917004038开始执行2019-09-16数据加载日志:
+SQL开始执行时间：20190917004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190917004038
+SQL开始执行时间：20190917004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190917004038
+
+20190918004038开始执行2019-09-17数据加载日志:
+SQL开始执行时间：20190918004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190918004038
+SQL开始执行时间：20190918004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190918004038
+
+20190919004038开始执行2019-09-18数据加载日志:
+SQL开始执行时间：20190919004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190919004038
+SQL开始执行时间：20190919004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190919004038
+
+20190920004039开始执行2019-09-19数据加载日志:
+SQL开始执行时间：20190920004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190920004039
+SQL开始执行时间：20190920004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190920004039
+
+20190921004038开始执行2019-09-20数据加载日志:
+SQL开始执行时间：20190921004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190921004038
+SQL开始执行时间：20190921004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190921004039
+
+20190922004038开始执行2019-09-21数据加载日志:
+SQL开始执行时间：20190922004038
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190922004038
+SQL开始执行时间：20190922004038
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190922004039
+
+20190923004039开始执行2019-09-22数据加载日志:
+SQL开始执行时间：20190923004039
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190923004039
+SQL开始执行时间：20190923004039
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190923004039
+
+20190924004040开始执行2019-09-23数据加载日志:
+SQL开始执行时间：20190924004040
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190924004040
+SQL开始执行时间：20190924004040
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190924004040
+
+20190925004041开始执行2019-09-24数据加载日志:
+SQL开始执行时间：20190925004041
+truncate table edw.oa_meet_market_conference
+;
+SQL结束执行时间：20190925004041
+SQL开始执行时间：20190925004041
+insert into edw.oa_meet_market_conference
+select a.liuchengbh
+      ,a.huiyimc
+      ,a.lastname
+      ,a.departmentname
+      ,a.shenqingrq
+      ,a.huiyilx
+      ,a.huiyiksrq
+      ,a.huiyijsrq
+      ,a.qitamd
+      ,a.shichangyszfy
+      ,a.shijizfy
+      ,a.huiyijl
+      ,a.huihougj
+      ,a.xiaoshoujscjh
+      ,a.yusuanxm
+      ,a.yusuanxjje
+      ,a.juesuanje
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_conference a
+
+;
+SQL结束执行时间：20190925004041

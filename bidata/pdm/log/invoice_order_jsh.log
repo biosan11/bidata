@@ -1,0 +1,435 @@
+
+20181128085540开始执行2018-11-27数据加载日志:
+SQL开始执行时间：20181128085540
+
+
+create temporary table pdm.invoice_order_jsh_pre as 
+select *
+  from edw.invoice_order a
+ where left(a.sys_time,10) > '2018-11-27'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20181128085540
+SQL开始执行时间：20181128085540
+  
+delete from pdm.invoice_order_jsh_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20181128085540
+SQL开始执行时间：20181128085540
+delete from pdm.invoice_order_jsh_pre where true_ccuscode = 'DL1101002' and cinvcode = 'QT00004'
+;
+SQL结束执行时间：20181128085540
+SQL开始执行时间：20181128085540
+
+delete from pdm.invoice_order_jsh where sbvid in (select sbvid from  pdm.invoice_order_jsh_pre)
+;
+SQL结束执行时间：20181128085619
+SQL开始执行时间：20181128085619
+
+insert into pdm.invoice_order_jsh
+select a.sbvid
+      ,a.ddate
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝莱'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '湖北奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '四川美博特'
+            end
+      ,a.cwhcode
+      ,c.cwhname
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,null
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.itaxunitprice
+      ,a.citemname
+      ,a.cvenabbname
+      ,a.cstcode
+      ,localtimestamp()
+  from pdm.invoice_order_jsh_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join ufdata.warehouse c
+    on a.cwhcode = c.cwhcode
+  left join ufdata.department d
+    on a.cdepcode = d.cdepcode
+
+;
+SQL结束执行时间：20181128085619
+
+20181129010038开始执行2018-11-28数据加载日志:
+SQL开始执行时间：20181129010038
+
+
+create temporary table pdm.invoice_order_jsh_pre as 
+select *
+  from edw.invoice_order a
+ where left(a.sys_time,10) > '2018-11-28'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20181129010038
+SQL开始执行时间：20181129010038
+  
+delete from pdm.invoice_order_jsh_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20181129010038
+SQL开始执行时间：20181129010038
+delete from pdm.invoice_order_jsh_pre where true_ccuscode = 'DL1101002' and cinvcode = 'QT00004'
+;
+SQL结束执行时间：20181129010038
+SQL开始执行时间：20181129010038
+
+delete from pdm.invoice_order_jsh where sbvid in (select sbvid from  pdm.invoice_order_jsh_pre)
+;
+SQL结束执行时间：20181129010208
+SQL开始执行时间：20181129010208
+
+insert into pdm.invoice_order_jsh
+select a.sbvid
+      ,a.ddate
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝莱'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '湖北奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '四川美博特'
+            end
+      ,a.cwhcode
+      ,c.cwhname
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,null
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.itaxunitprice
+      ,a.citemname
+      ,a.cvenabbname
+      ,a.cstcode
+      ,localtimestamp()
+  from pdm.invoice_order_jsh_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join ufdata.warehouse c
+    on a.cwhcode = c.cwhcode
+   and a.db = c.db
+  left join ufdata.department d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+
+;
+SQL结束执行时间：20181129010208
+
+20181129151139开始执行1900-01-01数据加载日志:
+SQL开始执行时间：20181129151139
+
+
+create temporary table pdm.invoice_order_jsh_pre as 
+select *
+  from edw.invoice_order a
+ where left(a.sys_time,10) > '1900-01-01'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20181129151142
+SQL开始执行时间：20181129151142
+  
+delete from pdm.invoice_order_jsh_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20181129151142
+SQL开始执行时间：20181129151142
+delete from pdm.invoice_order_jsh_pre where true_ccuscode = 'DL1101002' and cinvcode = 'QT00004'
+;
+SQL结束执行时间：20181129151142
+SQL开始执行时间：20181129151142
+
+delete from pdm.invoice_order_jsh where sbvid in (select sbvid from  pdm.invoice_order_jsh_pre)
+;
+SQL结束执行时间：20181129151143
+SQL开始执行时间：20181129151143
+
+insert into pdm.invoice_order_jsh
+select a.sbvid
+      ,a.ddate
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝莱'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '湖北奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '四川美博特'
+            end
+      ,a.cwhcode
+      ,c.cwhname
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,null
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.itaxunitprice
+      ,a.citemname
+      ,a.cvenabbname
+      ,a.cstcode
+      ,localtimestamp()
+  from pdm.invoice_order_jsh_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join ufdata.warehouse c
+    on a.cwhcode = c.cwhcode
+   and a.db = c.db
+  left join ufdata.department d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+
+;
+SQL结束执行时间：20181129151144
+
+20181129151513开始执行2018-11-28数据加载日志:
+SQL开始执行时间：20181129151513
+
+
+create temporary table pdm.invoice_order_jsh_pre as 
+select *
+  from edw.invoice_order a
+ where left(a.sys_time,10) > '2018-11-28'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20181129151513
+SQL开始执行时间：20181129151513
+  
+delete from pdm.invoice_order_jsh_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20181129151513
+SQL开始执行时间：20181129151513
+delete from pdm.invoice_order_jsh_pre where true_ccuscode = 'DL1101002' and cinvcode = 'QT00004'
+;
+SQL结束执行时间：20181129151513
+SQL开始执行时间：20181129151513
+
+delete from pdm.invoice_order_jsh where sbvid in (select sbvid from  pdm.invoice_order_jsh_pre)
+;
+SQL结束执行时间：20181129151515
+SQL开始执行时间：20181129151515
+
+insert into pdm.invoice_order_jsh
+select a.sbvid
+      ,a.ddate
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝莱'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '湖北奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '四川美博特'
+            end
+      ,a.cwhcode
+      ,c.cwhname
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,null
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.itaxunitprice
+      ,a.citemname
+      ,a.cvenabbname
+      ,a.cstcode
+      ,localtimestamp()
+  from pdm.invoice_order_jsh_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join ufdata.warehouse c
+    on a.cwhcode = c.cwhcode
+   and a.db = c.db
+  left join ufdata.department d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+
+;
+SQL结束执行时间：20181129151515
+
+20181130010038开始执行2018-11-29数据加载日志:
+SQL开始执行时间：20181130010038
+
+
+create temporary table pdm.invoice_order_jsh_pre as 
+select *
+  from edw.invoice_order a
+ where left(a.sys_time,10) > '2018-11-29'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20181130010039
+SQL开始执行时间：20181130010039
+  
+delete from pdm.invoice_order_jsh_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20181130010039
+SQL开始执行时间：20181130010039
+delete from pdm.invoice_order_jsh_pre where true_ccuscode = 'DL1101002' and cinvcode = 'QT00004'
+;
+SQL结束执行时间：20181130010039
+SQL开始执行时间：20181130010039
+
+delete from pdm.invoice_order_jsh where sbvid in (select sbvid from  pdm.invoice_order_jsh_pre)
+;
+SQL结束执行时间：20181130010041
+SQL开始执行时间：20181130010041
+
+insert into pdm.invoice_order_jsh
+select a.sbvid
+      ,a.ddate
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝莱'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '湖北奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '四川美博特'
+            end
+      ,a.cwhcode
+      ,c.cwhname
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,null
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.itaxunitprice
+      ,a.citemname
+      ,a.cvenabbname
+      ,a.cstcode
+      ,localtimestamp()
+  from pdm.invoice_order_jsh_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join ufdata.warehouse c
+    on a.cwhcode = c.cwhcode
+   and a.db = c.db
+  left join ufdata.department d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+
+;
+SQL结束执行时间：20181130010041
+
+20181201010039开始执行2018-11-30数据加载日志:
+SQL开始执行时间：20181201010039
+
+
+create temporary table pdm.invoice_order_jsh_pre as 
+select *
+  from edw.invoice_order a
+ where left(a.sys_time,10) > '2018-11-30'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20181201010039
+SQL开始执行时间：20181201010039
+  
+delete from pdm.invoice_order_jsh_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20181201010039
+SQL开始执行时间：20181201010039
+delete from pdm.invoice_order_jsh_pre where true_ccuscode = 'DL1101002' and cinvcode = 'QT00004'
+;
+SQL结束执行时间：20181201010039
+SQL开始执行时间：20181201010039
+
+delete from pdm.invoice_order_jsh where sbvid in (select sbvid from  pdm.invoice_order_jsh_pre)
+;
+SQL结束执行时间：20181201010045
+SQL开始执行时间：20181201010045
+
+insert into pdm.invoice_order_jsh
+select a.sbvid
+      ,a.ddate
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝莱'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '湖北奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '四川美博特'
+            end
+      ,a.cwhcode
+      ,c.cwhname
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,null
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.itaxunitprice
+      ,a.citemname
+      ,a.cvenabbname
+      ,a.cstcode
+      ,localtimestamp()
+  from pdm.invoice_order_jsh_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join ufdata.warehouse c
+    on a.cwhcode = c.cwhcode
+   and a.db = c.db
+  left join ufdata.department d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+
+;

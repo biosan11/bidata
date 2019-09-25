@@ -1,0 +1,356 @@
+
+-- 查看第一层到第二层是否丢失数据
+INSERT INTO tracking.jc_abnormal_alarm SELECT
+"outdepot_order_temp1",
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+"存在数据丢失，请确认",
+1,
+CURDATE( ) 
+FROM
+	(
+	SELECT
+		count( * ) AS num 
+	FROM
+		ufdata.rdrecord32 a
+		LEFT JOIN edw.outdepot_order b ON a.id = b.id and a.db = b.db
+	WHERE
+		b.id IS NULL 
+	) a 
+WHERE
+	a.num > 0;
+
+
+INSERT INTO tracking.jc_abnormal_alarm SELECT
+"invoice_order_temp1",
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+"存在数据丢失，请确认",
+1,
+CURDATE( ) 
+FROM
+	(
+	SELECT
+		count( * ) AS num 
+	FROM
+		ufdata.salebillvouch a
+		LEFT JOIN edw.invoice_order b ON a.sbvid = b.sbvid and a.db = b.db
+	WHERE
+		b.sbvid IS NULL 
+	) a 
+WHERE
+	a.num > 0;
+
+-- 检测第二层和第三层数据
+INSERT INTO tracking.jc_abnormal_alarm SELECT
+"invoice_order_temp2",
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+"存在数据丢失，请确认",
+1,
+CURDATE( ) 
+FROM
+	(
+	SELECT
+		count( * ) AS num 
+	FROM
+		(select autoid,db from edw.invoice_order where left(true_ccuscode,2) <> 'GL' and (true_ccuscode <> 'DL1101002' and cinvcode <> 'QT00004') and year(ddate)>=2018 and state = '有效') a
+		LEFT JOIN pdm.invoice_order b ON a.autoid = b.autoid and a.db = b.db
+	WHERE
+		b.autoid IS NULL 
+	) a 
+WHERE
+	a.num > 0;
+
+INSERT INTO tracking.jc_abnormal_alarm SELECT
+"outdepot_order_temp2",
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+"存在数据丢失，请确认",
+1,
+CURDATE( ) 
+FROM
+	(
+	SELECT
+		count( * ) AS num 
+	FROM
+		(select autoid,db from edw.outdepot_order where left(true_ccuscode,2) <> 'GL' and left(bi_cinvcode,2) <> 'JC' and year(ddate)>=2018 and state = '有效') a
+		LEFT JOIN pdm.outdepot_order b ON a.autoid = b.autoid and a.db = b.db
+	WHERE
+		b.autoid IS NULL 
+	) a 
+WHERE
+	a.num > 0;
+
+-- 请核查问题汇总
+-- 客户、最终客户清洗问题
+INSERT INTO tracking.jc_abnormal_alarm 
+SELECT
+"edw.invoice_order",
+db,
+ccuscode,
+ccusname,
+null,
+null,
+null,
+"客户清洗问题",
+1,
+curdate( ) 
+from
+	edw.invoice_order 
+where
+	true_ccusname = "请核查" or true_ccuscode = "请核查"
+union all
+SELECT
+"edw.invoice_order",
+db,
+true_ccuscode,
+true_ccusname,
+NULL,
+NULL,
+NULL,
+"最终客户清洗问题",
+1,
+CURDATE( ) 
+FROM
+	edw.invoice_order 
+WHERE
+	true_finnal_ccusname2 = "请核查" or true_finnal_ccuscode = '请核查'
+union all
+SELECT
+"edw.dispatch_order",
+db,
+true_ccuscode,
+true_ccusname,
+NULL,
+NULL,
+NULL,
+"最终客户清洗问题",
+1,
+CURDATE( ) 
+FROM
+	edw.dispatch_order 
+WHERE
+	true_finnal_ccusname2 = "请核查" or true_finnal_ccuscode = '请核查'
+union all
+SELECT
+"edw.outdepot_order",
+db,
+ccuscode,
+ccusname,
+NULL,
+NULL,
+NULL,
+"客户清洗问题",
+1,
+CURDATE( ) 
+FROM
+	edw.outdepot_order 
+WHERE
+	true_ccusname = "请核查" or true_ccuscode = "请核查"
+union all
+SELECT
+"edw.ar_detail",
+db,
+cDwCode,
+null,
+NULL,
+NULL,
+NULL,
+"客户清洗问题",
+1,
+CURDATE( ) 
+FROM
+	edw.ar_detail 
+WHERE
+	true_ccusname = "请核查" or true_ccuscode = "请核查"
+union all
+select 
+"edw.outdepot_order",
+db,
+true_ccuscode,
+true_ccusname,
+NULL,
+NULL,
+NULL,
+"最终客户清洗问题",
+1,
+CURDATE( ) 
+FROM
+	edw.outdepot_order 
+WHERE
+	true_finnal_ccusname2 = "请核查" or true_finnal_ccuscode = '请核查'
+union all
+select 
+"edw.dispatch_order",
+db,
+true_ccuscode,
+true_ccusname,
+NULL,
+NULL,
+NULL,
+"最终客户清洗问题",
+1,
+CURDATE( ) 
+FROM
+	edw.dispatch_order 
+WHERE
+	true_finnal_ccusname2 = "请核查" or true_finnal_ccuscode = '请核查';
+
+-- 产品清洗问题
+INSERT INTO tracking.jc_abnormal_alarm 
+SELECT
+"edw.invoice_order",
+db,
+NULL,
+NULL,
+cinvcode,
+cinvname,
+NULL,
+"产品清洗问题",
+1,
+CURDATE( ) 
+FROM edw.invoice_order 
+WHERE bi_cinvname = "请核查" OR bi_cinvname = "UNDECIDED" or bi_cinvcode = '请核查'
+union all
+SELECT
+"edw.outdepot_order",
+db,
+NULL,
+NULL,
+cinvcode,
+null,
+NULL,
+"产品清洗问题",
+1,
+CURDATE( ) 
+FROM edw.outdepot_order 
+WHERE bi_cinvname = "请核查" OR bi_cinvname = "UNDECIDED" or bi_cinvcode = '请核查'
+union all
+SELECT
+"edw.ar_detail",
+db,
+NULL,
+NULL,
+cinvcode,
+null,
+NULL,
+"产品清洗问题",
+1,
+CURDATE( ) 
+FROM edw.ar_detail 
+WHERE true_cinvname = "请核查" OR true_cinvname = "UNDECIDED" or true_cinvcode = '请核查'
+union all
+SELECT
+"edw.dispatch_order",
+db,
+NULL,
+NULL,
+cinvcode,
+null,
+NULL,
+"产品清洗问题",
+1,
+CURDATE( ) 
+FROM edw.dispatch_order 
+WHERE bi_cinvname = "请核查" OR bi_cinvname = "UNDECIDED" or bi_cinvcode = '请核查'
+;
+
+-- 项目清洗问题
+INSERT INTO tracking.jc_abnormal_alarm 
+SELECT
+"edw.invoice_order",
+db,
+NULL,
+NULL,
+cinvcode,
+cinvname,
+NULL,
+"项目清洗问题",
+1,
+CURDATE( ) 
+FROM edw.invoice_order 
+WHERE true_itemcode = "请核查"
+union all
+SELECT
+"edw.outdepot_order",
+db,
+NULL,
+NULL,
+cinvcode,
+null,
+NULL,
+"项目清洗问题",
+1,
+CURDATE( ) 
+FROM edw.outdepot_order 
+WHERE true_itemcode = "请核查"
+union all
+SELECT
+"edw.dispatch_order",
+db,
+NULL,
+NULL,
+cinvcode,
+null,
+NULL,
+"项目清洗问题",
+1,
+CURDATE( ) 
+FROM edw.dispatch_order 
+WHERE true_itemcode = "请核查"
+;
+
+-- 18年封存金额不等于906990596则需要确认数据了
+INSERT INTO tracking.jc_abnormal_alarm SELECT
+"pdm.invoice_order",
+'all',
+null,
+null,
+NULL,
+NULL,
+a.isum,
+"18年金额出现差异",
+3,
+CURDATE( ) 
+FROM(
+select sum(isum) as isum 
+from pdm.invoice_order 
+WHERE left(ddate,4) = '2018') a
+where round(a.isum,0) <> '906990596';
+
+-- pdm层数据outdepot_order 数量存在请核查需要确认问题
+INSERT INTO tracking.jc_abnormal_alarm
+SELECT
+"pdm.outdepot_order",
+db,
+NULL,
+NULL,
+cinvcode,
+null,
+NULL,
+"pdm层发货数据数据存在问题",
+3,
+CURDATE( ) 
+FROM pdm.outdepot_order 
+WHERE iquantity = "请核查"
+;
+
+
+

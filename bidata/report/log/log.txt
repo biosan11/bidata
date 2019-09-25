@@ -1,0 +1,1328 @@
+
+
+
+
+MANUAL
+date:2019-06-18 13:20:10.384536
+**************************
+time:13:20:10
+-----------------------
+/home/bidata/report/sql/01_fin_11_salesbudget_cost_depre.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:20:10
+-----------------------
+/home/bidata/report/sql/02_fin_12_salesbudegt_person_post.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:20:10
+-----------------------
+/home/bidata/report/sql/03_fin_13_sales_cost_budget_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:20:10
+-----------------------
+/home/bidata/report/sql/03_fin_21_ehrperson_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:20:10
+-----------------------
+/home/bidata/report/sql/04_fin_31_account_ori.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:20:10
+-----------------------
+/home/bidata/report/sql/05_fin_32_account_ccuscode_result.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:20:10
+-----------------------
+/home/bidata/report/sql/11_fin_prov_04_sales_price.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:20:10
+-----------------------
+/home/bidata/report/sql/12_fin_prov_06_account_ccuscode_age.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:20:10
+-----------------------
+/home/bidata/report/sql/50_auxi_01_map_item_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:20:10
+-----------------------
+/home/bidata/report/sql/99_report_financial_sales_cost_backup.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-07-17 14:04:17.886164
+**************************
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/01_fin_11_salesbudget_cost_depre.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/02_fin_12_salesbudegt_person_post.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/03_fin_13_sales_cost_budget_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/03_fin_21_ehrperson_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/04_fin_31_account_ori.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/05_fin_32_account_ccuscode_result.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/11_fin_prov_04_sales_price.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/12_fin_prov_06_account_ccuscode_age.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/13_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/14_operation_03_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/50_auxi_01_map_item_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:04:17
+-----------------------
+/home/bidata/report/sql/99_report_financial_sales_cost_backup.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-07-22 10:58:30.107147
+**************************
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/01_fin_11_salesbudget_cost_depre.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/02_fin_12_salesbudegt_person_post.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/03_fin_13_sales_cost_budget_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/03_fin_21_ehrperson_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/04_fin_31_account_ori.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/05_fin_32_account_ccuscode_result.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/11_fin_prov_04_sales_price.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/12_fin_prov_06_account_ccuscode_age.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/13_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/14_operation_03_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/50_auxi_01_map_item_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:58:30
+-----------------------
+/home/bidata/report/sql/99_report_financial_sales_cost_backup.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-07-22 16:32:30.312902
+**************************
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/01_fin_11_salesbudget_cost_depre.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/02_fin_12_salesbudegt_person_post.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/03_fin_13_sales_cost_budget_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/03_fin_21_ehrperson_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/04_fin_31_account_ori.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/05_fin_32_account_ccuscode_result.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/11_fin_prov_04_sales_price.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/12_fin_prov_06_account_ccuscode_age.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/13_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/14_operation_03_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/50_auxi_01_map_item_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:16:32:30
+-----------------------
+/home/bidata/report/sql/99_report_financial_sales_cost_backup.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-08-07 10:33:50.851088
+**************************
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/01_fin_11_salesbudget_cost_depre.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/02_fin_12_salesbudegt_person_post.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/03_fin_13_sales_cost_budget_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/03_fin_21_ehrperson_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/04_fin_31_account_ori.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/05_fin_32_account_ccuscode_result.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/11_fin_prov_04_sales_price.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/12_fin_prov_06_account_ccuscode_age.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/13_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/14_operation_03_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/50_auxi_01_map_item_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:10:33:50
+-----------------------
+/home/bidata/report/sql/99_report_financial_sales_cost_backup.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-08-14 14:41:00.678152
+**************************
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/01_fin_11_salesbudget_cost_depre.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/02_fin_12_salesbudegt_person_post.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/03_fin_13_sales_cost_budget_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/03_fin_21_ehrperson_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/04_fin_31_account_ori.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/05_fin_32_account_ccuscode_result.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/11_fin_prov_04_sales_price.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/12_fin_prov_06_account_ccuscode_age.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/13_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/14_operation_03_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/50_auxi_01_map_item_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:41:00
+-----------------------
+/home/bidata/report/sql/99_report_financial_sales_cost_backup.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-08-26 13:46:46.059249
+**************************
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/01_fin_11_salesbudget_cost_depre.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1061 (42000) at line 186: Duplicate key name 'index_fin_11_salesbudget_cost_depre_db'
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/02_fin_12_salesbudegt_person_post.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/03_fin_13_sales_cost_budget_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/03_fin_21_ehrperson_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/04_fin_31_account_ori.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/05_fin_32_account_ccuscode_result.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/11_fin_prov_04_sales_price.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/12_fin_prov_06_account_ccuscode_age.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/13_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/14_operation_03_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/50_auxi_01_map_item_bonus.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1061 (42000) at line 14: Duplicate key name 'index_report_auxi_01_map_item_bonus'
+time:13:46:46
+-----------------------
+/home/bidata/report/sql/99_report_financial_sales_cost_backup.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-11 17:00:05.285905
+**************************
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/01_fin_11_salesbudget_cost_depre.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/02_fin_12_salesbudegt_person_post.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/03_fin_13_sales_cost_budget_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/03_fin_21_ehrperson_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/04_fin_31_account_ori.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/05_fin_32_account_ccuscode_result.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/11_fin_prov_04_sales_price.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/12_fin_prov_06_account_ccuscode_age.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/13_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/14_operation_03_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses_1_6.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/18_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/18_fin_prov_08_expenses_base_ccus.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1146 (42S02) at line 57: Table 'report.fin_prov_08_expense_base_ccus' doesn't exist
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/19_fin_prov_08_expenses_share.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1136 (21S01) at line 90: Column count doesn't match value count at row 1
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_share_qs.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1054 (42S22) at line 117: Unknown column 'fy_share_mk2' in 'where clause'
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/21_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/22_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/50_auxi_01_map_item_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:00:05
+-----------------------
+/home/bidata/report/sql/99_report_financial_sales_cost_backup.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1205 (HY000) at line 41: Lock wait timeout exceeded; try restarting transaction
+
+
+
+MANUAL
+date:2019-09-18 09:31:56.204703
+**************************
+time:09:31:56
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:31:56
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:31:56
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:31:56
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:31:56
+-----------------------
+/home/bidata/report/sql/18_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:31:56
+-----------------------
+/home/bidata/report/sql/19_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:31:56
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:31:56
+-----------------------
+/home/bidata/report/sql/21_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:31:56
+-----------------------
+/home/bidata/report/sql/22_fin_prov_08_expenses_share_qs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:31:56
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-18 15:11:10.841757
+**************************
+time:15:11:10
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:11:10
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:11:10
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:11:10
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:11:10
+-----------------------
+/home/bidata/report/sql/18_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:11:10
+-----------------------
+/home/bidata/report/sql/19_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:11:10
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:11:10
+-----------------------
+/home/bidata/report/sql/21_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:11:10
+-----------------------
+/home/bidata/report/sql/22_fin_prov_08_expenses_share_qs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:11:10
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-18 15:14:52.016490
+**************************
+time:15:14:52
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:14:52
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:14:52
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:14:52
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:14:52
+-----------------------
+/home/bidata/report/sql/18_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:14:52
+-----------------------
+/home/bidata/report/sql/19_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:14:52
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:14:52
+-----------------------
+/home/bidata/report/sql/21_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:14:52
+-----------------------
+/home/bidata/report/sql/22_fin_prov_08_expenses_share_qs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:14:52
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-18 15:28:31.544173
+**************************
+time:15:28:31
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:28:31
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:28:31
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:28:31
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:28:31
+-----------------------
+/home/bidata/report/sql/18_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:28:31
+-----------------------
+/home/bidata/report/sql/19_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:28:31
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:28:31
+-----------------------
+/home/bidata/report/sql/21_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:28:31
+-----------------------
+/home/bidata/report/sql/22_fin_prov_08_expenses_share_qs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:15:28:31
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-18 17:51:09.093086
+**************************
+time:17:51:09
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:51:09
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:51:09
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:51:09
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:51:09
+-----------------------
+/home/bidata/report/sql/18_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:51:09
+-----------------------
+/home/bidata/report/sql/19_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:51:09
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:51:09
+-----------------------
+/home/bidata/report/sql/21_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:51:09
+-----------------------
+/home/bidata/report/sql/22_fin_prov_08_expenses_share_qs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:51:09
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-18 17:57:20.436346
+**************************
+time:17:57:20
+-----------------------
+/home/bidata/report/sql/01_fin_11_salesbudget_cost_depre.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:57:20
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:57:20
+-----------------------
+/home/bidata/report/sql/02_fin_12_salesbudegt_person_post.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:57:20
+-----------------------
+/home/bidata/report/sql/03_fin_13_sales_cost_budget_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:57:20
+-----------------------
+/home/bidata/report/sql/03_fin_21_ehrperson_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:57:20
+-----------------------
+/home/bidata/report/sql/04_fin_31_account_ori.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:57:20
+-----------------------
+/home/bidata/report/sql/05_fin_32_account_ccuscode_result.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:57:20
+-----------------------
+/home/bidata/report/sql/11_fin_prov_04_sales_price.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:57:20
+-----------------------
+/home/bidata/report/sql/12_fin_prov_06_account_ccuscode_age.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:57:20
+-----------------------
+/home/bidata/report/sql/14_operation_03_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-19 09:04:12.945654
+**************************
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/01_fin_11_salesbudget_cost_depre.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/02_fin_12_salesbudegt_person_post.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/03_fin_13_sales_cost_budget_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/03_fin_21_ehrperson_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/04_fin_31_account_ori.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/05_fin_32_account_ccuscode_result.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/11_fin_prov_04_sales_price.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/12_fin_prov_06_account_ccuscode_age.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/14_operation_03_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/18_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/19_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/21_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/22_fin_prov_08_expenses_share_qs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/50_auxi_01_map_item_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:04:12
+-----------------------
+/home/bidata/report/sql/99_report_financial_sales_cost_backup.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-19 09:38:29.299812
+**************************
+time:09:38:29
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:38:29
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:38:29
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:38:29
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:38:29
+-----------------------
+/home/bidata/report/sql/18_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:38:29
+-----------------------
+/home/bidata/report/sql/19_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:38:29
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:38:29
+-----------------------
+/home/bidata/report/sql/21_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:38:29
+-----------------------
+/home/bidata/report/sql/22_fin_prov_08_expenses_share_qs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:38:29
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-19 09:41:18.816560
+**************************
+time:09:41:18
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:41:18
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:41:18
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:41:18
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:41:18
+-----------------------
+/home/bidata/report/sql/18_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:41:18
+-----------------------
+/home/bidata/report/sql/19_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:41:18
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:41:18
+-----------------------
+/home/bidata/report/sql/21_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:41:18
+-----------------------
+/home/bidata/report/sql/22_fin_prov_08_expenses_share_qs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:41:18
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-20 09:26:11.661744
+**************************
+time:09:26:11
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:26:11
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:26:11
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:26:11
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:26:11
+-----------------------
+/home/bidata/report/sql/18_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:26:11
+-----------------------
+/home/bidata/report/sql/19_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:26:11
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:26:11
+-----------------------
+/home/bidata/report/sql/21_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:26:11
+-----------------------
+/home/bidata/report/sql/22_fin_prov_08_expenses_share_qs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:09:26:11
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-20 14:56:02.455913
+**************************
+time:14:56:02
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:56:02
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1054 (42S22) at line 145: Unknown column 'fy_share_ifccus' in 'field list'
+time:14:56:02
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:56:02
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:56:02
+-----------------------
+/home/bidata/report/sql/18_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:56:02
+-----------------------
+/home/bidata/report/sql/19_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:56:02
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:56:02
+-----------------------
+/home/bidata/report/sql/21_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:56:02
+-----------------------
+/home/bidata/report/sql/22_fin_prov_08_expenses_share_qs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:56:02
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-20 14:58:15.715855
+**************************
+time:14:58:15
+-----------------------
+/home/bidata/report/sql/01_auxi_01_province_per.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:58:15
+-----------------------
+/home/bidata/report/sql/15_fin_prov_10_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:58:15
+-----------------------
+/home/bidata/report/sql/16_fin_prov_10_expenses_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:58:15
+-----------------------
+/home/bidata/report/sql/17_fin_prov_10_expenses_all.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:58:15
+-----------------------
+/home/bidata/report/sql/18_fin_prov_11_expenses_fw.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:58:15
+-----------------------
+/home/bidata/report/sql/19_fin_prov_11_expenses_deptshare.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:58:15
+-----------------------
+/home/bidata/report/sql/20_fin_prov_08_expenses_base.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:58:15
+-----------------------
+/home/bidata/report/sql/21_fin_prov_08_expenses_share.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:58:15
+-----------------------
+/home/bidata/report/sql/22_fin_prov_08_expenses_share_qs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:14:58:15
+-----------------------
+/home/bidata/report/sql/23_fin_prov_12_expenses_deptshare_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.

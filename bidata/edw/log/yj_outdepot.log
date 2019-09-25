@@ -1,0 +1,4674 @@
+
+20190708162027开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190708162027
+
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190708162027
+SQL开始执行时间：20190708162027
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,b.sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,b.tproductdate
+	    ,b.teffectdate
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(b.sproductcode,7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+
+;
+SQL结束执行时间：20190708162052
+
+20190708162257开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190708162257
+
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190708162257
+SQL开始执行时间：20190708162257
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode)
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,b.tproductdate
+	    ,b.teffectdate
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+
+;
+SQL结束执行时间：20190708162324
+
+20190708162915开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190708162915
+
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190708162915
+SQL开始执行时间：20190708162915
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode)
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,b.tproductdate
+	    ,b.teffectdate
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+
+;
+SQL结束执行时间：20190708162942
+
+20190719014205开始执行2019-07-18数据加载日志:
+SQL开始执行时间：20190719014205
+
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190719014205
+SQL开始执行时间：20190719014205
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode)
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+
+;
+
+20190719101735开始执行2019-07-18数据加载日志:
+SQL开始执行时间：20190719101735
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190719101735
+SQL开始执行时间：20190719101735
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190719101735
+SQL开始执行时间：20190719101735
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190719101735
+
+20190720014205开始执行2019-07-19数据加载日志:
+SQL开始执行时间：20190720014205
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190720014205
+SQL开始执行时间：20190720014205
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190720014205
+SQL开始执行时间：20190720014205
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190720014205
+
+20190721014204开始执行2019-07-20数据加载日志:
+SQL开始执行时间：20190721014204
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190721014204
+SQL开始执行时间：20190721014204
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190721014204
+SQL开始执行时间：20190721014204
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190721014204
+
+20190722014205开始执行2019-07-21数据加载日志:
+SQL开始执行时间：20190722014205
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190722014205
+SQL开始执行时间：20190722014205
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190722014205
+SQL开始执行时间：20190722014205
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190722014205
+
+20190723014205开始执行2019-07-22数据加载日志:
+SQL开始执行时间：20190723014205
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190723014205
+SQL开始执行时间：20190723014205
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190723014205
+SQL开始执行时间：20190723014205
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190723014205
+
+20190724014612开始执行2019-07-23数据加载日志:
+SQL开始执行时间：20190724014612
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190724014612
+SQL开始执行时间：20190724014612
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190724014641
+SQL开始执行时间：20190724014641
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190724014641
+
+20190724110703开始执行2019-07-24数据加载日志:
+SQL开始执行时间：20190724110703
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190724110703
+SQL开始执行时间：20190724110703
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190724110732
+SQL开始执行时间：20190724110732
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190724110732
+
+20190724112017开始执行2019-07-24数据加载日志:
+SQL开始执行时间：20190724112017
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190724112017
+SQL开始执行时间：20190724112017
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190724112047
+SQL开始执行时间：20190724112047
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190724112047
+
+20190725014612开始执行2019-07-24数据加载日志:
+SQL开始执行时间：20190725014612
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190725014612
+SQL开始执行时间：20190725014612
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190725014643
+SQL开始执行时间：20190725014643
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190725014643
+
+20190726014612开始执行2019-07-25数据加载日志:
+SQL开始执行时间：20190726014612
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190726014612
+SQL开始执行时间：20190726014612
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190726014643
+SQL开始执行时间：20190726014643
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190726014644
+
+20190726090136开始执行2019-07-26数据加载日志:
+SQL开始执行时间：20190726090136
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190726090136
+SQL开始执行时间：20190726090136
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190726090206
+SQL开始执行时间：20190726090206
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190726090206
+
+20190727014615开始执行2019-07-26数据加载日志:
+SQL开始执行时间：20190727014615
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190727014615
+SQL开始执行时间：20190727014615
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190727014647
+SQL开始执行时间：20190727014647
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190727014647
+
+20190728014615开始执行2019-07-27数据加载日志:
+SQL开始执行时间：20190728014615
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190728014615
+SQL开始执行时间：20190728014615
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190728014647
+SQL开始执行时间：20190728014647
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190728014647
+
+20190729014614开始执行2019-07-28数据加载日志:
+SQL开始执行时间：20190729014614
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190729014614
+SQL开始执行时间：20190729014614
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190729014646
+SQL开始执行时间：20190729014646
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190729014646
+
+20190730014615开始执行2019-07-29数据加载日志:
+SQL开始执行时间：20190730014615
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190730014616
+SQL开始执行时间：20190730014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190730014650
+SQL开始执行时间：20190730014650
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190730014650
+
+20190731014619开始执行2019-07-30数据加载日志:
+SQL开始执行时间：20190731014619
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190731014619
+SQL开始执行时间：20190731014619
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190731014653
+SQL开始执行时间：20190731014653
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190731014653
+
+20190801014614开始执行2019-07-31数据加载日志:
+SQL开始执行时间：20190801014614
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190801014614
+SQL开始执行时间：20190801014614
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190801014646
+SQL开始执行时间：20190801014646
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190801014646
+
+20190801092235开始执行2019-08-01数据加载日志:
+SQL开始执行时间：20190801092235
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190801092235
+SQL开始执行时间：20190801092235
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190801092307
+SQL开始执行时间：20190801092307
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190801092307
+
+20190802014614开始执行2019-08-01数据加载日志:
+SQL开始执行时间：20190802014614
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190802014614
+SQL开始执行时间：20190802014614
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190802014646
+SQL开始执行时间：20190802014646
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190802014646
+
+20190803014616开始执行2019-08-02数据加载日志:
+SQL开始执行时间：20190803014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190803014616
+SQL开始执行时间：20190803014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190803014651
+SQL开始执行时间：20190803014651
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190803014651
+
+20190804014616开始执行2019-08-03数据加载日志:
+SQL开始执行时间：20190804014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190804014616
+SQL开始执行时间：20190804014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190804014651
+SQL开始执行时间：20190804014651
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190804014651
+
+20190805014616开始执行2019-08-04数据加载日志:
+SQL开始执行时间：20190805014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190805014616
+SQL开始执行时间：20190805014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190805014651
+SQL开始执行时间：20190805014651
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190805014651
+
+20190806014613开始执行2019-08-05数据加载日志:
+SQL开始执行时间：20190806014613
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190806014613
+SQL开始执行时间：20190806014613
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190806014647
+SQL开始执行时间：20190806014647
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190806014647
+
+20190806094209开始执行2019-08-06数据加载日志:
+SQL开始执行时间：20190806094209
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190806094209
+SQL开始执行时间：20190806094209
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190806094242
+SQL开始执行时间：20190806094242
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190806094242
+
+20190807014613开始执行2019-08-06数据加载日志:
+SQL开始执行时间：20190807014613
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190807014613
+SQL开始执行时间：20190807014613
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190807014647
+SQL开始执行时间：20190807014647
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190807014648
+
+20190808014612开始执行2019-08-07数据加载日志:
+SQL开始执行时间：20190808014612
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190808014612
+SQL开始执行时间：20190808014612
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190808014646
+SQL开始执行时间：20190808014646
+
+update edw.yj_outdepot 
+   set finnal_cuscode = bi_cuscode
+      ,finnal_ccusname = bi_cusname
+ where finnal_cuscode= 'multi'
+
+;
+SQL结束执行时间：20190808014646
+
+20190809014613开始执行2019-08-08数据加载日志:
+SQL开始执行时间：20190809014613
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190809014613
+SQL开始执行时间：20190809014613
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190809014647
+
+20190810014618开始执行2019-08-09数据加载日志:
+SQL开始执行时间：20190810014618
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190810014618
+SQL开始执行时间：20190810014618
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190810014654
+
+20190811014618开始执行2019-08-10数据加载日志:
+SQL开始执行时间：20190811014618
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190811014618
+SQL开始执行时间：20190811014618
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190811014655
+
+20190812014619开始执行2019-08-11数据加载日志:
+SQL开始执行时间：20190812014619
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190812014619
+SQL开始执行时间：20190812014619
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190812014657
+
+20190813014613开始执行2019-08-12数据加载日志:
+SQL开始执行时间：20190813014613
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190813014613
+SQL开始执行时间：20190813014613
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190813014648
+
+20190814014613开始执行2019-08-13数据加载日志:
+SQL开始执行时间：20190814014613
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190814014613
+SQL开始执行时间：20190814014613
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190814014648
+
+20190815014613开始执行2019-08-14数据加载日志:
+SQL开始执行时间：20190815014613
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190815014613
+SQL开始执行时间：20190815014613
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190815014647
+
+20190816014614开始执行2019-08-15数据加载日志:
+SQL开始执行时间：20190816014614
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190816014614
+SQL开始执行时间：20190816014614
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190816014650
+
+20190817014615开始执行2019-08-16数据加载日志:
+SQL开始执行时间：20190817014615
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190817014615
+SQL开始执行时间：20190817014615
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190817014652
+
+20190818014615开始执行2019-08-17数据加载日志:
+SQL开始执行时间：20190818014615
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190818014615
+SQL开始执行时间：20190818014615
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190818014651
+
+20190819014616开始执行2019-08-18数据加载日志:
+SQL开始执行时间：20190819014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190819014616
+SQL开始执行时间：20190819014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190819014652
+
+20190819143132开始执行2019-08-19数据加载日志:
+SQL开始执行时间：20190819143132
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190819143132
+SQL开始执行时间：20190819143132
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190819143209
+
+20190820014615开始执行2019-08-19数据加载日志:
+SQL开始执行时间：20190820014615
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190820014615
+SQL开始执行时间：20190820014615
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190820014652
+
+20190821014616开始执行2019-08-20数据加载日志:
+SQL开始执行时间：20190821014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190821014616
+SQL开始执行时间：20190821014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190821014653
+
+20190821100631开始执行2019-08-21数据加载日志:
+SQL开始执行时间：20190821100631
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190821100631
+SQL开始执行时间：20190821100631
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190821100708
+
+20190822014617开始执行2019-08-21数据加载日志:
+SQL开始执行时间：20190822014617
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190822014617
+SQL开始执行时间：20190822014617
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190822014654
+
+20190823014616开始执行2019-08-22数据加载日志:
+SQL开始执行时间：20190823014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190823014616
+SQL开始执行时间：20190823014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190823014654
+
+20190824014616开始执行2019-08-23数据加载日志:
+SQL开始执行时间：20190824014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190824014616
+SQL开始执行时间：20190824014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190824014654
+
+20190825014616开始执行2019-08-24数据加载日志:
+SQL开始执行时间：20190825014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190825014617
+SQL开始执行时间：20190825014617
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190825014654
+
+20190826014616开始执行2019-08-25数据加载日志:
+SQL开始执行时间：20190826014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190826014616
+SQL开始执行时间：20190826014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190826014654
+
+20190827014617开始执行2019-08-26数据加载日志:
+SQL开始执行时间：20190827014617
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190827014617
+SQL开始执行时间：20190827014617
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190827014656
+
+20190828014616开始执行2019-08-27数据加载日志:
+SQL开始执行时间：20190828014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190828014616
+SQL开始执行时间：20190828014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190828014656
+
+20190829014616开始执行2019-08-28数据加载日志:
+SQL开始执行时间：20190829014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190829014616
+SQL开始执行时间：20190829014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190829014655
+
+20190830014617开始执行2019-08-29数据加载日志:
+SQL开始执行时间：20190830014617
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190830014617
+SQL开始执行时间：20190830014617
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190830014657
+
+20190830141732开始执行2019-08-29数据加载日志:
+SQL开始执行时间：20190830141732
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190830141732
+SQL开始执行时间：20190830141732
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190830141812
+
+20190831014617开始执行2019-08-30数据加载日志:
+SQL开始执行时间：20190831014617
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190831014617
+SQL开始执行时间：20190831014617
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190831014656
+
+20190901014616开始执行2019-08-31数据加载日志:
+SQL开始执行时间：20190901014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190901014616
+SQL开始执行时间：20190901014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190901014655
+
+20190902014616开始执行2019-09-01数据加载日志:
+SQL开始执行时间：20190902014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190902014616
+SQL开始执行时间：20190902014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190902014656
+
+20190903014616开始执行2019-09-02数据加载日志:
+SQL开始执行时间：20190903014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190903014616
+SQL开始执行时间：20190903014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190903014656
+
+20190904014616开始执行2019-09-03数据加载日志:
+SQL开始执行时间：20190904014616
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190904014616
+SQL开始执行时间：20190904014616
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190904014656
+
+20190905014618开始执行2019-09-04数据加载日志:
+SQL开始执行时间：20190905014618
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190905014618
+SQL开始执行时间：20190905014618
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190905014701
+
+20190905111239开始执行2019-09-05数据加载日志:
+SQL开始执行时间：20190905111239
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190905111239
+SQL开始执行时间：20190905111239
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190905111321
+
+20190906014618开始执行2019-09-05数据加载日志:
+SQL开始执行时间：20190906014618
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190906014618
+SQL开始执行时间：20190906014618
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190906014700
+
+20190907014618开始执行2019-09-06数据加载日志:
+SQL开始执行时间：20190907014618
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190907014618
+SQL开始执行时间：20190907014618
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190907014700
+
+20190908014619开始执行2019-09-07数据加载日志:
+SQL开始执行时间：20190908014619
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190908014619
+SQL开始执行时间：20190908014619
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190908014702
+
+20190909014618开始执行2019-09-08数据加载日志:
+SQL开始执行时间：20190909014618
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190909014618
+SQL开始执行时间：20190909014618
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190909014700
+
+20190910014620开始执行2019-09-09数据加载日志:
+SQL开始执行时间：20190910014620
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190910014620
+SQL开始执行时间：20190910014620
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190910014702
+
+20190911014619开始执行2019-09-10数据加载日志:
+SQL开始执行时间：20190911014619
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190911014619
+SQL开始执行时间：20190911014619
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190911014701
+
+20190912014619开始执行2019-09-11数据加载日志:
+SQL开始执行时间：20190912014619
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190912014619
+SQL开始执行时间：20190912014619
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190912014701
+
+20190913014620开始执行2019-09-12数据加载日志:
+SQL开始执行时间：20190913014620
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190913014620
+SQL开始执行时间：20190913014620
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190913014703
+
+20190914014626开始执行2019-09-13数据加载日志:
+SQL开始执行时间：20190914014626
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190914014626
+SQL开始执行时间：20190914014626
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190914014713
+
+20190915014620开始执行2019-09-14数据加载日志:
+SQL开始执行时间：20190915014620
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190915014620
+SQL开始执行时间：20190915014620
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190915014706
+
+20190916014620开始执行2019-09-15数据加载日志:
+SQL开始执行时间：20190916014620
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190916014620
+SQL开始执行时间：20190916014620
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190916014705
+
+20190917014620开始执行2019-09-16数据加载日志:
+SQL开始执行时间：20190917014620
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190917014620
+SQL开始执行时间：20190917014620
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190917014706
+SQL开始执行时间：20190917014706
+
+
+delete from edw.yj_outdepot
+ where sproductcode in ('SJ05133-2',
+                       'SJ05126-2',
+                       'SJ02018-2',
+                       'SJ02018-3',
+                       'SJ03012-2',
+                       'SJ02019-2',
+                       'SJ02002-2',
+                       'SJ02019-3',
+                       'SJ02002-3')
+
+;
+SQL结束执行时间：20190917014706
+
+20190918014621开始执行2019-09-17数据加载日志:
+SQL开始执行时间：20190918014621
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190918014621
+SQL开始执行时间：20190918014621
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190918014706
+SQL开始执行时间：20190918014706
+
+
+delete from edw.yj_outdepot
+ where sproductcode in ('SJ05133-2',
+                       'SJ05126-2',
+                       'SJ02018-2',
+                       'SJ02018-3',
+                       'SJ03012-2',
+                       'SJ02019-2',
+                       'SJ02002-2',
+                       'SJ02019-3',
+                       'SJ02002-3')
+
+;
+SQL结束执行时间：20190918014706
+
+20190918094427开始执行2019-09-18数据加载日志:
+SQL开始执行时间：20190918094427
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190918094427
+SQL开始执行时间：20190918094427
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190918094511
+SQL开始执行时间：20190918094511
+
+
+delete from edw.yj_outdepot
+ where sproductcode in ('SJ05133-2',
+                       'SJ05126-2',
+                       'SJ02018-2',
+                       'SJ02018-3',
+                       'SJ03012-2',
+                       'SJ02019-2',
+                       'SJ02002-2',
+                       'SJ02019-3',
+                       'SJ02002-3')
+
+;
+SQL结束执行时间：20190918094511
+
+20190919014621开始执行2019-09-18数据加载日志:
+SQL开始执行时间：20190919014621
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190919014621
+SQL开始执行时间：20190919014621
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190919014707
+SQL开始执行时间：20190919014707
+
+
+delete from edw.yj_outdepot
+ where sproductcode in ('SJ05133-2',
+                       'SJ05126-2',
+                       'SJ02018-2',
+                       'SJ02018-3',
+                       'SJ03012-2',
+                       'SJ02019-2',
+                       'SJ02002-2',
+                       'SJ02019-3',
+                       'SJ02002-3')
+
+;
+SQL结束执行时间：20190919014707
+
+20190920014622开始执行2019-09-19数据加载日志:
+SQL开始执行时间：20190920014622
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190920014622
+SQL开始执行时间：20190920014622
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190920014709
+SQL开始执行时间：20190920014709
+
+
+delete from edw.yj_outdepot
+ where sproductcode in ('SJ05133-2',
+                       'SJ05126-2',
+                       'SJ02018-2',
+                       'SJ02018-3',
+                       'SJ03012-2',
+                       'SJ02019-2',
+                       'SJ02002-2',
+                       'SJ02019-3',
+                       'SJ02002-3')
+
+;
+SQL结束执行时间：20190920014709
+
+20190921014621开始执行2019-09-20数据加载日志:
+SQL开始执行时间：20190921014621
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190921014621
+SQL开始执行时间：20190921014621
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190921014707
+SQL开始执行时间：20190921014707
+
+
+delete from edw.yj_outdepot
+ where sproductcode in ('SJ05133-2',
+                       'SJ05126-2',
+                       'SJ02018-2',
+                       'SJ02018-3',
+                       'SJ03012-2',
+                       'SJ02019-2',
+                       'SJ02002-2',
+                       'SJ02019-3',
+                       'SJ02002-3')
+
+;
+SQL结束执行时间：20190921014707
+
+20190922014622开始执行2019-09-21数据加载日志:
+SQL开始执行时间：20190922014622
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190922014622
+SQL开始执行时间：20190922014622
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190922014709
+SQL开始执行时间：20190922014709
+
+
+delete from edw.yj_outdepot
+ where sproductcode in ('SJ05133-2',
+                       'SJ05126-2',
+                       'SJ02018-2',
+                       'SJ02018-3',
+                       'SJ03012-2',
+                       'SJ02019-2',
+                       'SJ02002-2',
+                       'SJ02019-3',
+                       'SJ02002-3')
+
+;
+SQL结束执行时间：20190922014709
+
+20190923014620开始执行2019-09-22数据加载日志:
+SQL开始执行时间：20190923014620
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190923014620
+SQL开始执行时间：20190923014620
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190923014706
+SQL开始执行时间：20190923014706
+
+
+delete from edw.yj_outdepot
+ where sproductcode in ('SJ05133-2',
+                       'SJ05126-2',
+                       'SJ02018-2',
+                       'SJ02018-3',
+                       'SJ03012-2',
+                       'SJ02019-2',
+                       'SJ02002-2',
+                       'SJ02019-3',
+                       'SJ02002-3')
+
+;
+SQL结束执行时间：20190923014706
+
+20190924014623开始执行2019-09-23数据加载日志:
+SQL开始执行时间：20190924014623
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190924014623
+SQL开始执行时间：20190924014623
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190924014711
+SQL开始执行时间：20190924014711
+
+
+delete from edw.yj_outdepot
+ where sproductcode in ('SJ05133-2',
+                       'SJ05126-2',
+                       'SJ02018-2',
+                       'SJ02018-3',
+                       'SJ03012-2',
+                       'SJ02019-2',
+                       'SJ02002-2',
+                       'SJ02019-3',
+                       'SJ02002-3')
+
+;
+SQL结束执行时间：20190924014711
+
+20190924094652开始执行2019-09-24数据加载日志:
+SQL开始执行时间：20190924094652
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190924094652
+SQL开始执行时间：20190924094652
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190924094741
+SQL开始执行时间：20190924094741
+
+
+delete from edw.yj_outdepot
+ where sproductcode in ('SJ05133-2',
+                       'SJ05126-2',
+                       'SJ02018-2',
+                       'SJ02018-3',
+                       'SJ03012-2',
+                       'SJ02019-2',
+                       'SJ02002-2',
+                       'SJ02019-3',
+                       'SJ02002-3')
+
+;
+SQL结束执行时间：20190924094741
+
+20190925014625开始执行2019-09-24数据加载日志:
+SQL开始执行时间：20190925014625
+truncate table edw.yj_outdepot
+;
+SQL结束执行时间：20190925014625
+SQL开始执行时间：20190925014625
+insert into edw.yj_outdepot
+select a.uguid1
+      ,b.uguid2
+      ,f.sname as cohr
+      ,a.tbilldate
+      ,a.tcrtdate
+      ,a.torderdate
+      ,upper(b.sproductcode) as sproductcode
+      ,b.sproductname
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+	    ,case when c.cinvcode is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,b.sproductmodel
+      ,b.sproductstyle
+      ,b.slicnumber
+      ,b.sdefineno
+      ,b.spoductlotno
+      ,b.dqty
+      ,b.dprice
+      ,b.dmoney
+      ,d.sname as ccusname
+	    ,case when e.ccusname is null then '请核查' else e.bi_cuscode end as bi_cuscode
+	    ,case when e.ccusname is null then '请核查' else e.bi_cusname end as bi_cusname
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_cuscode end as finnal_cuscode
+	    ,case when g.bi_cuscode is null then '请核查' else g.finnal_ccusname end as finnal_ccusname
+	    ,g.province
+	    ,b.tproductdate
+	    ,b.teffectdate
+	    ,localtimestamp() as sys_time
+  from ufdata.yj_mft_deliver a
+  left join ufdata.yj_mft_deliver_detail b
+    on a.uguid1 = b.uguid1
+	left join (select * from edw.dic_inventory group by cinvcode) c
+	  on left(upper(b.sproductcode),7) = c.cinvcode
+	left join ufdata.yj_ele_customer d
+	  on a.scustcode = d.scode
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on d.sname = e.ccusname
+	left join ufdata.yj_sys_organization f
+	  on b.sorgcode = f.scode
+	left join edw.map_customer g
+	  on e.bi_cuscode = g.bi_cuscode
+
+;
+SQL结束执行时间：20190925014714
+SQL开始执行时间：20190925014714
+
+
+delete from edw.yj_outdepot
+ where sproductcode in ('SJ05133-2',
+                       'SJ05126-2',
+                       'SJ02018-2',
+                       'SJ02018-3',
+                       'SJ03012-2',
+                       'SJ02019-2',
+                       'SJ02002-2',
+                       'SJ02019-3',
+                       'SJ02002-3')
+
+;
+SQL结束执行时间：20190925014714

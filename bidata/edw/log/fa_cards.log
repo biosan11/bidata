@@ -1,0 +1,2996 @@
+
+20190522003015开始执行2019-05-21数据加载日志:
+SQL开始执行时间：20190522003015
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190522003015
+SQL开始执行时间：20190522003015
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+
+;
+SQL结束执行时间：20190522003018
+
+20190523003018开始执行2019-05-22数据加载日志:
+SQL开始执行时间：20190523003018
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190523003018
+SQL开始执行时间：20190523003018
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+
+;
+SQL结束执行时间：20190523003021
+
+20190524003017开始执行2019-05-23数据加载日志:
+SQL开始执行时间：20190524003017
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190524003017
+SQL开始执行时间：20190524003017
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190524003020
+
+20190525003021开始执行2019-05-24数据加载日志:
+SQL开始执行时间：20190525003021
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190525003021
+SQL开始执行时间：20190525003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190525003024
+
+20190526003020开始执行2019-05-25数据加载日志:
+SQL开始执行时间：20190526003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190526003020
+SQL开始执行时间：20190526003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190526003023
+
+20190527003024开始执行2019-05-26数据加载日志:
+SQL开始执行时间：20190527003024
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190527003024
+SQL开始执行时间：20190527003024
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190527003027
+
+20190528003020开始执行2019-05-27数据加载日志:
+SQL开始执行时间：20190528003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190528003020
+SQL开始执行时间：20190528003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190528003023
+
+20190529003022开始执行2019-05-28数据加载日志:
+SQL开始执行时间：20190529003022
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190529003022
+SQL开始执行时间：20190529003022
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190529003025
+
+20190530003020开始执行2019-05-29数据加载日志:
+SQL开始执行时间：20190530003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190530003021
+SQL开始执行时间：20190530003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190530003023
+
+20190531003020开始执行2019-05-30数据加载日志:
+SQL开始执行时间：20190531003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190531003020
+SQL开始执行时间：20190531003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190531003023
+
+20190601003020开始执行2019-05-31数据加载日志:
+SQL开始执行时间：20190601003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190601003020
+SQL开始执行时间：20190601003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190601003023
+
+20190602003021开始执行2019-06-01数据加载日志:
+SQL开始执行时间：20190602003021
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190602003021
+SQL开始执行时间：20190602003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190602003024
+
+20190603003020开始执行2019-06-02数据加载日志:
+SQL开始执行时间：20190603003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190603003020
+SQL开始执行时间：20190603003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190603003023
+
+20190604003020开始执行2019-06-03数据加载日志:
+SQL开始执行时间：20190604003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190604003020
+SQL开始执行时间：20190604003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190604003023
+
+20190605003022开始执行2019-06-04数据加载日志:
+SQL开始执行时间：20190605003022
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190605003022
+SQL开始执行时间：20190605003022
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190605003025
+
+20190606003020开始执行2019-06-05数据加载日志:
+SQL开始执行时间：20190606003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190606003020
+SQL开始执行时间：20190606003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190606003023
+
+20190607003022开始执行2019-06-06数据加载日志:
+SQL开始执行时间：20190607003022
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190607003022
+SQL开始执行时间：20190607003022
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190607003025
+
+20190608003020开始执行2019-06-07数据加载日志:
+SQL开始执行时间：20190608003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190608003020
+SQL开始执行时间：20190608003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190608003023
+
+20190609003024开始执行2019-06-08数据加载日志:
+SQL开始执行时间：20190609003024
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190609003024
+SQL开始执行时间：20190609003024
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190609003025
+
+20190610003026开始执行2019-06-09数据加载日志:
+SQL开始执行时间：20190610003026
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190610003026
+SQL开始执行时间：20190610003026
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190610003027
+
+20190611003021开始执行2019-06-10数据加载日志:
+SQL开始执行时间：20190611003021
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190611003021
+SQL开始执行时间：20190611003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190611003024
+
+20190612003021开始执行2019-06-11数据加载日志:
+SQL开始执行时间：20190612003021
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190612003021
+SQL开始执行时间：20190612003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190612003024
+
+20190613003020开始执行2019-06-12数据加载日志:
+SQL开始执行时间：20190613003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190613003020
+SQL开始执行时间：20190613003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190613003023
+
+20190614003020开始执行2019-06-13数据加载日志:
+SQL开始执行时间：20190614003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190614003020
+SQL开始执行时间：20190614003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190614003023
+
+20190615003020开始执行2019-06-14数据加载日志:
+SQL开始执行时间：20190615003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190615003020
+SQL开始执行时间：20190615003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190615003023
+
+20190616003021开始执行2019-06-15数据加载日志:
+SQL开始执行时间：20190616003021
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190616003021
+SQL开始执行时间：20190616003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190616003024
+
+20190617003021开始执行2019-06-16数据加载日志:
+SQL开始执行时间：20190617003021
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190617003021
+SQL开始执行时间：20190617003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190617003024
+
+20190618003019开始执行2019-06-17数据加载日志:
+SQL开始执行时间：20190618003019
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190618003019
+SQL开始执行时间：20190618003019
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190618003022
+
+20190619003020开始执行2019-06-18数据加载日志:
+SQL开始执行时间：20190619003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190619003020
+SQL开始执行时间：20190619003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190619003023
+
+20190620003020开始执行2019-06-19数据加载日志:
+SQL开始执行时间：20190620003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190620003020
+SQL开始执行时间：20190620003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190620003023
+
+20190621003020开始执行2019-06-20数据加载日志:
+SQL开始执行时间：20190621003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190621003020
+SQL开始执行时间：20190621003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190621003023
+
+20190622003021开始执行2019-06-21数据加载日志:
+SQL开始执行时间：20190622003021
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190622003021
+SQL开始执行时间：20190622003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190622003024
+
+20190623003021开始执行2019-06-22数据加载日志:
+SQL开始执行时间：20190623003021
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190623003021
+SQL开始执行时间：20190623003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190623003024
+
+20190624003026开始执行2019-06-23数据加载日志:
+SQL开始执行时间：20190624003026
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190624003026
+SQL开始执行时间：20190624003026
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190624003027
+
+20190625003023开始执行2019-06-24数据加载日志:
+SQL开始执行时间：20190625003023
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190625003023
+SQL开始执行时间：20190625003023
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190625003026
+
+20190626003020开始执行2019-06-25数据加载日志:
+SQL开始执行时间：20190626003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190626003020
+SQL开始执行时间：20190626003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190626003021
+
+20190627003022开始执行2019-06-26数据加载日志:
+SQL开始执行时间：20190627003022
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190627003022
+SQL开始执行时间：20190627003022
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190627003025
+
+20190628003020开始执行2019-06-27数据加载日志:
+SQL开始执行时间：20190628003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190628003021
+SQL开始执行时间：20190628003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190628003023
+
+20190629003022开始执行2019-06-28数据加载日志:
+SQL开始执行时间：20190629003022
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190629003022
+SQL开始执行时间：20190629003022
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190629003025
+
+20190630003021开始执行2019-06-29数据加载日志:
+SQL开始执行时间：20190630003021
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190630003021
+SQL开始执行时间：20190630003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190630003024
+
+20190701003022开始执行2019-06-30数据加载日志:
+SQL开始执行时间：20190701003022
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190701003022
+SQL开始执行时间：20190701003022
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190701003025
+
+20190702003022开始执行2019-07-01数据加载日志:
+SQL开始执行时间：20190702003022
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190702003022
+SQL开始执行时间：20190702003022
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190702003025
+
+20190703003022开始执行2019-07-02数据加载日志:
+SQL开始执行时间：20190703003022
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190703003022
+SQL开始执行时间：20190703003022
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190703003024
+
+20190704003020开始执行2019-07-03数据加载日志:
+SQL开始执行时间：20190704003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190704003020
+SQL开始执行时间：20190704003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190704003023
+
+20190705003020开始执行2019-07-04数据加载日志:
+SQL开始执行时间：20190705003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190705003020
+SQL开始执行时间：20190705003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190705003023
+
+20190706003022开始执行2019-07-05数据加载日志:
+SQL开始执行时间：20190706003022
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190706003022
+SQL开始执行时间：20190706003022
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190706003025
+
+20190707003020开始执行2019-07-06数据加载日志:
+SQL开始执行时间：20190707003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190707003020
+SQL开始执行时间：20190707003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190707003023
+
+20190708003022开始执行2019-07-07数据加载日志:
+SQL开始执行时间：20190708003022
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190708003022
+SQL开始执行时间：20190708003022
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190708003025
+
+20190709003021开始执行2019-07-08数据加载日志:
+SQL开始执行时间：20190709003021
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190709003021
+SQL开始执行时间：20190709003021
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190709003024
+
+20190710003020开始执行2019-07-09数据加载日志:
+SQL开始执行时间：20190710003020
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190710003020
+SQL开始执行时间：20190710003020
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190710003023
+
+20190711003024开始执行2019-07-10数据加载日志:
+SQL开始执行时间：20190711003024
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190711003024
+SQL开始执行时间：20190711003024
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190711003026
+
+20190712003024开始执行2019-07-11数据加载日志:
+SQL开始执行时间：20190712003024
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190712003024
+SQL开始执行时间：20190712003024
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190712003027
+
+20190713003023开始执行2019-07-12数据加载日志:
+SQL开始执行时间：20190713003023
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190713003023
+SQL开始执行时间：20190713003023
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190713003024
+
+20190714003023开始执行2019-07-13数据加载日志:
+SQL开始执行时间：20190714003023
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190714003023
+SQL开始执行时间：20190714003023
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190714003025
+
+20190715003023开始执行2019-07-14数据加载日志:
+SQL开始执行时间：20190715003023
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190715003023
+SQL开始执行时间：20190715003023
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190715003024
+
+20190716003847开始执行2019-07-15数据加载日志:
+SQL开始执行时间：20190716003847
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190716003847
+SQL开始执行时间：20190716003847
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190716003851
+
+20190717003024开始执行2019-07-16数据加载日志:
+SQL开始执行时间：20190717003024
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190717003024
+SQL开始执行时间：20190717003024
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190717003027
+
+20190718003026开始执行2019-07-17数据加载日志:
+SQL开始执行时间：20190718003026
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190718003026
+SQL开始执行时间：20190718003026
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190718003029
+
+20190719003024开始执行2019-07-18数据加载日志:
+SQL开始执行时间：20190719003024
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190719003024
+SQL开始执行时间：20190719003024
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190719003028
+
+20190720003024开始执行2019-07-19数据加载日志:
+SQL开始执行时间：20190720003024
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190720003024
+SQL开始执行时间：20190720003024
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190720003027
+
+20190721003022开始执行2019-07-20数据加载日志:
+SQL开始执行时间：20190721003022
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190721003022
+SQL开始执行时间：20190721003022
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190721003025
+
+20190722003024开始执行2019-07-21数据加载日志:
+SQL开始执行时间：20190722003024
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190722003024
+SQL开始执行时间：20190722003024
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190722003027
+
+20190723003024开始执行2019-07-22数据加载日志:
+SQL开始执行时间：20190723003024
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190723003024
+SQL开始执行时间：20190723003024
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190723003027
+
+20190724003025开始执行2019-07-23数据加载日志:
+SQL开始执行时间：20190724003025
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190724003025
+SQL开始执行时间：20190724003025
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190724003028
+
+20190725003026开始执行2019-07-24数据加载日志:
+SQL开始执行时间：20190725003026
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190725003026
+SQL开始执行时间：20190725003026
+insert into edw.fa_cards
+select a.db
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,TIMESTAMPDIFF(MONTH,
+                     a.dstartdate,
+                     a.dinputdate
+                    ) AS mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = b.db
+
+;
+SQL结束执行时间：20190725003029
+
+20190726003023开始执行2019-07-25数据加载日志:
+SQL开始执行时间：20190726003023
+
+truncate table edw.fa_cards
+;
+SQL结束执行时间：20190726003023
+SQL开始执行时间：20190726003023
+insert into edw.fa_cards
+select a.db
+      ,a.scardid
+      ,a.scardnum
+      ,a.sassetnum
+      ,a.sassetname
+      ,a.sdeptnum
+      ,c.cdepname
+      ,a.stypenum
+      ,a.sorgid
+      ,a.sorgaddid
+      ,a.sorgdisposeid
+      ,a.sdisposereason
+      ,a.ssite
+      ,a.llife
+      ,a.dstartdate
+      ,a.dinputdate
+      ,a.dtransdate
+      ,a.ddisposedate
+      ,a.lusedmonths as mon_used
+      ,b.dblValue
+      ,b.dblDecDeprT
+      ,b.dblBV
+      ,b.dbltransindeprtcard
+      ,b.dbltransoutdeprtcard
+      ,d.memReason
+      ,b.lBuildNum
+      ,localtimestamp() as sys_time 
+  from ufdata.fa_cards a
+  left join ufdata.fa_cards_detail b
+    on a.scardid = b.scardid
+   and a.db = b.db
+	 and a.sdeptnum = b.sdeptnum
+  left join ufdata.department c
+    on a.sdeptnum = c.cdepcode
+   and a.db = c.db
+  left join ufdata.fa_cardssheets d
+    on a.sVoucherNum = d.sVoucherNum
+   and a.db = d.db
+
+;
+SQL结束执行时间：20190726003026
+
+20190727003023开始执行2019-07-26数据加载日志:
+SQL开始执行时间：20190727003023
+/* 建表sql
+use edw
+;
