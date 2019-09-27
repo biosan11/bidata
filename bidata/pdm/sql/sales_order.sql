@@ -159,6 +159,14 @@ select a.csocode
     on a.bi_cinvcode = e.bi_cinvcode
 ;
 
+-- 这里新增更新部门
+update pdm.sales_order s
+  join (select * from ufdata.department where db = 'UFDATA_111_2018'  group by cdepcode) c
+    on s.cdepcode = c.cdepcode
+   set s.cdepname = c.cdepname
+ where s.cdepname is null
+   and s.cdepcode is not null
+;
 
 
 

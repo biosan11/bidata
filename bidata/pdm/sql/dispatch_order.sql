@@ -148,5 +148,13 @@ select a.cdlcode
 -- 删除上游已经删除的数据
 delete from pdm.dispatch_order where concat(db,dlid) in (select concat(db,dlid) from edw.dispatch_order where state = '无效') ;
 
+-- 这里新增更新部门
+update pdm.dispatch_order s
+  join (select * from ufdata.department where db = 'UFDATA_111_2018'  group by cdepcode) c
+    on s.cdepcode = c.cdepcode
+   set s.cdepname = c.cdepname
+ where s.cdepname is null
+   and s.cdepcode is not null
+;
 
 

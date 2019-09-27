@@ -171,3 +171,14 @@ select a.sbvid
 
 -- 删除上游已经删除的数据
 delete from pdm.invoice_order where concat(db,sbvid) in (select concat(db,sbvid) from edw.invoice_order where state = '无效') ;
+
+-- 这里新增更新部门
+update pdm.invoice_order s
+  join (select * from ufdata.department where db = 'UFDATA_111_2018'  group by cdepcode) c
+    on s.cdepcode = c.cdepcode
+   set s.cdepname = c.cdepname
+ where s.cdepname is null
+   and s.cdepcode is not null
+;
+
+
