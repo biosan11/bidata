@@ -683,9 +683,223 @@ update tracking.jc_abnormal_day a
 
 
 
+-- 这里新增对层面的客户监控
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_11_sales' as tb_name
+      ,null
+      ,'ccuscode' as err_col
+      ,null as err_value
+      ,ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_11_sales a
+  left join bidata.dt_12_customer b
+    on a.ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
 
 
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_11_sales' as tb_name
+      ,null
+      ,'finnal_ccuscode' as err_col
+      ,null as err_value
+      ,finnal_ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_11_sales a
+  left join bidata.dt_12_customer b
+    on a.finnal_ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
 
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_12_sales_budget' as tb_name
+      ,null
+      ,'true_ccuscode' as err_col
+      ,null as err_value
+      ,true_ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_12_sales_budget a
+  left join bidata.dt_12_customer b
+    on a.true_ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_13_sales_budget_new' as tb_name
+      ,null
+      ,'true_ccuscode' as err_col
+      ,null as err_value
+      ,true_ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_13_sales_budget_new a
+  left join bidata.dt_12_customer b
+    on a.true_ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_21_outdepot' as tb_name
+      ,null
+      ,'ccuscode' as err_col
+      ,null as err_value
+      ,ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_21_outdepot a
+  left join bidata.dt_12_customer b
+    on a.ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_21_outdepot' as tb_name
+      ,null
+      ,'finnal_ccuscode' as err_col
+      ,null as err_value
+      ,finnal_ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_21_outdepot a
+  left join bidata.dt_12_customer b
+    on a.finnal_ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_31_checklist' as tb_name
+      ,null
+      ,'ccuscode' as err_col
+      ,null as err_value
+      ,ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_31_checklist a
+  left join bidata.dt_12_customer b
+    on a.ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_52_ar_plan' as tb_name
+      ,null
+      ,'ccuscode' as err_col
+      ,null as err_value
+      ,ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_52_ar_plan a
+  left join bidata.dt_12_customer b
+    on a.ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_61_dispatch' as tb_name
+      ,null
+      ,'ccuscode' as err_col
+      ,null as err_value
+      ,ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_61_dispatch a
+  left join bidata.dt_12_customer b
+    on a.ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_51_ar_detail' as tb_name
+      ,null
+      ,'true_ccuscode' as err_col
+      ,null as err_value
+      ,true_ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_51_ar_detail a
+  left join bidata.dt_12_customer b
+    on a.true_ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_52_ar_plan' as tb_name
+      ,null
+      ,'true_ccuscode' as err_col
+      ,null as err_value
+      ,true_ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_52_ar_plan a
+  left join bidata.dt_12_customer b
+    on a.true_ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'erp'
+      ,'bidata' as source
+      ,'ft_61_dispatch' as tb_name
+      ,null
+      ,'finnal_ccuscode' as err_col
+      ,null as err_value
+      ,finnal_ccuscode as err_col_name
+      ,'客户监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from bidata.ft_61_dispatch a
+  left join bidata.dt_12_customer b
+    on a.finnal_ccuscode  = b.bi_cuscode
+ where b.bi_cuscode is null
+;
 
 
 
