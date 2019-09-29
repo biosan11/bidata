@@ -61,6 +61,7 @@ def run_py():
         # 费用模块的部门清洗只需要运行第三层
         elif list[1] == "account_fy":
             path_pdm = path2 + list[1] + ".py" + " " + time.strftime("%Y-%m-%d", time.localtime())
+            print(path_pdm)
             os.system(path_pdm)
 
 if __name__ == '__main__':
