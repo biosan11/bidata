@@ -124,35 +124,35 @@ select distinct
 --   from edw.x_cuspro_archives where bi_cinvcode = '请核查'
 -- ;
 
-insert into tracking.jc_abnormal_day
-select distinct 
-       'excel'
-      ,'edw' as source
-      ,'x_eq_depreciation_18' as tb_name
-      ,null
-      ,'eq_name' as err_col
-      ,null as err_value
-      ,eq_name as err_col_name
-      ,'产品清洗' as type
-      ,1 as leve
-      ,CURDATE( ) as date
-  from edw.x_eq_depreciation_18 where cinvcode = '请核查'
-;
-
-insert into tracking.jc_abnormal_day
-select distinct 
-       'excel'
-      ,'edw' as source
-      ,'x_eq_depreciation_19' as tb_name
-      ,null
-      ,'eq_name' as err_col
-      ,null as err_value
-      ,eq_name as err_col_name
-      ,'产品清洗' as type
-      ,1 as leve
-      ,CURDATE( ) as date
-  from edw.x_eq_depreciation_19 where cinvcode = '请核查'
-;
+-- insert into tracking.jc_abnormal_day
+-- select distinct 
+--        'excel'
+--       ,'edw' as source
+--       ,'x_eq_depreciation_18' as tb_name
+--       ,null
+--       ,'eq_name' as err_col
+--       ,null as err_value
+--       ,eq_name as err_col_name
+--       ,'产品清洗' as type
+--       ,1 as leve
+--       ,CURDATE( ) as date
+--   from edw.x_eq_depreciation_18 where cinvcode = '请核查'
+-- ;
+-- 
+-- insert into tracking.jc_abnormal_day
+-- select distinct 
+--        'excel'
+--       ,'edw' as source
+--       ,'x_eq_depreciation_19' as tb_name
+--       ,null
+--       ,'eq_name' as err_col
+--       ,null as err_value
+--       ,eq_name as err_col_name
+--       ,'产品清洗' as type
+--       ,1 as leve
+--       ,CURDATE( ) as date
+--   from edw.x_eq_depreciation_19 where cinvcode = '请核查'
+-- ;
 
 insert into tracking.jc_abnormal_day
 select distinct 

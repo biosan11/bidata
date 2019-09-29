@@ -108,7 +108,7 @@ select sys_time,'crm_key_events' as tb_name from edw.crm_key_events where left(s
 select sys_time,'crm_sale_screenings' as tb_name from edw.crm_sale_screenings where left(sys_time,10) <>CURDATE( ) or sys_time is null union
 select sys_time,'customer' as tb_name from edw.customer where left(sys_time,10) <>CURDATE( ) or sys_time is null union
 select sys_time,'ehr_employee_id' as tb_name from edw.ehr_employee_id where left(sys_time,10) <>CURDATE( ) or sys_time is null union
-select sys_time,'fa_cards' as tb_name from edw.fa_cards where left(sys_time,10) <>CURDATE( ) or sys_time is null union
+-- select sys_time,'fa_cards' as tb_name from edw.fa_cards where left(sys_time,10) <>CURDATE( ) or sys_time is null union
 select sys_time,'inventory' as tb_name from edw.inventory where left(sys_time,10) <>CURDATE( ) or sys_time is null union
 select sys_time,'oa_budget_19' as tb_name from edw.oa_budget_19 where left(sys_time,10) <>CURDATE( ) or sys_time is null union
 select sys_time,'yj_invoince_stock' as tb_name from edw.yj_invoince_stock where left(sys_time,10) <>CURDATE( ) or sys_time is null union
@@ -228,5 +228,6 @@ select distinct
   from information_schema.tables
  where table_schema = 'bidata'
    and avg_row_length = 0
+   and table_name <> 'ft_24_outdepot_forecast_pro_3'
 ;
 
