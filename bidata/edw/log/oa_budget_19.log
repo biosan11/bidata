@@ -114167,3 +114167,2415 @@ set
 
 ;
 SQL结束执行时间：20190925090437
+
+20190926001731开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926001731
+drop table if exists edw.oa_fnabudgetinfo_pre
+;
+SQL结束执行时间：20190926001731
+SQL开始执行时间：20190926001731
+create temporary table edw.oa_fnabudgetinfo_pre as
+select a.id
+      ,a.budgetorganizationid
+      ,b.departmentmark as cdepname
+      ,b.tlevel
+      ,a.remark
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+ where a.organizationtype = 2
+;
+SQL结束执行时间：20190926001731
+SQL开始执行时间：20190926001731
+
+
+
+drop table if exists edw.oa_fnabudgetinfo_pre1
+;
+SQL结束执行时间：20190926001731
+SQL开始执行时间：20190926001731
+create temporary table edw.oa_fnabudgetinfo_pre1 as
+select a.id
+      ,a.cdepname as cdepname_lv6
+      ,c.departmentmark as cdepname_lv5
+      ,d.departmentmark as cdepname_lv4
+      ,e.departmentmark as cdepname_lv3
+      ,f.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+  left join ufdata.oa_hrmdepartment f
+    on e.supdepid = f.id
+ where a.tlevel = 6
+;
+SQL结束执行时间：20190926001731
+SQL开始执行时间：20190926001731
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,a.cdepname as cdepname_lv5
+      ,c.departmentmark as cdepname_lv4
+      ,d.departmentmark as cdepname_lv3
+      ,e.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+ where a.tlevel = 5
+;
+SQL结束执行时间：20190926001731
+SQL开始执行时间：20190926001731
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv4
+      ,c.departmentmark as cdepname_lv3
+      ,d.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+ where a.tlevel = 4
+;
+SQL结束执行时间：20190926001731
+SQL开始执行时间：20190926001731
+ 
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv3
+      ,c.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+ where a.tlevel = 3
+;
+SQL结束执行时间：20190926001731
+SQL开始执行时间：20190926001731
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+ where a.tlevel = 2
+;
+SQL结束执行时间：20190926001731
+SQL开始执行时间：20190926001731
+
+
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
+      ,b.subcompanyname as cdepname_lv1
+      ,b.subcompanyname
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null'
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmsubcompany b
+    on a.budgetorganizationid = b.id
+ where a.organizationtype = 0
+    or a.organizationtype = 1
+;
+SQL结束执行时间：20190926001731
+SQL开始执行时间：20190926001731
+
+drop table if exists edw.oa_fnabudgetinfo_ren
+;
+SQL结束执行时间：20190926001731
+SQL开始执行时间：20190926001731
+create temporary table edw.oa_fnabudgetinfo_ren as
+select a.id
+      ,a.remark
+      ,b.departmentid
+      ,c.departmentmark as cdepname
+      ,c.tlevel
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,b.lastname as person
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmresource b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.departmentid = c.id
+ where a.organizationtype = 3
+   and c.tlevel is not null
+;
+SQL结束执行时间：20190926001732
+SQL开始执行时间：20190926001732
+
+
+
+drop table if exists edw.oa_fnabudgetinfo_ren1
+;
+SQL结束执行时间：20190926001732
+SQL开始执行时间：20190926001732
+create temporary table edw.oa_fnabudgetinfo_ren1 as
+select a.id
+      ,a.cdepname as cdepname_lv6
+      ,c.departmentmark as cdepname_lv5
+      ,d.departmentmark as cdepname_lv4
+      ,e.departmentmark as cdepname_lv3
+      ,f.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+  left join ufdata.oa_hrmdepartment f
+    on e.supdepid = f.id
+ where a.tlevel = 6
+;
+SQL结束执行时间：20190926001732
+SQL开始执行时间：20190926001732
+
+
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,a.cdepname as cdepname_lv5
+      ,c.departmentmark as cdepname_lv4
+      ,d.departmentmark as cdepname_lv3
+      ,e.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+ where a.tlevel = 5
+;
+SQL结束执行时间：20190926001732
+SQL开始执行时间：20190926001732
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv4
+      ,c.departmentmark as cdepname_lv3
+      ,d.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+ where a.tlevel = 4
+;
+SQL结束执行时间：20190926001732
+SQL开始执行时间：20190926001732
+ 
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv3
+      ,c.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+ where a.tlevel = 3
+;
+SQL结束执行时间：20190926001732
+SQL开始执行时间：20190926001732
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+ where a.tlevel = 2
+;
+SQL结束执行时间：20190926001732
+SQL开始执行时间：20190926001732
+
+
+
+
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,a.cdepname_lv6
+      ,a.cdepname_lv5
+      ,a.cdepname_lv4
+      ,a.cdepname_lv3
+      ,a.cdepname_lv2
+      ,a.cdepname_lv1
+      ,a.budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren1 a
+
+;
+SQL结束执行时间：20190926001732
+SQL开始执行时间：20190926001732
+
+
+create index index_oa_fnabudgetinfo_pre_id on edw.oa_fnabudgetinfo_pre1(id)
+;
+SQL结束执行时间：20190926001733
+SQL开始执行时间：20190926001733
+
+truncate table edw.oa_budget_19
+;
+SQL结束执行时间：20190926001733
+SQL开始执行时间：20190926001733
+insert into edw.oa_budget_19
+select a.budgetinfoid
+      ,case when b.cdepname_lv1 = '1111111111111111' then null
+       else b.cdepname_lv1 end as cdepname_lv1
+      ,b.cdepname_lv2
+      ,b.cdepname_lv3
+      ,b.cdepname_lv4
+      ,b.cdepname_lv5
+      ,b.cdepname_lv6
+      ,case when b.person = 'null' then null
+       else b.person end as person
+      ,b.budget_depnam
+      ,null
+      ,null
+      ,c.name
+      ,case when c.name = '6602人才推荐费' then '66020202' else e.u8kemubm end  as u8kemubm
+      ,case when d.cdztlx = '0' then  '个人'
+       else '部门' end as cdlx
+      ,a.budgetperiodslist
+      ,a.budgetaccount
+      ,b.createdate
+      ,case when b.approverid is null then 'crm' else b.approverid end
+      ,case when b.createrid = '1' then 'crm' else b.createrid end
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,b.remark
+      ,localtimestamp() as sys_time
+  from (select * from ufdata.oa_fnabudgetinfodetail where budgetperiods = 21 ) a
+  left join edw.oa_fnabudgetinfo_pre1 b
+    on a.budgetinfoid  = b.id
+  left join ufdata.oa_fnabudgetfeetype c
+    on a.budgettypeid = c.id
+  left join ufdata.oa_uf_yslxb d
+    on c.id = d.yskm
+  left join ufdata.oa_uf_u8dykm e
+    on c.name = e.kemumc
+ where b.status = 1
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+
+update edw.oa_budget_19 set name_oa = '销售一区' where person = '邓志良'
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+update edw.oa_budget_19 set name_oa = '销售二区' where person = '何珊'
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+update edw.oa_budget_19 set name_oa = '浙江省区' where person = '乔国付'
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+update edw.oa_budget_19 set name_oa = '产品推广部' where person = '史勤华'
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+update edw.oa_budget_19 set name_oa = '战略市场中心' where person = '游英'
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+update edw.oa_budget_19 set name_oa = '销售部' where person = '张志坚'
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+update edw.oa_budget_19 set name_oa = '上海技术支持组' where person = '晁建文' and name = '6601业务招待费'
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+update edw.oa_budget_19 set name_oa = '财务中心' where person = '俞晓'
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+update edw.oa_budget_19 set name_oa = '行政部' where person = '刘英'
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+
+
+create temporary table edw.oa_budget_19_11 as 
+select * 
+  from edw.oa_budget_19
+ where cdepname_lv1 is null
+   and person is null
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+
+create temporary table edw.oa_budget_19_22 as
+select *
+  from edw.oa_budget_19_11
+where sixth_dept is not null
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+
+delete FROM edw.oa_budget_19 where person is null and CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept,fifth_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept,fifth_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+  and sixth_dept is null
+
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+and sixth_dept is null
+and fourth_dept is null
+
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept,third_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+and sixth_dept is null
+and fourth_dept is null
+and third_dept is null
+;
+SQL结束执行时间：20190926001745
+SQL开始执行时间：20190926001745
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept) in (select CONCAT(name,budgetperiodslist,second_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190926001746
+SQL开始执行时间：20190926001746
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where second_dept is not null 
+and third_dept is null
+and fourth_dept is null
+and fifth_dept is null
+and sixth_dept is null
+;
+SQL结束执行时间：20190926001746
+SQL开始执行时间：20190926001746
+
+delete from edw.oa_budget_19
+ where cdepname_lv1 is null
+   and person is null
+;
+SQL结束执行时间：20190926001746
+SQL开始执行时间：20190926001746
+
+insert into edw.oa_budget_19
+select a. budgetinfoid
+      ,a.cdepname_lv1
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.person
+      ,a.name_oa
+      ,null
+      ,null
+      ,a.name
+      ,a.u8kemubm
+      ,a.cdlx
+      ,a.budgetperiodslist
+      ,a.budgetaccount
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,a.remark
+      ,localtimestamp() as sys_time
+  from edw.oa_budget_19_22 a
+;
+SQL结束执行时间：20190926001746
+SQL开始执行时间：20190926001746
+  
+update edw.oa_budget_19 as a
+inner join (select * from edw.dic_deptment where source = 'OA'  group by cdept_name) as b
+on a.name_oa = b.cdept_name
+set 
+  a.name_ehr = b.name_ehr
+ ,a.name_ehr_id = b.cdept_id_ehr
+ ,a.second_dept = b.second_dept
+ ,a.third_dept = b.third_dept
+ ,a.fourth_dept = b.fourth_dept
+ ,a.fifth_dept = b.fifth_dept
+ ,a.sixth_dept = b.sixth_dept
+
+;
+SQL结束执行时间：20190926001746
+
+20190927093726开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927093726
+drop table if exists edw.oa_fnabudgetinfo_pre
+;
+SQL结束执行时间：20190927093726
+SQL开始执行时间：20190927093726
+create temporary table edw.oa_fnabudgetinfo_pre as
+select a.id
+      ,a.budgetorganizationid
+      ,b.departmentmark as cdepname
+      ,b.tlevel
+      ,a.remark
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+ where a.organizationtype = 2
+;
+SQL结束执行时间：20190927093726
+SQL开始执行时间：20190927093726
+
+
+
+drop table if exists edw.oa_fnabudgetinfo_pre1
+;
+SQL结束执行时间：20190927093726
+SQL开始执行时间：20190927093726
+create temporary table edw.oa_fnabudgetinfo_pre1 as
+select a.id
+      ,a.cdepname as cdepname_lv6
+      ,c.departmentmark as cdepname_lv5
+      ,d.departmentmark as cdepname_lv4
+      ,e.departmentmark as cdepname_lv3
+      ,f.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+  left join ufdata.oa_hrmdepartment f
+    on e.supdepid = f.id
+ where a.tlevel = 6
+;
+SQL结束执行时间：20190927093726
+SQL开始执行时间：20190927093726
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,a.cdepname as cdepname_lv5
+      ,c.departmentmark as cdepname_lv4
+      ,d.departmentmark as cdepname_lv3
+      ,e.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+ where a.tlevel = 5
+;
+SQL结束执行时间：20190927093727
+SQL开始执行时间：20190927093727
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv4
+      ,c.departmentmark as cdepname_lv3
+      ,d.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+ where a.tlevel = 4
+;
+SQL结束执行时间：20190927093727
+SQL开始执行时间：20190927093727
+ 
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv3
+      ,c.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+ where a.tlevel = 3
+;
+SQL结束执行时间：20190927093727
+SQL开始执行时间：20190927093727
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+ where a.tlevel = 2
+;
+SQL结束执行时间：20190927093727
+SQL开始执行时间：20190927093727
+
+
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
+      ,b.subcompanyname as cdepname_lv1
+      ,b.subcompanyname
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null'
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmsubcompany b
+    on a.budgetorganizationid = b.id
+ where a.organizationtype = 0
+    or a.organizationtype = 1
+;
+SQL结束执行时间：20190927093727
+SQL开始执行时间：20190927093727
+
+drop table if exists edw.oa_fnabudgetinfo_ren
+;
+SQL结束执行时间：20190927093727
+SQL开始执行时间：20190927093727
+create temporary table edw.oa_fnabudgetinfo_ren as
+select a.id
+      ,a.remark
+      ,b.departmentid
+      ,c.departmentmark as cdepname
+      ,c.tlevel
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,b.lastname as person
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmresource b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.departmentid = c.id
+ where a.organizationtype = 3
+   and c.tlevel is not null
+;
+SQL结束执行时间：20190927093727
+SQL开始执行时间：20190927093727
+
+
+
+drop table if exists edw.oa_fnabudgetinfo_ren1
+;
+SQL结束执行时间：20190927093727
+SQL开始执行时间：20190927093727
+create temporary table edw.oa_fnabudgetinfo_ren1 as
+select a.id
+      ,a.cdepname as cdepname_lv6
+      ,c.departmentmark as cdepname_lv5
+      ,d.departmentmark as cdepname_lv4
+      ,e.departmentmark as cdepname_lv3
+      ,f.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+  left join ufdata.oa_hrmdepartment f
+    on e.supdepid = f.id
+ where a.tlevel = 6
+;
+SQL结束执行时间：20190927093727
+SQL开始执行时间：20190927093727
+
+
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,a.cdepname as cdepname_lv5
+      ,c.departmentmark as cdepname_lv4
+      ,d.departmentmark as cdepname_lv3
+      ,e.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+ where a.tlevel = 5
+;
+SQL结束执行时间：20190927093728
+SQL开始执行时间：20190927093728
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv4
+      ,c.departmentmark as cdepname_lv3
+      ,d.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+ where a.tlevel = 4
+;
+SQL结束执行时间：20190927093728
+SQL开始执行时间：20190927093728
+ 
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv3
+      ,c.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+ where a.tlevel = 3
+;
+SQL结束执行时间：20190927093728
+SQL开始执行时间：20190927093728
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+ where a.tlevel = 2
+;
+SQL结束执行时间：20190927093728
+SQL开始执行时间：20190927093728
+
+
+
+
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,a.cdepname_lv6
+      ,a.cdepname_lv5
+      ,a.cdepname_lv4
+      ,a.cdepname_lv3
+      ,a.cdepname_lv2
+      ,a.cdepname_lv1
+      ,a.budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren1 a
+
+;
+SQL结束执行时间：20190927093728
+SQL开始执行时间：20190927093728
+
+
+create index index_oa_fnabudgetinfo_pre_id on edw.oa_fnabudgetinfo_pre1(id)
+;
+SQL结束执行时间：20190927093728
+SQL开始执行时间：20190927093728
+
+truncate table edw.oa_budget_19
+;
+SQL结束执行时间：20190927093728
+SQL开始执行时间：20190927093728
+insert into edw.oa_budget_19
+select a.budgetinfoid
+      ,case when b.cdepname_lv1 = '1111111111111111' then null
+       else b.cdepname_lv1 end as cdepname_lv1
+      ,b.cdepname_lv2
+      ,b.cdepname_lv3
+      ,b.cdepname_lv4
+      ,b.cdepname_lv5
+      ,b.cdepname_lv6
+      ,case when b.person = 'null' then null
+       else b.person end as person
+      ,b.budget_depnam
+      ,null
+      ,null
+      ,c.name
+      ,case when c.name = '6602人才推荐费' then '66020202' else e.u8kemubm end  as u8kemubm
+      ,case when d.cdztlx = '0' then  '个人'
+       else '部门' end as cdlx
+      ,a.budgetperiodslist
+      ,a.budgetaccount
+      ,b.createdate
+      ,case when b.approverid is null then 'crm' else b.approverid end
+      ,case when b.createrid = '1' then 'crm' else b.createrid end
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,b.remark
+      ,localtimestamp() as sys_time
+  from (select * from ufdata.oa_fnabudgetinfodetail where budgetperiods = 21 ) a
+  left join edw.oa_fnabudgetinfo_pre1 b
+    on a.budgetinfoid  = b.id
+  left join ufdata.oa_fnabudgetfeetype c
+    on a.budgettypeid = c.id
+  left join ufdata.oa_uf_yslxb d
+    on c.id = d.yskm
+  left join ufdata.oa_uf_u8dykm e
+    on c.name = e.kemumc
+ where b.status = 1
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+
+update edw.oa_budget_19 set name_oa = '销售一区' where person = '邓志良'
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+update edw.oa_budget_19 set name_oa = '销售二区' where person = '何珊'
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+update edw.oa_budget_19 set name_oa = '浙江省区' where person = '乔国付'
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+update edw.oa_budget_19 set name_oa = '产品推广部' where person = '史勤华'
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+update edw.oa_budget_19 set name_oa = '战略市场中心' where person = '游英'
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+update edw.oa_budget_19 set name_oa = '销售部' where person = '张志坚'
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+update edw.oa_budget_19 set name_oa = '上海技术支持组' where person = '晁建文' and name = '6601业务招待费'
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+update edw.oa_budget_19 set name_oa = '财务中心' where person = '俞晓'
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+update edw.oa_budget_19 set name_oa = '行政部' where person = '刘英'
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+
+
+create temporary table edw.oa_budget_19_11 as 
+select * 
+  from edw.oa_budget_19
+ where cdepname_lv1 is null
+   and person is null
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+
+create temporary table edw.oa_budget_19_22 as
+select *
+  from edw.oa_budget_19_11
+where sixth_dept is not null
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+
+delete FROM edw.oa_budget_19 where person is null and CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept,fifth_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept,fifth_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+  and sixth_dept is null
+
+;
+SQL结束执行时间：20190927093739
+SQL开始执行时间：20190927093739
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190927093740
+SQL开始执行时间：20190927093740
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+and sixth_dept is null
+and fourth_dept is null
+
+;
+SQL结束执行时间：20190927093740
+SQL开始执行时间：20190927093740
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept,third_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190927093740
+SQL开始执行时间：20190927093740
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+and sixth_dept is null
+and fourth_dept is null
+and third_dept is null
+;
+SQL结束执行时间：20190927093740
+SQL开始执行时间：20190927093740
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept) in (select CONCAT(name,budgetperiodslist,second_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190927093740
+SQL开始执行时间：20190927093740
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where second_dept is not null 
+and third_dept is null
+and fourth_dept is null
+and fifth_dept is null
+and sixth_dept is null
+;
+SQL结束执行时间：20190927093740
+SQL开始执行时间：20190927093740
+
+delete from edw.oa_budget_19
+ where cdepname_lv1 is null
+   and person is null
+;
+SQL结束执行时间：20190927093740
+SQL开始执行时间：20190927093740
+
+insert into edw.oa_budget_19
+select a. budgetinfoid
+      ,a.cdepname_lv1
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.person
+      ,a.name_oa
+      ,null
+      ,null
+      ,a.name
+      ,a.u8kemubm
+      ,a.cdlx
+      ,a.budgetperiodslist
+      ,a.budgetaccount
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,a.remark
+      ,localtimestamp() as sys_time
+  from edw.oa_budget_19_22 a
+;
+SQL结束执行时间：20190927093740
+SQL开始执行时间：20190927093740
+  
+update edw.oa_budget_19 as a
+inner join (select * from edw.dic_deptment where source = 'OA'  group by cdept_name) as b
+on a.name_oa = b.cdept_name
+set 
+  a.name_ehr = b.name_ehr
+ ,a.name_ehr_id = b.cdept_id_ehr
+ ,a.second_dept = b.second_dept
+ ,a.third_dept = b.third_dept
+ ,a.fourth_dept = b.fourth_dept
+ ,a.fifth_dept = b.fifth_dept
+ ,a.sixth_dept = b.sixth_dept
+
+;
+SQL结束执行时间：20190927093740
+
+20190928001726开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928001726
+drop table if exists edw.oa_fnabudgetinfo_pre
+;
+SQL结束执行时间：20190928001726
+SQL开始执行时间：20190928001726
+create temporary table edw.oa_fnabudgetinfo_pre as
+select a.id
+      ,a.budgetorganizationid
+      ,b.departmentmark as cdepname
+      ,b.tlevel
+      ,a.remark
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+ where a.organizationtype = 2
+;
+SQL结束执行时间：20190928001726
+SQL开始执行时间：20190928001726
+
+
+
+drop table if exists edw.oa_fnabudgetinfo_pre1
+;
+SQL结束执行时间：20190928001726
+SQL开始执行时间：20190928001726
+create temporary table edw.oa_fnabudgetinfo_pre1 as
+select a.id
+      ,a.cdepname as cdepname_lv6
+      ,c.departmentmark as cdepname_lv5
+      ,d.departmentmark as cdepname_lv4
+      ,e.departmentmark as cdepname_lv3
+      ,f.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+  left join ufdata.oa_hrmdepartment f
+    on e.supdepid = f.id
+ where a.tlevel = 6
+;
+SQL结束执行时间：20190928001726
+SQL开始执行时间：20190928001726
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,a.cdepname as cdepname_lv5
+      ,c.departmentmark as cdepname_lv4
+      ,d.departmentmark as cdepname_lv3
+      ,e.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+ where a.tlevel = 5
+;
+SQL结束执行时间：20190928001726
+SQL开始执行时间：20190928001726
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv4
+      ,c.departmentmark as cdepname_lv3
+      ,d.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+ where a.tlevel = 4
+;
+SQL结束执行时间：20190928001726
+SQL开始执行时间：20190928001726
+ 
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv3
+      ,c.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+ where a.tlevel = 3
+;
+SQL结束执行时间：20190928001726
+SQL开始执行时间：20190928001726
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+ where a.tlevel = 2
+;
+SQL结束执行时间：20190928001726
+SQL开始执行时间：20190928001726
+
+
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
+      ,b.subcompanyname as cdepname_lv1
+      ,b.subcompanyname
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null'
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmsubcompany b
+    on a.budgetorganizationid = b.id
+ where a.organizationtype = 0
+    or a.organizationtype = 1
+;
+SQL结束执行时间：20190928001726
+SQL开始执行时间：20190928001726
+
+drop table if exists edw.oa_fnabudgetinfo_ren
+;
+SQL结束执行时间：20190928001726
+SQL开始执行时间：20190928001726
+create temporary table edw.oa_fnabudgetinfo_ren as
+select a.id
+      ,a.remark
+      ,b.departmentid
+      ,c.departmentmark as cdepname
+      ,c.tlevel
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,b.lastname as person
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmresource b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.departmentid = c.id
+ where a.organizationtype = 3
+   and c.tlevel is not null
+;
+SQL结束执行时间：20190928001727
+SQL开始执行时间：20190928001727
+
+
+
+drop table if exists edw.oa_fnabudgetinfo_ren1
+;
+SQL结束执行时间：20190928001727
+SQL开始执行时间：20190928001727
+create temporary table edw.oa_fnabudgetinfo_ren1 as
+select a.id
+      ,a.cdepname as cdepname_lv6
+      ,c.departmentmark as cdepname_lv5
+      ,d.departmentmark as cdepname_lv4
+      ,e.departmentmark as cdepname_lv3
+      ,f.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+  left join ufdata.oa_hrmdepartment f
+    on e.supdepid = f.id
+ where a.tlevel = 6
+;
+SQL结束执行时间：20190928001727
+SQL开始执行时间：20190928001727
+
+
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,a.cdepname as cdepname_lv5
+      ,c.departmentmark as cdepname_lv4
+      ,d.departmentmark as cdepname_lv3
+      ,e.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+ where a.tlevel = 5
+;
+SQL结束执行时间：20190928001727
+SQL开始执行时间：20190928001727
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv4
+      ,c.departmentmark as cdepname_lv3
+      ,d.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+ where a.tlevel = 4
+;
+SQL结束执行时间：20190928001727
+SQL开始执行时间：20190928001727
+ 
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv3
+      ,c.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+ where a.tlevel = 3
+;
+SQL结束执行时间：20190928001727
+SQL开始执行时间：20190928001727
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+ where a.tlevel = 2
+;
+SQL结束执行时间：20190928001727
+SQL开始执行时间：20190928001727
+
+
+
+
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,a.cdepname_lv6
+      ,a.cdepname_lv5
+      ,a.cdepname_lv4
+      ,a.cdepname_lv3
+      ,a.cdepname_lv2
+      ,a.cdepname_lv1
+      ,a.budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren1 a
+
+;
+SQL结束执行时间：20190928001727
+SQL开始执行时间：20190928001727
+
+
+create index index_oa_fnabudgetinfo_pre_id on edw.oa_fnabudgetinfo_pre1(id)
+;
+SQL结束执行时间：20190928001728
+SQL开始执行时间：20190928001728
+
+truncate table edw.oa_budget_19
+;
+SQL结束执行时间：20190928001728
+SQL开始执行时间：20190928001728
+insert into edw.oa_budget_19
+select a.budgetinfoid
+      ,case when b.cdepname_lv1 = '1111111111111111' then null
+       else b.cdepname_lv1 end as cdepname_lv1
+      ,b.cdepname_lv2
+      ,b.cdepname_lv3
+      ,b.cdepname_lv4
+      ,b.cdepname_lv5
+      ,b.cdepname_lv6
+      ,case when b.person = 'null' then null
+       else b.person end as person
+      ,b.budget_depnam
+      ,null
+      ,null
+      ,c.name
+      ,case when c.name = '6602人才推荐费' then '66020202' else e.u8kemubm end  as u8kemubm
+      ,case when d.cdztlx = '0' then  '个人'
+       else '部门' end as cdlx
+      ,a.budgetperiodslist
+      ,a.budgetaccount
+      ,b.createdate
+      ,case when b.approverid is null then 'crm' else b.approverid end
+      ,case when b.createrid = '1' then 'crm' else b.createrid end
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,b.remark
+      ,localtimestamp() as sys_time
+  from (select * from ufdata.oa_fnabudgetinfodetail where budgetperiods = 21 ) a
+  left join edw.oa_fnabudgetinfo_pre1 b
+    on a.budgetinfoid  = b.id
+  left join ufdata.oa_fnabudgetfeetype c
+    on a.budgettypeid = c.id
+  left join ufdata.oa_uf_yslxb d
+    on c.id = d.yskm
+  left join ufdata.oa_uf_u8dykm e
+    on c.name = e.kemumc
+ where b.status = 1
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+
+update edw.oa_budget_19 set name_oa = '销售一区' where person = '邓志良'
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+update edw.oa_budget_19 set name_oa = '销售二区' where person = '何珊'
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+update edw.oa_budget_19 set name_oa = '浙江省区' where person = '乔国付'
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+update edw.oa_budget_19 set name_oa = '产品推广部' where person = '史勤华'
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+update edw.oa_budget_19 set name_oa = '战略市场中心' where person = '游英'
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+update edw.oa_budget_19 set name_oa = '销售部' where person = '张志坚'
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+update edw.oa_budget_19 set name_oa = '上海技术支持组' where person = '晁建文' and name = '6601业务招待费'
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+update edw.oa_budget_19 set name_oa = '财务中心' where person = '俞晓'
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+update edw.oa_budget_19 set name_oa = '行政部' where person = '刘英'
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+
+
+create temporary table edw.oa_budget_19_11 as 
+select * 
+  from edw.oa_budget_19
+ where cdepname_lv1 is null
+   and person is null
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+
+create temporary table edw.oa_budget_19_22 as
+select *
+  from edw.oa_budget_19_11
+where sixth_dept is not null
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+
+delete FROM edw.oa_budget_19 where person is null and CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept,fifth_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept,fifth_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+  and sixth_dept is null
+
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+and sixth_dept is null
+and fourth_dept is null
+
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept,third_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+and sixth_dept is null
+and fourth_dept is null
+and third_dept is null
+;
+SQL结束执行时间：20190928001739
+SQL开始执行时间：20190928001739
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept) in (select CONCAT(name,budgetperiodslist,second_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190928001740
+SQL开始执行时间：20190928001740
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where second_dept is not null 
+and third_dept is null
+and fourth_dept is null
+and fifth_dept is null
+and sixth_dept is null
+;
+SQL结束执行时间：20190928001740
+SQL开始执行时间：20190928001740
+
+delete from edw.oa_budget_19
+ where cdepname_lv1 is null
+   and person is null
+;
+SQL结束执行时间：20190928001740
+SQL开始执行时间：20190928001740
+
+insert into edw.oa_budget_19
+select a. budgetinfoid
+      ,a.cdepname_lv1
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.person
+      ,a.name_oa
+      ,null
+      ,null
+      ,a.name
+      ,a.u8kemubm
+      ,a.cdlx
+      ,a.budgetperiodslist
+      ,a.budgetaccount
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,a.remark
+      ,localtimestamp() as sys_time
+  from edw.oa_budget_19_22 a
+;
+SQL结束执行时间：20190928001740
+SQL开始执行时间：20190928001740
+  
+update edw.oa_budget_19 as a
+inner join (select * from edw.dic_deptment where source = 'OA'  group by cdept_name) as b
+on a.name_oa = b.cdept_name
+set 
+  a.name_ehr = b.name_ehr
+ ,a.name_ehr_id = b.cdept_id_ehr
+ ,a.second_dept = b.second_dept
+ ,a.third_dept = b.third_dept
+ ,a.fourth_dept = b.fourth_dept
+ ,a.fifth_dept = b.fifth_dept
+ ,a.sixth_dept = b.sixth_dept
+
+;
+SQL结束执行时间：20190928001740
+
+20190929001719开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929001719
+drop table if exists edw.oa_fnabudgetinfo_pre
+;
+SQL结束执行时间：20190929001719
+SQL开始执行时间：20190929001719
+create temporary table edw.oa_fnabudgetinfo_pre as
+select a.id
+      ,a.budgetorganizationid
+      ,b.departmentmark as cdepname
+      ,b.tlevel
+      ,a.remark
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+ where a.organizationtype = 2
+;
+SQL结束执行时间：20190929001719
+SQL开始执行时间：20190929001719
+
+
+
+drop table if exists edw.oa_fnabudgetinfo_pre1
+;
+SQL结束执行时间：20190929001719
+SQL开始执行时间：20190929001719
+create temporary table edw.oa_fnabudgetinfo_pre1 as
+select a.id
+      ,a.cdepname as cdepname_lv6
+      ,c.departmentmark as cdepname_lv5
+      ,d.departmentmark as cdepname_lv4
+      ,e.departmentmark as cdepname_lv3
+      ,f.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+  left join ufdata.oa_hrmdepartment f
+    on e.supdepid = f.id
+ where a.tlevel = 6
+;
+SQL结束执行时间：20190929001719
+SQL开始执行时间：20190929001719
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,a.cdepname as cdepname_lv5
+      ,c.departmentmark as cdepname_lv4
+      ,d.departmentmark as cdepname_lv3
+      ,e.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+ where a.tlevel = 5
+;
+SQL结束执行时间：20190929001719
+SQL开始执行时间：20190929001719
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv4
+      ,c.departmentmark as cdepname_lv3
+      ,d.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+ where a.tlevel = 4
+;
+SQL结束执行时间：20190929001719
+SQL开始执行时间：20190929001719
+ 
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv3
+      ,c.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+  left join ufdata.oa_hrmdepartment b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+ where a.tlevel = 3
+;
+SQL结束执行时间：20190929001719
+SQL开始执行时间：20190929001719
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null' as person
+      ,a.status
+  from edw.oa_fnabudgetinfo_pre a
+ where a.tlevel = 2
+;
+SQL结束执行时间：20190929001720
+SQL开始执行时间：20190929001720
+
+
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
+      ,b.subcompanyname as cdepname_lv1
+      ,b.subcompanyname
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,'null'
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmsubcompany b
+    on a.budgetorganizationid = b.id
+ where a.organizationtype = 0
+    or a.organizationtype = 1
+;
+SQL结束执行时间：20190929001720
+SQL开始执行时间：20190929001720
+
+drop table if exists edw.oa_fnabudgetinfo_ren
+;
+SQL结束执行时间：20190929001720
+SQL开始执行时间：20190929001720
+create temporary table edw.oa_fnabudgetinfo_ren as
+select a.id
+      ,a.remark
+      ,b.departmentid
+      ,c.departmentmark as cdepname
+      ,c.tlevel
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,b.lastname as person
+      ,a.status
+  from ufdata.oa_fnabudgetinfo a
+  left join ufdata.oa_hrmresource b
+    on a.budgetorganizationid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.departmentid = c.id
+ where a.organizationtype = 3
+   and c.tlevel is not null
+;
+SQL结束执行时间：20190929001720
+SQL开始执行时间：20190929001720
+
+
+
+drop table if exists edw.oa_fnabudgetinfo_ren1
+;
+SQL结束执行时间：20190929001720
+SQL开始执行时间：20190929001720
+create temporary table edw.oa_fnabudgetinfo_ren1 as
+select a.id
+      ,a.cdepname as cdepname_lv6
+      ,c.departmentmark as cdepname_lv5
+      ,d.departmentmark as cdepname_lv4
+      ,e.departmentmark as cdepname_lv3
+      ,f.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+  left join ufdata.oa_hrmdepartment f
+    on e.supdepid = f.id
+ where a.tlevel = 6
+;
+SQL结束执行时间：20190929001720
+SQL开始执行时间：20190929001720
+
+
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,a.cdepname as cdepname_lv5
+      ,c.departmentmark as cdepname_lv4
+      ,d.departmentmark as cdepname_lv3
+      ,e.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+  left join ufdata.oa_hrmdepartment e
+    on d.supdepid = e.id
+ where a.tlevel = 5
+;
+SQL结束执行时间：20190929001720
+SQL开始执行时间：20190929001720
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv4
+      ,c.departmentmark as cdepname_lv3
+      ,d.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+  left join ufdata.oa_hrmdepartment d
+    on c.supdepid = d.id
+ where a.tlevel = 4
+;
+SQL结束执行时间：20190929001720
+SQL开始执行时间：20190929001720
+ 
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv3
+      ,c.departmentmark as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+  left join ufdata.oa_hrmdepartment b
+    on a.departmentid = b.id
+  left join ufdata.oa_hrmdepartment c
+    on b.supdepid = c.id
+ where a.tlevel = 3
+;
+SQL结束执行时间：20190929001720
+SQL开始执行时间：20190929001720
+
+insert into edw.oa_fnabudgetinfo_ren1
+select a.id
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.cdepname as cdepname_lv2
+      ,'1111111111111111' as cdepname_lv1
+      ,a.cdepname as budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren a
+ where a.tlevel = 2
+;
+SQL结束执行时间：20190929001720
+SQL开始执行时间：20190929001720
+
+
+
+
+
+insert into edw.oa_fnabudgetinfo_pre1
+select a.id
+      ,a.cdepname_lv6
+      ,a.cdepname_lv5
+      ,a.cdepname_lv4
+      ,a.cdepname_lv3
+      ,a.cdepname_lv2
+      ,a.cdepname_lv1
+      ,a.budget_depnam
+      ,a.remark
+      ,a.createdate
+      ,a.createrid
+      ,a.approverid
+      ,a.person
+      ,a.status
+  from edw.oa_fnabudgetinfo_ren1 a
+
+;
+SQL结束执行时间：20190929001721
+SQL开始执行时间：20190929001721
+
+
+create index index_oa_fnabudgetinfo_pre_id on edw.oa_fnabudgetinfo_pre1(id)
+;
+SQL结束执行时间：20190929001721
+SQL开始执行时间：20190929001721
+
+truncate table edw.oa_budget_19
+;
+SQL结束执行时间：20190929001721
+SQL开始执行时间：20190929001721
+insert into edw.oa_budget_19
+select a.budgetinfoid
+      ,case when b.cdepname_lv1 = '1111111111111111' then null
+       else b.cdepname_lv1 end as cdepname_lv1
+      ,b.cdepname_lv2
+      ,b.cdepname_lv3
+      ,b.cdepname_lv4
+      ,b.cdepname_lv5
+      ,b.cdepname_lv6
+      ,case when b.person = 'null' then null
+       else b.person end as person
+      ,b.budget_depnam
+      ,null
+      ,null
+      ,c.name
+      ,case when c.name = '6602人才推荐费' then '66020202' else e.u8kemubm end  as u8kemubm
+      ,case when d.cdztlx = '0' then  '个人'
+       else '部门' end as cdlx
+      ,a.budgetperiodslist
+      ,a.budgetaccount
+      ,b.createdate
+      ,case when b.approverid is null then 'crm' else b.approverid end
+      ,case when b.createrid = '1' then 'crm' else b.createrid end
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,b.remark
+      ,localtimestamp() as sys_time
+  from (select * from ufdata.oa_fnabudgetinfodetail where budgetperiods = 21 ) a
+  left join edw.oa_fnabudgetinfo_pre1 b
+    on a.budgetinfoid  = b.id
+  left join ufdata.oa_fnabudgetfeetype c
+    on a.budgettypeid = c.id
+  left join ufdata.oa_uf_yslxb d
+    on c.id = d.yskm
+  left join ufdata.oa_uf_u8dykm e
+    on c.name = e.kemumc
+ where b.status = 1
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+
+update edw.oa_budget_19 set name_oa = '销售一区' where person = '邓志良'
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+update edw.oa_budget_19 set name_oa = '销售二区' where person = '何珊'
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+update edw.oa_budget_19 set name_oa = '浙江省区' where person = '乔国付'
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+update edw.oa_budget_19 set name_oa = '产品推广部' where person = '史勤华'
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+update edw.oa_budget_19 set name_oa = '战略市场中心' where person = '游英'
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+update edw.oa_budget_19 set name_oa = '销售部' where person = '张志坚'
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+update edw.oa_budget_19 set name_oa = '上海技术支持组' where person = '晁建文' and name = '6601业务招待费'
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+update edw.oa_budget_19 set name_oa = '财务中心' where person = '俞晓'
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+update edw.oa_budget_19 set name_oa = '行政部' where person = '刘英'
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+
+
+create temporary table edw.oa_budget_19_11 as 
+select * 
+  from edw.oa_budget_19
+ where cdepname_lv1 is null
+   and person is null
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+
+create temporary table edw.oa_budget_19_22 as
+select *
+  from edw.oa_budget_19_11
+where sixth_dept is not null
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+
+delete FROM edw.oa_budget_19 where person is null and CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept,fifth_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept,fifth_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+  and sixth_dept is null
+
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept,fourth_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+and sixth_dept is null
+and fourth_dept is null
+
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept,third_dept) in (select CONCAT(name,budgetperiodslist,second_dept,third_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where fifth_dept is not null 
+and sixth_dept is null
+and fourth_dept is null
+and third_dept is null
+;
+SQL结束执行时间：20190929001732
+SQL开始执行时间：20190929001732
+
+delete FROM edw.oa_budget_19_11 where person is null and  CONCAT(name,budgetperiodslist,second_dept) in (select CONCAT(name,budgetperiodslist,second_dept) from edw.oa_budget_19_22)
+;
+SQL结束执行时间：20190929001733
+SQL开始执行时间：20190929001733
+
+insert into edw.oa_budget_19_22
+select *
+  from edw.oa_budget_19_11
+where second_dept is not null 
+and third_dept is null
+and fourth_dept is null
+and fifth_dept is null
+and sixth_dept is null
+;
+SQL结束执行时间：20190929001733
+SQL开始执行时间：20190929001733
+
+delete from edw.oa_budget_19
+ where cdepname_lv1 is null
+   and person is null
+;
+SQL结束执行时间：20190929001733
+SQL开始执行时间：20190929001733
+
+insert into edw.oa_budget_19
+select a. budgetinfoid
+      ,a.cdepname_lv1
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.person
+      ,a.name_oa
+      ,null
+      ,null
+      ,a.name
+      ,a.u8kemubm
+      ,a.cdlx
+      ,a.budgetperiodslist
+      ,a.budgetaccount
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,a.remark
+      ,localtimestamp() as sys_time
+  from edw.oa_budget_19_22 a
+;
+SQL结束执行时间：20190929001733
+SQL开始执行时间：20190929001733
+  
+update edw.oa_budget_19 as a
+inner join (select * from edw.dic_deptment where source = 'OA'  group by cdept_name) as b
+on a.name_oa = b.cdept_name
+set 
+  a.name_ehr = b.name_ehr
+ ,a.name_ehr_id = b.cdept_id_ehr
+ ,a.second_dept = b.second_dept
+ ,a.third_dept = b.third_dept
+ ,a.fourth_dept = b.fourth_dept
+ ,a.fifth_dept = b.fifth_dept
+ ,a.sixth_dept = b.sixth_dept
+
+;
+SQL结束执行时间：20190929001733

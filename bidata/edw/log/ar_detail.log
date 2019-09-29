@@ -52838,3 +52838,1147 @@ select a.db
 
 ;
 SQL结束执行时间：20190925001730
+
+20190926001304开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926001304
+
+
+use edw
+;
+SQL结束执行时间：20190926001304
+SQL开始执行时间：20190926001304
+
+truncate table edw.ar_detail
+;
+SQL结束执行时间：20190926001304
+SQL开始执行时间：20190926001304
+
+drop table if exists edw.ap_vouch
+;
+SQL结束执行时间：20190926001304
+SQL开始执行时间：20190926001304
+create temporary table edw.ap_vouch as
+select a.clink
+      ,a.db
+      ,a.cvouchid
+      ,b.citemcode
+      ,c.bi_cinvcode
+      ,c.bi_cinvname
+  from ufdata.ap_vouch a
+  left join (select * from ufdata.ap_vouchs where citemcode is not null group by clink) b
+    on a.clink = b.clink
+  left join (select * from edw.dic_inventory group by left(db,10),cinvcode) c
+    on b.citemcode = c.cinvcode
+   and left(b.db,10) = left(c.db,10)
+  where b.clink is not null
+
+;
+SQL结束执行时间：20190926001306
+SQL开始执行时间：20190926001306
+
+
+create temporary table edw.ar_detail_pre as
+select 
+	 a.db
+	,a.Auto_ID
+	,a.iPeriod
+	,a.cVouchType
+	,a.cVouchSType
+	,a.cVouchID
+	,a.dVouchDate
+	,a.dRegDate
+	,a.cDwCode
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cuscode end as true_ccuscode 
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cusname end as true_ccusname
+	,case when a.cVouchType = 'R0' then f.citemcode else a.cinvcode end as cinvcode
+	,case when a.cVouchType = 'R0' then f.bi_cinvcode else c.bi_cinvcode end as true_cinvcode
+	,case when a.cVouchType = 'R0' then f.bi_cinvname else c.bi_cinvname end as true_cinvname
+	,a.iBVid
+	,a.cCode
+	,a.csign
+	,a.isignseq
+	,a.ino_id
+	,a.cDigest
+	,a.iDAmount
+	,a.iCAmount
+	,a.iDAmount_s
+	,a.iCAmount_s
+	,a.cOrderNo
+	,a.cSSCode
+	,a.cProcStyle
+	,a.cCancelNo
+	,a.cPZid
+	,a.bPrePay
+	,a.iFlag
+	,a.cCoVouchType
+	,a.cCoVouchID
+	,a.cDefine2
+	,a.cDefine8
+	,a.cDefine10
+	,a.iVouchAmount
+	,a.iVouchAmount_s
+	,case when a.cVouchType = 'R0' then 'ap_vouch' end mark
+	,'11111111111' as item_code
+from ufdata.ar_detail as a
+left join edw.dic_customer as b
+on a.cDwCode = b.ccuscode
+and left(a.db,10) = left(b.db,10)
+left join (select * from edw.dic_inventory group by cinvcode) c
+  on a.cinvcode = c.cinvcode
+left join edw.ap_vouch f
+  on a.db = f.db
+ and a.cVouchID = f.cVouchID
+where a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190926001307
+SQL开始执行时间：20190926001307
+
+
+insert into edw.ar_detail_pre
+select 
+	 a.db
+	,a.Auto_ID
+	,a.iPeriod
+	,a.cVouchType
+	,a.cVouchSType
+	,a.cVouchID
+	,a.dVouchDate
+	,a.dRegDate
+	,a.cDwCode
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cuscode end as true_ccuscode 
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cusname end as true_ccusname
+	,case when a.cVouchType = 'R0' then f.citemcode else a.cinvcode end
+	,case when a.cVouchType = 'R0' then f.bi_cinvcode else c.bi_cinvcode end
+	,case when a.cVouchType = 'R0' then f.bi_cinvname else c.bi_cinvname end
+	,a.iBVid
+	,a.cCode
+	,a.csign
+	,a.isignseq
+	,a.ino_id
+	,a.cDigest
+	,a.iDAmount
+	,a.iCAmount
+	,a.iDAmount_s
+	,a.iCAmount_s
+	,a.cOrderNo
+	,a.cSSCode
+	,a.cProcStyle
+	,a.cCancelNo
+	,a.cPZid
+	,a.bPrePay
+	,a.iFlag
+	,a.cCoVouchType
+	,a.cCoVouchID
+	,a.cDefine2
+	,a.cDefine8
+	,a.cDefine10
+	,a.iVouchAmount
+	,a.iVouchAmount_s
+	,case when a.cVouchType = 'R0' then 'ap_vouch' end mark
+	,'11111111111' as item_code
+from ufdata.ar_detail as a
+left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) as b
+on a.cDwCode = b.ccuscode
+left join (select * from edw.dic_inventory group by cinvcode) c
+  on a.cinvcode = c.cinvcode
+left join edw.ap_vouch f
+  on a.db = f.db
+ and a.cVouchID = f.cVouchID
+where a.db <> 'UFDATA_889_2019'
+  and a.db <> 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190926001353
+SQL开始执行时间：20190926001353
+
+delete from edw.ar_detail_pre where db = 'UFDATA_222_2018'
+;
+SQL结束执行时间：20190926001354
+SQL开始执行时间：20190926001354
+delete from edw.ar_detail_pre where db = 'UFDATA_588_2018'
+;
+SQL结束执行时间：20190926001354
+SQL开始执行时间：20190926001354
+delete from edw.ar_detail_pre where db = 'UFDATA_168_2018'
+;
+SQL结束执行时间：20190926001354
+SQL开始执行时间：20190926001354
+
+CREATE INDEX index_mid2_ar_detail_pre_cVouchID ON edw.ar_detail_pre(cVouchID)
+;
+SQL结束执行时间：20190926001356
+SQL开始执行时间：20190926001356
+CREATE INDEX index_mid2_ar_detail_pre_db ON edw.ar_detail_pre(db)
+;
+SQL结束执行时间：20190926001358
+SQL开始执行时间：20190926001358
+CREATE INDEX index_mid2_ar_detail_pre_true_cinvcode ON edw.ar_detail_pre(true_cinvcode)
+;
+SQL结束执行时间：20190926001401
+SQL开始执行时间：20190926001401
+CREATE INDEX index_mid2_ar_detail_pre_cinvcode ON edw.ar_detail_pre(cinvcode)
+;
+SQL结束执行时间：20190926001404
+SQL开始执行时间：20190926001404
+
+
+update edw.ar_detail_pre a
+ inner join (select * from edw.invoice_order group by csbvcode,left(db,10)) b
+    on a.cVouchID = b.csbvcode
+   and left(a.db,10) = left(b.db,10)
+   set a.cinvcode = b.cinvcode
+      ,a.true_cinvcode = b.bi_cinvcode
+      ,a.true_cinvname = b.bi_cinvname
+      ,a.mark = 'invoice'
+ where a.cVouchType = 'R0'
+   and a.cinvcode is null
+	 and a.dVouchDate >= '2018-01-01'
+
+;
+SQL结束执行时间：20190926001406
+SQL开始执行时间：20190926001406
+
+update edw.ar_detail_pre a
+ inner join (select * from edw.map_inventory group by bi_cinvcode) b
+    on a.true_cinvcode = b.bi_cinvcode
+   set a.item_code = b.item_code
+
+;
+SQL结束执行时间：20190926001407
+SQL开始执行时间：20190926001407
+
+insert into edw.ar_detail
+select a.db
+      ,a.Auto_ID
+      ,a.iPeriod
+      ,a.cVouchType
+      ,a.cVouchSType
+      ,a.cVouchID
+      ,a.dVouchDate
+      ,a.dRegDate
+      ,a.cDwCode
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.cinvcode
+      ,a.true_cinvcode
+      ,a.true_cinvname
+	    ,case
+       when a.cinvcode = "JC0100001" then "检测"  -- 科研服务
+       when a.cinvcode = "05001" then "启代医疗服务" -- 启代医疗服务
+       when d.level_one = "健康检测" then "健康检测"
+       when left(c.bi_cinvcode,2) = "yq" then "设备"
+       when left(c.bi_cinvcode,2) = "jc" then "检测"
+       when a.cinvcode is not null then "试剂"
+       when a.cdefine8 = "检测服务" then "检测"
+       when a.cdefine8 in("设备","仪器") then "设备"
+       when a.cdefine8 in("其他","试剂") then "试剂"
+       when a.cDigest like "%试剂%" then "试剂"
+       when a.cDigest like "%检测%" then "检测"
+       when a.cDigest like "%仪器%" then "设备"
+       when a.cDigest like "%设备%" then "设备"
+       else "试剂" end
+      ,a.iBVid
+      ,a.cCode
+      ,a.csign
+      ,a.isignseq
+      ,a.ino_id
+      ,a.cDigest
+      ,a.iDAmount
+      ,a.iCAmount
+      ,a.iDAmount_s
+      ,a.iCAmount_s
+      ,a.cOrderNo
+      ,a.cSSCode
+      ,a.cProcStyle
+      ,a.cCancelNo
+      ,a.cPZid
+      ,a.bPrePay
+      ,a.iFlag
+      ,a.cCoVouchType
+      ,a.cCoVouchID
+      ,a.cDefine2
+      ,a.cDefine8
+      ,a.cDefine10
+      ,a.iVouchAmount
+      ,a.iVouchAmount_s
+	    ,case when e.csbvcode is not null then a.iDAmount/(1+e.itaxrate/100)
+	          else (case when a.cDefine8 = '检测服务' then a.iDAmount/(1+6/100) 
+	                     when a.cDefine8 <> '检测服务' and dVouchDate < '2018-05-01' then a.iDAmount/(1+17/100) 
+	                     else a.iDAmount/(1+16/100) end)
+	        end as invoice_amount
+	    ,d.specification_type
+      ,a.mark
+      ,case when a.item_code = '11111111111' then null else a.item_code end 
+      ,localtimestamp() as sys_time
+  from edw.ar_detail_pre a
+  left join (select * from edw.dic_inventory group by cinvcode) c
+    on a.cinvcode = c.cinvcode
+  left join (select * from edw.map_inventory group by bi_cinvcode) d
+    on c.bi_cinvcode = d.bi_cinvcode
+  left join (select * from edw.invoice_order group by csbvcode,left(db,10)) e
+    on a.cvouchid = e.csbvcode
+   and left(a.db,10) = left(e.db,10)
+
+;
+SQL结束执行时间：20190926001734
+
+20190927001304开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927001304
+
+
+use edw
+;
+SQL结束执行时间：20190927001304
+SQL开始执行时间：20190927001304
+
+truncate table edw.ar_detail
+;
+SQL结束执行时间：20190927001304
+SQL开始执行时间：20190927001304
+
+drop table if exists edw.ap_vouch
+;
+SQL结束执行时间：20190927001304
+SQL开始执行时间：20190927001304
+create temporary table edw.ap_vouch as
+select a.clink
+      ,a.db
+      ,a.cvouchid
+      ,b.citemcode
+      ,c.bi_cinvcode
+      ,c.bi_cinvname
+  from ufdata.ap_vouch a
+  left join (select * from ufdata.ap_vouchs where citemcode is not null group by clink) b
+    on a.clink = b.clink
+  left join (select * from edw.dic_inventory group by left(db,10),cinvcode) c
+    on b.citemcode = c.cinvcode
+   and left(b.db,10) = left(c.db,10)
+  where b.clink is not null
+
+;
+SQL结束执行时间：20190927001306
+SQL开始执行时间：20190927001306
+
+
+create temporary table edw.ar_detail_pre as
+select 
+	 a.db
+	,a.Auto_ID
+	,a.iPeriod
+	,a.cVouchType
+	,a.cVouchSType
+	,a.cVouchID
+	,a.dVouchDate
+	,a.dRegDate
+	,a.cDwCode
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cuscode end as true_ccuscode 
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cusname end as true_ccusname
+	,case when a.cVouchType = 'R0' then f.citemcode else a.cinvcode end as cinvcode
+	,case when a.cVouchType = 'R0' then f.bi_cinvcode else c.bi_cinvcode end as true_cinvcode
+	,case when a.cVouchType = 'R0' then f.bi_cinvname else c.bi_cinvname end as true_cinvname
+	,a.iBVid
+	,a.cCode
+	,a.csign
+	,a.isignseq
+	,a.ino_id
+	,a.cDigest
+	,a.iDAmount
+	,a.iCAmount
+	,a.iDAmount_s
+	,a.iCAmount_s
+	,a.cOrderNo
+	,a.cSSCode
+	,a.cProcStyle
+	,a.cCancelNo
+	,a.cPZid
+	,a.bPrePay
+	,a.iFlag
+	,a.cCoVouchType
+	,a.cCoVouchID
+	,a.cDefine2
+	,a.cDefine8
+	,a.cDefine10
+	,a.iVouchAmount
+	,a.iVouchAmount_s
+	,case when a.cVouchType = 'R0' then 'ap_vouch' end mark
+	,'11111111111' as item_code
+from ufdata.ar_detail as a
+left join edw.dic_customer as b
+on a.cDwCode = b.ccuscode
+and left(a.db,10) = left(b.db,10)
+left join (select * from edw.dic_inventory group by cinvcode) c
+  on a.cinvcode = c.cinvcode
+left join edw.ap_vouch f
+  on a.db = f.db
+ and a.cVouchID = f.cVouchID
+where a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190927001307
+SQL开始执行时间：20190927001307
+
+
+insert into edw.ar_detail_pre
+select 
+	 a.db
+	,a.Auto_ID
+	,a.iPeriod
+	,a.cVouchType
+	,a.cVouchSType
+	,a.cVouchID
+	,a.dVouchDate
+	,a.dRegDate
+	,a.cDwCode
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cuscode end as true_ccuscode 
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cusname end as true_ccusname
+	,case when a.cVouchType = 'R0' then f.citemcode else a.cinvcode end
+	,case when a.cVouchType = 'R0' then f.bi_cinvcode else c.bi_cinvcode end
+	,case when a.cVouchType = 'R0' then f.bi_cinvname else c.bi_cinvname end
+	,a.iBVid
+	,a.cCode
+	,a.csign
+	,a.isignseq
+	,a.ino_id
+	,a.cDigest
+	,a.iDAmount
+	,a.iCAmount
+	,a.iDAmount_s
+	,a.iCAmount_s
+	,a.cOrderNo
+	,a.cSSCode
+	,a.cProcStyle
+	,a.cCancelNo
+	,a.cPZid
+	,a.bPrePay
+	,a.iFlag
+	,a.cCoVouchType
+	,a.cCoVouchID
+	,a.cDefine2
+	,a.cDefine8
+	,a.cDefine10
+	,a.iVouchAmount
+	,a.iVouchAmount_s
+	,case when a.cVouchType = 'R0' then 'ap_vouch' end mark
+	,'11111111111' as item_code
+from ufdata.ar_detail as a
+left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) as b
+on a.cDwCode = b.ccuscode
+left join (select * from edw.dic_inventory group by cinvcode) c
+  on a.cinvcode = c.cinvcode
+left join edw.ap_vouch f
+  on a.db = f.db
+ and a.cVouchID = f.cVouchID
+where a.db <> 'UFDATA_889_2019'
+  and a.db <> 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190927001353
+SQL开始执行时间：20190927001353
+
+delete from edw.ar_detail_pre where db = 'UFDATA_222_2018'
+;
+SQL结束执行时间：20190927001353
+SQL开始执行时间：20190927001353
+delete from edw.ar_detail_pre where db = 'UFDATA_588_2018'
+;
+SQL结束执行时间：20190927001353
+SQL开始执行时间：20190927001353
+delete from edw.ar_detail_pre where db = 'UFDATA_168_2018'
+;
+SQL结束执行时间：20190927001353
+SQL开始执行时间：20190927001353
+
+CREATE INDEX index_mid2_ar_detail_pre_cVouchID ON edw.ar_detail_pre(cVouchID)
+;
+SQL结束执行时间：20190927001356
+SQL开始执行时间：20190927001356
+CREATE INDEX index_mid2_ar_detail_pre_db ON edw.ar_detail_pre(db)
+;
+SQL结束执行时间：20190927001358
+SQL开始执行时间：20190927001358
+CREATE INDEX index_mid2_ar_detail_pre_true_cinvcode ON edw.ar_detail_pre(true_cinvcode)
+;
+SQL结束执行时间：20190927001401
+SQL开始执行时间：20190927001401
+CREATE INDEX index_mid2_ar_detail_pre_cinvcode ON edw.ar_detail_pre(cinvcode)
+;
+SQL结束执行时间：20190927001404
+SQL开始执行时间：20190927001404
+
+
+update edw.ar_detail_pre a
+ inner join (select * from edw.invoice_order group by csbvcode,left(db,10)) b
+    on a.cVouchID = b.csbvcode
+   and left(a.db,10) = left(b.db,10)
+   set a.cinvcode = b.cinvcode
+      ,a.true_cinvcode = b.bi_cinvcode
+      ,a.true_cinvname = b.bi_cinvname
+      ,a.mark = 'invoice'
+ where a.cVouchType = 'R0'
+   and a.cinvcode is null
+	 and a.dVouchDate >= '2018-01-01'
+
+;
+SQL结束执行时间：20190927001406
+SQL开始执行时间：20190927001406
+
+update edw.ar_detail_pre a
+ inner join (select * from edw.map_inventory group by bi_cinvcode) b
+    on a.true_cinvcode = b.bi_cinvcode
+   set a.item_code = b.item_code
+
+;
+SQL结束执行时间：20190927001407
+SQL开始执行时间：20190927001407
+
+insert into edw.ar_detail
+select a.db
+      ,a.Auto_ID
+      ,a.iPeriod
+      ,a.cVouchType
+      ,a.cVouchSType
+      ,a.cVouchID
+      ,a.dVouchDate
+      ,a.dRegDate
+      ,a.cDwCode
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.cinvcode
+      ,a.true_cinvcode
+      ,a.true_cinvname
+	    ,case
+       when a.cinvcode = "JC0100001" then "检测"  -- 科研服务
+       when a.cinvcode = "05001" then "启代医疗服务" -- 启代医疗服务
+       when d.level_one = "健康检测" then "健康检测"
+       when left(c.bi_cinvcode,2) = "yq" then "设备"
+       when left(c.bi_cinvcode,2) = "jc" then "检测"
+       when a.cinvcode is not null then "试剂"
+       when a.cdefine8 = "检测服务" then "检测"
+       when a.cdefine8 in("设备","仪器") then "设备"
+       when a.cdefine8 in("其他","试剂") then "试剂"
+       when a.cDigest like "%试剂%" then "试剂"
+       when a.cDigest like "%检测%" then "检测"
+       when a.cDigest like "%仪器%" then "设备"
+       when a.cDigest like "%设备%" then "设备"
+       else "试剂" end
+      ,a.iBVid
+      ,a.cCode
+      ,a.csign
+      ,a.isignseq
+      ,a.ino_id
+      ,a.cDigest
+      ,a.iDAmount
+      ,a.iCAmount
+      ,a.iDAmount_s
+      ,a.iCAmount_s
+      ,a.cOrderNo
+      ,a.cSSCode
+      ,a.cProcStyle
+      ,a.cCancelNo
+      ,a.cPZid
+      ,a.bPrePay
+      ,a.iFlag
+      ,a.cCoVouchType
+      ,a.cCoVouchID
+      ,a.cDefine2
+      ,a.cDefine8
+      ,a.cDefine10
+      ,a.iVouchAmount
+      ,a.iVouchAmount_s
+	    ,case when e.csbvcode is not null then a.iDAmount/(1+e.itaxrate/100)
+	          else (case when a.cDefine8 = '检测服务' then a.iDAmount/(1+6/100) 
+	                     when a.cDefine8 <> '检测服务' and dVouchDate < '2018-05-01' then a.iDAmount/(1+17/100) 
+	                     else a.iDAmount/(1+16/100) end)
+	        end as invoice_amount
+	    ,d.specification_type
+      ,a.mark
+      ,case when a.item_code = '11111111111' then null else a.item_code end 
+      ,localtimestamp() as sys_time
+  from edw.ar_detail_pre a
+  left join (select * from edw.dic_inventory group by cinvcode) c
+    on a.cinvcode = c.cinvcode
+  left join (select * from edw.map_inventory group by bi_cinvcode) d
+    on c.bi_cinvcode = d.bi_cinvcode
+  left join (select * from edw.invoice_order group by csbvcode,left(db,10)) e
+    on a.cvouchid = e.csbvcode
+   and left(a.db,10) = left(e.db,10)
+
+;
+SQL结束执行时间：20190927001733
+
+20190928001307开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928001307
+
+
+use edw
+;
+SQL结束执行时间：20190928001307
+SQL开始执行时间：20190928001307
+
+truncate table edw.ar_detail
+;
+SQL结束执行时间：20190928001307
+SQL开始执行时间：20190928001307
+
+drop table if exists edw.ap_vouch
+;
+SQL结束执行时间：20190928001307
+SQL开始执行时间：20190928001307
+create temporary table edw.ap_vouch as
+select a.clink
+      ,a.db
+      ,a.cvouchid
+      ,b.citemcode
+      ,c.bi_cinvcode
+      ,c.bi_cinvname
+  from ufdata.ap_vouch a
+  left join (select * from ufdata.ap_vouchs where citemcode is not null group by clink) b
+    on a.clink = b.clink
+  left join (select * from edw.dic_inventory group by left(db,10),cinvcode) c
+    on b.citemcode = c.cinvcode
+   and left(b.db,10) = left(c.db,10)
+  where b.clink is not null
+
+;
+SQL结束执行时间：20190928001310
+SQL开始执行时间：20190928001310
+
+
+create temporary table edw.ar_detail_pre as
+select 
+	 a.db
+	,a.Auto_ID
+	,a.iPeriod
+	,a.cVouchType
+	,a.cVouchSType
+	,a.cVouchID
+	,a.dVouchDate
+	,a.dRegDate
+	,a.cDwCode
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cuscode end as true_ccuscode 
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cusname end as true_ccusname
+	,case when a.cVouchType = 'R0' then f.citemcode else a.cinvcode end as cinvcode
+	,case when a.cVouchType = 'R0' then f.bi_cinvcode else c.bi_cinvcode end as true_cinvcode
+	,case when a.cVouchType = 'R0' then f.bi_cinvname else c.bi_cinvname end as true_cinvname
+	,a.iBVid
+	,a.cCode
+	,a.csign
+	,a.isignseq
+	,a.ino_id
+	,a.cDigest
+	,a.iDAmount
+	,a.iCAmount
+	,a.iDAmount_s
+	,a.iCAmount_s
+	,a.cOrderNo
+	,a.cSSCode
+	,a.cProcStyle
+	,a.cCancelNo
+	,a.cPZid
+	,a.bPrePay
+	,a.iFlag
+	,a.cCoVouchType
+	,a.cCoVouchID
+	,a.cDefine2
+	,a.cDefine8
+	,a.cDefine10
+	,a.iVouchAmount
+	,a.iVouchAmount_s
+	,case when a.cVouchType = 'R0' then 'ap_vouch' end mark
+	,'11111111111' as item_code
+from ufdata.ar_detail as a
+left join edw.dic_customer as b
+on a.cDwCode = b.ccuscode
+and left(a.db,10) = left(b.db,10)
+left join (select * from edw.dic_inventory group by cinvcode) c
+  on a.cinvcode = c.cinvcode
+left join edw.ap_vouch f
+  on a.db = f.db
+ and a.cVouchID = f.cVouchID
+where a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190928001310
+SQL开始执行时间：20190928001310
+
+
+insert into edw.ar_detail_pre
+select 
+	 a.db
+	,a.Auto_ID
+	,a.iPeriod
+	,a.cVouchType
+	,a.cVouchSType
+	,a.cVouchID
+	,a.dVouchDate
+	,a.dRegDate
+	,a.cDwCode
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cuscode end as true_ccuscode 
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cusname end as true_ccusname
+	,case when a.cVouchType = 'R0' then f.citemcode else a.cinvcode end
+	,case when a.cVouchType = 'R0' then f.bi_cinvcode else c.bi_cinvcode end
+	,case when a.cVouchType = 'R0' then f.bi_cinvname else c.bi_cinvname end
+	,a.iBVid
+	,a.cCode
+	,a.csign
+	,a.isignseq
+	,a.ino_id
+	,a.cDigest
+	,a.iDAmount
+	,a.iCAmount
+	,a.iDAmount_s
+	,a.iCAmount_s
+	,a.cOrderNo
+	,a.cSSCode
+	,a.cProcStyle
+	,a.cCancelNo
+	,a.cPZid
+	,a.bPrePay
+	,a.iFlag
+	,a.cCoVouchType
+	,a.cCoVouchID
+	,a.cDefine2
+	,a.cDefine8
+	,a.cDefine10
+	,a.iVouchAmount
+	,a.iVouchAmount_s
+	,case when a.cVouchType = 'R0' then 'ap_vouch' end mark
+	,'11111111111' as item_code
+from ufdata.ar_detail as a
+left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) as b
+on a.cDwCode = b.ccuscode
+left join (select * from edw.dic_inventory group by cinvcode) c
+  on a.cinvcode = c.cinvcode
+left join edw.ap_vouch f
+  on a.db = f.db
+ and a.cVouchID = f.cVouchID
+where a.db <> 'UFDATA_889_2019'
+  and a.db <> 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190928001358
+SQL开始执行时间：20190928001358
+
+delete from edw.ar_detail_pre where db = 'UFDATA_222_2018'
+;
+SQL结束执行时间：20190928001359
+SQL开始执行时间：20190928001359
+delete from edw.ar_detail_pre where db = 'UFDATA_588_2018'
+;
+SQL结束执行时间：20190928001359
+SQL开始执行时间：20190928001359
+delete from edw.ar_detail_pre where db = 'UFDATA_168_2018'
+;
+SQL结束执行时间：20190928001359
+SQL开始执行时间：20190928001359
+
+CREATE INDEX index_mid2_ar_detail_pre_cVouchID ON edw.ar_detail_pre(cVouchID)
+;
+SQL结束执行时间：20190928001401
+SQL开始执行时间：20190928001401
+CREATE INDEX index_mid2_ar_detail_pre_db ON edw.ar_detail_pre(db)
+;
+SQL结束执行时间：20190928001403
+SQL开始执行时间：20190928001403
+CREATE INDEX index_mid2_ar_detail_pre_true_cinvcode ON edw.ar_detail_pre(true_cinvcode)
+;
+SQL结束执行时间：20190928001406
+SQL开始执行时间：20190928001406
+CREATE INDEX index_mid2_ar_detail_pre_cinvcode ON edw.ar_detail_pre(cinvcode)
+;
+SQL结束执行时间：20190928001409
+SQL开始执行时间：20190928001409
+
+
+update edw.ar_detail_pre a
+ inner join (select * from edw.invoice_order group by csbvcode,left(db,10)) b
+    on a.cVouchID = b.csbvcode
+   and left(a.db,10) = left(b.db,10)
+   set a.cinvcode = b.cinvcode
+      ,a.true_cinvcode = b.bi_cinvcode
+      ,a.true_cinvname = b.bi_cinvname
+      ,a.mark = 'invoice'
+ where a.cVouchType = 'R0'
+   and a.cinvcode is null
+	 and a.dVouchDate >= '2018-01-01'
+
+;
+SQL结束执行时间：20190928001411
+SQL开始执行时间：20190928001411
+
+update edw.ar_detail_pre a
+ inner join (select * from edw.map_inventory group by bi_cinvcode) b
+    on a.true_cinvcode = b.bi_cinvcode
+   set a.item_code = b.item_code
+
+;
+SQL结束执行时间：20190928001413
+SQL开始执行时间：20190928001413
+
+insert into edw.ar_detail
+select a.db
+      ,a.Auto_ID
+      ,a.iPeriod
+      ,a.cVouchType
+      ,a.cVouchSType
+      ,a.cVouchID
+      ,a.dVouchDate
+      ,a.dRegDate
+      ,a.cDwCode
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.cinvcode
+      ,a.true_cinvcode
+      ,a.true_cinvname
+	    ,case
+       when a.cinvcode = "JC0100001" then "检测"  -- 科研服务
+       when a.cinvcode = "05001" then "启代医疗服务" -- 启代医疗服务
+       when d.level_one = "健康检测" then "健康检测"
+       when left(c.bi_cinvcode,2) = "yq" then "设备"
+       when left(c.bi_cinvcode,2) = "jc" then "检测"
+       when a.cinvcode is not null then "试剂"
+       when a.cdefine8 = "检测服务" then "检测"
+       when a.cdefine8 in("设备","仪器") then "设备"
+       when a.cdefine8 in("其他","试剂") then "试剂"
+       when a.cDigest like "%试剂%" then "试剂"
+       when a.cDigest like "%检测%" then "检测"
+       when a.cDigest like "%仪器%" then "设备"
+       when a.cDigest like "%设备%" then "设备"
+       else "试剂" end
+      ,a.iBVid
+      ,a.cCode
+      ,a.csign
+      ,a.isignseq
+      ,a.ino_id
+      ,a.cDigest
+      ,a.iDAmount
+      ,a.iCAmount
+      ,a.iDAmount_s
+      ,a.iCAmount_s
+      ,a.cOrderNo
+      ,a.cSSCode
+      ,a.cProcStyle
+      ,a.cCancelNo
+      ,a.cPZid
+      ,a.bPrePay
+      ,a.iFlag
+      ,a.cCoVouchType
+      ,a.cCoVouchID
+      ,a.cDefine2
+      ,a.cDefine8
+      ,a.cDefine10
+      ,a.iVouchAmount
+      ,a.iVouchAmount_s
+	    ,case when e.csbvcode is not null then a.iDAmount/(1+e.itaxrate/100)
+	          else (case when a.cDefine8 = '检测服务' then a.iDAmount/(1+6/100) 
+	                     when a.cDefine8 <> '检测服务' and dVouchDate < '2018-05-01' then a.iDAmount/(1+17/100) 
+	                     else a.iDAmount/(1+16/100) end)
+	        end as invoice_amount
+	    ,d.specification_type
+      ,a.mark
+      ,case when a.item_code = '11111111111' then null else a.item_code end 
+      ,localtimestamp() as sys_time
+  from edw.ar_detail_pre a
+  left join (select * from edw.dic_inventory group by cinvcode) c
+    on a.cinvcode = c.cinvcode
+  left join (select * from edw.map_inventory group by bi_cinvcode) d
+    on c.bi_cinvcode = d.bi_cinvcode
+  left join (select * from edw.invoice_order group by csbvcode,left(db,10)) e
+    on a.cvouchid = e.csbvcode
+   and left(a.db,10) = left(e.db,10)
+
+;
+SQL结束执行时间：20190928001741
+
+20190929001307开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929001307
+
+
+use edw
+;
+SQL结束执行时间：20190929001307
+SQL开始执行时间：20190929001307
+
+truncate table edw.ar_detail
+;
+SQL结束执行时间：20190929001307
+SQL开始执行时间：20190929001307
+
+drop table if exists edw.ap_vouch
+;
+SQL结束执行时间：20190929001307
+SQL开始执行时间：20190929001307
+create temporary table edw.ap_vouch as
+select a.clink
+      ,a.db
+      ,a.cvouchid
+      ,b.citemcode
+      ,c.bi_cinvcode
+      ,c.bi_cinvname
+  from ufdata.ap_vouch a
+  left join (select * from ufdata.ap_vouchs where citemcode is not null group by clink) b
+    on a.clink = b.clink
+  left join (select * from edw.dic_inventory group by left(db,10),cinvcode) c
+    on b.citemcode = c.cinvcode
+   and left(b.db,10) = left(c.db,10)
+  where b.clink is not null
+
+;
+SQL结束执行时间：20190929001310
+SQL开始执行时间：20190929001310
+
+
+create temporary table edw.ar_detail_pre as
+select 
+	 a.db
+	,a.Auto_ID
+	,a.iPeriod
+	,a.cVouchType
+	,a.cVouchSType
+	,a.cVouchID
+	,a.dVouchDate
+	,a.dRegDate
+	,a.cDwCode
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cuscode end as true_ccuscode 
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cusname end as true_ccusname
+	,case when a.cVouchType = 'R0' then f.citemcode else a.cinvcode end as cinvcode
+	,case when a.cVouchType = 'R0' then f.bi_cinvcode else c.bi_cinvcode end as true_cinvcode
+	,case when a.cVouchType = 'R0' then f.bi_cinvname else c.bi_cinvname end as true_cinvname
+	,a.iBVid
+	,a.cCode
+	,a.csign
+	,a.isignseq
+	,a.ino_id
+	,a.cDigest
+	,a.iDAmount
+	,a.iCAmount
+	,a.iDAmount_s
+	,a.iCAmount_s
+	,a.cOrderNo
+	,a.cSSCode
+	,a.cProcStyle
+	,a.cCancelNo
+	,a.cPZid
+	,a.bPrePay
+	,a.iFlag
+	,a.cCoVouchType
+	,a.cCoVouchID
+	,a.cDefine2
+	,a.cDefine8
+	,a.cDefine10
+	,a.iVouchAmount
+	,a.iVouchAmount_s
+	,case when a.cVouchType = 'R0' then 'ap_vouch' end mark
+	,'11111111111' as item_code
+from ufdata.ar_detail as a
+left join edw.dic_customer as b
+on a.cDwCode = b.ccuscode
+and left(a.db,10) = left(b.db,10)
+left join (select * from edw.dic_inventory group by cinvcode) c
+  on a.cinvcode = c.cinvcode
+left join edw.ap_vouch f
+  on a.db = f.db
+ and a.cVouchID = f.cVouchID
+where a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190929001310
+SQL开始执行时间：20190929001310
+
+
+insert into edw.ar_detail_pre
+select 
+	 a.db
+	,a.Auto_ID
+	,a.iPeriod
+	,a.cVouchType
+	,a.cVouchSType
+	,a.cVouchID
+	,a.dVouchDate
+	,a.dRegDate
+	,a.cDwCode
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cuscode end as true_ccuscode 
+	,case when b.ccuscode is null then "请核查"
+     else b.bi_cusname end as true_ccusname
+	,case when a.cVouchType = 'R0' then f.citemcode else a.cinvcode end
+	,case when a.cVouchType = 'R0' then f.bi_cinvcode else c.bi_cinvcode end
+	,case when a.cVouchType = 'R0' then f.bi_cinvname else c.bi_cinvname end
+	,a.iBVid
+	,a.cCode
+	,a.csign
+	,a.isignseq
+	,a.ino_id
+	,a.cDigest
+	,a.iDAmount
+	,a.iCAmount
+	,a.iDAmount_s
+	,a.iCAmount_s
+	,a.cOrderNo
+	,a.cSSCode
+	,a.cProcStyle
+	,a.cCancelNo
+	,a.cPZid
+	,a.bPrePay
+	,a.iFlag
+	,a.cCoVouchType
+	,a.cCoVouchID
+	,a.cDefine2
+	,a.cDefine8
+	,a.cDefine10
+	,a.iVouchAmount
+	,a.iVouchAmount_s
+	,case when a.cVouchType = 'R0' then 'ap_vouch' end mark
+	,'11111111111' as item_code
+from ufdata.ar_detail as a
+left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) as b
+on a.cDwCode = b.ccuscode
+left join (select * from edw.dic_inventory group by cinvcode) c
+  on a.cinvcode = c.cinvcode
+left join edw.ap_vouch f
+  on a.db = f.db
+ and a.cVouchID = f.cVouchID
+where a.db <> 'UFDATA_889_2019'
+  and a.db <> 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190929001359
+SQL开始执行时间：20190929001359
+
+delete from edw.ar_detail_pre where db = 'UFDATA_222_2018'
+;
+SQL结束执行时间：20190929001359
+SQL开始执行时间：20190929001359
+delete from edw.ar_detail_pre where db = 'UFDATA_588_2018'
+;
+SQL结束执行时间：20190929001400
+SQL开始执行时间：20190929001400
+delete from edw.ar_detail_pre where db = 'UFDATA_168_2018'
+;
+SQL结束执行时间：20190929001400
+SQL开始执行时间：20190929001400
+
+CREATE INDEX index_mid2_ar_detail_pre_cVouchID ON edw.ar_detail_pre(cVouchID)
+;
+SQL结束执行时间：20190929001402
+SQL开始执行时间：20190929001402
+CREATE INDEX index_mid2_ar_detail_pre_db ON edw.ar_detail_pre(db)
+;
+SQL结束执行时间：20190929001405
+SQL开始执行时间：20190929001405
+CREATE INDEX index_mid2_ar_detail_pre_true_cinvcode ON edw.ar_detail_pre(true_cinvcode)
+;
+SQL结束执行时间：20190929001407
+SQL开始执行时间：20190929001407
+CREATE INDEX index_mid2_ar_detail_pre_cinvcode ON edw.ar_detail_pre(cinvcode)
+;
+SQL结束执行时间：20190929001410
+SQL开始执行时间：20190929001410
+
+
+update edw.ar_detail_pre a
+ inner join (select * from edw.invoice_order group by csbvcode,left(db,10)) b
+    on a.cVouchID = b.csbvcode
+   and left(a.db,10) = left(b.db,10)
+   set a.cinvcode = b.cinvcode
+      ,a.true_cinvcode = b.bi_cinvcode
+      ,a.true_cinvname = b.bi_cinvname
+      ,a.mark = 'invoice'
+ where a.cVouchType = 'R0'
+   and a.cinvcode is null
+	 and a.dVouchDate >= '2018-01-01'
+
+;
+SQL结束执行时间：20190929001412
+SQL开始执行时间：20190929001412
+
+update edw.ar_detail_pre a
+ inner join (select * from edw.map_inventory group by bi_cinvcode) b
+    on a.true_cinvcode = b.bi_cinvcode
+   set a.item_code = b.item_code
+
+;
+SQL结束执行时间：20190929001414
+SQL开始执行时间：20190929001414
+
+insert into edw.ar_detail
+select a.db
+      ,a.Auto_ID
+      ,a.iPeriod
+      ,a.cVouchType
+      ,a.cVouchSType
+      ,a.cVouchID
+      ,a.dVouchDate
+      ,a.dRegDate
+      ,a.cDwCode
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.cinvcode
+      ,a.true_cinvcode
+      ,a.true_cinvname
+	    ,case
+       when a.cinvcode = "JC0100001" then "检测"  -- 科研服务
+       when a.cinvcode = "05001" then "启代医疗服务" -- 启代医疗服务
+       when d.level_one = "健康检测" then "健康检测"
+       when left(c.bi_cinvcode,2) = "yq" then "设备"
+       when left(c.bi_cinvcode,2) = "jc" then "检测"
+       when a.cinvcode is not null then "试剂"
+       when a.cdefine8 = "检测服务" then "检测"
+       when a.cdefine8 in("设备","仪器") then "设备"
+       when a.cdefine8 in("其他","试剂") then "试剂"
+       when a.cDigest like "%试剂%" then "试剂"
+       when a.cDigest like "%检测%" then "检测"
+       when a.cDigest like "%仪器%" then "设备"
+       when a.cDigest like "%设备%" then "设备"
+       else "试剂" end
+      ,a.iBVid
+      ,a.cCode
+      ,a.csign
+      ,a.isignseq
+      ,a.ino_id
+      ,a.cDigest
+      ,a.iDAmount
+      ,a.iCAmount
+      ,a.iDAmount_s
+      ,a.iCAmount_s
+      ,a.cOrderNo
+      ,a.cSSCode
+      ,a.cProcStyle
+      ,a.cCancelNo
+      ,a.cPZid
+      ,a.bPrePay
+      ,a.iFlag
+      ,a.cCoVouchType
+      ,a.cCoVouchID
+      ,a.cDefine2
+      ,a.cDefine8
+      ,a.cDefine10
+      ,a.iVouchAmount
+      ,a.iVouchAmount_s
+	    ,case when e.csbvcode is not null then a.iDAmount/(1+e.itaxrate/100)
+	          else (case when a.cDefine8 = '检测服务' then a.iDAmount/(1+6/100) 
+	                     when a.cDefine8 <> '检测服务' and dVouchDate < '2018-05-01' then a.iDAmount/(1+17/100) 
+	                     else a.iDAmount/(1+16/100) end)
+	        end as invoice_amount
+	    ,d.specification_type
+      ,a.mark
+      ,case when a.item_code = '11111111111' then null else a.item_code end 
+      ,localtimestamp() as sys_time
+  from edw.ar_detail_pre a
+  left join (select * from edw.dic_inventory group by cinvcode) c
+    on a.cinvcode = c.cinvcode
+  left join (select * from edw.map_inventory group by bi_cinvcode) d
+    on c.bi_cinvcode = d.bi_cinvcode
+  left join (select * from edw.invoice_order group by csbvcode,left(db,10)) e
+    on a.cvouchid = e.csbvcode
+   and left(a.db,10) = left(e.db,10)
+
+;
+SQL结束执行时间：20190929001742

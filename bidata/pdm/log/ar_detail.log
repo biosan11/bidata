@@ -64091,3 +64091,1799 @@ update pdm.ar_detail a
  where a.finnal_cuscode = 'multi'
 ;
 SQL结束执行时间：20190925001811
+
+20190926001735开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926001735
+
+use pdm
+;
+SQL结束执行时间：20190926001735
+SQL开始执行时间：20190926001735
+
+drop temporary table if exists pdm.ft_51_ar_tem
+;
+SQL结束执行时间：20190926001735
+SQL开始执行时间：20190926001735
+create temporary table if not exists pdm.ft_51_ar_tem
+select a.true_ccuscode,a.class,ifnull(aperiod,90) as aperiod
+from 
+(select true_ccuscode,class,ddate,aperiod from edw.x_ar_plan 
+order by true_ccuscode,class,ddate desc,aperiod
+) as a
+group by a.true_ccuscode,a.class
+;
+SQL结束执行时间：20190926001735
+SQL开始执行时间：20190926001735
+
+drop temporary table if exists pdm.ar_tem01
+;
+SQL结束执行时间：20190926001735
+SQL开始执行时间：20190926001735
+create temporary table if not exists pdm.ar_tem01
+select 
+    *
+    ,concat(db,cvouchid,cdwcode) as matchid
+    ,concat(db,ccancelno) as matchid2
+from edw.ar_detail
+where (idamount != 0 or icamount != 0)
+and left(true_ccuscode,2) != "gl"
+;
+SQL结束执行时间：20190926001737
+SQL开始执行时间：20190926001737
+alter table pdm.ar_tem01 add index index_ar_tem01_matchid (matchid)
+;
+SQL结束执行时间：20190926001739
+SQL开始执行时间：20190926001739
+alter table pdm.ar_tem01 add index index_ar_tem01_matchid2 (matchid2)
+;
+SQL结束执行时间：20190926001742
+SQL开始执行时间：20190926001742
+
+drop temporary table if exists pdm.ar_tem03
+;
+SQL结束执行时间：20190926001742
+SQL开始执行时间：20190926001742
+create temporary table if not exists pdm.ar_tem03 
+select 
+    concat(db,ccancelno) as matchid2
+    ,max(dvouchdate) as dvouchdate2
+from edw.ar_detail 
+group by db,ccancelno
+;
+SQL结束执行时间：20190926001743
+SQL开始执行时间：20190926001743
+alter table pdm.ar_tem03 add index index_ar_tem03_matchid2 (matchid2)
+;
+SQL结束执行时间：20190926001744
+SQL开始执行时间：20190926001744
+
+
+drop temporary table if exists pdm.ft_51_ar
+;
+SQL结束执行时间：20190926001744
+SQL开始执行时间：20190926001744
+create temporary table if not exists pdm.ft_51_ar as
+select
+case 
+    when a.cvouchtype in ("26","27","r0") then "ar"
+    when a.cvouchtype in ("48","49") then "ap"
+    else "other"
+    end as ar_ap
+,case 
+    when a.db = 'UFDATA_111_2018' then '博圣' 
+    when a.db = 'UFDATA_118_2018' then '卓恩'
+    when a.db = 'UFDATA_123_2018' then '恩允'
+    when a.db = 'UFDATA_168_2018' then '杭州贝生'
+    when a.db = 'UFDATA_168_2019' then '杭州贝生'
+    when a.db = 'UFDATA_169_2018' then '云鼎'
+    when a.db = 'UFDATA_222_2018' then '宝荣'
+    when a.db = 'UFDATA_222_2019' then '宝荣'
+    when a.db = 'UFDATA_333_2018' then '宁波贝生'
+    when a.db = 'UFDATA_588_2018' then '奥博特'
+    when a.db = 'UFDATA_588_2019' then '奥博特'
+    when a.db = 'UFDATA_666_2018' then '启代'
+    when a.db = 'UFDATA_889_2018' then '美博特'
+    when a.db = 'UFDATA_889_2019' then '美博特'
+    when a.db = 'UFDATA_555_2018' then '贝安云'
+    else '其他'
+    end as cohr
+,a.db
+,a.cvouchtype
+,a.cvouchid
+,a.dvouchdate
+,d.dvouchdate2 as dvouchdate2
+,a.dregdate
+,a.cdwcode
+,a.true_ccuscode
+,a.cinvcode
+,a.true_cinvcode
+,a.ar_class
+,a.cdigest
+,a.ibvid
+,round(a.idamount/1000,4) as idamount
+,round(a.icamount/1000,4) as icamount
+,a.cprocstyle
+,a.ccancelno
+,a.ccovouchtype
+,a.ccovouchid
+,ifnull(b.aperiod,90) as aperiod
+,if(b.true_ccuscode is null,0,1) as mark
+,a.iVouchAmount_s
+,round(a.invoice_amount/1000,4) as invoice_amount
+,specification_type
+from pdm.ar_tem01 as a 
+left join pdm.ft_51_ar_tem as b
+on a.true_ccuscode = b.true_ccuscode and a.ar_class = b.class 
+left join pdm.ar_tem03 as d
+on a.matchid2 = d.matchid2
+order by a.db,a.cdwcode,a.dvouchdate,a.ccovouchid
+;
+SQL结束执行时间：20190926001758
+SQL开始执行时间：20190926001758
+
+
+drop temporary table if exists pdm.ft_51_ar_test_tem
+;
+SQL结束执行时间：20190926001758
+SQL开始执行时间：20190926001758
+create temporary table if not exists pdm.ft_51_ar_test_tem
+select 
+    concat(db,cdwcode,ccovouchid) as matchid
+    ,null as c_id 
+    ,null as state
+    ,case
+        when cprocstyle in ("26","27","r0") then "ar"
+        when cprocstyle in ("48","49") then "ap"
+        else cprocstyle
+     end as cprocstyle2
+    ,case 
+        when ccovouchtype in ("26","27","r0") then "ar"
+        when ccovouchtype in ("48","49") then "ap"
+        else "other"
+     end as ccovouchtype2
+    ,a.*
+from pdm.ft_51_ar as a
+;
+SQL结束执行时间：20190926001800
+SQL开始执行时间：20190926001800
+
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_matchid (matchid)
+;
+SQL结束执行时间：20190926001802
+SQL开始执行时间：20190926001802
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_ar_ap (ar_ap)
+;
+SQL结束执行时间：20190926001804
+SQL开始执行时间：20190926001804
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_cprocstyle2 (cprocstyle2)
+;
+SQL结束执行时间：20190926001806
+SQL开始执行时间：20190926001806
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_ccovouchtype2 (ccovouchtype2)
+;
+SQL结束执行时间：20190926001808
+SQL开始执行时间：20190926001808
+
+drop temporary table if exists pdm.ft_51_ar_test_tem01
+;
+SQL结束执行时间：20190926001808
+SQL开始执行时间：20190926001808
+create temporary table if not exists pdm.ft_51_ar_test_tem01
+select 
+     concat(db,cdwcode,ccovouchid) as matchid
+    ,sum(idamount) as idamount_
+    ,sum(icamount) as icamount_
+from pdm.ft_51_ar
+where ar_ap = "ap"
+and ccovouchtype in ("48","49")
+group by db,cdwcode,ccovouchid
+;
+SQL结束执行时间：20190926001809
+SQL开始执行时间：20190926001809
+
+alter table pdm.ft_51_ar_test_tem01 add index index_ft_51_ar_test_tem01_matchid (matchid)
+;
+SQL结束执行时间：20190926001809
+SQL开始执行时间：20190926001809
+
+drop temporary table if exists pdm.ft_51_ar_test_tem02
+;
+SQL结束执行时间：20190926001809
+SQL开始执行时间：20190926001809
+create temporary table if not exists pdm.ft_51_ar_test_tem02
+select 
+     concat(db,cdwcode,ccovouchid) as matchid
+    ,sum(idamount) as idamount_
+    ,sum(icamount) as icamount_
+from pdm.ft_51_ar
+where ccovouchtype in ("26","27","r0")
+group by db,cdwcode,ccovouchid
+;
+SQL结束执行时间：20190926001809
+SQL开始执行时间：20190926001809
+
+alter table pdm.ft_51_ar_test_tem02 add index index_ft_51_ar_test_tem02_matchid (matchid)
+;
+SQL结束执行时间：20190926001810
+SQL开始执行时间：20190926001810
+
+drop table if exists pdm.ft_51_ar_test_pre
+;
+SQL结束执行时间：20190926001810
+SQL开始执行时间：20190926001810
+create table if not exists pdm.ft_51_ar_test_pre
+select 
+    case 
+        when a.ar_ap = "ar" then "qu_ar"
+        when a.ar_ap = "ap" and a.ccovouchtype2 = "ar" then "qu_ap"
+        when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and b.icamount_ != 0 and a.idamount != 0 then "qu"
+        else null 
+    end as mark_
+    ,case 
+        when a.ar_ap = "ar" and a.cprocstyle2 = "ar" and a.ccovouchtype2 = "ar" then c.idamount_-c.icamount_ 
+        else 0 
+    end as balance_ar
+    ,case 
+        when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and a.idamount != 0 then b.icamount_ 
+        else 0 
+    end as balance_ap
+    ,a.matchid
+    ,a.c_id
+    ,a.state
+    ,a.cprocstyle2
+    ,a.ccovouchtype2
+    ,a.ar_ap
+    ,a.cohr
+    ,a.db
+    ,a.cvouchtype
+    ,a.cvouchid
+    ,a.dvouchdate
+    ,a.dvouchdate2
+    ,a.dregdate
+    ,a.cdwcode
+    ,a.true_ccuscode
+    ,a.cinvcode
+    ,a.true_cinvcode
+    ,a.specification_type
+    ,a.ar_class
+    ,a.cdigest
+    ,a.idamount
+    ,a.icamount
+    ,a.cprocstyle
+    ,a.ccancelno
+    ,a.ccovouchtype
+    ,a.ccovouchid
+    ,a.aperiod
+    ,a.mark
+    ,a.invoice_amount
+    ,a.iVouchAmount_s
+    ,a.ibvid
+from pdm.ft_51_ar_test_tem as a
+left join pdm.ft_51_ar_test_tem01 as b 
+on a.matchid = b.matchid
+left join pdm.ft_51_ar_test_tem02 as c
+on a.matchid = c.matchid
+;
+SQL结束执行时间：20190926001812
+SQL开始执行时间：20190926001812
+
+insert into pdm.ft_51_ar_test_pre
+select 
+    "qu_in" as mark_
+    ,0 as balance_ar
+    ,b.icamount_ as balance_ap 
+    ,a.matchid
+    ,a.c_id
+    ,a.state
+    ,a.cprocstyle2
+    ,a.ccovouchtype2
+    ,a.ar_ap
+    ,a.cohr
+    ,a.db
+    ,a.cvouchtype
+    ,a.cvouchid
+    ,a.dvouchdate
+    ,a.dvouchdate2
+    ,a.dregdate
+    ,a.cdwcode
+    ,a.true_ccuscode
+    ,a.cinvcode
+    ,a.true_cinvcode
+    ,a.specification_type
+    ,a.ar_class
+    ,a.cdigest
+    ,0 as idamount
+    ,0 as icamount
+    ,a.cprocstyle
+    ,a.ccancelno
+    ,a.ccovouchtype
+    ,a.ccovouchid
+    ,a.aperiod
+    ,a.mark
+    ,a.invoice_amount
+    ,a.iVouchAmount_s
+    ,a.ibvid
+from pdm.ft_51_ar_test_pre as a 
+left join pdm.ft_51_ar_test_tem01 as b 
+on a.matchid = b.matchid
+where mark_ is null 
+and a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and b.icamount_ != 0 and b.idamount_ = 0
+;
+SQL结束执行时间：20190926001812
+SQL开始执行时间：20190926001812
+
+create temporary table pdm.ft_51_ar_test_pre2 as
+select a.*
+      , @rownum := @rownum +1 AS rownum1
+  from (select * from pdm.ft_51_ar_test_pre order by db,cdwcode,dvouchdate) a
+ ,(SELECT @rownum := 0) r
+
+;
+SQL结束执行时间：20190926001814
+SQL开始执行时间：20190926001814
+
+
+
+
+create temporary table pdm.ft_51_ar_test_pre1 as
+select a.*
+      , @rownum := @rownum +1 AS rownum1
+  from
+(select *
+  from pdm.ft_51_ar_test_pre a
+ where cprocstyle2 = 'ap'
+   and ccovouchtype2 = 'ap'
+   and ar_ap = 'ap'
+ group by cvouchid,db
+ order by db,cdwcode,dvouchdate
+ ) a,(SELECT @rownum := 0) r
+
+;
+SQL结束执行时间：20190926001814
+SQL开始执行时间：20190926001814
+
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_cvouchid (cvouchid)
+;
+SQL结束执行时间：20190926001816
+SQL开始执行时间：20190926001816
+alter table pdm.ft_51_ar_test_pre1 add index index_ft_51_ar_test_pre_cvouchid (cvouchid)
+;
+SQL结束执行时间：20190926001816
+SQL开始执行时间：20190926001816
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_db (db)
+;
+SQL结束执行时间：20190926001818
+SQL开始执行时间：20190926001818
+alter table pdm.ft_51_ar_test_pre1 add index index_ft_51_ar_test_pre_db (db)
+;
+SQL结束执行时间：20190926001818
+SQL开始执行时间：20190926001818
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_true_cinvcode (true_cinvcode)
+;
+SQL结束执行时间：20190926001820
+SQL开始执行时间：20190926001820
+
+truncate table pdm.ar_detail
+;
+SQL结束执行时间：20190926001820
+SQL开始执行时间：20190926001820
+insert into pdm.ar_detail
+select a.rownum1
+      ,a.mark_
+      ,a.balance_ar
+      ,a.balance_ap
+      ,a.matchid
+      ,a.c_id
+      ,a.state
+      ,a.cprocstyle2
+      ,a.ccovouchtype2
+      ,a.ar_ap
+      ,a.cohr
+      ,a.db
+      ,a.cvouchtype
+      ,a.cvouchid
+      ,a.dvouchdate
+      ,a.dvouchdate2
+      ,a.dregdate
+      ,a.cdwcode
+      ,a.true_ccuscode
+      ,d.finnal_cuscode
+      ,d.sales_region
+      ,d.province
+      ,d.city
+      ,a.cinvcode
+      ,a.true_cinvcode
+      ,c.item_code
+      ,a.specification_type
+      ,a.ar_class
+      ,a.cdigest
+      ,a.idamount
+      ,a.icamount
+      ,case when a.ar_ap = 'ar' then a.dvouchdate else null end
+      ,case when a.ar_ap = 'ap' then b.dvouchdate else null end
+      ,case when a.ar_ap = 'ar' then a.idamount else 0 end
+      ,ifnull(a.balance_ap,0) + ifnull(a.icamount,0)
+      ,a.cprocstyle
+      ,a.ccancelno
+      ,a.ccovouchtype
+      ,a.ccovouchid
+      ,a.aperiod
+      ,a.mark
+      ,a.invoice_amount
+      ,a.iVouchAmount_s 
+      ,a.ibvid
+  from pdm.ft_51_ar_test_pre2 a
+  left join pdm.ft_51_ar_test_pre1 b
+    on a.cvouchid = b.cvouchid
+   and a.db = b.db
+  left join edw.map_inventory c
+    on a.true_cinvcode = c.bi_cinvcode
+  left join edw.map_customer d
+    on a.true_ccuscode = d.bi_cuscode
+
+;
+SQL结束执行时间：20190926001822
+SQL开始执行时间：20190926001822
+
+drop table if exists pdm.ft_51_ar_test_pre
+;
+SQL结束执行时间：20190926001822
+SQL开始执行时间：20190926001822
+
+update pdm.ar_detail a
+ inner join pdm.invoice_order b
+    on a.ibvid = b.autoid
+   set a.finnal_cuscode = b.finnal_ccuscode
+      ,a.sales_region = b.sales_region
+      ,a.province = b.province
+      ,a.city = b.city
+ where a.finnal_cuscode = 'multi'
+;
+SQL结束执行时间：20190926001822
+
+20190927001734开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927001734
+
+use pdm
+;
+SQL结束执行时间：20190927001734
+SQL开始执行时间：20190927001734
+
+drop temporary table if exists pdm.ft_51_ar_tem
+;
+SQL结束执行时间：20190927001734
+SQL开始执行时间：20190927001734
+create temporary table if not exists pdm.ft_51_ar_tem
+select a.true_ccuscode,a.class,ifnull(aperiod,90) as aperiod
+from 
+(select true_ccuscode,class,ddate,aperiod from edw.x_ar_plan 
+order by true_ccuscode,class,ddate desc,aperiod
+) as a
+group by a.true_ccuscode,a.class
+;
+SQL结束执行时间：20190927001734
+SQL开始执行时间：20190927001734
+
+drop temporary table if exists pdm.ar_tem01
+;
+SQL结束执行时间：20190927001734
+SQL开始执行时间：20190927001734
+create temporary table if not exists pdm.ar_tem01
+select 
+    *
+    ,concat(db,cvouchid,cdwcode) as matchid
+    ,concat(db,ccancelno) as matchid2
+from edw.ar_detail
+where (idamount != 0 or icamount != 0)
+and left(true_ccuscode,2) != "gl"
+;
+SQL结束执行时间：20190927001735
+SQL开始执行时间：20190927001735
+alter table pdm.ar_tem01 add index index_ar_tem01_matchid (matchid)
+;
+SQL结束执行时间：20190927001737
+SQL开始执行时间：20190927001737
+alter table pdm.ar_tem01 add index index_ar_tem01_matchid2 (matchid2)
+;
+SQL结束执行时间：20190927001740
+SQL开始执行时间：20190927001740
+
+drop temporary table if exists pdm.ar_tem03
+;
+SQL结束执行时间：20190927001740
+SQL开始执行时间：20190927001740
+create temporary table if not exists pdm.ar_tem03 
+select 
+    concat(db,ccancelno) as matchid2
+    ,max(dvouchdate) as dvouchdate2
+from edw.ar_detail 
+group by db,ccancelno
+;
+SQL结束执行时间：20190927001740
+SQL开始执行时间：20190927001740
+alter table pdm.ar_tem03 add index index_ar_tem03_matchid2 (matchid2)
+;
+SQL结束执行时间：20190927001741
+SQL开始执行时间：20190927001741
+
+
+drop temporary table if exists pdm.ft_51_ar
+;
+SQL结束执行时间：20190927001741
+SQL开始执行时间：20190927001741
+create temporary table if not exists pdm.ft_51_ar as
+select
+case 
+    when a.cvouchtype in ("26","27","r0") then "ar"
+    when a.cvouchtype in ("48","49") then "ap"
+    else "other"
+    end as ar_ap
+,case 
+    when a.db = 'UFDATA_111_2018' then '博圣' 
+    when a.db = 'UFDATA_118_2018' then '卓恩'
+    when a.db = 'UFDATA_123_2018' then '恩允'
+    when a.db = 'UFDATA_168_2018' then '杭州贝生'
+    when a.db = 'UFDATA_168_2019' then '杭州贝生'
+    when a.db = 'UFDATA_169_2018' then '云鼎'
+    when a.db = 'UFDATA_222_2018' then '宝荣'
+    when a.db = 'UFDATA_222_2019' then '宝荣'
+    when a.db = 'UFDATA_333_2018' then '宁波贝生'
+    when a.db = 'UFDATA_588_2018' then '奥博特'
+    when a.db = 'UFDATA_588_2019' then '奥博特'
+    when a.db = 'UFDATA_666_2018' then '启代'
+    when a.db = 'UFDATA_889_2018' then '美博特'
+    when a.db = 'UFDATA_889_2019' then '美博特'
+    when a.db = 'UFDATA_555_2018' then '贝安云'
+    else '其他'
+    end as cohr
+,a.db
+,a.cvouchtype
+,a.cvouchid
+,a.dvouchdate
+,d.dvouchdate2 as dvouchdate2
+,a.dregdate
+,a.cdwcode
+,a.true_ccuscode
+,a.cinvcode
+,a.true_cinvcode
+,a.ar_class
+,a.cdigest
+,a.ibvid
+,round(a.idamount/1000,4) as idamount
+,round(a.icamount/1000,4) as icamount
+,a.cprocstyle
+,a.ccancelno
+,a.ccovouchtype
+,a.ccovouchid
+,ifnull(b.aperiod,90) as aperiod
+,if(b.true_ccuscode is null,0,1) as mark
+,a.iVouchAmount_s
+,round(a.invoice_amount/1000,4) as invoice_amount
+,specification_type
+from pdm.ar_tem01 as a 
+left join pdm.ft_51_ar_tem as b
+on a.true_ccuscode = b.true_ccuscode and a.ar_class = b.class 
+left join pdm.ar_tem03 as d
+on a.matchid2 = d.matchid2
+order by a.db,a.cdwcode,a.dvouchdate,a.ccovouchid
+;
+SQL结束执行时间：20190927001755
+SQL开始执行时间：20190927001755
+
+
+drop temporary table if exists pdm.ft_51_ar_test_tem
+;
+SQL结束执行时间：20190927001755
+SQL开始执行时间：20190927001755
+create temporary table if not exists pdm.ft_51_ar_test_tem
+select 
+    concat(db,cdwcode,ccovouchid) as matchid
+    ,null as c_id 
+    ,null as state
+    ,case
+        when cprocstyle in ("26","27","r0") then "ar"
+        when cprocstyle in ("48","49") then "ap"
+        else cprocstyle
+     end as cprocstyle2
+    ,case 
+        when ccovouchtype in ("26","27","r0") then "ar"
+        when ccovouchtype in ("48","49") then "ap"
+        else "other"
+     end as ccovouchtype2
+    ,a.*
+from pdm.ft_51_ar as a
+;
+SQL结束执行时间：20190927001756
+SQL开始执行时间：20190927001756
+
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_matchid (matchid)
+;
+SQL结束执行时间：20190927001758
+SQL开始执行时间：20190927001758
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_ar_ap (ar_ap)
+;
+SQL结束执行时间：20190927001759
+SQL开始执行时间：20190927001759
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_cprocstyle2 (cprocstyle2)
+;
+SQL结束执行时间：20190927001801
+SQL开始执行时间：20190927001801
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_ccovouchtype2 (ccovouchtype2)
+;
+SQL结束执行时间：20190927001803
+SQL开始执行时间：20190927001803
+
+drop temporary table if exists pdm.ft_51_ar_test_tem01
+;
+SQL结束执行时间：20190927001803
+SQL开始执行时间：20190927001803
+create temporary table if not exists pdm.ft_51_ar_test_tem01
+select 
+     concat(db,cdwcode,ccovouchid) as matchid
+    ,sum(idamount) as idamount_
+    ,sum(icamount) as icamount_
+from pdm.ft_51_ar
+where ar_ap = "ap"
+and ccovouchtype in ("48","49")
+group by db,cdwcode,ccovouchid
+;
+SQL结束执行时间：20190927001804
+SQL开始执行时间：20190927001804
+
+alter table pdm.ft_51_ar_test_tem01 add index index_ft_51_ar_test_tem01_matchid (matchid)
+;
+SQL结束执行时间：20190927001804
+SQL开始执行时间：20190927001804
+
+drop temporary table if exists pdm.ft_51_ar_test_tem02
+;
+SQL结束执行时间：20190927001804
+SQL开始执行时间：20190927001804
+create temporary table if not exists pdm.ft_51_ar_test_tem02
+select 
+     concat(db,cdwcode,ccovouchid) as matchid
+    ,sum(idamount) as idamount_
+    ,sum(icamount) as icamount_
+from pdm.ft_51_ar
+where ccovouchtype in ("26","27","r0")
+group by db,cdwcode,ccovouchid
+;
+SQL结束执行时间：20190927001804
+SQL开始执行时间：20190927001804
+
+alter table pdm.ft_51_ar_test_tem02 add index index_ft_51_ar_test_tem02_matchid (matchid)
+;
+SQL结束执行时间：20190927001805
+SQL开始执行时间：20190927001805
+
+drop table if exists pdm.ft_51_ar_test_pre
+;
+SQL结束执行时间：20190927001805
+SQL开始执行时间：20190927001805
+create table if not exists pdm.ft_51_ar_test_pre
+select 
+    case 
+        when a.ar_ap = "ar" then "qu_ar"
+        when a.ar_ap = "ap" and a.ccovouchtype2 = "ar" then "qu_ap"
+        when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and b.icamount_ != 0 and a.idamount != 0 then "qu"
+        else null 
+    end as mark_
+    ,case 
+        when a.ar_ap = "ar" and a.cprocstyle2 = "ar" and a.ccovouchtype2 = "ar" then c.idamount_-c.icamount_ 
+        else 0 
+    end as balance_ar
+    ,case 
+        when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and a.idamount != 0 then b.icamount_ 
+        else 0 
+    end as balance_ap
+    ,a.matchid
+    ,a.c_id
+    ,a.state
+    ,a.cprocstyle2
+    ,a.ccovouchtype2
+    ,a.ar_ap
+    ,a.cohr
+    ,a.db
+    ,a.cvouchtype
+    ,a.cvouchid
+    ,a.dvouchdate
+    ,a.dvouchdate2
+    ,a.dregdate
+    ,a.cdwcode
+    ,a.true_ccuscode
+    ,a.cinvcode
+    ,a.true_cinvcode
+    ,a.specification_type
+    ,a.ar_class
+    ,a.cdigest
+    ,a.idamount
+    ,a.icamount
+    ,a.cprocstyle
+    ,a.ccancelno
+    ,a.ccovouchtype
+    ,a.ccovouchid
+    ,a.aperiod
+    ,a.mark
+    ,a.invoice_amount
+    ,a.iVouchAmount_s
+    ,a.ibvid
+from pdm.ft_51_ar_test_tem as a
+left join pdm.ft_51_ar_test_tem01 as b 
+on a.matchid = b.matchid
+left join pdm.ft_51_ar_test_tem02 as c
+on a.matchid = c.matchid
+;
+SQL结束执行时间：20190927001807
+SQL开始执行时间：20190927001807
+
+insert into pdm.ft_51_ar_test_pre
+select 
+    "qu_in" as mark_
+    ,0 as balance_ar
+    ,b.icamount_ as balance_ap 
+    ,a.matchid
+    ,a.c_id
+    ,a.state
+    ,a.cprocstyle2
+    ,a.ccovouchtype2
+    ,a.ar_ap
+    ,a.cohr
+    ,a.db
+    ,a.cvouchtype
+    ,a.cvouchid
+    ,a.dvouchdate
+    ,a.dvouchdate2
+    ,a.dregdate
+    ,a.cdwcode
+    ,a.true_ccuscode
+    ,a.cinvcode
+    ,a.true_cinvcode
+    ,a.specification_type
+    ,a.ar_class
+    ,a.cdigest
+    ,0 as idamount
+    ,0 as icamount
+    ,a.cprocstyle
+    ,a.ccancelno
+    ,a.ccovouchtype
+    ,a.ccovouchid
+    ,a.aperiod
+    ,a.mark
+    ,a.invoice_amount
+    ,a.iVouchAmount_s
+    ,a.ibvid
+from pdm.ft_51_ar_test_pre as a 
+left join pdm.ft_51_ar_test_tem01 as b 
+on a.matchid = b.matchid
+where mark_ is null 
+and a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and b.icamount_ != 0 and b.idamount_ = 0
+;
+SQL结束执行时间：20190927001807
+SQL开始执行时间：20190927001807
+
+create temporary table pdm.ft_51_ar_test_pre2 as
+select a.*
+      , @rownum := @rownum +1 AS rownum1
+  from (select * from pdm.ft_51_ar_test_pre order by db,cdwcode,dvouchdate) a
+ ,(SELECT @rownum := 0) r
+
+;
+SQL结束执行时间：20190927001808
+SQL开始执行时间：20190927001808
+
+
+
+
+create temporary table pdm.ft_51_ar_test_pre1 as
+select a.*
+      , @rownum := @rownum +1 AS rownum1
+  from
+(select *
+  from pdm.ft_51_ar_test_pre a
+ where cprocstyle2 = 'ap'
+   and ccovouchtype2 = 'ap'
+   and ar_ap = 'ap'
+ group by cvouchid,db
+ order by db,cdwcode,dvouchdate
+ ) a,(SELECT @rownum := 0) r
+
+;
+SQL结束执行时间：20190927001809
+SQL开始执行时间：20190927001809
+
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_cvouchid (cvouchid)
+;
+SQL结束执行时间：20190927001810
+SQL开始执行时间：20190927001810
+alter table pdm.ft_51_ar_test_pre1 add index index_ft_51_ar_test_pre_cvouchid (cvouchid)
+;
+SQL结束执行时间：20190927001810
+SQL开始执行时间：20190927001810
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_db (db)
+;
+SQL结束执行时间：20190927001812
+SQL开始执行时间：20190927001812
+alter table pdm.ft_51_ar_test_pre1 add index index_ft_51_ar_test_pre_db (db)
+;
+SQL结束执行时间：20190927001812
+SQL开始执行时间：20190927001812
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_true_cinvcode (true_cinvcode)
+;
+SQL结束执行时间：20190927001814
+SQL开始执行时间：20190927001814
+
+truncate table pdm.ar_detail
+;
+SQL结束执行时间：20190927001814
+SQL开始执行时间：20190927001814
+insert into pdm.ar_detail
+select a.rownum1
+      ,a.mark_
+      ,a.balance_ar
+      ,a.balance_ap
+      ,a.matchid
+      ,a.c_id
+      ,a.state
+      ,a.cprocstyle2
+      ,a.ccovouchtype2
+      ,a.ar_ap
+      ,a.cohr
+      ,a.db
+      ,a.cvouchtype
+      ,a.cvouchid
+      ,a.dvouchdate
+      ,a.dvouchdate2
+      ,a.dregdate
+      ,a.cdwcode
+      ,a.true_ccuscode
+      ,d.finnal_cuscode
+      ,d.sales_region
+      ,d.province
+      ,d.city
+      ,a.cinvcode
+      ,a.true_cinvcode
+      ,c.item_code
+      ,a.specification_type
+      ,a.ar_class
+      ,a.cdigest
+      ,a.idamount
+      ,a.icamount
+      ,case when a.ar_ap = 'ar' then a.dvouchdate else null end
+      ,case when a.ar_ap = 'ap' then b.dvouchdate else null end
+      ,case when a.ar_ap = 'ar' then a.idamount else 0 end
+      ,ifnull(a.balance_ap,0) + ifnull(a.icamount,0)
+      ,a.cprocstyle
+      ,a.ccancelno
+      ,a.ccovouchtype
+      ,a.ccovouchid
+      ,a.aperiod
+      ,a.mark
+      ,a.invoice_amount
+      ,a.iVouchAmount_s 
+      ,a.ibvid
+  from pdm.ft_51_ar_test_pre2 a
+  left join pdm.ft_51_ar_test_pre1 b
+    on a.cvouchid = b.cvouchid
+   and a.db = b.db
+  left join edw.map_inventory c
+    on a.true_cinvcode = c.bi_cinvcode
+  left join edw.map_customer d
+    on a.true_ccuscode = d.bi_cuscode
+
+;
+SQL结束执行时间：20190927001816
+SQL开始执行时间：20190927001816
+
+drop table if exists pdm.ft_51_ar_test_pre
+;
+SQL结束执行时间：20190927001816
+SQL开始执行时间：20190927001816
+
+update pdm.ar_detail a
+ inner join pdm.invoice_order b
+    on a.ibvid = b.autoid
+   set a.finnal_cuscode = b.finnal_ccuscode
+      ,a.sales_region = b.sales_region
+      ,a.province = b.province
+      ,a.city = b.city
+ where a.finnal_cuscode = 'multi'
+;
+SQL结束执行时间：20190927001816
+
+20190928001742开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928001742
+
+use pdm
+;
+SQL结束执行时间：20190928001742
+SQL开始执行时间：20190928001742
+
+drop temporary table if exists pdm.ft_51_ar_tem
+;
+SQL结束执行时间：20190928001742
+SQL开始执行时间：20190928001742
+create temporary table if not exists pdm.ft_51_ar_tem
+select a.true_ccuscode,a.class,ifnull(aperiod,90) as aperiod
+from 
+(select true_ccuscode,class,ddate,aperiod from edw.x_ar_plan 
+order by true_ccuscode,class,ddate desc,aperiod
+) as a
+group by a.true_ccuscode,a.class
+;
+SQL结束执行时间：20190928001742
+SQL开始执行时间：20190928001742
+
+drop temporary table if exists pdm.ar_tem01
+;
+SQL结束执行时间：20190928001742
+SQL开始执行时间：20190928001742
+create temporary table if not exists pdm.ar_tem01
+select 
+    *
+    ,concat(db,cvouchid,cdwcode) as matchid
+    ,concat(db,ccancelno) as matchid2
+from edw.ar_detail
+where (idamount != 0 or icamount != 0)
+and left(true_ccuscode,2) != "gl"
+;
+SQL结束执行时间：20190928001744
+SQL开始执行时间：20190928001744
+alter table pdm.ar_tem01 add index index_ar_tem01_matchid (matchid)
+;
+SQL结束执行时间：20190928001747
+SQL开始执行时间：20190928001747
+alter table pdm.ar_tem01 add index index_ar_tem01_matchid2 (matchid2)
+;
+SQL结束执行时间：20190928001750
+SQL开始执行时间：20190928001750
+
+drop temporary table if exists pdm.ar_tem03
+;
+SQL结束执行时间：20190928001750
+SQL开始执行时间：20190928001750
+create temporary table if not exists pdm.ar_tem03 
+select 
+    concat(db,ccancelno) as matchid2
+    ,max(dvouchdate) as dvouchdate2
+from edw.ar_detail 
+group by db,ccancelno
+;
+SQL结束执行时间：20190928001751
+SQL开始执行时间：20190928001751
+alter table pdm.ar_tem03 add index index_ar_tem03_matchid2 (matchid2)
+;
+SQL结束执行时间：20190928001752
+SQL开始执行时间：20190928001752
+
+
+drop temporary table if exists pdm.ft_51_ar
+;
+SQL结束执行时间：20190928001752
+SQL开始执行时间：20190928001752
+create temporary table if not exists pdm.ft_51_ar as
+select
+case 
+    when a.cvouchtype in ("26","27","r0") then "ar"
+    when a.cvouchtype in ("48","49") then "ap"
+    else "other"
+    end as ar_ap
+,case 
+    when a.db = 'UFDATA_111_2018' then '博圣' 
+    when a.db = 'UFDATA_118_2018' then '卓恩'
+    when a.db = 'UFDATA_123_2018' then '恩允'
+    when a.db = 'UFDATA_168_2018' then '杭州贝生'
+    when a.db = 'UFDATA_168_2019' then '杭州贝生'
+    when a.db = 'UFDATA_169_2018' then '云鼎'
+    when a.db = 'UFDATA_222_2018' then '宝荣'
+    when a.db = 'UFDATA_222_2019' then '宝荣'
+    when a.db = 'UFDATA_333_2018' then '宁波贝生'
+    when a.db = 'UFDATA_588_2018' then '奥博特'
+    when a.db = 'UFDATA_588_2019' then '奥博特'
+    when a.db = 'UFDATA_666_2018' then '启代'
+    when a.db = 'UFDATA_889_2018' then '美博特'
+    when a.db = 'UFDATA_889_2019' then '美博特'
+    when a.db = 'UFDATA_555_2018' then '贝安云'
+    else '其他'
+    end as cohr
+,a.db
+,a.cvouchtype
+,a.cvouchid
+,a.dvouchdate
+,d.dvouchdate2 as dvouchdate2
+,a.dregdate
+,a.cdwcode
+,a.true_ccuscode
+,a.cinvcode
+,a.true_cinvcode
+,a.ar_class
+,a.cdigest
+,a.ibvid
+,round(a.idamount/1000,4) as idamount
+,round(a.icamount/1000,4) as icamount
+,a.cprocstyle
+,a.ccancelno
+,a.ccovouchtype
+,a.ccovouchid
+,ifnull(b.aperiod,90) as aperiod
+,if(b.true_ccuscode is null,0,1) as mark
+,a.iVouchAmount_s
+,round(a.invoice_amount/1000,4) as invoice_amount
+,specification_type
+from pdm.ar_tem01 as a 
+left join pdm.ft_51_ar_tem as b
+on a.true_ccuscode = b.true_ccuscode and a.ar_class = b.class 
+left join pdm.ar_tem03 as d
+on a.matchid2 = d.matchid2
+order by a.db,a.cdwcode,a.dvouchdate,a.ccovouchid
+;
+SQL结束执行时间：20190928001806
+SQL开始执行时间：20190928001806
+
+
+drop temporary table if exists pdm.ft_51_ar_test_tem
+;
+SQL结束执行时间：20190928001806
+SQL开始执行时间：20190928001806
+create temporary table if not exists pdm.ft_51_ar_test_tem
+select 
+    concat(db,cdwcode,ccovouchid) as matchid
+    ,null as c_id 
+    ,null as state
+    ,case
+        when cprocstyle in ("26","27","r0") then "ar"
+        when cprocstyle in ("48","49") then "ap"
+        else cprocstyle
+     end as cprocstyle2
+    ,case 
+        when ccovouchtype in ("26","27","r0") then "ar"
+        when ccovouchtype in ("48","49") then "ap"
+        else "other"
+     end as ccovouchtype2
+    ,a.*
+from pdm.ft_51_ar as a
+;
+SQL结束执行时间：20190928001807
+SQL开始执行时间：20190928001807
+
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_matchid (matchid)
+;
+SQL结束执行时间：20190928001808
+SQL开始执行时间：20190928001808
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_ar_ap (ar_ap)
+;
+SQL结束执行时间：20190928001810
+SQL开始执行时间：20190928001810
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_cprocstyle2 (cprocstyle2)
+;
+SQL结束执行时间：20190928001812
+SQL开始执行时间：20190928001812
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_ccovouchtype2 (ccovouchtype2)
+;
+SQL结束执行时间：20190928001814
+SQL开始执行时间：20190928001814
+
+drop temporary table if exists pdm.ft_51_ar_test_tem01
+;
+SQL结束执行时间：20190928001814
+SQL开始执行时间：20190928001814
+create temporary table if not exists pdm.ft_51_ar_test_tem01
+select 
+     concat(db,cdwcode,ccovouchid) as matchid
+    ,sum(idamount) as idamount_
+    ,sum(icamount) as icamount_
+from pdm.ft_51_ar
+where ar_ap = "ap"
+and ccovouchtype in ("48","49")
+group by db,cdwcode,ccovouchid
+;
+SQL结束执行时间：20190928001814
+SQL开始执行时间：20190928001814
+
+alter table pdm.ft_51_ar_test_tem01 add index index_ft_51_ar_test_tem01_matchid (matchid)
+;
+SQL结束执行时间：20190928001814
+SQL开始执行时间：20190928001814
+
+drop temporary table if exists pdm.ft_51_ar_test_tem02
+;
+SQL结束执行时间：20190928001814
+SQL开始执行时间：20190928001814
+create temporary table if not exists pdm.ft_51_ar_test_tem02
+select 
+     concat(db,cdwcode,ccovouchid) as matchid
+    ,sum(idamount) as idamount_
+    ,sum(icamount) as icamount_
+from pdm.ft_51_ar
+where ccovouchtype in ("26","27","r0")
+group by db,cdwcode,ccovouchid
+;
+SQL结束执行时间：20190928001815
+SQL开始执行时间：20190928001815
+
+alter table pdm.ft_51_ar_test_tem02 add index index_ft_51_ar_test_tem02_matchid (matchid)
+;
+SQL结束执行时间：20190928001815
+SQL开始执行时间：20190928001815
+
+drop table if exists pdm.ft_51_ar_test_pre
+;
+SQL结束执行时间：20190928001815
+SQL开始执行时间：20190928001815
+create table if not exists pdm.ft_51_ar_test_pre
+select 
+    case 
+        when a.ar_ap = "ar" then "qu_ar"
+        when a.ar_ap = "ap" and a.ccovouchtype2 = "ar" then "qu_ap"
+        when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and b.icamount_ != 0 and a.idamount != 0 then "qu"
+        else null 
+    end as mark_
+    ,case 
+        when a.ar_ap = "ar" and a.cprocstyle2 = "ar" and a.ccovouchtype2 = "ar" then c.idamount_-c.icamount_ 
+        else 0 
+    end as balance_ar
+    ,case 
+        when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and a.idamount != 0 then b.icamount_ 
+        else 0 
+    end as balance_ap
+    ,a.matchid
+    ,a.c_id
+    ,a.state
+    ,a.cprocstyle2
+    ,a.ccovouchtype2
+    ,a.ar_ap
+    ,a.cohr
+    ,a.db
+    ,a.cvouchtype
+    ,a.cvouchid
+    ,a.dvouchdate
+    ,a.dvouchdate2
+    ,a.dregdate
+    ,a.cdwcode
+    ,a.true_ccuscode
+    ,a.cinvcode
+    ,a.true_cinvcode
+    ,a.specification_type
+    ,a.ar_class
+    ,a.cdigest
+    ,a.idamount
+    ,a.icamount
+    ,a.cprocstyle
+    ,a.ccancelno
+    ,a.ccovouchtype
+    ,a.ccovouchid
+    ,a.aperiod
+    ,a.mark
+    ,a.invoice_amount
+    ,a.iVouchAmount_s
+    ,a.ibvid
+from pdm.ft_51_ar_test_tem as a
+left join pdm.ft_51_ar_test_tem01 as b 
+on a.matchid = b.matchid
+left join pdm.ft_51_ar_test_tem02 as c
+on a.matchid = c.matchid
+;
+SQL结束执行时间：20190928001817
+SQL开始执行时间：20190928001817
+
+insert into pdm.ft_51_ar_test_pre
+select 
+    "qu_in" as mark_
+    ,0 as balance_ar
+    ,b.icamount_ as balance_ap 
+    ,a.matchid
+    ,a.c_id
+    ,a.state
+    ,a.cprocstyle2
+    ,a.ccovouchtype2
+    ,a.ar_ap
+    ,a.cohr
+    ,a.db
+    ,a.cvouchtype
+    ,a.cvouchid
+    ,a.dvouchdate
+    ,a.dvouchdate2
+    ,a.dregdate
+    ,a.cdwcode
+    ,a.true_ccuscode
+    ,a.cinvcode
+    ,a.true_cinvcode
+    ,a.specification_type
+    ,a.ar_class
+    ,a.cdigest
+    ,0 as idamount
+    ,0 as icamount
+    ,a.cprocstyle
+    ,a.ccancelno
+    ,a.ccovouchtype
+    ,a.ccovouchid
+    ,a.aperiod
+    ,a.mark
+    ,a.invoice_amount
+    ,a.iVouchAmount_s
+    ,a.ibvid
+from pdm.ft_51_ar_test_pre as a 
+left join pdm.ft_51_ar_test_tem01 as b 
+on a.matchid = b.matchid
+where mark_ is null 
+and a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and b.icamount_ != 0 and b.idamount_ = 0
+;
+SQL结束执行时间：20190928001817
+SQL开始执行时间：20190928001817
+
+create temporary table pdm.ft_51_ar_test_pre2 as
+select a.*
+      , @rownum := @rownum +1 AS rownum1
+  from (select * from pdm.ft_51_ar_test_pre order by db,cdwcode,dvouchdate) a
+ ,(SELECT @rownum := 0) r
+
+;
+SQL结束执行时间：20190928001819
+SQL开始执行时间：20190928001819
+
+
+
+
+create temporary table pdm.ft_51_ar_test_pre1 as
+select a.*
+      , @rownum := @rownum +1 AS rownum1
+  from
+(select *
+  from pdm.ft_51_ar_test_pre a
+ where cprocstyle2 = 'ap'
+   and ccovouchtype2 = 'ap'
+   and ar_ap = 'ap'
+ group by cvouchid,db
+ order by db,cdwcode,dvouchdate
+ ) a,(SELECT @rownum := 0) r
+
+;
+SQL结束执行时间：20190928001819
+SQL开始执行时间：20190928001819
+
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_cvouchid (cvouchid)
+;
+SQL结束执行时间：20190928001821
+SQL开始执行时间：20190928001821
+alter table pdm.ft_51_ar_test_pre1 add index index_ft_51_ar_test_pre_cvouchid (cvouchid)
+;
+SQL结束执行时间：20190928001821
+SQL开始执行时间：20190928001821
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_db (db)
+;
+SQL结束执行时间：20190928001823
+SQL开始执行时间：20190928001823
+alter table pdm.ft_51_ar_test_pre1 add index index_ft_51_ar_test_pre_db (db)
+;
+SQL结束执行时间：20190928001823
+SQL开始执行时间：20190928001823
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_true_cinvcode (true_cinvcode)
+;
+SQL结束执行时间：20190928001825
+SQL开始执行时间：20190928001825
+
+truncate table pdm.ar_detail
+;
+SQL结束执行时间：20190928001825
+SQL开始执行时间：20190928001825
+insert into pdm.ar_detail
+select a.rownum1
+      ,a.mark_
+      ,a.balance_ar
+      ,a.balance_ap
+      ,a.matchid
+      ,a.c_id
+      ,a.state
+      ,a.cprocstyle2
+      ,a.ccovouchtype2
+      ,a.ar_ap
+      ,a.cohr
+      ,a.db
+      ,a.cvouchtype
+      ,a.cvouchid
+      ,a.dvouchdate
+      ,a.dvouchdate2
+      ,a.dregdate
+      ,a.cdwcode
+      ,a.true_ccuscode
+      ,d.finnal_cuscode
+      ,d.sales_region
+      ,d.province
+      ,d.city
+      ,a.cinvcode
+      ,a.true_cinvcode
+      ,c.item_code
+      ,a.specification_type
+      ,a.ar_class
+      ,a.cdigest
+      ,a.idamount
+      ,a.icamount
+      ,case when a.ar_ap = 'ar' then a.dvouchdate else null end
+      ,case when a.ar_ap = 'ap' then b.dvouchdate else null end
+      ,case when a.ar_ap = 'ar' then a.idamount else 0 end
+      ,ifnull(a.balance_ap,0) + ifnull(a.icamount,0)
+      ,a.cprocstyle
+      ,a.ccancelno
+      ,a.ccovouchtype
+      ,a.ccovouchid
+      ,a.aperiod
+      ,a.mark
+      ,a.invoice_amount
+      ,a.iVouchAmount_s 
+      ,a.ibvid
+  from pdm.ft_51_ar_test_pre2 a
+  left join pdm.ft_51_ar_test_pre1 b
+    on a.cvouchid = b.cvouchid
+   and a.db = b.db
+  left join edw.map_inventory c
+    on a.true_cinvcode = c.bi_cinvcode
+  left join edw.map_customer d
+    on a.true_ccuscode = d.bi_cuscode
+
+;
+SQL结束执行时间：20190928001827
+SQL开始执行时间：20190928001827
+
+drop table if exists pdm.ft_51_ar_test_pre
+;
+SQL结束执行时间：20190928001827
+SQL开始执行时间：20190928001827
+
+update pdm.ar_detail a
+ inner join pdm.invoice_order b
+    on a.ibvid = b.autoid
+   set a.finnal_cuscode = b.finnal_ccuscode
+      ,a.sales_region = b.sales_region
+      ,a.province = b.province
+      ,a.city = b.city
+ where a.finnal_cuscode = 'multi'
+;
+SQL结束执行时间：20190928001827
+
+20190929001743开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929001743
+
+use pdm
+;
+SQL结束执行时间：20190929001743
+SQL开始执行时间：20190929001743
+
+drop temporary table if exists pdm.ft_51_ar_tem
+;
+SQL结束执行时间：20190929001743
+SQL开始执行时间：20190929001743
+create temporary table if not exists pdm.ft_51_ar_tem
+select a.true_ccuscode,a.class,ifnull(aperiod,90) as aperiod
+from 
+(select true_ccuscode,class,ddate,aperiod from edw.x_ar_plan 
+order by true_ccuscode,class,ddate desc,aperiod
+) as a
+group by a.true_ccuscode,a.class
+;
+SQL结束执行时间：20190929001743
+SQL开始执行时间：20190929001743
+
+drop temporary table if exists pdm.ar_tem01
+;
+SQL结束执行时间：20190929001743
+SQL开始执行时间：20190929001743
+create temporary table if not exists pdm.ar_tem01
+select 
+    *
+    ,concat(db,cvouchid,cdwcode) as matchid
+    ,concat(db,ccancelno) as matchid2
+from edw.ar_detail
+where (idamount != 0 or icamount != 0)
+and left(true_ccuscode,2) != "gl"
+;
+SQL结束执行时间：20190929001745
+SQL开始执行时间：20190929001745
+alter table pdm.ar_tem01 add index index_ar_tem01_matchid (matchid)
+;
+SQL结束执行时间：20190929001747
+SQL开始执行时间：20190929001747
+alter table pdm.ar_tem01 add index index_ar_tem01_matchid2 (matchid2)
+;
+SQL结束执行时间：20190929001750
+SQL开始执行时间：20190929001750
+
+drop temporary table if exists pdm.ar_tem03
+;
+SQL结束执行时间：20190929001750
+SQL开始执行时间：20190929001750
+create temporary table if not exists pdm.ar_tem03 
+select 
+    concat(db,ccancelno) as matchid2
+    ,max(dvouchdate) as dvouchdate2
+from edw.ar_detail 
+group by db,ccancelno
+;
+SQL结束执行时间：20190929001751
+SQL开始执行时间：20190929001751
+alter table pdm.ar_tem03 add index index_ar_tem03_matchid2 (matchid2)
+;
+SQL结束执行时间：20190929001752
+SQL开始执行时间：20190929001752
+
+
+drop temporary table if exists pdm.ft_51_ar
+;
+SQL结束执行时间：20190929001752
+SQL开始执行时间：20190929001752
+create temporary table if not exists pdm.ft_51_ar as
+select
+case 
+    when a.cvouchtype in ("26","27","r0") then "ar"
+    when a.cvouchtype in ("48","49") then "ap"
+    else "other"
+    end as ar_ap
+,case 
+    when a.db = 'UFDATA_111_2018' then '博圣' 
+    when a.db = 'UFDATA_118_2018' then '卓恩'
+    when a.db = 'UFDATA_123_2018' then '恩允'
+    when a.db = 'UFDATA_168_2018' then '杭州贝生'
+    when a.db = 'UFDATA_168_2019' then '杭州贝生'
+    when a.db = 'UFDATA_169_2018' then '云鼎'
+    when a.db = 'UFDATA_222_2018' then '宝荣'
+    when a.db = 'UFDATA_222_2019' then '宝荣'
+    when a.db = 'UFDATA_333_2018' then '宁波贝生'
+    when a.db = 'UFDATA_588_2018' then '奥博特'
+    when a.db = 'UFDATA_588_2019' then '奥博特'
+    when a.db = 'UFDATA_666_2018' then '启代'
+    when a.db = 'UFDATA_889_2018' then '美博特'
+    when a.db = 'UFDATA_889_2019' then '美博特'
+    when a.db = 'UFDATA_555_2018' then '贝安云'
+    else '其他'
+    end as cohr
+,a.db
+,a.cvouchtype
+,a.cvouchid
+,a.dvouchdate
+,d.dvouchdate2 as dvouchdate2
+,a.dregdate
+,a.cdwcode
+,a.true_ccuscode
+,a.cinvcode
+,a.true_cinvcode
+,a.ar_class
+,a.cdigest
+,a.ibvid
+,round(a.idamount/1000,4) as idamount
+,round(a.icamount/1000,4) as icamount
+,a.cprocstyle
+,a.ccancelno
+,a.ccovouchtype
+,a.ccovouchid
+,ifnull(b.aperiod,90) as aperiod
+,if(b.true_ccuscode is null,0,1) as mark
+,a.iVouchAmount_s
+,round(a.invoice_amount/1000,4) as invoice_amount
+,specification_type
+from pdm.ar_tem01 as a 
+left join pdm.ft_51_ar_tem as b
+on a.true_ccuscode = b.true_ccuscode and a.ar_class = b.class 
+left join pdm.ar_tem03 as d
+on a.matchid2 = d.matchid2
+order by a.db,a.cdwcode,a.dvouchdate,a.ccovouchid
+;
+SQL结束执行时间：20190929001806
+SQL开始执行时间：20190929001806
+
+
+drop temporary table if exists pdm.ft_51_ar_test_tem
+;
+SQL结束执行时间：20190929001806
+SQL开始执行时间：20190929001806
+create temporary table if not exists pdm.ft_51_ar_test_tem
+select 
+    concat(db,cdwcode,ccovouchid) as matchid
+    ,null as c_id 
+    ,null as state
+    ,case
+        when cprocstyle in ("26","27","r0") then "ar"
+        when cprocstyle in ("48","49") then "ap"
+        else cprocstyle
+     end as cprocstyle2
+    ,case 
+        when ccovouchtype in ("26","27","r0") then "ar"
+        when ccovouchtype in ("48","49") then "ap"
+        else "other"
+     end as ccovouchtype2
+    ,a.*
+from pdm.ft_51_ar as a
+;
+SQL结束执行时间：20190929001807
+SQL开始执行时间：20190929001807
+
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_matchid (matchid)
+;
+SQL结束执行时间：20190929001809
+SQL开始执行时间：20190929001809
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_ar_ap (ar_ap)
+;
+SQL结束执行时间：20190929001811
+SQL开始执行时间：20190929001811
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_cprocstyle2 (cprocstyle2)
+;
+SQL结束执行时间：20190929001812
+SQL开始执行时间：20190929001812
+alter table pdm.ft_51_ar_test_tem add index index_ft_51_ar_test_tem_ccovouchtype2 (ccovouchtype2)
+;
+SQL结束执行时间：20190929001814
+SQL开始执行时间：20190929001814
+
+drop temporary table if exists pdm.ft_51_ar_test_tem01
+;
+SQL结束执行时间：20190929001814
+SQL开始执行时间：20190929001814
+create temporary table if not exists pdm.ft_51_ar_test_tem01
+select 
+     concat(db,cdwcode,ccovouchid) as matchid
+    ,sum(idamount) as idamount_
+    ,sum(icamount) as icamount_
+from pdm.ft_51_ar
+where ar_ap = "ap"
+and ccovouchtype in ("48","49")
+group by db,cdwcode,ccovouchid
+;
+SQL结束执行时间：20190929001815
+SQL开始执行时间：20190929001815
+
+alter table pdm.ft_51_ar_test_tem01 add index index_ft_51_ar_test_tem01_matchid (matchid)
+;
+SQL结束执行时间：20190929001815
+SQL开始执行时间：20190929001815
+
+drop temporary table if exists pdm.ft_51_ar_test_tem02
+;
+SQL结束执行时间：20190929001815
+SQL开始执行时间：20190929001815
+create temporary table if not exists pdm.ft_51_ar_test_tem02
+select 
+     concat(db,cdwcode,ccovouchid) as matchid
+    ,sum(idamount) as idamount_
+    ,sum(icamount) as icamount_
+from pdm.ft_51_ar
+where ccovouchtype in ("26","27","r0")
+group by db,cdwcode,ccovouchid
+;
+SQL结束执行时间：20190929001815
+SQL开始执行时间：20190929001815
+
+alter table pdm.ft_51_ar_test_tem02 add index index_ft_51_ar_test_tem02_matchid (matchid)
+;
+SQL结束执行时间：20190929001816
+SQL开始执行时间：20190929001816
+
+drop table if exists pdm.ft_51_ar_test_pre
+;
+SQL结束执行时间：20190929001816
+SQL开始执行时间：20190929001816
+create table if not exists pdm.ft_51_ar_test_pre
+select 
+    case 
+        when a.ar_ap = "ar" then "qu_ar"
+        when a.ar_ap = "ap" and a.ccovouchtype2 = "ar" then "qu_ap"
+        when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and b.icamount_ != 0 and a.idamount != 0 then "qu"
+        else null 
+    end as mark_
+    ,case 
+        when a.ar_ap = "ar" and a.cprocstyle2 = "ar" and a.ccovouchtype2 = "ar" then c.idamount_-c.icamount_ 
+        else 0 
+    end as balance_ar
+    ,case 
+        when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and a.idamount != 0 then b.icamount_ 
+        else 0 
+    end as balance_ap
+    ,a.matchid
+    ,a.c_id
+    ,a.state
+    ,a.cprocstyle2
+    ,a.ccovouchtype2
+    ,a.ar_ap
+    ,a.cohr
+    ,a.db
+    ,a.cvouchtype
+    ,a.cvouchid
+    ,a.dvouchdate
+    ,a.dvouchdate2
+    ,a.dregdate
+    ,a.cdwcode
+    ,a.true_ccuscode
+    ,a.cinvcode
+    ,a.true_cinvcode
+    ,a.specification_type
+    ,a.ar_class
+    ,a.cdigest
+    ,a.idamount
+    ,a.icamount
+    ,a.cprocstyle
+    ,a.ccancelno
+    ,a.ccovouchtype
+    ,a.ccovouchid
+    ,a.aperiod
+    ,a.mark
+    ,a.invoice_amount
+    ,a.iVouchAmount_s
+    ,a.ibvid
+from pdm.ft_51_ar_test_tem as a
+left join pdm.ft_51_ar_test_tem01 as b 
+on a.matchid = b.matchid
+left join pdm.ft_51_ar_test_tem02 as c
+on a.matchid = c.matchid
+;
+SQL结束执行时间：20190929001818
+SQL开始执行时间：20190929001818
+
+insert into pdm.ft_51_ar_test_pre
+select 
+    "qu_in" as mark_
+    ,0 as balance_ar
+    ,b.icamount_ as balance_ap 
+    ,a.matchid
+    ,a.c_id
+    ,a.state
+    ,a.cprocstyle2
+    ,a.ccovouchtype2
+    ,a.ar_ap
+    ,a.cohr
+    ,a.db
+    ,a.cvouchtype
+    ,a.cvouchid
+    ,a.dvouchdate
+    ,a.dvouchdate2
+    ,a.dregdate
+    ,a.cdwcode
+    ,a.true_ccuscode
+    ,a.cinvcode
+    ,a.true_cinvcode
+    ,a.specification_type
+    ,a.ar_class
+    ,a.cdigest
+    ,0 as idamount
+    ,0 as icamount
+    ,a.cprocstyle
+    ,a.ccancelno
+    ,a.ccovouchtype
+    ,a.ccovouchid
+    ,a.aperiod
+    ,a.mark
+    ,a.invoice_amount
+    ,a.iVouchAmount_s
+    ,a.ibvid
+from pdm.ft_51_ar_test_pre as a 
+left join pdm.ft_51_ar_test_tem01 as b 
+on a.matchid = b.matchid
+where mark_ is null 
+and a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and b.icamount_ != 0 and b.idamount_ = 0
+;
+SQL结束执行时间：20190929001818
+SQL开始执行时间：20190929001818
+
+create temporary table pdm.ft_51_ar_test_pre2 as
+select a.*
+      , @rownum := @rownum +1 AS rownum1
+  from (select * from pdm.ft_51_ar_test_pre order by db,cdwcode,dvouchdate) a
+ ,(SELECT @rownum := 0) r
+
+;
+SQL结束执行时间：20190929001819
+SQL开始执行时间：20190929001819
+
+
+
+
+create temporary table pdm.ft_51_ar_test_pre1 as
+select a.*
+      , @rownum := @rownum +1 AS rownum1
+  from
+(select *
+  from pdm.ft_51_ar_test_pre a
+ where cprocstyle2 = 'ap'
+   and ccovouchtype2 = 'ap'
+   and ar_ap = 'ap'
+ group by cvouchid,db
+ order by db,cdwcode,dvouchdate
+ ) a,(SELECT @rownum := 0) r
+
+;
+SQL结束执行时间：20190929001820
+SQL开始执行时间：20190929001820
+
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_cvouchid (cvouchid)
+;
+SQL结束执行时间：20190929001821
+SQL开始执行时间：20190929001821
+alter table pdm.ft_51_ar_test_pre1 add index index_ft_51_ar_test_pre_cvouchid (cvouchid)
+;
+SQL结束执行时间：20190929001821
+SQL开始执行时间：20190929001821
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_db (db)
+;
+SQL结束执行时间：20190929001823
+SQL开始执行时间：20190929001823
+alter table pdm.ft_51_ar_test_pre1 add index index_ft_51_ar_test_pre_db (db)
+;
+SQL结束执行时间：20190929001823
+SQL开始执行时间：20190929001823
+alter table pdm.ft_51_ar_test_pre2 add index index_ft_51_ar_test_pre2_true_cinvcode (true_cinvcode)
+;
+SQL结束执行时间：20190929001825
+SQL开始执行时间：20190929001825
+
+truncate table pdm.ar_detail
+;
+SQL结束执行时间：20190929001825
+SQL开始执行时间：20190929001825
+insert into pdm.ar_detail
+select a.rownum1
+      ,a.mark_
+      ,a.balance_ar
+      ,a.balance_ap
+      ,a.matchid
+      ,a.c_id
+      ,a.state
+      ,a.cprocstyle2
+      ,a.ccovouchtype2
+      ,a.ar_ap
+      ,a.cohr
+      ,a.db
+      ,a.cvouchtype
+      ,a.cvouchid
+      ,a.dvouchdate
+      ,a.dvouchdate2
+      ,a.dregdate
+      ,a.cdwcode
+      ,a.true_ccuscode
+      ,d.finnal_cuscode
+      ,d.sales_region
+      ,d.province
+      ,d.city
+      ,a.cinvcode
+      ,a.true_cinvcode
+      ,c.item_code
+      ,a.specification_type
+      ,a.ar_class
+      ,a.cdigest
+      ,a.idamount
+      ,a.icamount
+      ,case when a.ar_ap = 'ar' then a.dvouchdate else null end
+      ,case when a.ar_ap = 'ap' then b.dvouchdate else null end
+      ,case when a.ar_ap = 'ar' then a.idamount else 0 end
+      ,ifnull(a.balance_ap,0) + ifnull(a.icamount,0)
+      ,a.cprocstyle
+      ,a.ccancelno
+      ,a.ccovouchtype
+      ,a.ccovouchid
+      ,a.aperiod
+      ,a.mark
+      ,a.invoice_amount
+      ,a.iVouchAmount_s 
+      ,a.ibvid
+  from pdm.ft_51_ar_test_pre2 a
+  left join pdm.ft_51_ar_test_pre1 b
+    on a.cvouchid = b.cvouchid
+   and a.db = b.db
+  left join edw.map_inventory c
+    on a.true_cinvcode = c.bi_cinvcode
+  left join edw.map_customer d
+    on a.true_ccuscode = d.bi_cuscode
+
+;
+SQL结束执行时间：20190929001827
+SQL开始执行时间：20190929001827
+
+drop table if exists pdm.ft_51_ar_test_pre
+;
+SQL结束执行时间：20190929001827
+SQL开始执行时间：20190929001827
+
+update pdm.ar_detail a
+ inner join pdm.invoice_order b
+    on a.ibvid = b.autoid
+   set a.finnal_cuscode = b.finnal_ccuscode
+      ,a.sales_region = b.sales_region
+      ,a.province = b.province
+      ,a.city = b.city
+ where a.finnal_cuscode = 'multi'
+;
+SQL结束执行时间：20190929001827

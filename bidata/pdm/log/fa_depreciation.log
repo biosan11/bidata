@@ -45591,3 +45591,495 @@ SQL开始执行时间：20190925003057
 drop table if exists pdm.fa_depreciation_pre
 ;
 SQL结束执行时间：20190925003057
+
+20190926003037开始执行2019-9-30数据加载日志:
+SQL开始执行时间：20190926003037
+
+use pdm
+;
+SQL结束执行时间：20190926003037
+SQL开始执行时间：20190926003037
+
+drop temporary table if exists pdm.fa_tem01
+;
+SQL结束执行时间：20190926003037
+SQL开始执行时间：20190926003037
+create temporary table if not exists pdm.fa_tem01
+select
+    a.sdeptnum
+    ,a.db
+    ,a.scardid
+    ,a.scardnum
+    ,a.sassetnum
+    ,a.sassetname
+    ,a.stypenum
+    ,a.ssite
+    ,a.llife
+    ,a.lusedmonths
+    ,a.dstartdate
+    ,a.dinputdate
+    ,a.dtransdate
+    ,a.ddisposedate
+    ,a.dblValue
+    ,a.dblBV
+from ufdata.fa_cards as a left join 
+(
+select 
+    db
+    ,max(scardid) as scardid 
+from ufdata.fa_cards 
+where (
+(dinputdate <= '2019-9-30') and 
+(dtransdate < '2019-9-30'  or  dtransdate is null) and 
+(ddisposedate < '2019-9-30'  or  ddisposedate is null)
+)
+group by db,scardnum
+) as b 
+on a.db = b.db and a.scardid = b.scardid 
+where b.scardid is not null
+
+;
+SQL结束执行时间：20190926003037
+SQL开始执行时间：20190926003037
+
+delete from pdm.fa_depreciation where left(date_,7) = left('2019-9-30',7)
+;
+SQL结束执行时间：20190926003037
+SQL开始执行时间：20190926003037
+DELETE 
+FROM
+	pdm.fa_depreciation 
+WHERE YEAR ( date_ ) = YEAR ('2019-9-30')
+  and MONTH(date_) = MONTH('2019-9-30')
+;
+SQL结束执行时间：20190926003037
+SQL开始执行时间：20190926003037
+
+
+
+drop table if exists pdm.fa_depreciation_pre
+;
+SQL结束执行时间：20190926003037
+SQL开始执行时间：20190926003037
+create table pdm.fa_depreciation_pre as 
+select 
+     '2019-9-30' as date_
+    ,a.* 
+    ,b.dblinputvalue
+    ,b.dblmonthvalue
+    ,b.dblperiodvalue
+    ,b.dblinputdeprtotal
+    ,b.linputlife
+    ,b.linputdeprmonths
+    ,case month('2019-9-30') 
+    when 1 then dblDeprT1
+        when 2 then dblDeprT2
+        when 3 then dblDeprT3
+        when 4 then dblDeprT4
+        when 5 then dblDeprT5
+        when 6 then dblDeprT6
+        when 7 then dblDeprT7
+        when 8 then dblDeprT8
+        when 9 then dblDeprT9
+        when 10 then dblDeprT10
+        when 11 then dblDeprT11
+        when 12 then dblDeprT12
+    else 0 
+  end as dbl
+from pdm.fa_tem01 as a 
+left join ufdata.fa_deprtransactions as b 
+on a.db = b.db and a.scardnum = b.scardnum 
+where b.iyear = year('2019-9-30')
+and (
+(a.db in ("UFDATA_111_2018","UFDATA_118_2018","UFDATA_123_2018") and a.stypenum = "07") or
+(a.db in ("UFDATA_333_2018","UFDATA_588_2019") and a.stypenum = "01"))
+;
+SQL结束执行时间：20190926003037
+SQL开始执行时间：20190926003037
+
+
+insert into pdm.fa_depreciation
+select a.*
+      ,case when b.db is null then 0 else b.dbldeprt end
+  from pdm.fa_depreciation_pre a
+  left join pdm.fa_depreciation b
+    on DATE_SUB(a.date_,INTERVAL day(a.date_) day) = b.date_
+   and a.db = b.db
+   and a.scardnum = b.scardnum
+
+;
+SQL结束执行时间：20190926003039
+SQL开始执行时间：20190926003039
+
+drop table if exists pdm.fa_depreciation_pre
+;
+SQL结束执行时间：20190926003039
+
+20190927003036开始执行2019-9-30数据加载日志:
+SQL开始执行时间：20190927003036
+
+use pdm
+;
+SQL结束执行时间：20190927003036
+SQL开始执行时间：20190927003036
+
+drop temporary table if exists pdm.fa_tem01
+;
+SQL结束执行时间：20190927003036
+SQL开始执行时间：20190927003036
+create temporary table if not exists pdm.fa_tem01
+select
+    a.sdeptnum
+    ,a.db
+    ,a.scardid
+    ,a.scardnum
+    ,a.sassetnum
+    ,a.sassetname
+    ,a.stypenum
+    ,a.ssite
+    ,a.llife
+    ,a.lusedmonths
+    ,a.dstartdate
+    ,a.dinputdate
+    ,a.dtransdate
+    ,a.ddisposedate
+    ,a.dblValue
+    ,a.dblBV
+from ufdata.fa_cards as a left join 
+(
+select 
+    db
+    ,max(scardid) as scardid 
+from ufdata.fa_cards 
+where (
+(dinputdate <= '2019-9-30') and 
+(dtransdate < '2019-9-30'  or  dtransdate is null) and 
+(ddisposedate < '2019-9-30'  or  ddisposedate is null)
+)
+group by db,scardnum
+) as b 
+on a.db = b.db and a.scardid = b.scardid 
+where b.scardid is not null
+
+;
+SQL结束执行时间：20190927003036
+SQL开始执行时间：20190927003036
+
+delete from pdm.fa_depreciation where left(date_,7) = left('2019-9-30',7)
+;
+SQL结束执行时间：20190927003037
+SQL开始执行时间：20190927003037
+DELETE 
+FROM
+	pdm.fa_depreciation 
+WHERE YEAR ( date_ ) = YEAR ('2019-9-30')
+  and MONTH(date_) = MONTH('2019-9-30')
+;
+SQL结束执行时间：20190927003037
+SQL开始执行时间：20190927003037
+
+
+
+drop table if exists pdm.fa_depreciation_pre
+;
+SQL结束执行时间：20190927003037
+SQL开始执行时间：20190927003037
+create table pdm.fa_depreciation_pre as 
+select 
+     '2019-9-30' as date_
+    ,a.* 
+    ,b.dblinputvalue
+    ,b.dblmonthvalue
+    ,b.dblperiodvalue
+    ,b.dblinputdeprtotal
+    ,b.linputlife
+    ,b.linputdeprmonths
+    ,case month('2019-9-30') 
+    when 1 then dblDeprT1
+        when 2 then dblDeprT2
+        when 3 then dblDeprT3
+        when 4 then dblDeprT4
+        when 5 then dblDeprT5
+        when 6 then dblDeprT6
+        when 7 then dblDeprT7
+        when 8 then dblDeprT8
+        when 9 then dblDeprT9
+        when 10 then dblDeprT10
+        when 11 then dblDeprT11
+        when 12 then dblDeprT12
+    else 0 
+  end as dbl
+from pdm.fa_tem01 as a 
+left join ufdata.fa_deprtransactions as b 
+on a.db = b.db and a.scardnum = b.scardnum 
+where b.iyear = year('2019-9-30')
+and (
+(a.db in ("UFDATA_111_2018","UFDATA_118_2018","UFDATA_123_2018") and a.stypenum = "07") or
+(a.db in ("UFDATA_333_2018","UFDATA_588_2019") and a.stypenum = "01"))
+;
+SQL结束执行时间：20190927003037
+SQL开始执行时间：20190927003037
+
+
+insert into pdm.fa_depreciation
+select a.*
+      ,case when b.db is null then 0 else b.dbldeprt end
+  from pdm.fa_depreciation_pre a
+  left join pdm.fa_depreciation b
+    on DATE_SUB(a.date_,INTERVAL day(a.date_) day) = b.date_
+   and a.db = b.db
+   and a.scardnum = b.scardnum
+
+;
+SQL结束执行时间：20190927003038
+SQL开始执行时间：20190927003038
+
+drop table if exists pdm.fa_depreciation_pre
+;
+SQL结束执行时间：20190927003038
+
+20190928003037开始执行2019-9-30数据加载日志:
+SQL开始执行时间：20190928003037
+
+use pdm
+;
+SQL结束执行时间：20190928003037
+SQL开始执行时间：20190928003037
+
+drop temporary table if exists pdm.fa_tem01
+;
+SQL结束执行时间：20190928003037
+SQL开始执行时间：20190928003037
+create temporary table if not exists pdm.fa_tem01
+select
+    a.sdeptnum
+    ,a.db
+    ,a.scardid
+    ,a.scardnum
+    ,a.sassetnum
+    ,a.sassetname
+    ,a.stypenum
+    ,a.ssite
+    ,a.llife
+    ,a.lusedmonths
+    ,a.dstartdate
+    ,a.dinputdate
+    ,a.dtransdate
+    ,a.ddisposedate
+    ,a.dblValue
+    ,a.dblBV
+from ufdata.fa_cards as a left join 
+(
+select 
+    db
+    ,max(scardid) as scardid 
+from ufdata.fa_cards 
+where (
+(dinputdate <= '2019-9-30') and 
+(dtransdate < '2019-9-30'  or  dtransdate is null) and 
+(ddisposedate < '2019-9-30'  or  ddisposedate is null)
+)
+group by db,scardnum
+) as b 
+on a.db = b.db and a.scardid = b.scardid 
+where b.scardid is not null
+
+;
+SQL结束执行时间：20190928003037
+SQL开始执行时间：20190928003037
+
+delete from pdm.fa_depreciation where left(date_,7) = left('2019-9-30',7)
+;
+SQL结束执行时间：20190928003037
+SQL开始执行时间：20190928003037
+DELETE 
+FROM
+	pdm.fa_depreciation 
+WHERE YEAR ( date_ ) = YEAR ('2019-9-30')
+  and MONTH(date_) = MONTH('2019-9-30')
+;
+SQL结束执行时间：20190928003037
+SQL开始执行时间：20190928003037
+
+
+
+drop table if exists pdm.fa_depreciation_pre
+;
+SQL结束执行时间：20190928003037
+SQL开始执行时间：20190928003037
+create table pdm.fa_depreciation_pre as 
+select 
+     '2019-9-30' as date_
+    ,a.* 
+    ,b.dblinputvalue
+    ,b.dblmonthvalue
+    ,b.dblperiodvalue
+    ,b.dblinputdeprtotal
+    ,b.linputlife
+    ,b.linputdeprmonths
+    ,case month('2019-9-30') 
+    when 1 then dblDeprT1
+        when 2 then dblDeprT2
+        when 3 then dblDeprT3
+        when 4 then dblDeprT4
+        when 5 then dblDeprT5
+        when 6 then dblDeprT6
+        when 7 then dblDeprT7
+        when 8 then dblDeprT8
+        when 9 then dblDeprT9
+        when 10 then dblDeprT10
+        when 11 then dblDeprT11
+        when 12 then dblDeprT12
+    else 0 
+  end as dbl
+from pdm.fa_tem01 as a 
+left join ufdata.fa_deprtransactions as b 
+on a.db = b.db and a.scardnum = b.scardnum 
+where b.iyear = year('2019-9-30')
+and (
+(a.db in ("UFDATA_111_2018","UFDATA_118_2018","UFDATA_123_2018") and a.stypenum = "07") or
+(a.db in ("UFDATA_333_2018","UFDATA_588_2019") and a.stypenum = "01"))
+;
+SQL结束执行时间：20190928003037
+SQL开始执行时间：20190928003037
+
+
+insert into pdm.fa_depreciation
+select a.*
+      ,case when b.db is null then 0 else b.dbldeprt end
+  from pdm.fa_depreciation_pre a
+  left join pdm.fa_depreciation b
+    on DATE_SUB(a.date_,INTERVAL day(a.date_) day) = b.date_
+   and a.db = b.db
+   and a.scardnum = b.scardnum
+
+;
+SQL结束执行时间：20190928003039
+SQL开始执行时间：20190928003039
+
+drop table if exists pdm.fa_depreciation_pre
+;
+SQL结束执行时间：20190928003039
+
+20190929003037开始执行2019-9-30数据加载日志:
+SQL开始执行时间：20190929003037
+
+use pdm
+;
+SQL结束执行时间：20190929003037
+SQL开始执行时间：20190929003037
+
+drop temporary table if exists pdm.fa_tem01
+;
+SQL结束执行时间：20190929003037
+SQL开始执行时间：20190929003037
+create temporary table if not exists pdm.fa_tem01
+select
+    a.sdeptnum
+    ,a.db
+    ,a.scardid
+    ,a.scardnum
+    ,a.sassetnum
+    ,a.sassetname
+    ,a.stypenum
+    ,a.ssite
+    ,a.llife
+    ,a.lusedmonths
+    ,a.dstartdate
+    ,a.dinputdate
+    ,a.dtransdate
+    ,a.ddisposedate
+    ,a.dblValue
+    ,a.dblBV
+from ufdata.fa_cards as a left join 
+(
+select 
+    db
+    ,max(scardid) as scardid 
+from ufdata.fa_cards 
+where (
+(dinputdate <= '2019-9-30') and 
+(dtransdate < '2019-9-30'  or  dtransdate is null) and 
+(ddisposedate < '2019-9-30'  or  ddisposedate is null)
+)
+group by db,scardnum
+) as b 
+on a.db = b.db and a.scardid = b.scardid 
+where b.scardid is not null
+
+;
+SQL结束执行时间：20190929003037
+SQL开始执行时间：20190929003037
+
+delete from pdm.fa_depreciation where left(date_,7) = left('2019-9-30',7)
+;
+SQL结束执行时间：20190929003037
+SQL开始执行时间：20190929003037
+DELETE 
+FROM
+	pdm.fa_depreciation 
+WHERE YEAR ( date_ ) = YEAR ('2019-9-30')
+  and MONTH(date_) = MONTH('2019-9-30')
+;
+SQL结束执行时间：20190929003037
+SQL开始执行时间：20190929003037
+
+
+
+drop table if exists pdm.fa_depreciation_pre
+;
+SQL结束执行时间：20190929003037
+SQL开始执行时间：20190929003037
+create table pdm.fa_depreciation_pre as 
+select 
+     '2019-9-30' as date_
+    ,a.* 
+    ,b.dblinputvalue
+    ,b.dblmonthvalue
+    ,b.dblperiodvalue
+    ,b.dblinputdeprtotal
+    ,b.linputlife
+    ,b.linputdeprmonths
+    ,case month('2019-9-30') 
+    when 1 then dblDeprT1
+        when 2 then dblDeprT2
+        when 3 then dblDeprT3
+        when 4 then dblDeprT4
+        when 5 then dblDeprT5
+        when 6 then dblDeprT6
+        when 7 then dblDeprT7
+        when 8 then dblDeprT8
+        when 9 then dblDeprT9
+        when 10 then dblDeprT10
+        when 11 then dblDeprT11
+        when 12 then dblDeprT12
+    else 0 
+  end as dbl
+from pdm.fa_tem01 as a 
+left join ufdata.fa_deprtransactions as b 
+on a.db = b.db and a.scardnum = b.scardnum 
+where b.iyear = year('2019-9-30')
+and (
+(a.db in ("UFDATA_111_2018","UFDATA_118_2018","UFDATA_123_2018") and a.stypenum = "07") or
+(a.db in ("UFDATA_333_2018","UFDATA_588_2019") and a.stypenum = "01"))
+;
+SQL结束执行时间：20190929003037
+SQL开始执行时间：20190929003037
+
+
+insert into pdm.fa_depreciation
+select a.*
+      ,case when b.db is null then 0 else b.dbldeprt end
+  from pdm.fa_depreciation_pre a
+  left join pdm.fa_depreciation b
+    on DATE_SUB(a.date_,INTERVAL day(a.date_) day) = b.date_
+   and a.db = b.db
+   and a.scardnum = b.scardnum
+
+;
+SQL结束执行时间：20190929003039
+SQL开始执行时间：20190929003039
+
+drop table if exists pdm.fa_depreciation_pre
+;
+SQL结束执行时间：20190929003039

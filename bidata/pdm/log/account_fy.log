@@ -55397,3 +55397,1901 @@ update pdm.account_fy a
 
 ;
 SQL结束执行时间：20190925090859
+
+20190926002148开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926002148
+create temporary table edw.code as
+select distinct ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_111_2018'
+   and iyear = "2019" union
+select distinct ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_007_2019'
+   and iyear = "2019"
+
+;
+SQL结束执行时间：20190926002149
+SQL开始执行时间：20190926002149
+
+insert into edw.code values('640110','人员成本')
+;
+SQL结束执行时间：20190926002149
+SQL开始执行时间：20190926002149
+
+create temporary table pdm.accvouch_u8_pre as
+select
+db
+,left(dbill_date,10) as dbill_date
+,liuchengbh
+,ccode_lv2
+,ccode_name_lv2
+,cdept_id
+,cdepname
+,cdepname_lv1
+,cdepname_lv2
+,cdepname_lv3
+,cdepname_lv4
+,cpersonname
+,bi_cusname
+,md
+,ccode
+,ccode_name
+,i_id
+,voucher_id
+,sales_region
+from edw.accvouch_u8
+where dbill_date >= '2019-01-01'
+  and left(ccode,2) in ('51','53','64','66')
+  and cdept_id is not null
+  and md <> 0
+
+;
+SQL结束执行时间：20190926002150
+SQL开始执行时间：20190926002150
+
+
+create temporary table pdm.accvouch_oa_pre as
+select a.*
+  from edw.accvouch_oa a
+  left join (select * from pdm.accvouch_u8_pre group by liuchengbh) b
+    on a.liuchengbh = b.liuchengbh
+ where b.liuchengbh is not null
+   and left(a.oa_ccode,2) in ('51','53','64','66')
+
+;
+SQL结束执行时间：20190926002153
+SQL开始执行时间：20190926002153
+
+create temporary table pdm.account_fy_pre2 as
+select i_id
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '杭州贝生'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝荣'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '奥博特'
+            when a.db = 'UFDATA_588_2019' then '奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '美博特'
+            when a.db = 'UFDATA_889_2019' then '美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            when a.db = 'UFDATA_007_2019' then '甄元'
+            end as cohr
+      ,dbill_date
+      ,a.cdept_id
+      ,a.cdepname
+      ,cpersonname
+      ,a.bi_cusname as kehumc
+      ,ccode
+      ,ccode_name
+      ,concat(left(ccode,4),ccode_name) as sub_name
+      ,ccode_lv2
+      ,ccode_name_lv2
+      ,cdepname_lv1
+      ,cdepname_lv2
+      ,cdepname_lv3
+      ,cdepname_lv4
+      ,md
+      ,voucher_id
+      ,a.liuchengbh as u8_liuchengbh
+      ,a.sales_region as province
+      from pdm.accvouch_u8_pre a
+	left join (select * from pdm.accvouch_oa_pre group by liuchengbh) b
+	  on a.liuchengbh = b.liuchengbh
+ where b.liuchengbh is null 
+;
+SQL结束执行时间：20190926002157
+SQL开始执行时间：20190926002157
+
+create temporary table pdm.account_fy_pre3 as
+select a.i_id
+      ,a.db
+      ,a.cohr
+      ,a.dbill_date
+      ,a.cpersonname
+      ,a.kehumc
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.voucher_id
+      ,a.sub_name as u8dykm
+      ,a.ccode as ccode
+      ,b.ccode_name as ccode_name
+      ,a.ccode_lv2
+      ,a.ccode_name_lv2
+      ,a.md
+      ,a.u8_liuchengbh
+      ,a.province
+      ,'u8独有' as state
+  from pdm.account_fy_pre2 a
+  left join (select * from edw.code group by ccode) b
+    on a.ccode = b.ccode
+
+;
+SQL结束执行时间：20190926002157
+SQL开始执行时间：20190926002157
+
+
+
+
+
+
+
+truncate table pdm.account_fy
+;
+SQL结束执行时间：20190926002157
+SQL开始执行时间：20190926002157
+insert into pdm.account_fy
+select a.i_id    
+      ,a.db             
+      ,a.cohr
+      ,a.dbill_date
+      ,null
+      ,a.cpersonname
+      ,case when a.kehumc is not null and e.ccusname is null then '请核查'
+            when a.kehumc is not null and e.ccusname is not null then e.bi_cuscode
+            else '' end
+      ,case when a.kehumc is not null and e.ccusname is null then '请核查'
+            when a.kehumc is not null and e.ccusname is not null then e.bi_cusname
+            else '' end
+      ,a.kehumc
+      ,a.province
+      ,a.cdepname
+      ,c.cdept_id_ehr
+      ,c.name_ehr
+      ,c.second_dept
+      ,c.third_dept
+      ,c.fourth_dept
+      ,c.fifth_dept
+      ,c.sixth_dept
+      ,null
+      ,null
+      ,null
+      ,a.voucher_id
+      ,null
+      ,null
+      ,a.u8dykm
+      ,a.ccode
+      ,a.ccode_name
+      ,a.ccode_lv2
+      ,a.ccode_name_lv2
+      ,a.md
+      ,a.u8_liuchengbh
+      ,null
+      ,'u8独有'
+      ,a.cdept_id
+      ,'取'
+  from pdm.account_fy_pre3 a
+  left join (select * from edw.dic_deptment group by cdept_id,db) c
+    on a.cdept_id = c.cdept_id
+   and left(a.db,10) = left(c.db,10)
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on a.kehumc = e.ccusname
+
+;
+SQL结束执行时间：20190926002159
+SQL开始执行时间：20190926002159
+
+create temporary table pdm.accvouch_u8_pre1 as select * from pdm.accvouch_u8_pre
+;
+SQL结束执行时间：20190926002200
+SQL开始执行时间：20190926002200
+CREATE INDEX index_accvouch_u8_pre1_liuchengbh ON pdm.accvouch_u8_pre1(liuchengbh)
+;
+SQL结束执行时间：20190926002201
+SQL开始执行时间：20190926002201
+CREATE INDEX index_accvouch_u8_pre_liuchengbh ON pdm.accvouch_u8_pre(liuchengbh)
+;
+SQL结束执行时间：20190926002202
+SQL开始执行时间：20190926002202
+CREATE INDEX index_accvouch_u8_pre_md ON pdm.accvouch_u8_pre(md)
+;
+SQL结束执行时间：20190926002204
+SQL开始执行时间：20190926002204
+
+insert into pdm.account_fy
+select f.i_id
+      ,f.db
+      ,case when f.db = 'UFDATA_111_2018' then '博圣' 
+            when f.db = 'UFDATA_118_2018' then '卓恩'
+            when f.db = 'UFDATA_123_2018' then '恩允'
+            when f.db = 'UFDATA_168_2018' then '杭州贝生'
+            when f.db = 'UFDATA_168_2019' then '杭州贝生'
+            when f.db = 'UFDATA_169_2018' then '云鼎'
+            when f.db = 'UFDATA_222_2018' then '宝荣'
+            when f.db = 'UFDATA_222_2019' then '宝荣'
+            when f.db = 'UFDATA_333_2018' then '宁波贝生'
+            when f.db = 'UFDATA_588_2018' then '奥博特'
+            when f.db = 'UFDATA_588_2019' then '奥博特'
+            when f.db = 'UFDATA_666_2018' then '启代'
+            when f.db = 'UFDATA_889_2018' then '美博特'
+            when f.db = 'UFDATA_889_2019' then '美博特'
+            when f.db = 'UFDATA_555_2018' then '贝安云'
+            when f.db = 'UFDATA_007_2019' then '甄元'
+            end as cohr
+      ,f.dbill_date
+      ,a.fashengrq
+      ,a.bx_name
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.kehumc
+      ,a.province
+      ,case when b.liuchengbh is not null then b.cdepname     else f.cdepname      end
+      ,case when b.liuchengbh is not null then c.cdept_id_ehr else d.cdept_id_ehr  end
+      ,case when b.liuchengbh is not null then c.name_ehr     else d.name_ehr      end
+      ,case when b.liuchengbh is not null then c.second_dept  else d.second_dept   end
+      ,case when b.liuchengbh is not null then c.third_dept   else d.third_dept    end
+      ,case when b.liuchengbh is not null then c.fourth_dept  else d.fourth_dept   end
+      ,case when b.liuchengbh is not null then c.fifth_dept   else d.fifth_dept    end
+      ,case when b.liuchengbh is not null then c.sixth_dept   else d.sixth_dept    end
+      ,a.bx_name
+      ,a.bxr_dept_name
+      ,a.cd_name
+      ,f.voucher_id
+      ,a.neibuhylxmc as fylx
+      ,a.u8dykm
+      ,a.oadykm
+      ,a.oa_ccode
+      ,a.oa_ccode_name
+      ,a.oa_ccode_lv2
+      ,a.oa_ccode_name_lv2
+      ,a.jine
+      ,a.liuchengbh
+      ,a.beizhu
+      ,case when f.liuchengbh is null then '未知情况' else '共有' end
+      ,case when b.liuchengbh is not null then b.cdept_id     else f.cdept_id      end
+      ,'取'
+  from pdm.accvouch_oa_pre a
+  left join (select * from pdm.accvouch_u8_pre group by liuchengbh,md) b
+    on a.liuchengbh = b.liuchengbh
+   and a.jine = b.md
+  left join (select * from edw.dic_deptment group by cdept_id,db) c
+    on b.cdept_id = c.cdept_id
+   and left(b.db,10) = left(c.db,10)
+  left join (select * from pdm.accvouch_u8_pre1 group by liuchengbh) f
+    on a.liuchengbh = f.liuchengbh
+  left join (select * from edw.dic_deptment group by cdept_id,db) d
+    on f.cdept_id = d.cdept_id
+   and left(f.db,10) = left(d.db,10)
+
+;
+SQL结束执行时间：20190926002213
+SQL开始执行时间：20190926002213
+
+create temporary table pdm.account_fy_mon_del as
+select distinct liuchengbh
+      ,dbill_date
+  from pdm.account_fy_mon
+ where state2 = '2'
+
+;
+SQL结束执行时间：20190926002213
+SQL开始执行时间：20190926002213
+
+create temporary table pdm.account_fy_mon_del1 as select * from pdm.account_fy_mon_del
+;
+SQL结束执行时间：20190926002213
+SQL开始执行时间：20190926002213
+
+delete a,b 
+  from pdm.account_fy  as a 
+  join pdm.account_fy_mon_del as b 
+    on a.dbill_date = b.dbill_date
+   and a.liuchengbh = b.liuchengbh 
+
+;
+SQL结束执行时间：20190926002213
+SQL开始执行时间：20190926002213
+
+insert into pdm.account_fy
+select a.i_id
+      ,a.db
+      ,a.cohr
+      ,a.dbill_date
+      ,a.fashengrq
+      ,a.cpersonname
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.kehumc
+      ,a.province
+      ,a.name_u8
+      ,a.name_ehr_id
+      ,a.name_ehr
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.bx_name
+      ,a.bxr_dept_name
+      ,a.cd_name
+      ,a.voucher_id
+      ,a.fylx
+      ,null
+      ,a.kemu
+      ,a.code
+      ,a.code_name
+      ,a.code_lv2
+      ,a.code_name_lv2
+      ,a.md
+      ,a.liuchengbh
+      ,a.beizhu
+      ,a.state
+      ,a.cdept_id
+      ,a.status
+  from pdm.account_fy_mon a
+  left join pdm.account_fy_mon_del1 b
+    on a.dbill_date = b.dbill_date
+   and a.liuchengbh = b.liuchengbh
+ where b.dbill_date is not null
+
+;
+SQL结束执行时间：20190926002213
+SQL开始执行时间：20190926002213
+
+
+
+
+update pdm.account_fy
+   set status = '不取'
+ where code = '660279'
+;
+SQL结束执行时间：20190926002213
+SQL开始执行时间：20190926002213
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6603'
+;
+SQL结束执行时间：20190926002214
+SQL开始执行时间：20190926002214
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6604'
+;
+SQL结束执行时间：20190926002214
+SQL开始执行时间：20190926002214
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '640106'
+;
+SQL结束执行时间：20190926002214
+SQL开始执行时间：20190926002214
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6403'
+;
+SQL结束执行时间：20190926002214
+SQL开始执行时间：20190926002214
+ 
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '510118'
+;
+SQL结束执行时间：20190926002214
+SQL开始执行时间：20190926002214
+
+update pdm.account_fy
+   set status = '不取'
+ where cohr = '博圣健康'
+
+;
+SQL结束执行时间：20190926002214
+SQL开始执行时间：20190926002214
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '530135'
+   and md = '1415094.35'
+;
+SQL结束执行时间：20190926002215
+SQL开始执行时间：20190926002215
+
+
+update pdm.account_fy
+   set fashengrq = null
+ where fashengrq = ''
+;
+SQL结束执行时间：20190926002215
+SQL开始执行时间：20190926002215
+
+update pdm.account_fy
+   set ccuscode = null
+ where ccuscode = ''
+;
+SQL结束执行时间：20190926002215
+SQL开始执行时间：20190926002215
+
+update pdm.account_fy a
+ inner join (select * from ufdata.department where db = 'UFDATA_111_2018' group by cdepcode) b
+    on a.cdept_id = b.cdepcode
+   set a.name_u8 = cdepname
+ where a.db = 'UFDATA_118_2018'
+    or a.db = 'UFDATA_123_2018'
+
+;
+SQL结束执行时间：20190926002216
+
+20190927094136开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927094136
+create temporary table edw.code as
+select distinct ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_111_2018'
+   and iyear = "2019" union
+select distinct ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_007_2019'
+   and iyear = "2019"
+
+;
+SQL结束执行时间：20190927094136
+SQL开始执行时间：20190927094136
+
+insert into edw.code values('640110','人员成本')
+;
+SQL结束执行时间：20190927094136
+SQL开始执行时间：20190927094136
+
+create temporary table pdm.accvouch_u8_pre as
+select
+db
+,left(dbill_date,10) as dbill_date
+,liuchengbh
+,ccode_lv2
+,ccode_name_lv2
+,cdept_id
+,cdepname
+,cdepname_lv1
+,cdepname_lv2
+,cdepname_lv3
+,cdepname_lv4
+,cpersonname
+,bi_cusname
+,md
+,ccode
+,ccode_name
+,i_id
+,voucher_id
+,sales_region
+from edw.accvouch_u8
+where dbill_date >= '2019-01-01'
+  and left(ccode,2) in ('51','53','64','66')
+  and cdept_id is not null
+  and md <> 0
+
+;
+SQL结束执行时间：20190927094138
+SQL开始执行时间：20190927094138
+
+
+create temporary table pdm.accvouch_oa_pre as
+select a.*
+  from edw.accvouch_oa a
+  left join (select * from pdm.accvouch_u8_pre group by liuchengbh) b
+    on a.liuchengbh = b.liuchengbh
+ where b.liuchengbh is not null
+   and left(a.oa_ccode,2) in ('51','53','64','66')
+
+;
+SQL结束执行时间：20190927094141
+SQL开始执行时间：20190927094141
+
+create temporary table pdm.account_fy_pre2 as
+select i_id
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '杭州贝生'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝荣'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '奥博特'
+            when a.db = 'UFDATA_588_2019' then '奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '美博特'
+            when a.db = 'UFDATA_889_2019' then '美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            when a.db = 'UFDATA_007_2019' then '甄元'
+            end as cohr
+      ,dbill_date
+      ,a.cdept_id
+      ,a.cdepname
+      ,cpersonname
+      ,a.bi_cusname as kehumc
+      ,ccode
+      ,ccode_name
+      ,concat(left(ccode,4),ccode_name) as sub_name
+      ,ccode_lv2
+      ,ccode_name_lv2
+      ,cdepname_lv1
+      ,cdepname_lv2
+      ,cdepname_lv3
+      ,cdepname_lv4
+      ,md
+      ,voucher_id
+      ,a.liuchengbh as u8_liuchengbh
+      ,a.sales_region as province
+      from pdm.accvouch_u8_pre a
+	left join (select * from pdm.accvouch_oa_pre group by liuchengbh) b
+	  on a.liuchengbh = b.liuchengbh
+ where b.liuchengbh is null 
+;
+SQL结束执行时间：20190927094145
+SQL开始执行时间：20190927094145
+
+create temporary table pdm.account_fy_pre3 as
+select a.i_id
+      ,a.db
+      ,a.cohr
+      ,a.dbill_date
+      ,a.cpersonname
+      ,a.kehumc
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.voucher_id
+      ,a.sub_name as u8dykm
+      ,a.ccode as ccode
+      ,b.ccode_name as ccode_name
+      ,a.ccode_lv2
+      ,a.ccode_name_lv2
+      ,a.md
+      ,a.u8_liuchengbh
+      ,a.province
+      ,'u8独有' as state
+  from pdm.account_fy_pre2 a
+  left join (select * from edw.code group by ccode) b
+    on a.ccode = b.ccode
+
+;
+SQL结束执行时间：20190927094145
+SQL开始执行时间：20190927094145
+
+
+
+
+
+
+
+truncate table pdm.account_fy
+;
+SQL结束执行时间：20190927094145
+SQL开始执行时间：20190927094145
+insert into pdm.account_fy
+select a.i_id    
+      ,a.db             
+      ,a.cohr
+      ,a.dbill_date
+      ,null
+      ,a.cpersonname
+      ,case when a.kehumc is not null and e.ccusname is null then '请核查'
+            when a.kehumc is not null and e.ccusname is not null then e.bi_cuscode
+            else '' end
+      ,case when a.kehumc is not null and e.ccusname is null then '请核查'
+            when a.kehumc is not null and e.ccusname is not null then e.bi_cusname
+            else '' end
+      ,a.kehumc
+      ,a.province
+      ,a.cdepname
+      ,c.cdept_id_ehr
+      ,c.name_ehr
+      ,c.second_dept
+      ,c.third_dept
+      ,c.fourth_dept
+      ,c.fifth_dept
+      ,c.sixth_dept
+      ,null
+      ,null
+      ,null
+      ,a.voucher_id
+      ,null
+      ,null
+      ,a.u8dykm
+      ,a.ccode
+      ,a.ccode_name
+      ,a.ccode_lv2
+      ,a.ccode_name_lv2
+      ,a.md
+      ,a.u8_liuchengbh
+      ,null
+      ,'u8独有'
+      ,a.cdept_id
+      ,'取'
+  from pdm.account_fy_pre3 a
+  left join (select * from edw.dic_deptment group by cdept_id,db) c
+    on a.cdept_id = c.cdept_id
+   and left(a.db,10) = left(c.db,10)
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on a.kehumc = e.ccusname
+
+;
+SQL结束执行时间：20190927094146
+SQL开始执行时间：20190927094146
+
+create temporary table pdm.accvouch_u8_pre1 as select * from pdm.accvouch_u8_pre
+;
+SQL结束执行时间：20190927094147
+SQL开始执行时间：20190927094147
+CREATE INDEX index_accvouch_u8_pre1_liuchengbh ON pdm.accvouch_u8_pre1(liuchengbh)
+;
+SQL结束执行时间：20190927094149
+SQL开始执行时间：20190927094149
+CREATE INDEX index_accvouch_u8_pre_liuchengbh ON pdm.accvouch_u8_pre(liuchengbh)
+;
+SQL结束执行时间：20190927094150
+SQL开始执行时间：20190927094150
+CREATE INDEX index_accvouch_u8_pre_md ON pdm.accvouch_u8_pre(md)
+;
+SQL结束执行时间：20190927094152
+SQL开始执行时间：20190927094152
+
+insert into pdm.account_fy
+select f.i_id
+      ,f.db
+      ,case when f.db = 'UFDATA_111_2018' then '博圣' 
+            when f.db = 'UFDATA_118_2018' then '卓恩'
+            when f.db = 'UFDATA_123_2018' then '恩允'
+            when f.db = 'UFDATA_168_2018' then '杭州贝生'
+            when f.db = 'UFDATA_168_2019' then '杭州贝生'
+            when f.db = 'UFDATA_169_2018' then '云鼎'
+            when f.db = 'UFDATA_222_2018' then '宝荣'
+            when f.db = 'UFDATA_222_2019' then '宝荣'
+            when f.db = 'UFDATA_333_2018' then '宁波贝生'
+            when f.db = 'UFDATA_588_2018' then '奥博特'
+            when f.db = 'UFDATA_588_2019' then '奥博特'
+            when f.db = 'UFDATA_666_2018' then '启代'
+            when f.db = 'UFDATA_889_2018' then '美博特'
+            when f.db = 'UFDATA_889_2019' then '美博特'
+            when f.db = 'UFDATA_555_2018' then '贝安云'
+            when f.db = 'UFDATA_007_2019' then '甄元'
+            end as cohr
+      ,f.dbill_date
+      ,a.fashengrq
+      ,a.bx_name
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.kehumc
+      ,a.province
+      ,case when b.liuchengbh is not null then b.cdepname     else f.cdepname      end
+      ,case when b.liuchengbh is not null then c.cdept_id_ehr else d.cdept_id_ehr  end
+      ,case when b.liuchengbh is not null then c.name_ehr     else d.name_ehr      end
+      ,case when b.liuchengbh is not null then c.second_dept  else d.second_dept   end
+      ,case when b.liuchengbh is not null then c.third_dept   else d.third_dept    end
+      ,case when b.liuchengbh is not null then c.fourth_dept  else d.fourth_dept   end
+      ,case when b.liuchengbh is not null then c.fifth_dept   else d.fifth_dept    end
+      ,case when b.liuchengbh is not null then c.sixth_dept   else d.sixth_dept    end
+      ,a.bx_name
+      ,a.bxr_dept_name
+      ,a.cd_name
+      ,f.voucher_id
+      ,a.neibuhylxmc as fylx
+      ,a.u8dykm
+      ,a.oadykm
+      ,a.oa_ccode
+      ,a.oa_ccode_name
+      ,a.oa_ccode_lv2
+      ,a.oa_ccode_name_lv2
+      ,a.jine
+      ,a.liuchengbh
+      ,a.beizhu
+      ,case when f.liuchengbh is null then '未知情况' else '共有' end
+      ,case when b.liuchengbh is not null then b.cdept_id     else f.cdept_id      end
+      ,'取'
+  from pdm.accvouch_oa_pre a
+  left join (select * from pdm.accvouch_u8_pre group by liuchengbh,md) b
+    on a.liuchengbh = b.liuchengbh
+   and a.jine = b.md
+  left join (select * from edw.dic_deptment group by cdept_id,db) c
+    on b.cdept_id = c.cdept_id
+   and left(b.db,10) = left(c.db,10)
+  left join (select * from pdm.accvouch_u8_pre1 group by liuchengbh) f
+    on a.liuchengbh = f.liuchengbh
+  left join (select * from edw.dic_deptment group by cdept_id,db) d
+    on f.cdept_id = d.cdept_id
+   and left(f.db,10) = left(d.db,10)
+
+;
+SQL结束执行时间：20190927094201
+SQL开始执行时间：20190927094201
+
+create temporary table pdm.account_fy_mon_del as
+select distinct liuchengbh
+      ,dbill_date
+  from pdm.account_fy_mon
+ where state2 = '2'
+
+;
+SQL结束执行时间：20190927094201
+SQL开始执行时间：20190927094201
+
+create temporary table pdm.account_fy_mon_del1 as select * from pdm.account_fy_mon_del
+;
+SQL结束执行时间：20190927094201
+SQL开始执行时间：20190927094201
+
+delete a,b 
+  from pdm.account_fy  as a 
+  join pdm.account_fy_mon_del as b 
+    on a.dbill_date = b.dbill_date
+   and a.liuchengbh = b.liuchengbh 
+
+;
+SQL结束执行时间：20190927094201
+SQL开始执行时间：20190927094201
+
+insert into pdm.account_fy
+select a.i_id
+      ,a.db
+      ,a.cohr
+      ,a.dbill_date
+      ,a.fashengrq
+      ,a.cpersonname
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.kehumc
+      ,a.province
+      ,a.name_u8
+      ,a.name_ehr_id
+      ,a.name_ehr
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.bx_name
+      ,a.bxr_dept_name
+      ,a.cd_name
+      ,a.voucher_id
+      ,a.fylx
+      ,null
+      ,a.kemu
+      ,a.code
+      ,a.code_name
+      ,a.code_lv2
+      ,a.code_name_lv2
+      ,a.md
+      ,a.liuchengbh
+      ,a.beizhu
+      ,a.state
+      ,a.cdept_id
+      ,a.status
+  from pdm.account_fy_mon a
+  left join pdm.account_fy_mon_del1 b
+    on a.dbill_date = b.dbill_date
+   and a.liuchengbh = b.liuchengbh
+ where b.dbill_date is not null
+
+;
+SQL结束执行时间：20190927094201
+SQL开始执行时间：20190927094201
+
+
+
+
+update pdm.account_fy
+   set status = '不取'
+ where code = '660279'
+;
+SQL结束执行时间：20190927094202
+SQL开始执行时间：20190927094202
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6603'
+;
+SQL结束执行时间：20190927094202
+SQL开始执行时间：20190927094202
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6604'
+;
+SQL结束执行时间：20190927094202
+SQL开始执行时间：20190927094202
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '640106'
+;
+SQL结束执行时间：20190927094202
+SQL开始执行时间：20190927094202
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6403'
+;
+SQL结束执行时间：20190927094202
+SQL开始执行时间：20190927094202
+ 
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '510118'
+;
+SQL结束执行时间：20190927094202
+SQL开始执行时间：20190927094202
+
+update pdm.account_fy
+   set status = '不取'
+ where cohr = '博圣健康'
+
+;
+SQL结束执行时间：20190927094203
+SQL开始执行时间：20190927094203
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '530135'
+   and md = '1415094.35'
+;
+SQL结束执行时间：20190927094203
+SQL开始执行时间：20190927094203
+
+
+update pdm.account_fy
+   set fashengrq = null
+ where fashengrq = ''
+;
+SQL结束执行时间：20190927094203
+SQL开始执行时间：20190927094203
+
+update pdm.account_fy
+   set ccuscode = null
+ where ccuscode = ''
+;
+SQL结束执行时间：20190927094204
+SQL开始执行时间：20190927094204
+
+update pdm.account_fy a
+ inner join (select * from ufdata.department where db = 'UFDATA_111_2018' group by cdepcode) b
+    on a.cdept_id = b.cdepcode
+   set a.name_u8 = cdepname
+ where a.db = 'UFDATA_118_2018'
+    or a.db = 'UFDATA_123_2018'
+
+;
+SQL结束执行时间：20190927094204
+
+20190928002140开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928002140
+create temporary table edw.code as
+select distinct ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_111_2018'
+   and iyear = "2019" union
+select distinct ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_007_2019'
+   and iyear = "2019"
+
+;
+SQL结束执行时间：20190928002140
+SQL开始执行时间：20190928002140
+
+insert into edw.code values('640110','人员成本')
+;
+SQL结束执行时间：20190928002140
+SQL开始执行时间：20190928002140
+
+create temporary table pdm.accvouch_u8_pre as
+select
+db
+,left(dbill_date,10) as dbill_date
+,liuchengbh
+,ccode_lv2
+,ccode_name_lv2
+,cdept_id
+,cdepname
+,cdepname_lv1
+,cdepname_lv2
+,cdepname_lv3
+,cdepname_lv4
+,cpersonname
+,bi_cusname
+,md
+,ccode
+,ccode_name
+,i_id
+,voucher_id
+,sales_region
+from edw.accvouch_u8
+where dbill_date >= '2019-01-01'
+  and left(ccode,2) in ('51','53','64','66')
+  and cdept_id is not null
+  and md <> 0
+
+;
+SQL结束执行时间：20190928002142
+SQL开始执行时间：20190928002142
+
+
+create temporary table pdm.accvouch_oa_pre as
+select a.*
+  from edw.accvouch_oa a
+  left join (select * from pdm.accvouch_u8_pre group by liuchengbh) b
+    on a.liuchengbh = b.liuchengbh
+ where b.liuchengbh is not null
+   and left(a.oa_ccode,2) in ('51','53','64','66')
+
+;
+SQL结束执行时间：20190928002145
+SQL开始执行时间：20190928002145
+
+create temporary table pdm.account_fy_pre2 as
+select i_id
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '杭州贝生'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝荣'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '奥博特'
+            when a.db = 'UFDATA_588_2019' then '奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '美博特'
+            when a.db = 'UFDATA_889_2019' then '美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            when a.db = 'UFDATA_007_2019' then '甄元'
+            end as cohr
+      ,dbill_date
+      ,a.cdept_id
+      ,a.cdepname
+      ,cpersonname
+      ,a.bi_cusname as kehumc
+      ,ccode
+      ,ccode_name
+      ,concat(left(ccode,4),ccode_name) as sub_name
+      ,ccode_lv2
+      ,ccode_name_lv2
+      ,cdepname_lv1
+      ,cdepname_lv2
+      ,cdepname_lv3
+      ,cdepname_lv4
+      ,md
+      ,voucher_id
+      ,a.liuchengbh as u8_liuchengbh
+      ,a.sales_region as province
+      from pdm.accvouch_u8_pre a
+	left join (select * from pdm.accvouch_oa_pre group by liuchengbh) b
+	  on a.liuchengbh = b.liuchengbh
+ where b.liuchengbh is null 
+;
+SQL结束执行时间：20190928002148
+SQL开始执行时间：20190928002148
+
+create temporary table pdm.account_fy_pre3 as
+select a.i_id
+      ,a.db
+      ,a.cohr
+      ,a.dbill_date
+      ,a.cpersonname
+      ,a.kehumc
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.voucher_id
+      ,a.sub_name as u8dykm
+      ,a.ccode as ccode
+      ,b.ccode_name as ccode_name
+      ,a.ccode_lv2
+      ,a.ccode_name_lv2
+      ,a.md
+      ,a.u8_liuchengbh
+      ,a.province
+      ,'u8独有' as state
+  from pdm.account_fy_pre2 a
+  left join (select * from edw.code group by ccode) b
+    on a.ccode = b.ccode
+
+;
+SQL结束执行时间：20190928002149
+SQL开始执行时间：20190928002149
+
+
+
+
+
+
+
+truncate table pdm.account_fy
+;
+SQL结束执行时间：20190928002149
+SQL开始执行时间：20190928002149
+insert into pdm.account_fy
+select a.i_id    
+      ,a.db             
+      ,a.cohr
+      ,a.dbill_date
+      ,null
+      ,a.cpersonname
+      ,case when a.kehumc is not null and e.ccusname is null then '请核查'
+            when a.kehumc is not null and e.ccusname is not null then e.bi_cuscode
+            else '' end
+      ,case when a.kehumc is not null and e.ccusname is null then '请核查'
+            when a.kehumc is not null and e.ccusname is not null then e.bi_cusname
+            else '' end
+      ,a.kehumc
+      ,a.province
+      ,a.cdepname
+      ,c.cdept_id_ehr
+      ,c.name_ehr
+      ,c.second_dept
+      ,c.third_dept
+      ,c.fourth_dept
+      ,c.fifth_dept
+      ,c.sixth_dept
+      ,null
+      ,null
+      ,null
+      ,a.voucher_id
+      ,null
+      ,null
+      ,a.u8dykm
+      ,a.ccode
+      ,a.ccode_name
+      ,a.ccode_lv2
+      ,a.ccode_name_lv2
+      ,a.md
+      ,a.u8_liuchengbh
+      ,null
+      ,'u8独有'
+      ,a.cdept_id
+      ,'取'
+  from pdm.account_fy_pre3 a
+  left join (select * from edw.dic_deptment group by cdept_id,db) c
+    on a.cdept_id = c.cdept_id
+   and left(a.db,10) = left(c.db,10)
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on a.kehumc = e.ccusname
+
+;
+SQL结束执行时间：20190928002150
+SQL开始执行时间：20190928002150
+
+create temporary table pdm.accvouch_u8_pre1 as select * from pdm.accvouch_u8_pre
+;
+SQL结束执行时间：20190928002151
+SQL开始执行时间：20190928002151
+CREATE INDEX index_accvouch_u8_pre1_liuchengbh ON pdm.accvouch_u8_pre1(liuchengbh)
+;
+SQL结束执行时间：20190928002152
+SQL开始执行时间：20190928002152
+CREATE INDEX index_accvouch_u8_pre_liuchengbh ON pdm.accvouch_u8_pre(liuchengbh)
+;
+SQL结束执行时间：20190928002154
+SQL开始执行时间：20190928002154
+CREATE INDEX index_accvouch_u8_pre_md ON pdm.accvouch_u8_pre(md)
+;
+SQL结束执行时间：20190928002155
+SQL开始执行时间：20190928002155
+
+insert into pdm.account_fy
+select f.i_id
+      ,f.db
+      ,case when f.db = 'UFDATA_111_2018' then '博圣' 
+            when f.db = 'UFDATA_118_2018' then '卓恩'
+            when f.db = 'UFDATA_123_2018' then '恩允'
+            when f.db = 'UFDATA_168_2018' then '杭州贝生'
+            when f.db = 'UFDATA_168_2019' then '杭州贝生'
+            when f.db = 'UFDATA_169_2018' then '云鼎'
+            when f.db = 'UFDATA_222_2018' then '宝荣'
+            when f.db = 'UFDATA_222_2019' then '宝荣'
+            when f.db = 'UFDATA_333_2018' then '宁波贝生'
+            when f.db = 'UFDATA_588_2018' then '奥博特'
+            when f.db = 'UFDATA_588_2019' then '奥博特'
+            when f.db = 'UFDATA_666_2018' then '启代'
+            when f.db = 'UFDATA_889_2018' then '美博特'
+            when f.db = 'UFDATA_889_2019' then '美博特'
+            when f.db = 'UFDATA_555_2018' then '贝安云'
+            when f.db = 'UFDATA_007_2019' then '甄元'
+            end as cohr
+      ,f.dbill_date
+      ,a.fashengrq
+      ,a.bx_name
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.kehumc
+      ,a.province
+      ,case when b.liuchengbh is not null then b.cdepname     else f.cdepname      end
+      ,case when b.liuchengbh is not null then c.cdept_id_ehr else d.cdept_id_ehr  end
+      ,case when b.liuchengbh is not null then c.name_ehr     else d.name_ehr      end
+      ,case when b.liuchengbh is not null then c.second_dept  else d.second_dept   end
+      ,case when b.liuchengbh is not null then c.third_dept   else d.third_dept    end
+      ,case when b.liuchengbh is not null then c.fourth_dept  else d.fourth_dept   end
+      ,case when b.liuchengbh is not null then c.fifth_dept   else d.fifth_dept    end
+      ,case when b.liuchengbh is not null then c.sixth_dept   else d.sixth_dept    end
+      ,a.bx_name
+      ,a.bxr_dept_name
+      ,a.cd_name
+      ,f.voucher_id
+      ,a.neibuhylxmc as fylx
+      ,a.u8dykm
+      ,a.oadykm
+      ,a.oa_ccode
+      ,a.oa_ccode_name
+      ,a.oa_ccode_lv2
+      ,a.oa_ccode_name_lv2
+      ,a.jine
+      ,a.liuchengbh
+      ,a.beizhu
+      ,case when f.liuchengbh is null then '未知情况' else '共有' end
+      ,case when b.liuchengbh is not null then b.cdept_id     else f.cdept_id      end
+      ,'取'
+  from pdm.accvouch_oa_pre a
+  left join (select * from pdm.accvouch_u8_pre group by liuchengbh,md) b
+    on a.liuchengbh = b.liuchengbh
+   and a.jine = b.md
+  left join (select * from edw.dic_deptment group by cdept_id,db) c
+    on b.cdept_id = c.cdept_id
+   and left(b.db,10) = left(c.db,10)
+  left join (select * from pdm.accvouch_u8_pre1 group by liuchengbh) f
+    on a.liuchengbh = f.liuchengbh
+  left join (select * from edw.dic_deptment group by cdept_id,db) d
+    on f.cdept_id = d.cdept_id
+   and left(f.db,10) = left(d.db,10)
+
+;
+SQL结束执行时间：20190928002204
+SQL开始执行时间：20190928002204
+
+create temporary table pdm.account_fy_mon_del as
+select distinct liuchengbh
+      ,dbill_date
+  from pdm.account_fy_mon
+ where state2 = '2'
+
+;
+SQL结束执行时间：20190928002204
+SQL开始执行时间：20190928002204
+
+create temporary table pdm.account_fy_mon_del1 as select * from pdm.account_fy_mon_del
+;
+SQL结束执行时间：20190928002205
+SQL开始执行时间：20190928002205
+
+delete a,b 
+  from pdm.account_fy  as a 
+  join pdm.account_fy_mon_del as b 
+    on a.dbill_date = b.dbill_date
+   and a.liuchengbh = b.liuchengbh 
+
+;
+SQL结束执行时间：20190928002205
+SQL开始执行时间：20190928002205
+
+insert into pdm.account_fy
+select a.i_id
+      ,a.db
+      ,a.cohr
+      ,a.dbill_date
+      ,a.fashengrq
+      ,a.cpersonname
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.kehumc
+      ,a.province
+      ,a.name_u8
+      ,a.name_ehr_id
+      ,a.name_ehr
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.bx_name
+      ,a.bxr_dept_name
+      ,a.cd_name
+      ,a.voucher_id
+      ,a.fylx
+      ,null
+      ,a.kemu
+      ,a.code
+      ,a.code_name
+      ,a.code_lv2
+      ,a.code_name_lv2
+      ,a.md
+      ,a.liuchengbh
+      ,a.beizhu
+      ,a.state
+      ,a.cdept_id
+      ,a.status
+  from pdm.account_fy_mon a
+  left join pdm.account_fy_mon_del1 b
+    on a.dbill_date = b.dbill_date
+   and a.liuchengbh = b.liuchengbh
+ where b.dbill_date is not null
+
+;
+SQL结束执行时间：20190928002205
+SQL开始执行时间：20190928002205
+
+
+
+
+update pdm.account_fy
+   set status = '不取'
+ where code = '660279'
+;
+SQL结束执行时间：20190928002205
+SQL开始执行时间：20190928002205
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6603'
+;
+SQL结束执行时间：20190928002205
+SQL开始执行时间：20190928002205
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6604'
+;
+SQL结束执行时间：20190928002205
+SQL开始执行时间：20190928002205
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '640106'
+;
+SQL结束执行时间：20190928002205
+SQL开始执行时间：20190928002205
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6403'
+;
+SQL结束执行时间：20190928002206
+SQL开始执行时间：20190928002206
+ 
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '510118'
+;
+SQL结束执行时间：20190928002206
+SQL开始执行时间：20190928002206
+
+update pdm.account_fy
+   set status = '不取'
+ where cohr = '博圣健康'
+
+;
+SQL结束执行时间：20190928002206
+SQL开始执行时间：20190928002206
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '530135'
+   and md = '1415094.35'
+;
+SQL结束执行时间：20190928002206
+SQL开始执行时间：20190928002206
+
+
+update pdm.account_fy
+   set fashengrq = null
+ where fashengrq = ''
+;
+SQL结束执行时间：20190928002206
+SQL开始执行时间：20190928002206
+
+update pdm.account_fy
+   set ccuscode = null
+ where ccuscode = ''
+;
+SQL结束执行时间：20190928002207
+SQL开始执行时间：20190928002207
+
+update pdm.account_fy a
+ inner join (select * from ufdata.department where db = 'UFDATA_111_2018' group by cdepcode) b
+    on a.cdept_id = b.cdepcode
+   set a.name_u8 = cdepname
+ where a.db = 'UFDATA_118_2018'
+    or a.db = 'UFDATA_123_2018'
+
+;
+SQL结束执行时间：20190928002207
+SQL开始执行时间：20190928002207
+
+update pdm.account_fy set kemu = '6602专业机构费',code='66020015',code_name='专业机构费',code_lv2='66020015',code_name_lv2 ='专业机构费' where cohr = '甄元' and kemu = '6601材料'
+;
+SQL结束执行时间：20190928002208
+SQL开始执行时间：20190928002208
+update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '奥博特' and kemu = '6601会务招待'
+;
+SQL结束执行时间：20190928002208
+SQL开始执行时间：20190928002208
+update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '美博特' and kemu = '6601会务招待'
+;
+SQL结束执行时间：20190928002208
+SQL开始执行时间：20190928002208
+update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '博圣' and kemu = '6601会务招待'
+;
+SQL结束执行时间：20190928002208
+SQL开始执行时间：20190928002208
+update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '博圣' and kemu = '6602会务招待'
+;
+SQL结束执行时间：20190928002208
+SQL开始执行时间：20190928002208
+update pdm.account_fy set kemu = '6601人员成本',code='6601010104',code_name='交通补贴',code_lv2='660101',code_name_lv2 ='人员成本' where cohr = '博圣' and kemu = '6601交通补贴'
+;
+SQL结束执行时间：20190928002209
+SQL开始执行时间：20190928002209
+update pdm.account_fy set kemu = '6601人员成本',code='6601010104',code_name='交通补贴',code_lv2='660101',code_name_lv2 ='人员成本' where cohr = '美博特' and kemu = '6601交通补贴'
+;
+SQL结束执行时间：20190928002209
+SQL开始执行时间：20190928002209
+update pdm.account_fy set kemu = '6602内部会议费',code='660204',code_name='内部会议费',code_lv2='660204',code_name_lv2 ='内部会议费' where cohr = '甄元' and kemu = '6602内部会议费'
+;
+SQL结束执行时间：20190928002209
+SQL开始执行时间：20190928002209
+update pdm.account_fy set kemu = '6602专业机构费',code='66020015',code_name='专业机构费',code_lv2='66020015',code_name_lv2 ='专业机构费' where cohr = '甄元' and kemu = '6602外部服务费'
+;
+SQL结束执行时间：20190928002209
+SQL开始执行时间：20190928002209
+update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '恩允' and kemu = '6602印花税'
+;
+SQL结束执行时间：20190928002209
+SQL开始执行时间：20190928002209
+update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '奥博特' and kemu = '6602印花税'
+;
+SQL结束执行时间：20190928002209
+SQL开始执行时间：20190928002209
+update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '贝安云' and kemu = '6602印花税'
+;
+SQL结束执行时间：20190928002210
+SQL开始执行时间：20190928002210
+update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '美博特' and kemu = '6601院内沙龙'
+;
+SQL结束执行时间：20190928002210
+SQL开始执行时间：20190928002210
+update pdm.account_fy set kemu = '6601耗材及配件',code='660118',code_name='耗材及配件',code_lv2='660118',code_name_lv2 ='耗材及配件' where cohr = '甄元' and kemu = '6601运营费用'
+;
+SQL结束执行时间：20190928002210
+
+20190929002135开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929002135
+create temporary table edw.code as
+select distinct ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_111_2018'
+   and iyear = "2019" union
+select distinct ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_007_2019'
+   and iyear = "2019"
+
+;
+SQL结束执行时间：20190929002135
+SQL开始执行时间：20190929002135
+
+insert into edw.code values('640110','人员成本')
+;
+SQL结束执行时间：20190929002135
+SQL开始执行时间：20190929002135
+
+create temporary table pdm.accvouch_u8_pre as
+select
+db
+,left(dbill_date,10) as dbill_date
+,liuchengbh
+,ccode_lv2
+,ccode_name_lv2
+,cdept_id
+,cdepname
+,cdepname_lv1
+,cdepname_lv2
+,cdepname_lv3
+,cdepname_lv4
+,cpersonname
+,bi_cusname
+,md
+,ccode
+,ccode_name
+,i_id
+,voucher_id
+,sales_region
+from edw.accvouch_u8
+where dbill_date >= '2019-01-01'
+  and left(ccode,2) in ('51','53','64','66')
+  and cdept_id is not null
+  and md <> 0
+
+;
+SQL结束执行时间：20190929002137
+SQL开始执行时间：20190929002137
+
+
+create temporary table pdm.accvouch_oa_pre as
+select a.*
+  from edw.accvouch_oa a
+  left join (select * from pdm.accvouch_u8_pre group by liuchengbh) b
+    on a.liuchengbh = b.liuchengbh
+ where b.liuchengbh is not null
+   and left(a.oa_ccode,2) in ('51','53','64','66')
+
+;
+SQL结束执行时间：20190929002139
+SQL开始执行时间：20190929002139
+
+create temporary table pdm.account_fy_pre2 as
+select i_id
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '杭州贝生'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝荣'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '奥博特'
+            when a.db = 'UFDATA_588_2019' then '奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '美博特'
+            when a.db = 'UFDATA_889_2019' then '美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            when a.db = 'UFDATA_007_2019' then '甄元'
+            end as cohr
+      ,dbill_date
+      ,a.cdept_id
+      ,a.cdepname
+      ,cpersonname
+      ,a.bi_cusname as kehumc
+      ,ccode
+      ,ccode_name
+      ,concat(left(ccode,4),ccode_name) as sub_name
+      ,ccode_lv2
+      ,ccode_name_lv2
+      ,cdepname_lv1
+      ,cdepname_lv2
+      ,cdepname_lv3
+      ,cdepname_lv4
+      ,md
+      ,voucher_id
+      ,a.liuchengbh as u8_liuchengbh
+      ,a.sales_region as province
+      from pdm.accvouch_u8_pre a
+	left join (select * from pdm.accvouch_oa_pre group by liuchengbh) b
+	  on a.liuchengbh = b.liuchengbh
+ where b.liuchengbh is null 
+;
+SQL结束执行时间：20190929002143
+SQL开始执行时间：20190929002143
+
+create temporary table pdm.account_fy_pre3 as
+select a.i_id
+      ,a.db
+      ,a.cohr
+      ,a.dbill_date
+      ,a.cpersonname
+      ,a.kehumc
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.voucher_id
+      ,a.sub_name as u8dykm
+      ,a.ccode as ccode
+      ,b.ccode_name as ccode_name
+      ,a.ccode_lv2
+      ,a.ccode_name_lv2
+      ,a.md
+      ,a.u8_liuchengbh
+      ,a.province
+      ,'u8独有' as state
+  from pdm.account_fy_pre2 a
+  left join (select * from edw.code group by ccode) b
+    on a.ccode = b.ccode
+
+;
+SQL结束执行时间：20190929002144
+SQL开始执行时间：20190929002144
+
+
+
+
+
+
+
+truncate table pdm.account_fy
+;
+SQL结束执行时间：20190929002144
+SQL开始执行时间：20190929002144
+insert into pdm.account_fy
+select a.i_id    
+      ,a.db             
+      ,a.cohr
+      ,a.dbill_date
+      ,null
+      ,a.cpersonname
+      ,case when a.kehumc is not null and e.ccusname is null then '请核查'
+            when a.kehumc is not null and e.ccusname is not null then e.bi_cuscode
+            else '' end
+      ,case when a.kehumc is not null and e.ccusname is null then '请核查'
+            when a.kehumc is not null and e.ccusname is not null then e.bi_cusname
+            else '' end
+      ,a.kehumc
+      ,a.province
+      ,a.cdepname
+      ,c.cdept_id_ehr
+      ,c.name_ehr
+      ,c.second_dept
+      ,c.third_dept
+      ,c.fourth_dept
+      ,c.fifth_dept
+      ,c.sixth_dept
+      ,null
+      ,null
+      ,null
+      ,a.voucher_id
+      ,null
+      ,null
+      ,a.u8dykm
+      ,a.ccode
+      ,a.ccode_name
+      ,a.ccode_lv2
+      ,a.ccode_name_lv2
+      ,a.md
+      ,a.u8_liuchengbh
+      ,null
+      ,'u8独有'
+      ,a.cdept_id
+      ,'取'
+  from pdm.account_fy_pre3 a
+  left join (select * from edw.dic_deptment group by cdept_id,db) c
+    on a.cdept_id = c.cdept_id
+   and left(a.db,10) = left(c.db,10)
+	left join (select * from edw.dic_customer group by ccusname) e
+	  on a.kehumc = e.ccusname
+
+;
+SQL结束执行时间：20190929002145
+SQL开始执行时间：20190929002145
+
+create temporary table pdm.accvouch_u8_pre1 as select * from pdm.accvouch_u8_pre
+;
+SQL结束执行时间：20190929002146
+SQL开始执行时间：20190929002146
+CREATE INDEX index_accvouch_u8_pre1_liuchengbh ON pdm.accvouch_u8_pre1(liuchengbh)
+;
+SQL结束执行时间：20190929002147
+SQL开始执行时间：20190929002147
+CREATE INDEX index_accvouch_u8_pre_liuchengbh ON pdm.accvouch_u8_pre(liuchengbh)
+;
+SQL结束执行时间：20190929002149
+SQL开始执行时间：20190929002149
+CREATE INDEX index_accvouch_u8_pre_md ON pdm.accvouch_u8_pre(md)
+;
+SQL结束执行时间：20190929002150
+SQL开始执行时间：20190929002150
+
+insert into pdm.account_fy
+select f.i_id
+      ,f.db
+      ,case when f.db = 'UFDATA_111_2018' then '博圣' 
+            when f.db = 'UFDATA_118_2018' then '卓恩'
+            when f.db = 'UFDATA_123_2018' then '恩允'
+            when f.db = 'UFDATA_168_2018' then '杭州贝生'
+            when f.db = 'UFDATA_168_2019' then '杭州贝生'
+            when f.db = 'UFDATA_169_2018' then '云鼎'
+            when f.db = 'UFDATA_222_2018' then '宝荣'
+            when f.db = 'UFDATA_222_2019' then '宝荣'
+            when f.db = 'UFDATA_333_2018' then '宁波贝生'
+            when f.db = 'UFDATA_588_2018' then '奥博特'
+            when f.db = 'UFDATA_588_2019' then '奥博特'
+            when f.db = 'UFDATA_666_2018' then '启代'
+            when f.db = 'UFDATA_889_2018' then '美博特'
+            when f.db = 'UFDATA_889_2019' then '美博特'
+            when f.db = 'UFDATA_555_2018' then '贝安云'
+            when f.db = 'UFDATA_007_2019' then '甄元'
+            end as cohr
+      ,f.dbill_date
+      ,a.fashengrq
+      ,a.bx_name
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.kehumc
+      ,a.province
+      ,case when b.liuchengbh is not null then b.cdepname     else f.cdepname      end
+      ,case when b.liuchengbh is not null then c.cdept_id_ehr else d.cdept_id_ehr  end
+      ,case when b.liuchengbh is not null then c.name_ehr     else d.name_ehr      end
+      ,case when b.liuchengbh is not null then c.second_dept  else d.second_dept   end
+      ,case when b.liuchengbh is not null then c.third_dept   else d.third_dept    end
+      ,case when b.liuchengbh is not null then c.fourth_dept  else d.fourth_dept   end
+      ,case when b.liuchengbh is not null then c.fifth_dept   else d.fifth_dept    end
+      ,case when b.liuchengbh is not null then c.sixth_dept   else d.sixth_dept    end
+      ,a.bx_name
+      ,a.bxr_dept_name
+      ,a.cd_name
+      ,f.voucher_id
+      ,a.neibuhylxmc as fylx
+      ,a.u8dykm
+      ,a.oadykm
+      ,a.oa_ccode
+      ,a.oa_ccode_name
+      ,a.oa_ccode_lv2
+      ,a.oa_ccode_name_lv2
+      ,a.jine
+      ,a.liuchengbh
+      ,a.beizhu
+      ,case when f.liuchengbh is null then '未知情况' else '共有' end
+      ,case when b.liuchengbh is not null then b.cdept_id     else f.cdept_id      end
+      ,'取'
+  from pdm.accvouch_oa_pre a
+  left join (select * from pdm.accvouch_u8_pre group by liuchengbh,md) b
+    on a.liuchengbh = b.liuchengbh
+   and a.jine = b.md
+  left join (select * from edw.dic_deptment group by cdept_id,db) c
+    on b.cdept_id = c.cdept_id
+   and left(b.db,10) = left(c.db,10)
+  left join (select * from pdm.accvouch_u8_pre1 group by liuchengbh) f
+    on a.liuchengbh = f.liuchengbh
+  left join (select * from edw.dic_deptment group by cdept_id,db) d
+    on f.cdept_id = d.cdept_id
+   and left(f.db,10) = left(d.db,10)
+
+;
+SQL结束执行时间：20190929002159
+SQL开始执行时间：20190929002159
+
+create temporary table pdm.account_fy_mon_del as
+select distinct liuchengbh
+      ,dbill_date
+  from pdm.account_fy_mon
+ where state2 = '2'
+
+;
+SQL结束执行时间：20190929002159
+SQL开始执行时间：20190929002159
+
+create temporary table pdm.account_fy_mon_del1 as select * from pdm.account_fy_mon_del
+;
+SQL结束执行时间：20190929002159
+SQL开始执行时间：20190929002159
+
+delete a,b 
+  from pdm.account_fy  as a 
+  join pdm.account_fy_mon_del as b 
+    on a.dbill_date = b.dbill_date
+   and a.liuchengbh = b.liuchengbh 
+
+;
+SQL结束执行时间：20190929002159
+SQL开始执行时间：20190929002159
+
+insert into pdm.account_fy
+select a.i_id
+      ,a.db
+      ,a.cohr
+      ,a.dbill_date
+      ,a.fashengrq
+      ,a.cpersonname
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.kehumc
+      ,a.province
+      ,a.name_u8
+      ,a.name_ehr_id
+      ,a.name_ehr
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.bx_name
+      ,a.bxr_dept_name
+      ,a.cd_name
+      ,a.voucher_id
+      ,a.fylx
+      ,null
+      ,a.kemu
+      ,a.code
+      ,a.code_name
+      ,a.code_lv2
+      ,a.code_name_lv2
+      ,a.md
+      ,a.liuchengbh
+      ,a.beizhu
+      ,a.state
+      ,a.cdept_id
+      ,a.status
+  from pdm.account_fy_mon a
+  left join pdm.account_fy_mon_del1 b
+    on a.dbill_date = b.dbill_date
+   and a.liuchengbh = b.liuchengbh
+ where b.dbill_date is not null
+
+;
+SQL结束执行时间：20190929002159
+SQL开始执行时间：20190929002159
+
+
+
+
+update pdm.account_fy
+   set status = '不取'
+ where code = '660279'
+;
+SQL结束执行时间：20190929002200
+SQL开始执行时间：20190929002200
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6603'
+;
+SQL结束执行时间：20190929002200
+SQL开始执行时间：20190929002200
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6604'
+;
+SQL结束执行时间：20190929002200
+SQL开始执行时间：20190929002200
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '640106'
+;
+SQL结束执行时间：20190929002200
+SQL开始执行时间：20190929002200
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,4) = '6403'
+;
+SQL结束执行时间：20190929002200
+SQL开始执行时间：20190929002200
+ 
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '510118'
+;
+SQL结束执行时间：20190929002200
+SQL开始执行时间：20190929002200
+
+update pdm.account_fy
+   set status = '不取'
+ where cohr = '博圣健康'
+
+;
+SQL结束执行时间：20190929002201
+SQL开始执行时间：20190929002201
+
+update pdm.account_fy
+   set status = '不取'
+ where left(code,6) = '530135'
+   and md = '1415094.35'
+;
+SQL结束执行时间：20190929002201
+SQL开始执行时间：20190929002201
+
+
+update pdm.account_fy
+   set fashengrq = null
+ where fashengrq = ''
+;
+SQL结束执行时间：20190929002201
+SQL开始执行时间：20190929002201
+
+update pdm.account_fy
+   set ccuscode = null
+ where ccuscode = ''
+;
+SQL结束执行时间：20190929002202
+SQL开始执行时间：20190929002202
+
+update pdm.account_fy a
+ inner join (select * from ufdata.department where db = 'UFDATA_111_2018' group by cdepcode) b
+    on a.cdept_id = b.cdepcode
+   set a.name_u8 = cdepname
+ where a.db = 'UFDATA_118_2018'
+    or a.db = 'UFDATA_123_2018'
+
+;
+SQL结束执行时间：20190929002202
+SQL开始执行时间：20190929002202
+
+update pdm.account_fy set kemu = '6602专业机构费',code='66020015',code_name='专业机构费',code_lv2='66020015',code_name_lv2 ='专业机构费' where cohr = '甄元' and kemu = '6601材料'
+;
+SQL结束执行时间：20190929002202
+SQL开始执行时间：20190929002202
+update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '奥博特' and kemu = '6601会务招待'
+;
+SQL结束执行时间：20190929002202
+SQL开始执行时间：20190929002202
+update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '美博特' and kemu = '6601会务招待'
+;
+SQL结束执行时间：20190929002203
+SQL开始执行时间：20190929002203
+update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '博圣' and kemu = '6601会务招待'
+;
+SQL结束执行时间：20190929002203
+SQL开始执行时间：20190929002203
+update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '博圣' and kemu = '6602会务招待'
+;
+SQL结束执行时间：20190929002203
+SQL开始执行时间：20190929002203
+update pdm.account_fy set kemu = '6601人员成本',code='6601010104',code_name='交通补贴',code_lv2='660101',code_name_lv2 ='人员成本' where cohr = '博圣' and kemu = '6601交通补贴'
+;
+SQL结束执行时间：20190929002203
+SQL开始执行时间：20190929002203
+update pdm.account_fy set kemu = '6601人员成本',code='6601010104',code_name='交通补贴',code_lv2='660101',code_name_lv2 ='人员成本' where cohr = '美博特' and kemu = '6601交通补贴'
+;
+SQL结束执行时间：20190929002203
+SQL开始执行时间：20190929002203
+update pdm.account_fy set kemu = '6602内部会议费',code='660204',code_name='内部会议费',code_lv2='660204',code_name_lv2 ='内部会议费' where cohr = '甄元' and kemu = '6602内部会议费'
+;
+SQL结束执行时间：20190929002203
+SQL开始执行时间：20190929002203
+update pdm.account_fy set kemu = '6602专业机构费',code='66020015',code_name='专业机构费',code_lv2='66020015',code_name_lv2 ='专业机构费' where cohr = '甄元' and kemu = '6602外部服务费'
+;
+SQL结束执行时间：20190929002204
+SQL开始执行时间：20190929002204
+update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '恩允' and kemu = '6602印花税'
+;
+SQL结束执行时间：20190929002204
+SQL开始执行时间：20190929002204
+update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '奥博特' and kemu = '6602印花税'
+;
+SQL结束执行时间：20190929002204
+SQL开始执行时间：20190929002204
+update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '贝安云' and kemu = '6602印花税'
+;
+SQL结束执行时间：20190929002204
+SQL开始执行时间：20190929002204
+update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '美博特' and kemu = '6601院内沙龙'
+;
+SQL结束执行时间：20190929002204
+SQL开始执行时间：20190929002204
+update pdm.account_fy set kemu = '6601耗材及配件',code='660118',code_name='耗材及配件',code_lv2='660118',code_name_lv2 ='耗材及配件' where cohr = '甄元' and kemu = '6601运营费用'
+;
+SQL结束执行时间：20190929002204

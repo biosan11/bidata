@@ -4807,3 +4807,163 @@ select a.subject
 
 ;
 SQL结束执行时间：20190925030116
+
+20190926030050开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926030050
+
+truncate table edw.crm_appointments
+;
+SQL结束执行时间：20190926030050
+SQL开始执行时间：20190926030050
+
+insert into edw.crm_appointments
+select a.subject
+      ,b.yomifullname
+      ,case when a.statuscode = '1' then '已开启'
+            when a.statuscode = '2' then ''
+            when a.statuscode = '3' then '已完成'
+            when a.statuscode = '4' then '已取消'
+            when a.statuscode = '5' then '已计划'
+            else '未知' end as statuscode
+      ,b.title
+      ,c.name as ccusname
+      ,d.name as dept_name
+      ,a.actualstart
+      ,a.actualdurationminutes
+      ,a.actualend
+      ,a.new_purpose
+      ,a.description
+      ,a.new_num
+      ,a.scheduleddurationminutes
+      ,'拜访'
+      ,localtimestamp() as sys_time
+  from ufdata.crm_appointments a
+  left join ufdata.crm_systemusers b
+    on a.ownerid = b.ownerid
+  left join ufdata.crm_accounts c
+    on a.regardingobjectid = c.accountid
+  left join ufdata.crm_deptment d
+    on b.businessunitid = d.businessunitid
+
+;
+SQL结束执行时间：20190926030112
+
+20190927030050开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927030050
+
+truncate table edw.crm_appointments
+;
+SQL结束执行时间：20190927030050
+SQL开始执行时间：20190927030050
+
+insert into edw.crm_appointments
+select a.subject
+      ,b.yomifullname
+      ,case when a.statuscode = '1' then '已开启'
+            when a.statuscode = '2' then ''
+            when a.statuscode = '3' then '已完成'
+            when a.statuscode = '4' then '已取消'
+            when a.statuscode = '5' then '已计划'
+            else '未知' end as statuscode
+      ,b.title
+      ,c.name as ccusname
+      ,d.name as dept_name
+      ,a.actualstart
+      ,a.actualdurationminutes
+      ,a.actualend
+      ,a.new_purpose
+      ,a.description
+      ,a.new_num
+      ,a.scheduleddurationminutes
+      ,'拜访'
+      ,localtimestamp() as sys_time
+  from ufdata.crm_appointments a
+  left join ufdata.crm_systemusers b
+    on a.ownerid = b.ownerid
+  left join ufdata.crm_accounts c
+    on a.regardingobjectid = c.accountid
+  left join ufdata.crm_deptment d
+    on b.businessunitid = d.businessunitid
+
+;
+SQL结束执行时间：20190927030112
+
+20190928030051开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928030051
+
+truncate table edw.crm_appointments
+;
+SQL结束执行时间：20190928030051
+SQL开始执行时间：20190928030051
+
+insert into edw.crm_appointments
+select a.subject
+      ,b.yomifullname
+      ,case when a.statuscode = '1' then '已开启'
+            when a.statuscode = '2' then ''
+            when a.statuscode = '3' then '已完成'
+            when a.statuscode = '4' then '已取消'
+            when a.statuscode = '5' then '已计划'
+            else '未知' end as statuscode
+      ,b.title
+      ,c.name as ccusname
+      ,d.name as dept_name
+      ,a.actualstart
+      ,a.actualdurationminutes
+      ,a.actualend
+      ,a.new_purpose
+      ,a.description
+      ,a.new_num
+      ,a.scheduleddurationminutes
+      ,'拜访'
+      ,localtimestamp() as sys_time
+  from ufdata.crm_appointments a
+  left join ufdata.crm_systemusers b
+    on a.ownerid = b.ownerid
+  left join ufdata.crm_accounts c
+    on a.regardingobjectid = c.accountid
+  left join ufdata.crm_deptment d
+    on b.businessunitid = d.businessunitid
+
+;
+SQL结束执行时间：20190928030115
+
+20190929030052开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929030052
+
+truncate table edw.crm_appointments
+;
+SQL结束执行时间：20190929030052
+SQL开始执行时间：20190929030052
+
+insert into edw.crm_appointments
+select a.subject
+      ,b.yomifullname
+      ,case when a.statuscode = '1' then '已开启'
+            when a.statuscode = '2' then ''
+            when a.statuscode = '3' then '已完成'
+            when a.statuscode = '4' then '已取消'
+            when a.statuscode = '5' then '已计划'
+            else '未知' end as statuscode
+      ,b.title
+      ,c.name as ccusname
+      ,d.name as dept_name
+      ,a.actualstart
+      ,a.actualdurationminutes
+      ,a.actualend
+      ,a.new_purpose
+      ,a.description
+      ,a.new_num
+      ,a.scheduleddurationminutes
+      ,'拜访'
+      ,localtimestamp() as sys_time
+  from ufdata.crm_appointments a
+  left join ufdata.crm_systemusers b
+    on a.ownerid = b.ownerid
+  left join ufdata.crm_accounts c
+    on a.regardingobjectid = c.accountid
+  left join ufdata.crm_deptment d
+    on b.businessunitid = d.businessunitid
+
+;
+SQL结束执行时间：20190929030116

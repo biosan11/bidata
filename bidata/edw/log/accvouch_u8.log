@@ -27022,3 +27022,967 @@ update edw.accvouch_u8
 
 ;
 SQL结束执行时间：20190925090455
+
+20190926001730开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926001730
+
+
+create temporary table edw.code as
+select ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_111_2018'
+   and iyear = "2019"
+
+;
+SQL结束执行时间：20190926001730
+SQL开始执行时间：20190926001730
+
+insert into edw.code values('640110','人员成本')
+;
+SQL结束执行时间：20190926001730
+SQL开始执行时间：20190926001730
+
+create temporary table edw.department_pre as
+select cdepcode
+      ,cdepname
+      ,db
+      ,idepgrade
+      ,case when idepgrade=  4 then cdepfullname
+            when idepgrade=  3 then CONCAT(cdepfullname,'/')
+            when idepgrade=  2 then CONCAT(cdepfullname,'//')
+            when idepgrade=  1 then CONCAT(cdepfullname,'///')
+            end as  cdepfullname
+  from ufdata.department
+;
+SQL结束执行时间：20190926001731
+SQL开始执行时间：20190926001731
+
+create temporary table edw.accvouch_u8_pre as
+select a.db
+      ,a.i_id
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,case when char_length(a.ino_id) = 1 then CONCAT(a.csign,'-000',a.ino_id) 
+            when char_length(a.ino_id) = 2 then CONCAT(a.csign,'-00',a.ino_id) 
+            when char_length(a.ino_id) = 3 then CONCAT(a.csign,'-0',a.ino_id) 
+            else CONCAT(a.csign,'-',a.ino_id)
+            end as voucher_id
+      ,a.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,c.cdepname
+      ,substring_index(substring_index(c.cdepfullname, '/', 1) , '/', -1) as cdepname_lv1
+      ,substring_index(substring_index(c.cdepfullname, '/', 2) , '/', -1) as cdepname_lv2
+      ,substring_index(substring_index(c.cdepfullname, '/', 3) , '/', -1) as cdepname_lv3
+      ,substring_index(substring_index(c.cdepfullname, '/', 4) , '/', -1) as cdepname_lv4
+      ,a.cperson_id
+      ,d.cpersonname
+      ,a.ccus_id
+      ,e.bi_cuscode
+      ,e.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.ibook
+      ,a.csign
+      ,localtimestamp() as sys_time
+  from ufdata.gl_accvouch a
+  left join (select ccode,ccode_name from edw.code group by ccode) b
+    on a.ccode = b.ccode
+  left join (select * from edw.department_pre group by cdepcode,db) c
+    on a.cdept_id = c.cdepcode
+   and left(a.db,10) = left(c.db,10)
+  left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
+    on a.cperson_id = d.cpersoncode
+   and left(a.db,10) = left(d.db,10)
+  left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
+    on a.ccus_id = e.ccuscode
+ where a.iflag is null
+   and a.db <> 'UFDATA_007_2019'
+
+;
+SQL结束执行时间：20190926001751
+SQL开始执行时间：20190926001751
+
+insert into edw.accvouch_u8_pre
+select a.db
+      ,a.i_id
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,case when char_length(a.ino_id) = 1 then CONCAT(a.csign,'-000',a.ino_id) 
+            when char_length(a.ino_id) = 2 then CONCAT(a.csign,'-00',a.ino_id) 
+            when char_length(a.ino_id) = 3 then CONCAT(a.csign,'-0',a.ino_id) 
+            else CONCAT(a.csign,'-',a.ino_id)
+            end as voucher_id
+      ,a.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,c.cdepname
+      ,substring_index(substring_index(c.cdepfullname, '/', 1) , '/', -1) as cdepname_lv1
+      ,substring_index(substring_index(c.cdepfullname, '/', 2) , '/', -1) as cdepname_lv2
+      ,substring_index(substring_index(c.cdepfullname, '/', 3) , '/', -1) as cdepname_lv3
+      ,substring_index(substring_index(c.cdepfullname, '/', 4) , '/', -1) as cdepname_lv4
+      ,a.cperson_id
+      ,d.cpersonname
+      ,a.ccus_id
+      ,e.bi_cuscode
+      ,e.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.ibook
+      ,a.csign
+      ,localtimestamp() as sys_time
+  from ufdata.gl_accvouch a
+  left join (select ccode,ccode_name from ufdata.code group by ccode) b
+    on a.ccode = b.ccode
+  left join (select * from edw.department_pre group by cdepcode,db) c
+    on a.cdept_id = c.cdepcode
+   and left(a.db,10) = left(c.db,10)
+  left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
+    on a.cperson_id = d.cpersoncode
+   and left(a.db,10) = left(d.db,10)
+  left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
+    on a.ccus_id = e.ccuscode
+ where a.iflag is null
+   and a.db = 'UFDATA_007_2019'
+
+;
+SQL结束执行时间：20190926001753
+SQL开始执行时间：20190926001753
+
+delete from edw.accvouch_u8_pre where ibook = '0' and csign = '记'
+;
+SQL结束执行时间：20190926001754
+SQL开始执行时间：20190926001754
+
+
+
+truncate table edw.accvouch_u8
+;
+SQL结束执行时间：20190926001754
+SQL开始执行时间：20190926001754
+insert into edw.accvouch_u8
+select a.db
+      ,a.i_id
+      ,case when a.cdigest like '%BS-BSFK%' then left(CONCAT(RIGHT(SUBSTRING_INDEX(a.cdigest,'-',1),2),'-',SUBSTRING_INDEX(a.cdigest,'-',-2)),20)
+            else a.cdigest end as liuchengbh
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,a.voucher_id
+      ,a.ccode
+      ,a.ccode_name
+      ,b.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.cperson_id
+      ,a.cpersonname
+      ,c.province
+      ,a.ccus_id
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.sys_time
+  from edw.accvouch_u8_pre a
+  left join (select ccode,ccode_name from edw.code group by ccode) b
+    on SUBSTRING(a.ccode,1,6) = b.ccode
+  left join (select bi_cuscode,sales_region,province from edw.map_customer group by bi_cuscode) c
+    on a.bi_cuscode = c.bi_cuscode
+ where a.db <> 'UFDATA_007_2019'
+;
+SQL结束执行时间：20190926001805
+SQL开始执行时间：20190926001805
+
+insert into edw.accvouch_u8
+select a.db
+      ,a.i_id
+      ,case when a.cdigest like '%BS-BSFK%' then left(CONCAT(RIGHT(SUBSTRING_INDEX(a.cdigest,'-',1),2),'-',SUBSTRING_INDEX(a.cdigest,'-',-2)),20)
+            else a.cdigest end as liuchengbh
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,a.voucher_id
+      ,a.ccode
+      ,a.ccode_name
+      ,b.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.cperson_id
+      ,a.cpersonname
+      ,c.province
+      ,a.ccus_id
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.sys_time
+  from edw.accvouch_u8_pre a
+  left join (select ccode,ccode_name from ufdata.code group by ccode) b
+    on SUBSTRING(a.ccode,1,8) = b.ccode
+  left join (select bi_cuscode,sales_region,province from edw.map_customer group by bi_cuscode) c
+    on a.bi_cuscode = c.bi_cuscode
+ where a.db = 'UFDATA_007_2019'
+;
+SQL结束执行时间：20190926001807
+SQL开始执行时间：20190926001807
+
+
+update edw.accvouch_u8
+   set liuchengbh = 'BS-BSFK-201904241249'
+      ,cdigest = '招待费BS-BSFK-201904241249'
+ where liuchengbh = 'BS-BSFK-201904010061'
+   and db = 'UFDATA_666_2018'
+   and mc = '0'
+
+;
+SQL结束执行时间：20190926001807
+SQL开始执行时间：20190926001807
+
+update edw.accvouch_u8
+   set liuchengbh = 'BS-BSFK-201904241249'
+      ,cdigest = '王彩琴报销BS-BSFK-201904010061'
+ where liuchengbh = 'BS-BSFK-201904010061'
+   and db = 'UFDATA_666_2018'
+   and md = '0'
+
+;
+SQL结束执行时间：20190926001807
+
+20190927093726开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927093726
+
+
+create temporary table edw.code as
+select ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_111_2018'
+   and iyear = "2019"
+
+;
+SQL结束执行时间：20190927093726
+SQL开始执行时间：20190927093726
+
+insert into edw.code values('640110','人员成本')
+;
+SQL结束执行时间：20190927093726
+SQL开始执行时间：20190927093726
+
+create temporary table edw.department_pre as
+select cdepcode
+      ,cdepname
+      ,db
+      ,idepgrade
+      ,case when idepgrade=  4 then cdepfullname
+            when idepgrade=  3 then CONCAT(cdepfullname,'/')
+            when idepgrade=  2 then CONCAT(cdepfullname,'//')
+            when idepgrade=  1 then CONCAT(cdepfullname,'///')
+            end as  cdepfullname
+  from ufdata.department
+;
+SQL结束执行时间：20190927093726
+SQL开始执行时间：20190927093726
+
+create temporary table edw.accvouch_u8_pre as
+select a.db
+      ,a.i_id
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,case when char_length(a.ino_id) = 1 then CONCAT(a.csign,'-000',a.ino_id) 
+            when char_length(a.ino_id) = 2 then CONCAT(a.csign,'-00',a.ino_id) 
+            when char_length(a.ino_id) = 3 then CONCAT(a.csign,'-0',a.ino_id) 
+            else CONCAT(a.csign,'-',a.ino_id)
+            end as voucher_id
+      ,a.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,c.cdepname
+      ,substring_index(substring_index(c.cdepfullname, '/', 1) , '/', -1) as cdepname_lv1
+      ,substring_index(substring_index(c.cdepfullname, '/', 2) , '/', -1) as cdepname_lv2
+      ,substring_index(substring_index(c.cdepfullname, '/', 3) , '/', -1) as cdepname_lv3
+      ,substring_index(substring_index(c.cdepfullname, '/', 4) , '/', -1) as cdepname_lv4
+      ,a.cperson_id
+      ,d.cpersonname
+      ,a.ccus_id
+      ,e.bi_cuscode
+      ,e.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.ibook
+      ,a.csign
+      ,localtimestamp() as sys_time
+  from ufdata.gl_accvouch a
+  left join (select ccode,ccode_name from edw.code group by ccode) b
+    on a.ccode = b.ccode
+  left join (select * from edw.department_pre group by cdepcode,db) c
+    on a.cdept_id = c.cdepcode
+   and left(a.db,10) = left(c.db,10)
+  left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
+    on a.cperson_id = d.cpersoncode
+   and left(a.db,10) = left(d.db,10)
+  left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
+    on a.ccus_id = e.ccuscode
+ where a.iflag is null
+   and a.db <> 'UFDATA_007_2019'
+
+;
+SQL结束执行时间：20190927093744
+SQL开始执行时间：20190927093744
+
+insert into edw.accvouch_u8_pre
+select a.db
+      ,a.i_id
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,case when char_length(a.ino_id) = 1 then CONCAT(a.csign,'-000',a.ino_id) 
+            when char_length(a.ino_id) = 2 then CONCAT(a.csign,'-00',a.ino_id) 
+            when char_length(a.ino_id) = 3 then CONCAT(a.csign,'-0',a.ino_id) 
+            else CONCAT(a.csign,'-',a.ino_id)
+            end as voucher_id
+      ,a.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,c.cdepname
+      ,substring_index(substring_index(c.cdepfullname, '/', 1) , '/', -1) as cdepname_lv1
+      ,substring_index(substring_index(c.cdepfullname, '/', 2) , '/', -1) as cdepname_lv2
+      ,substring_index(substring_index(c.cdepfullname, '/', 3) , '/', -1) as cdepname_lv3
+      ,substring_index(substring_index(c.cdepfullname, '/', 4) , '/', -1) as cdepname_lv4
+      ,a.cperson_id
+      ,d.cpersonname
+      ,a.ccus_id
+      ,e.bi_cuscode
+      ,e.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.ibook
+      ,a.csign
+      ,localtimestamp() as sys_time
+  from ufdata.gl_accvouch a
+  left join (select ccode,ccode_name from ufdata.code group by ccode) b
+    on a.ccode = b.ccode
+  left join (select * from edw.department_pre group by cdepcode,db) c
+    on a.cdept_id = c.cdepcode
+   and left(a.db,10) = left(c.db,10)
+  left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
+    on a.cperson_id = d.cpersoncode
+   and left(a.db,10) = left(d.db,10)
+  left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
+    on a.ccus_id = e.ccuscode
+ where a.iflag is null
+   and a.db = 'UFDATA_007_2019'
+
+;
+SQL结束执行时间：20190927093746
+SQL开始执行时间：20190927093746
+
+delete from edw.accvouch_u8_pre where ibook = '0' and csign = '记'
+;
+SQL结束执行时间：20190927093746
+SQL开始执行时间：20190927093746
+
+
+
+truncate table edw.accvouch_u8
+;
+SQL结束执行时间：20190927093747
+SQL开始执行时间：20190927093747
+insert into edw.accvouch_u8
+select a.db
+      ,a.i_id
+      ,case when a.cdigest like '%BS-BSFK%' then left(CONCAT(RIGHT(SUBSTRING_INDEX(a.cdigest,'-',1),2),'-',SUBSTRING_INDEX(a.cdigest,'-',-2)),20)
+            else a.cdigest end as liuchengbh
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,a.voucher_id
+      ,a.ccode
+      ,a.ccode_name
+      ,b.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.cperson_id
+      ,a.cpersonname
+      ,c.province
+      ,a.ccus_id
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.sys_time
+  from edw.accvouch_u8_pre a
+  left join (select ccode,ccode_name from edw.code group by ccode) b
+    on SUBSTRING(a.ccode,1,6) = b.ccode
+  left join (select bi_cuscode,sales_region,province from edw.map_customer group by bi_cuscode) c
+    on a.bi_cuscode = c.bi_cuscode
+ where a.db <> 'UFDATA_007_2019'
+;
+SQL结束执行时间：20190927093757
+SQL开始执行时间：20190927093757
+
+insert into edw.accvouch_u8
+select a.db
+      ,a.i_id
+      ,case when a.cdigest like '%BS-BSFK%' then left(CONCAT(RIGHT(SUBSTRING_INDEX(a.cdigest,'-',1),2),'-',SUBSTRING_INDEX(a.cdigest,'-',-2)),20)
+            else a.cdigest end as liuchengbh
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,a.voucher_id
+      ,a.ccode
+      ,a.ccode_name
+      ,b.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.cperson_id
+      ,a.cpersonname
+      ,c.province
+      ,a.ccus_id
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.sys_time
+  from edw.accvouch_u8_pre a
+  left join (select ccode,ccode_name from ufdata.code group by ccode) b
+    on SUBSTRING(a.ccode,1,8) = b.ccode
+  left join (select bi_cuscode,sales_region,province from edw.map_customer group by bi_cuscode) c
+    on a.bi_cuscode = c.bi_cuscode
+ where a.db = 'UFDATA_007_2019'
+;
+SQL结束执行时间：20190927093758
+SQL开始执行时间：20190927093758
+
+
+update edw.accvouch_u8
+   set liuchengbh = 'BS-BSFK-201904241249'
+      ,cdigest = '招待费BS-BSFK-201904241249'
+ where liuchengbh = 'BS-BSFK-201904010061'
+   and db = 'UFDATA_666_2018'
+   and mc = '0'
+
+;
+SQL结束执行时间：20190927093758
+SQL开始执行时间：20190927093758
+
+update edw.accvouch_u8
+   set liuchengbh = 'BS-BSFK-201904241249'
+      ,cdigest = '王彩琴报销BS-BSFK-201904010061'
+ where liuchengbh = 'BS-BSFK-201904010061'
+   and db = 'UFDATA_666_2018'
+   and md = '0'
+
+;
+SQL结束执行时间：20190927093758
+
+20190928001725开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928001725
+
+
+create temporary table edw.code as
+select ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_111_2018'
+   and iyear = "2019"
+
+;
+SQL结束执行时间：20190928001725
+SQL开始执行时间：20190928001725
+
+insert into edw.code values('640110','人员成本')
+;
+SQL结束执行时间：20190928001725
+SQL开始执行时间：20190928001725
+
+create temporary table edw.department_pre as
+select cdepcode
+      ,cdepname
+      ,db
+      ,idepgrade
+      ,case when idepgrade=  4 then cdepfullname
+            when idepgrade=  3 then CONCAT(cdepfullname,'/')
+            when idepgrade=  2 then CONCAT(cdepfullname,'//')
+            when idepgrade=  1 then CONCAT(cdepfullname,'///')
+            end as  cdepfullname
+  from ufdata.department
+;
+SQL结束执行时间：20190928001726
+SQL开始执行时间：20190928001726
+
+create temporary table edw.accvouch_u8_pre as
+select a.db
+      ,a.i_id
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,case when char_length(a.ino_id) = 1 then CONCAT(a.csign,'-000',a.ino_id) 
+            when char_length(a.ino_id) = 2 then CONCAT(a.csign,'-00',a.ino_id) 
+            when char_length(a.ino_id) = 3 then CONCAT(a.csign,'-0',a.ino_id) 
+            else CONCAT(a.csign,'-',a.ino_id)
+            end as voucher_id
+      ,a.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,c.cdepname
+      ,substring_index(substring_index(c.cdepfullname, '/', 1) , '/', -1) as cdepname_lv1
+      ,substring_index(substring_index(c.cdepfullname, '/', 2) , '/', -1) as cdepname_lv2
+      ,substring_index(substring_index(c.cdepfullname, '/', 3) , '/', -1) as cdepname_lv3
+      ,substring_index(substring_index(c.cdepfullname, '/', 4) , '/', -1) as cdepname_lv4
+      ,a.cperson_id
+      ,d.cpersonname
+      ,a.ccus_id
+      ,e.bi_cuscode
+      ,e.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.ibook
+      ,a.csign
+      ,localtimestamp() as sys_time
+  from ufdata.gl_accvouch a
+  left join (select ccode,ccode_name from edw.code group by ccode) b
+    on a.ccode = b.ccode
+  left join (select * from edw.department_pre group by cdepcode,db) c
+    on a.cdept_id = c.cdepcode
+   and left(a.db,10) = left(c.db,10)
+  left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
+    on a.cperson_id = d.cpersoncode
+   and left(a.db,10) = left(d.db,10)
+  left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
+    on a.ccus_id = e.ccuscode
+ where a.iflag is null
+   and a.db <> 'UFDATA_007_2019'
+
+;
+SQL结束执行时间：20190928001744
+SQL开始执行时间：20190928001744
+
+insert into edw.accvouch_u8_pre
+select a.db
+      ,a.i_id
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,case when char_length(a.ino_id) = 1 then CONCAT(a.csign,'-000',a.ino_id) 
+            when char_length(a.ino_id) = 2 then CONCAT(a.csign,'-00',a.ino_id) 
+            when char_length(a.ino_id) = 3 then CONCAT(a.csign,'-0',a.ino_id) 
+            else CONCAT(a.csign,'-',a.ino_id)
+            end as voucher_id
+      ,a.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,c.cdepname
+      ,substring_index(substring_index(c.cdepfullname, '/', 1) , '/', -1) as cdepname_lv1
+      ,substring_index(substring_index(c.cdepfullname, '/', 2) , '/', -1) as cdepname_lv2
+      ,substring_index(substring_index(c.cdepfullname, '/', 3) , '/', -1) as cdepname_lv3
+      ,substring_index(substring_index(c.cdepfullname, '/', 4) , '/', -1) as cdepname_lv4
+      ,a.cperson_id
+      ,d.cpersonname
+      ,a.ccus_id
+      ,e.bi_cuscode
+      ,e.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.ibook
+      ,a.csign
+      ,localtimestamp() as sys_time
+  from ufdata.gl_accvouch a
+  left join (select ccode,ccode_name from ufdata.code group by ccode) b
+    on a.ccode = b.ccode
+  left join (select * from edw.department_pre group by cdepcode,db) c
+    on a.cdept_id = c.cdepcode
+   and left(a.db,10) = left(c.db,10)
+  left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
+    on a.cperson_id = d.cpersoncode
+   and left(a.db,10) = left(d.db,10)
+  left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
+    on a.ccus_id = e.ccuscode
+ where a.iflag is null
+   and a.db = 'UFDATA_007_2019'
+
+;
+SQL结束执行时间：20190928001746
+SQL开始执行时间：20190928001746
+
+delete from edw.accvouch_u8_pre where ibook = '0' and csign = '记'
+;
+SQL结束执行时间：20190928001748
+SQL开始执行时间：20190928001748
+
+
+
+truncate table edw.accvouch_u8
+;
+SQL结束执行时间：20190928001748
+SQL开始执行时间：20190928001748
+insert into edw.accvouch_u8
+select a.db
+      ,a.i_id
+      ,case when a.cdigest like '%BS-BSFK%' then left(CONCAT(RIGHT(SUBSTRING_INDEX(a.cdigest,'-',1),2),'-',SUBSTRING_INDEX(a.cdigest,'-',-2)),20)
+            else a.cdigest end as liuchengbh
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,a.voucher_id
+      ,a.ccode
+      ,a.ccode_name
+      ,b.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.cperson_id
+      ,a.cpersonname
+      ,c.province
+      ,a.ccus_id
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.sys_time
+  from edw.accvouch_u8_pre a
+  left join (select ccode,ccode_name from edw.code group by ccode) b
+    on SUBSTRING(a.ccode,1,6) = b.ccode
+  left join (select bi_cuscode,sales_region,province from edw.map_customer group by bi_cuscode) c
+    on a.bi_cuscode = c.bi_cuscode
+ where a.db <> 'UFDATA_007_2019'
+;
+SQL结束执行时间：20190928001758
+SQL开始执行时间：20190928001758
+
+insert into edw.accvouch_u8
+select a.db
+      ,a.i_id
+      ,case when a.cdigest like '%BS-BSFK%' then left(CONCAT(RIGHT(SUBSTRING_INDEX(a.cdigest,'-',1),2),'-',SUBSTRING_INDEX(a.cdigest,'-',-2)),20)
+            else a.cdigest end as liuchengbh
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,a.voucher_id
+      ,a.ccode
+      ,a.ccode_name
+      ,b.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.cperson_id
+      ,a.cpersonname
+      ,c.province
+      ,a.ccus_id
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.sys_time
+  from edw.accvouch_u8_pre a
+  left join (select ccode,ccode_name from ufdata.code group by ccode) b
+    on SUBSTRING(a.ccode,1,8) = b.ccode
+  left join (select bi_cuscode,sales_region,province from edw.map_customer group by bi_cuscode) c
+    on a.bi_cuscode = c.bi_cuscode
+ where a.db = 'UFDATA_007_2019'
+;
+SQL结束执行时间：20190928001800
+SQL开始执行时间：20190928001800
+
+
+update edw.accvouch_u8
+   set liuchengbh = 'BS-BSFK-201904241249'
+      ,cdigest = '招待费BS-BSFK-201904241249'
+ where liuchengbh = 'BS-BSFK-201904010061'
+   and db = 'UFDATA_666_2018'
+   and mc = '0'
+
+;
+SQL结束执行时间：20190928001800
+SQL开始执行时间：20190928001800
+
+update edw.accvouch_u8
+   set liuchengbh = 'BS-BSFK-201904241249'
+      ,cdigest = '王彩琴报销BS-BSFK-201904010061'
+ where liuchengbh = 'BS-BSFK-201904010061'
+   and db = 'UFDATA_666_2018'
+   and md = '0'
+
+;
+SQL结束执行时间：20190928001800
+
+20190929001719开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929001719
+
+
+create temporary table edw.code as
+select ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_111_2018'
+   and iyear = "2019"
+
+;
+SQL结束执行时间：20190929001719
+SQL开始执行时间：20190929001719
+
+insert into edw.code values('640110','人员成本')
+;
+SQL结束执行时间：20190929001719
+SQL开始执行时间：20190929001719
+
+create temporary table edw.department_pre as
+select cdepcode
+      ,cdepname
+      ,db
+      ,idepgrade
+      ,case when idepgrade=  4 then cdepfullname
+            when idepgrade=  3 then CONCAT(cdepfullname,'/')
+            when idepgrade=  2 then CONCAT(cdepfullname,'//')
+            when idepgrade=  1 then CONCAT(cdepfullname,'///')
+            end as  cdepfullname
+  from ufdata.department
+;
+SQL结束执行时间：20190929001719
+SQL开始执行时间：20190929001719
+
+create temporary table edw.accvouch_u8_pre as
+select a.db
+      ,a.i_id
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,case when char_length(a.ino_id) = 1 then CONCAT(a.csign,'-000',a.ino_id) 
+            when char_length(a.ino_id) = 2 then CONCAT(a.csign,'-00',a.ino_id) 
+            when char_length(a.ino_id) = 3 then CONCAT(a.csign,'-0',a.ino_id) 
+            else CONCAT(a.csign,'-',a.ino_id)
+            end as voucher_id
+      ,a.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,c.cdepname
+      ,substring_index(substring_index(c.cdepfullname, '/', 1) , '/', -1) as cdepname_lv1
+      ,substring_index(substring_index(c.cdepfullname, '/', 2) , '/', -1) as cdepname_lv2
+      ,substring_index(substring_index(c.cdepfullname, '/', 3) , '/', -1) as cdepname_lv3
+      ,substring_index(substring_index(c.cdepfullname, '/', 4) , '/', -1) as cdepname_lv4
+      ,a.cperson_id
+      ,d.cpersonname
+      ,a.ccus_id
+      ,e.bi_cuscode
+      ,e.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.ibook
+      ,a.csign
+      ,localtimestamp() as sys_time
+  from ufdata.gl_accvouch a
+  left join (select ccode,ccode_name from edw.code group by ccode) b
+    on a.ccode = b.ccode
+  left join (select * from edw.department_pre group by cdepcode,db) c
+    on a.cdept_id = c.cdepcode
+   and left(a.db,10) = left(c.db,10)
+  left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
+    on a.cperson_id = d.cpersoncode
+   and left(a.db,10) = left(d.db,10)
+  left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
+    on a.ccus_id = e.ccuscode
+ where a.iflag is null
+   and a.db <> 'UFDATA_007_2019'
+
+;
+SQL结束执行时间：20190929001737
+SQL开始执行时间：20190929001737
+
+insert into edw.accvouch_u8_pre
+select a.db
+      ,a.i_id
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,case when char_length(a.ino_id) = 1 then CONCAT(a.csign,'-000',a.ino_id) 
+            when char_length(a.ino_id) = 2 then CONCAT(a.csign,'-00',a.ino_id) 
+            when char_length(a.ino_id) = 3 then CONCAT(a.csign,'-0',a.ino_id) 
+            else CONCAT(a.csign,'-',a.ino_id)
+            end as voucher_id
+      ,a.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,c.cdepname
+      ,substring_index(substring_index(c.cdepfullname, '/', 1) , '/', -1) as cdepname_lv1
+      ,substring_index(substring_index(c.cdepfullname, '/', 2) , '/', -1) as cdepname_lv2
+      ,substring_index(substring_index(c.cdepfullname, '/', 3) , '/', -1) as cdepname_lv3
+      ,substring_index(substring_index(c.cdepfullname, '/', 4) , '/', -1) as cdepname_lv4
+      ,a.cperson_id
+      ,d.cpersonname
+      ,a.ccus_id
+      ,e.bi_cuscode
+      ,e.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.ibook
+      ,a.csign
+      ,localtimestamp() as sys_time
+  from ufdata.gl_accvouch a
+  left join (select ccode,ccode_name from ufdata.code group by ccode) b
+    on a.ccode = b.ccode
+  left join (select * from edw.department_pre group by cdepcode,db) c
+    on a.cdept_id = c.cdepcode
+   and left(a.db,10) = left(c.db,10)
+  left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
+    on a.cperson_id = d.cpersoncode
+   and left(a.db,10) = left(d.db,10)
+  left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
+    on a.ccus_id = e.ccuscode
+ where a.iflag is null
+   and a.db = 'UFDATA_007_2019'
+
+;
+SQL结束执行时间：20190929001739
+SQL开始执行时间：20190929001739
+
+delete from edw.accvouch_u8_pre where ibook = '0' and csign = '记'
+;
+SQL结束执行时间：20190929001740
+SQL开始执行时间：20190929001740
+
+
+
+truncate table edw.accvouch_u8
+;
+SQL结束执行时间：20190929001740
+SQL开始执行时间：20190929001740
+insert into edw.accvouch_u8
+select a.db
+      ,a.i_id
+      ,case when a.cdigest like '%BS-BSFK%' then left(CONCAT(RIGHT(SUBSTRING_INDEX(a.cdigest,'-',1),2),'-',SUBSTRING_INDEX(a.cdigest,'-',-2)),20)
+            else a.cdigest end as liuchengbh
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,a.voucher_id
+      ,a.ccode
+      ,a.ccode_name
+      ,b.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.cperson_id
+      ,a.cpersonname
+      ,c.province
+      ,a.ccus_id
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.sys_time
+  from edw.accvouch_u8_pre a
+  left join (select ccode,ccode_name from edw.code group by ccode) b
+    on SUBSTRING(a.ccode,1,6) = b.ccode
+  left join (select bi_cuscode,sales_region,province from edw.map_customer group by bi_cuscode) c
+    on a.bi_cuscode = c.bi_cuscode
+ where a.db <> 'UFDATA_007_2019'
+;
+SQL结束执行时间：20190929001752
+SQL开始执行时间：20190929001752
+
+insert into edw.accvouch_u8
+select a.db
+      ,a.i_id
+      ,case when a.cdigest like '%BS-BSFK%' then left(CONCAT(RIGHT(SUBSTRING_INDEX(a.cdigest,'-',1),2),'-',SUBSTRING_INDEX(a.cdigest,'-',-2)),20)
+            else a.cdigest end as liuchengbh
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,a.voucher_id
+      ,a.ccode
+      ,a.ccode_name
+      ,b.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,a.cdepname
+      ,a.cdepname_lv1
+      ,a.cdepname_lv2
+      ,a.cdepname_lv3
+      ,a.cdepname_lv4
+      ,a.cperson_id
+      ,a.cpersonname
+      ,c.province
+      ,a.ccus_id
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.sys_time
+  from edw.accvouch_u8_pre a
+  left join (select ccode,ccode_name from ufdata.code group by ccode) b
+    on SUBSTRING(a.ccode,1,8) = b.ccode
+  left join (select bi_cuscode,sales_region,province from edw.map_customer group by bi_cuscode) c
+    on a.bi_cuscode = c.bi_cuscode
+ where a.db = 'UFDATA_007_2019'
+;
+SQL结束执行时间：20190929001753
+SQL开始执行时间：20190929001753
+
+
+update edw.accvouch_u8
+   set liuchengbh = 'BS-BSFK-201904241249'
+      ,cdigest = '招待费BS-BSFK-201904241249'
+ where liuchengbh = 'BS-BSFK-201904010061'
+   and db = 'UFDATA_666_2018'
+   and mc = '0'
+
+;
+SQL结束执行时间：20190929001753
+SQL开始执行时间：20190929001753
+
+update edw.accvouch_u8
+   set liuchengbh = 'BS-BSFK-201904241249'
+      ,cdigest = '王彩琴报销BS-BSFK-201904010061'
+ where liuchengbh = 'BS-BSFK-201904010061'
+   and db = 'UFDATA_666_2018'
+   and md = '0'
+
+;
+SQL结束执行时间：20190929001753

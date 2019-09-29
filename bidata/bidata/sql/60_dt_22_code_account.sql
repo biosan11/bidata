@@ -55,53 +55,10 @@ where left(db,10) = "UFDATA_007"
 group by code 
 ;
 
--- 导入正式表  非甄元账套
-truncate table bidata.dt_22_code_account;
-insert into bidata.dt_22_code_account
-select 
-    a.code_account 
-    ,case 
-        when a.code_account = "640110" then "人员成本"
-        else b.ccode_name 
-        end as ccode_name -- 640110  是启代库的人员成本数据
-    ,left(a.code_account,6) as code_account_2 
-    ,case 
-        when a.code_account = "640110" then "人员成本"
-        else c.ccode_name 
-        end as ccode_name_2 -- 640110  是启代库的人员成本数据
-    ,left(a.code_account,4) as code_account_3 
-    ,d.ccode_name as ccode_name_3
-from bidata.expenses_tem01 as a 
-left join 
-(select 
-ccode
-,ccode_name 
-from ufdata.code
-where iyear = "2019"
-and db = "UFDATA_111_2018"
-group by ccode) as b 
-on a.code_account = b.ccode
-left join 
-(select 
-ccode
-,ccode_name 
-from ufdata.code
-where iyear = "2019"
-and db = "UFDATA_111_2018"
-group by ccode) as c 
-on left(a.code_account,6) = c.ccode
-left join 
-(select 
-ccode
-,ccode_name 
-from ufdata.code
-where iyear = "2019"
-and db = "UFDATA_111_2018"
-group by ccode) as d
-on left(a.code_account,4) = d.ccode
-;
 
--- 甄元账套
+truncate table bidata.dt_22_code_account;
+
+-- 导入正式表  甄元账套
 insert into bidata.dt_22_code_account
 select 
     a.code_account 
@@ -145,3 +102,56 @@ and db = "UFDATA_007_2019"
 group by ccode) as d
 on left(a.code_account,4) = d.ccode
 ;
+
+
+-- 导入正式表  非甄元账套
+replace into bidata.dt_22_code_account
+select 
+    a.code_account 
+    ,case 
+        when a.code_account = "640110" then "人员成本"
+        else b.ccode_name 
+        end as ccode_name -- 640110  是启代库的人员成本数据
+    ,left(a.code_account,6) as code_account_2 
+    ,case 
+        when a.code_account = "640110" then "人员成本"
+        else c.ccode_name 
+        end as ccode_name_2 -- 640110  是启代库的人员成本数据
+    ,left(a.code_account,4) as code_account_3 
+    ,d.ccode_name as ccode_name_3
+from bidata.expenses_tem01 as a 
+left join 
+(select 
+ccode
+,ccode_name 
+from ufdata.code
+where iyear = "2019"
+and db = "UFDATA_111_2018"
+group by ccode) as b 
+on a.code_account = b.ccode
+left join 
+(select 
+ccode
+,ccode_name 
+from ufdata.code
+where iyear = "2019"
+and db = "UFDATA_111_2018"
+group by ccode) as c 
+on left(a.code_account,6) = c.ccode
+left join 
+(select 
+ccode
+,ccode_name 
+from ufdata.code
+where iyear = "2019"
+and db = "UFDATA_111_2018"
+group by ccode) as d
+on left(a.code_account,4) = d.ccode
+;
+
+-- 当费用科目无法在第一层费用表中找到对应时，改名称为其他
+update bidata.dt_22_code_account
+set ccode_name = "其他" where ccode_name is null;
+
+update bidata.dt_22_code_account
+set ccode_name_2 = "其他" where ccode_name_2 is null;

@@ -3761,3 +3761,215 @@ select a.liuchengbh
 
 ;
 SQL结束执行时间：20190925004046
+
+20190926004041开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926004041
+truncate table edw.oa_meet_market_salon
+;
+SQL结束执行时间：20190926004041
+SQL开始执行时间：20190926004041
+insert into edw.oa_meet_market_salon
+select a.liuchengbh
+      ,a.shenqingrq
+      ,a.huiyibt
+      ,a.lastname
+      ,a.departmentname
+      ,a.kehumc
+      ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cuscode end as bi_cuscode
+      ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cusname end as bi_cusname
+      ,a.keshi
+      ,a.huiyizt
+      ,a.huiyiksrq
+      ,a.kaishisj
+      ,a.jieshusj
+      ,a.huiyidz
+      ,a.yusuanzfy
+      ,a.shijihffy
+      ,a.keshiglxz
+      ,a.cunzaidwt
+      ,a.nigaibgn
+      ,a.xiwangjz
+      ,a.tingzhong
+      ,a.zhuchi
+      ,a.huiyijsrq
+      ,a.huiyiztsj
+      ,a.kaishisjsj
+      ,a.jieshusjsj
+      ,a.huiyizjrsj
+      ,a.tingzhongxcfk
+      ,a.zhurenxcfk
+      ,a.hudongwthz
+      ,a.xianchangjdjl
+      ,a.huihoudcgs
+      ,a.zhurentd
+      ,a.tingzhonggn
+      ,a.keshijhxd
+      ,a.xiayibuxq
+      ,a.xiaoshoujscjh
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_salon a
+  left join (select * from edw.dic_customer group by ccusname) b
+    on a.kehumc = b.ccusname
+
+;
+SQL结束执行时间：20190926004044
+
+20190927004041开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927004041
+truncate table edw.oa_meet_market_salon
+;
+SQL结束执行时间：20190927004041
+SQL开始执行时间：20190927004041
+insert into edw.oa_meet_market_salon
+select a.liuchengbh
+      ,a.shenqingrq
+      ,a.huiyibt
+      ,a.lastname
+      ,a.departmentname
+      ,a.kehumc
+      ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cuscode end as bi_cuscode
+      ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cusname end as bi_cusname
+      ,a.keshi
+      ,a.huiyizt
+      ,a.huiyiksrq
+      ,a.kaishisj
+      ,a.jieshusj
+      ,a.huiyidz
+      ,a.yusuanzfy
+      ,a.shijihffy
+      ,a.keshiglxz
+      ,a.cunzaidwt
+      ,a.nigaibgn
+      ,a.xiwangjz
+      ,a.tingzhong
+      ,a.zhuchi
+      ,a.huiyijsrq
+      ,a.huiyiztsj
+      ,a.kaishisjsj
+      ,a.jieshusjsj
+      ,a.huiyizjrsj
+      ,a.tingzhongxcfk
+      ,a.zhurenxcfk
+      ,a.hudongwthz
+      ,a.xianchangjdjl
+      ,a.huihoudcgs
+      ,a.zhurentd
+      ,a.tingzhonggn
+      ,a.keshijhxd
+      ,a.xiayibuxq
+      ,a.xiaoshoujscjh
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_salon a
+  left join (select * from edw.dic_customer group by ccusname) b
+    on a.kehumc = b.ccusname
+
+;
+SQL结束执行时间：20190927004045
+
+20190928004040开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928004040
+truncate table edw.oa_meet_market_salon
+;
+SQL结束执行时间：20190928004040
+SQL开始执行时间：20190928004040
+insert into edw.oa_meet_market_salon
+select a.liuchengbh
+      ,a.shenqingrq
+      ,a.huiyibt
+      ,a.lastname
+      ,a.departmentname
+      ,a.kehumc
+      ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cuscode end as bi_cuscode
+      ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cusname end as bi_cusname
+      ,a.keshi
+      ,a.huiyizt
+      ,a.huiyiksrq
+      ,a.kaishisj
+      ,a.jieshusj
+      ,a.huiyidz
+      ,a.yusuanzfy
+      ,a.shijihffy
+      ,a.keshiglxz
+      ,a.cunzaidwt
+      ,a.nigaibgn
+      ,a.xiwangjz
+      ,a.tingzhong
+      ,a.zhuchi
+      ,a.huiyijsrq
+      ,a.huiyiztsj
+      ,a.kaishisjsj
+      ,a.jieshusjsj
+      ,a.huiyizjrsj
+      ,a.tingzhongxcfk
+      ,a.zhurenxcfk
+      ,a.hudongwthz
+      ,a.xianchangjdjl
+      ,a.huihoudcgs
+      ,a.zhurentd
+      ,a.tingzhonggn
+      ,a.keshijhxd
+      ,a.xiayibuxq
+      ,a.xiaoshoujscjh
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_salon a
+  left join (select * from edw.dic_customer group by ccusname) b
+    on a.kehumc = b.ccusname
+
+;
+SQL结束执行时间：20190928004043
+
+20190929004041开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929004041
+truncate table edw.oa_meet_market_salon
+;
+SQL结束执行时间：20190929004041
+SQL开始执行时间：20190929004041
+insert into edw.oa_meet_market_salon
+select a.liuchengbh
+      ,a.shenqingrq
+      ,a.huiyibt
+      ,a.lastname
+      ,a.departmentname
+      ,a.kehumc
+      ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cuscode end as bi_cuscode
+      ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cusname end as bi_cusname
+      ,a.keshi
+      ,a.huiyizt
+      ,a.huiyiksrq
+      ,a.kaishisj
+      ,a.jieshusj
+      ,a.huiyidz
+      ,a.yusuanzfy
+      ,a.shijihffy
+      ,a.keshiglxz
+      ,a.cunzaidwt
+      ,a.nigaibgn
+      ,a.xiwangjz
+      ,a.tingzhong
+      ,a.zhuchi
+      ,a.huiyijsrq
+      ,a.huiyiztsj
+      ,a.kaishisjsj
+      ,a.jieshusjsj
+      ,a.huiyizjrsj
+      ,a.tingzhongxcfk
+      ,a.zhurenxcfk
+      ,a.hudongwthz
+      ,a.xianchangjdjl
+      ,a.huihoudcgs
+      ,a.zhurentd
+      ,a.tingzhonggn
+      ,a.keshijhxd
+      ,a.xiayibuxq
+      ,a.xiaoshoujscjh
+      ,a.liuchengjd
+      ,a.sys_time
+  from ufdata.oa_meet_market_salon a
+  left join (select * from edw.dic_customer group by ccusname) b
+    on a.kehumc = b.ccusname
+
+;
+SQL结束执行时间：20190929004044

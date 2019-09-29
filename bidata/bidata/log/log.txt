@@ -99978,3 +99978,2173 @@ time:11:41:41
 /home/bidata/bidata/sql/211_ft_81_expenses.sql
 0
 Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-25 17:11:00.662474
+**************************
+time:17:11:02
+-----------------------
+/home/bidata/bidata/sql/01_ft_01_sales_total.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:02
+-----------------------
+/home/bidata/bidata/sql/02_ft_02_sales_total_province.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:04
+-----------------------
+/home/bidata/bidata/sql/03_ft_11_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:05
+-----------------------
+/home/bidata/bidata/sql/04_ft_12_sales_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:05
+-----------------------
+/home/bidata/bidata/sql/05_ft_13_sales_budget_new.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:06
+-----------------------
+/home/bidata/bidata/sql/06_ft_14_sales_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:18
+-----------------------
+/home/bidata/bidata/sql/07_ft_15_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:22
+-----------------------
+/home/bidata/bidata/sql/08_ft_17_personscore_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:23
+-----------------------
+/home/bidata/bidata/sql/09_ft_26_outdepot_yj.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:26
+-----------------------
+/home/bidata/bidata/sql/09_ft_21_outdepot.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:33
+-----------------------
+/home/bidata/bidata/sql/10_ft_22_outdepot_uninvoice.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:33
+-----------------------
+/home/bidata/bidata/sql/11_ft_25_outdepot_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:34
+-----------------------
+/home/bidata/bidata/sql/12_ft_31_checklist.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:36
+-----------------------
+/home/bidata/bidata/sql/13_ft_41_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:36
+-----------------------
+/home/bidata/bidata/sql/13_update_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:58
+-----------------------
+/home/bidata/bidata/sql/14_ft_51_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:11:59
+-----------------------
+/home/bidata/bidata/sql/15_ft_52_ar_detail.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:00
+-----------------------
+/home/bidata/bidata/sql/16_ft_52_ar_plan.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:01
+-----------------------
+/home/bidata/bidata/sql/17_ft_61_dispatch.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:01
+-----------------------
+/home/bidata/bidata/sql/18_ft_71_employee.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:01
+-----------------------
+/home/bidata/bidata/sql/19_ft_72_employee_tran.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:02
+-----------------------
+/home/bidata/bidata/sql/20_ft_73_employee_monthlyreport.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:03
+-----------------------
+/home/bidata/bidata/sql/21_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:04
+-----------------------
+/home/bidata/bidata/sql/22_ft_82_expenses_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:05
+-----------------------
+/home/bidata/bidata/sql/23_ft_83_eq_depreciation_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:05
+-----------------------
+/home/bidata/bidata/sql/24_ft_84_expenses_settlement.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:05
+-----------------------
+/home/bidata/bidata/sql/25_ft_91_gantt_opportunities.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:05
+-----------------------
+/home/bidata/bidata/sql/50_dt_02_update_date.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:06
+-----------------------
+/home/bidata/bidata/sql/51_dt_11_cohr.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:07
+-----------------------
+/home/bidata/bidata/sql/52_dt_12_customer.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:07
+-----------------------
+/home/bidata/bidata/sql/53_dt_12_customer_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:08
+-----------------------
+/home/bidata/bidata/sql/54_dt_12_customer_arclass.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:08
+-----------------------
+/home/bidata/bidata/sql/55_dt_13_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:08
+-----------------------
+/home/bidata/bidata/sql/56_dt_14_inventory.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:08
+-----------------------
+/home/bidata/bidata/sql/57_dt_15_person_ehr_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:08
+-----------------------
+/home/bidata/bidata/sql/58_dt_16_person_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:08
+-----------------------
+/home/bidata/bidata/sql/59_dt_17_cusitem_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:09
+-----------------------
+/home/bidata/bidata/sql/59_dt_21_deptment.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:09
+-----------------------
+/home/bidata/bidata/sql/60_dt_22_code_account.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:32
+-----------------------
+/home/bidata/bidata/sql/99_ft_23_outdepot_forecast.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:12:33
+-----------------------
+/home/bidata/bidata/sql/200_cusitem_analysis_mon.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1146 (42S02) at line 265: Table 'bidata.cusitem_analysis_mon' doesn't exist
+time:17:12:42
+-----------------------
+/home/bidata/bidata/sql/211_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+USE SCHEDULE
+date:2019-09-25 17:25:00.102869
+**************************
+time:17:25:01
+-----------------------
+/home/bidata/bidata/sql/01_ft_01_sales_total.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:02
+-----------------------
+/home/bidata/bidata/sql/02_ft_02_sales_total_province.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:04
+-----------------------
+/home/bidata/bidata/sql/03_ft_11_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:04
+-----------------------
+/home/bidata/bidata/sql/04_ft_12_sales_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:05
+-----------------------
+/home/bidata/bidata/sql/05_ft_13_sales_budget_new.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:05
+-----------------------
+/home/bidata/bidata/sql/06_ft_14_sales_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:17
+-----------------------
+/home/bidata/bidata/sql/07_ft_15_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:21
+-----------------------
+/home/bidata/bidata/sql/08_ft_17_personscore_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:23
+-----------------------
+/home/bidata/bidata/sql/09_ft_26_outdepot_yj.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:25
+-----------------------
+/home/bidata/bidata/sql/09_ft_21_outdepot.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:32
+-----------------------
+/home/bidata/bidata/sql/10_ft_22_outdepot_uninvoice.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:32
+-----------------------
+/home/bidata/bidata/sql/11_ft_25_outdepot_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:34
+-----------------------
+/home/bidata/bidata/sql/12_ft_31_checklist.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:35
+-----------------------
+/home/bidata/bidata/sql/13_ft_41_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:36
+-----------------------
+/home/bidata/bidata/sql/13_update_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:58
+-----------------------
+/home/bidata/bidata/sql/14_ft_51_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:58
+-----------------------
+/home/bidata/bidata/sql/15_ft_52_ar_detail.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:59
+-----------------------
+/home/bidata/bidata/sql/16_ft_52_ar_plan.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:00
+-----------------------
+/home/bidata/bidata/sql/17_ft_61_dispatch.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:00
+-----------------------
+/home/bidata/bidata/sql/18_ft_71_employee.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:01
+-----------------------
+/home/bidata/bidata/sql/19_ft_72_employee_tran.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:01
+-----------------------
+/home/bidata/bidata/sql/20_ft_73_employee_monthlyreport.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:03
+-----------------------
+/home/bidata/bidata/sql/21_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:03
+-----------------------
+/home/bidata/bidata/sql/22_ft_82_expenses_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:04
+-----------------------
+/home/bidata/bidata/sql/23_ft_83_eq_depreciation_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:04
+-----------------------
+/home/bidata/bidata/sql/24_ft_84_expenses_settlement.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:04
+-----------------------
+/home/bidata/bidata/sql/25_ft_91_gantt_opportunities.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:05
+-----------------------
+/home/bidata/bidata/sql/50_dt_02_update_date.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:05
+-----------------------
+/home/bidata/bidata/sql/51_dt_11_cohr.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/52_dt_12_customer.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/53_dt_12_customer_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/54_dt_12_customer_arclass.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/55_dt_13_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/56_dt_14_inventory.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/57_dt_15_person_ehr_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/58_dt_16_person_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:08
+-----------------------
+/home/bidata/bidata/sql/59_dt_17_cusitem_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:08
+-----------------------
+/home/bidata/bidata/sql/59_dt_21_deptment.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:08
+-----------------------
+/home/bidata/bidata/sql/60_dt_22_code_account.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:31
+-----------------------
+/home/bidata/bidata/sql/99_ft_23_outdepot_forecast.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:32
+-----------------------
+/home/bidata/bidata/sql/200_cusitem_analysis_mon.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1146 (42S02) at line 265: Table 'bidata.cusitem_analysis_mon' doesn't exist
+time:17:26:40
+-----------------------
+/home/bidata/bidata/sql/211_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+USE SCHEDULE
+date:2019-09-26 04:00:00.228738
+**************************
+time:04:00:01
+-----------------------
+/home/bidata/bidata/sql/01_ft_01_sales_total.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:02
+-----------------------
+/home/bidata/bidata/sql/02_ft_02_sales_total_province.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:04
+-----------------------
+/home/bidata/bidata/sql/03_ft_11_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:04
+-----------------------
+/home/bidata/bidata/sql/04_ft_12_sales_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:05
+-----------------------
+/home/bidata/bidata/sql/05_ft_13_sales_budget_new.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:05
+-----------------------
+/home/bidata/bidata/sql/06_ft_14_sales_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:17
+-----------------------
+/home/bidata/bidata/sql/07_ft_15_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:21
+-----------------------
+/home/bidata/bidata/sql/08_ft_17_personscore_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:23
+-----------------------
+/home/bidata/bidata/sql/09_ft_26_outdepot_yj.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:25
+-----------------------
+/home/bidata/bidata/sql/09_ft_21_outdepot.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:32
+-----------------------
+/home/bidata/bidata/sql/10_ft_22_outdepot_uninvoice.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:32
+-----------------------
+/home/bidata/bidata/sql/11_ft_25_outdepot_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:33
+-----------------------
+/home/bidata/bidata/sql/12_ft_31_checklist.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:35
+-----------------------
+/home/bidata/bidata/sql/13_ft_41_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:36
+-----------------------
+/home/bidata/bidata/sql/13_update_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:58
+-----------------------
+/home/bidata/bidata/sql/14_ft_51_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:58
+-----------------------
+/home/bidata/bidata/sql/15_ft_52_ar_detail.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:59
+-----------------------
+/home/bidata/bidata/sql/16_ft_52_ar_plan.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:00
+-----------------------
+/home/bidata/bidata/sql/17_ft_61_dispatch.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:00
+-----------------------
+/home/bidata/bidata/sql/18_ft_71_employee.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:00
+-----------------------
+/home/bidata/bidata/sql/19_ft_72_employee_tran.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:01
+-----------------------
+/home/bidata/bidata/sql/20_ft_73_employee_monthlyreport.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:03
+-----------------------
+/home/bidata/bidata/sql/21_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:03
+-----------------------
+/home/bidata/bidata/sql/22_ft_82_expenses_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:04
+-----------------------
+/home/bidata/bidata/sql/23_ft_83_eq_depreciation_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:04
+-----------------------
+/home/bidata/bidata/sql/24_ft_84_expenses_settlement.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:04
+-----------------------
+/home/bidata/bidata/sql/25_ft_91_gantt_opportunities.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:04
+-----------------------
+/home/bidata/bidata/sql/50_dt_02_update_date.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/51_dt_11_cohr.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/52_dt_12_customer.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/53_dt_12_customer_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/54_dt_12_customer_arclass.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:07
+-----------------------
+/home/bidata/bidata/sql/55_dt_13_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:07
+-----------------------
+/home/bidata/bidata/sql/56_dt_14_inventory.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:07
+-----------------------
+/home/bidata/bidata/sql/57_dt_15_person_ehr_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:07
+-----------------------
+/home/bidata/bidata/sql/58_dt_16_person_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:07
+-----------------------
+/home/bidata/bidata/sql/59_dt_17_cusitem_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:07
+-----------------------
+/home/bidata/bidata/sql/59_dt_21_deptment.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:08
+-----------------------
+/home/bidata/bidata/sql/60_dt_22_code_account.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:31
+-----------------------
+/home/bidata/bidata/sql/99_ft_23_outdepot_forecast.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:32
+-----------------------
+/home/bidata/bidata/sql/200_cusitem_analysis_mon.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1146 (42S02) at line 265: Table 'bidata.cusitem_analysis_mon' doesn't exist
+time:04:01:41
+-----------------------
+/home/bidata/bidata/sql/211_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+USE SCHEDULE
+date:2019-09-26 17:25:00.336722
+**************************
+time:17:25:01
+-----------------------
+/home/bidata/bidata/sql/01_ft_01_sales_total.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:02
+-----------------------
+/home/bidata/bidata/sql/02_ft_02_sales_total_province.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:04
+-----------------------
+/home/bidata/bidata/sql/03_ft_11_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:05
+-----------------------
+/home/bidata/bidata/sql/04_ft_12_sales_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:06
+-----------------------
+/home/bidata/bidata/sql/05_ft_13_sales_budget_new.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:06
+-----------------------
+/home/bidata/bidata/sql/06_ft_14_sales_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:18
+-----------------------
+/home/bidata/bidata/sql/07_ft_15_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:22
+-----------------------
+/home/bidata/bidata/sql/08_ft_17_personscore_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:24
+-----------------------
+/home/bidata/bidata/sql/09_ft_26_outdepot_yj.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:26
+-----------------------
+/home/bidata/bidata/sql/09_ft_21_outdepot.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:33
+-----------------------
+/home/bidata/bidata/sql/10_ft_22_outdepot_uninvoice.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:33
+-----------------------
+/home/bidata/bidata/sql/11_ft_25_outdepot_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:35
+-----------------------
+/home/bidata/bidata/sql/12_ft_31_checklist.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:36
+-----------------------
+/home/bidata/bidata/sql/13_ft_41_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:37
+-----------------------
+/home/bidata/bidata/sql/13_update_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:59
+-----------------------
+/home/bidata/bidata/sql/14_ft_51_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:00
+-----------------------
+/home/bidata/bidata/sql/15_ft_52_ar_detail.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:00
+-----------------------
+/home/bidata/bidata/sql/16_ft_52_ar_plan.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:01
+-----------------------
+/home/bidata/bidata/sql/17_ft_61_dispatch.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:01
+-----------------------
+/home/bidata/bidata/sql/18_ft_71_employee.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:02
+-----------------------
+/home/bidata/bidata/sql/19_ft_72_employee_tran.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:02
+-----------------------
+/home/bidata/bidata/sql/20_ft_73_employee_monthlyreport.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:04
+-----------------------
+/home/bidata/bidata/sql/21_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:04
+-----------------------
+/home/bidata/bidata/sql/22_ft_82_expenses_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:05
+-----------------------
+/home/bidata/bidata/sql/23_ft_83_eq_depreciation_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:05
+-----------------------
+/home/bidata/bidata/sql/24_ft_84_expenses_settlement.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/25_ft_91_gantt_opportunities.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/50_dt_02_update_date.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/51_dt_11_cohr.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/52_dt_12_customer.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/53_dt_12_customer_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:08
+-----------------------
+/home/bidata/bidata/sql/54_dt_12_customer_arclass.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:08
+-----------------------
+/home/bidata/bidata/sql/55_dt_13_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:08
+-----------------------
+/home/bidata/bidata/sql/56_dt_14_inventory.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:08
+-----------------------
+/home/bidata/bidata/sql/57_dt_15_person_ehr_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:08
+-----------------------
+/home/bidata/bidata/sql/58_dt_16_person_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:09
+-----------------------
+/home/bidata/bidata/sql/59_dt_17_cusitem_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:09
+-----------------------
+/home/bidata/bidata/sql/59_dt_21_deptment.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:10
+-----------------------
+/home/bidata/bidata/sql/60_dt_22_code_account.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:32
+-----------------------
+/home/bidata/bidata/sql/99_ft_23_outdepot_forecast.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:33
+-----------------------
+/home/bidata/bidata/sql/200_cusitem_analysis_mon.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1146 (42S02) at line 265: Table 'bidata.cusitem_analysis_mon' doesn't exist
+time:17:26:42
+-----------------------
+/home/bidata/bidata/sql/211_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+USE SCHEDULE
+date:2019-09-27 04:00:00.954823
+**************************
+time:04:00:02
+-----------------------
+/home/bidata/bidata/sql/01_ft_01_sales_total.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:02
+-----------------------
+/home/bidata/bidata/sql/02_ft_02_sales_total_province.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:04
+-----------------------
+/home/bidata/bidata/sql/03_ft_11_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:05
+-----------------------
+/home/bidata/bidata/sql/04_ft_12_sales_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:06
+-----------------------
+/home/bidata/bidata/sql/05_ft_13_sales_budget_new.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:07
+-----------------------
+/home/bidata/bidata/sql/06_ft_14_sales_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:18
+-----------------------
+/home/bidata/bidata/sql/07_ft_15_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:22
+-----------------------
+/home/bidata/bidata/sql/08_ft_17_personscore_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:24
+-----------------------
+/home/bidata/bidata/sql/09_ft_26_outdepot_yj.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:26
+-----------------------
+/home/bidata/bidata/sql/09_ft_21_outdepot.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:33
+-----------------------
+/home/bidata/bidata/sql/10_ft_22_outdepot_uninvoice.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:33
+-----------------------
+/home/bidata/bidata/sql/11_ft_25_outdepot_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:35
+-----------------------
+/home/bidata/bidata/sql/12_ft_31_checklist.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:37
+-----------------------
+/home/bidata/bidata/sql/13_ft_41_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:37
+-----------------------
+/home/bidata/bidata/sql/13_update_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:59
+-----------------------
+/home/bidata/bidata/sql/14_ft_51_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:00
+-----------------------
+/home/bidata/bidata/sql/15_ft_52_ar_detail.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:00
+-----------------------
+/home/bidata/bidata/sql/16_ft_52_ar_plan.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:01
+-----------------------
+/home/bidata/bidata/sql/17_ft_61_dispatch.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:02
+-----------------------
+/home/bidata/bidata/sql/18_ft_71_employee.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:02
+-----------------------
+/home/bidata/bidata/sql/19_ft_72_employee_tran.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:02
+-----------------------
+/home/bidata/bidata/sql/20_ft_73_employee_monthlyreport.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:04
+-----------------------
+/home/bidata/bidata/sql/21_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/22_ft_82_expenses_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/23_ft_83_eq_depreciation_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/24_ft_84_expenses_settlement.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/25_ft_91_gantt_opportunities.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/50_dt_02_update_date.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/51_dt_11_cohr.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:07
+-----------------------
+/home/bidata/bidata/sql/52_dt_12_customer.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:07
+-----------------------
+/home/bidata/bidata/sql/53_dt_12_customer_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:08
+-----------------------
+/home/bidata/bidata/sql/54_dt_12_customer_arclass.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:08
+-----------------------
+/home/bidata/bidata/sql/55_dt_13_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:08
+-----------------------
+/home/bidata/bidata/sql/56_dt_14_inventory.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:08
+-----------------------
+/home/bidata/bidata/sql/57_dt_15_person_ehr_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:08
+-----------------------
+/home/bidata/bidata/sql/58_dt_16_person_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:09
+-----------------------
+/home/bidata/bidata/sql/59_dt_17_cusitem_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:09
+-----------------------
+/home/bidata/bidata/sql/59_dt_21_deptment.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:10
+-----------------------
+/home/bidata/bidata/sql/60_dt_22_code_account.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:32
+-----------------------
+/home/bidata/bidata/sql/99_ft_23_outdepot_forecast.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:33
+-----------------------
+/home/bidata/bidata/sql/200_cusitem_analysis_mon.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1146 (42S02) at line 265: Table 'bidata.cusitem_analysis_mon' doesn't exist
+time:04:01:42
+-----------------------
+/home/bidata/bidata/sql/211_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-27 17:09:13.447955
+**************************
+time:17:09:15
+-----------------------
+/home/bidata/bidata/sql/01_ft_01_sales_total.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:15
+-----------------------
+/home/bidata/bidata/sql/02_ft_02_sales_total_province.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:17
+-----------------------
+/home/bidata/bidata/sql/03_ft_11_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:18
+-----------------------
+/home/bidata/bidata/sql/04_ft_12_sales_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:19
+-----------------------
+/home/bidata/bidata/sql/05_ft_13_sales_budget_new.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:19
+-----------------------
+/home/bidata/bidata/sql/06_ft_14_sales_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:30
+-----------------------
+/home/bidata/bidata/sql/07_ft_15_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:34
+-----------------------
+/home/bidata/bidata/sql/08_ft_17_personscore_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:36
+-----------------------
+/home/bidata/bidata/sql/09_ft_26_outdepot_yj.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:38
+-----------------------
+/home/bidata/bidata/sql/09_ft_21_outdepot.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:45
+-----------------------
+/home/bidata/bidata/sql/10_ft_22_outdepot_uninvoice.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:45
+-----------------------
+/home/bidata/bidata/sql/11_ft_25_outdepot_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:46
+-----------------------
+/home/bidata/bidata/sql/12_ft_31_checklist.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:48
+-----------------------
+/home/bidata/bidata/sql/13_ft_41_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:09:48
+-----------------------
+/home/bidata/bidata/sql/13_update_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:09
+-----------------------
+/home/bidata/bidata/sql/14_ft_51_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:10
+-----------------------
+/home/bidata/bidata/sql/15_ft_52_ar_detail.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:10
+-----------------------
+/home/bidata/bidata/sql/16_ft_52_ar_plan.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:11
+-----------------------
+/home/bidata/bidata/sql/17_ft_61_dispatch.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:12
+-----------------------
+/home/bidata/bidata/sql/18_ft_71_employee.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:12
+-----------------------
+/home/bidata/bidata/sql/19_ft_72_employee_tran.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:12
+-----------------------
+/home/bidata/bidata/sql/20_ft_73_employee_monthlyreport.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:14
+-----------------------
+/home/bidata/bidata/sql/21_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:14
+-----------------------
+/home/bidata/bidata/sql/22_ft_82_expenses_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:15
+-----------------------
+/home/bidata/bidata/sql/23_ft_83_eq_depreciation_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:15
+-----------------------
+/home/bidata/bidata/sql/24_ft_84_expenses_settlement.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:15
+-----------------------
+/home/bidata/bidata/sql/25_ft_91_gantt_opportunities.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:16
+-----------------------
+/home/bidata/bidata/sql/50_dt_02_update_date.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:16
+-----------------------
+/home/bidata/bidata/sql/51_dt_11_cohr.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:17
+-----------------------
+/home/bidata/bidata/sql/52_dt_12_customer.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:17
+-----------------------
+/home/bidata/bidata/sql/53_dt_12_customer_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:18
+-----------------------
+/home/bidata/bidata/sql/54_dt_12_customer_arclass.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:18
+-----------------------
+/home/bidata/bidata/sql/55_dt_13_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:18
+-----------------------
+/home/bidata/bidata/sql/56_dt_14_inventory.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:18
+-----------------------
+/home/bidata/bidata/sql/57_dt_15_person_ehr_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:18
+-----------------------
+/home/bidata/bidata/sql/58_dt_16_person_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:18
+-----------------------
+/home/bidata/bidata/sql/59_dt_17_cusitem_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:18
+-----------------------
+/home/bidata/bidata/sql/59_dt_21_deptment.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:19
+-----------------------
+/home/bidata/bidata/sql/60_dt_22_code_account.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:40
+-----------------------
+/home/bidata/bidata/sql/99_ft_23_outdepot_forecast.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:10:41
+-----------------------
+/home/bidata/bidata/sql/200_cusitem_analysis_mon.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1146 (42S02) at line 265: Table 'bidata.cusitem_analysis_mon' doesn't exist
+time:17:10:50
+-----------------------
+/home/bidata/bidata/sql/211_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+USE SCHEDULE
+date:2019-09-27 17:25:00.708883
+**************************
+time:17:25:02
+-----------------------
+/home/bidata/bidata/sql/01_ft_01_sales_total.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:02
+-----------------------
+/home/bidata/bidata/sql/02_ft_02_sales_total_province.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:04
+-----------------------
+/home/bidata/bidata/sql/03_ft_11_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:05
+-----------------------
+/home/bidata/bidata/sql/04_ft_12_sales_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:06
+-----------------------
+/home/bidata/bidata/sql/05_ft_13_sales_budget_new.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:06
+-----------------------
+/home/bidata/bidata/sql/06_ft_14_sales_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:18
+-----------------------
+/home/bidata/bidata/sql/07_ft_15_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:22
+-----------------------
+/home/bidata/bidata/sql/08_ft_17_personscore_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:24
+-----------------------
+/home/bidata/bidata/sql/09_ft_26_outdepot_yj.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:26
+-----------------------
+/home/bidata/bidata/sql/09_ft_21_outdepot.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:33
+-----------------------
+/home/bidata/bidata/sql/10_ft_22_outdepot_uninvoice.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:33
+-----------------------
+/home/bidata/bidata/sql/11_ft_25_outdepot_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:34
+-----------------------
+/home/bidata/bidata/sql/12_ft_31_checklist.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:36
+-----------------------
+/home/bidata/bidata/sql/13_ft_41_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:36
+-----------------------
+/home/bidata/bidata/sql/13_update_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:58
+-----------------------
+/home/bidata/bidata/sql/14_ft_51_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:59
+-----------------------
+/home/bidata/bidata/sql/15_ft_52_ar_detail.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:59
+-----------------------
+/home/bidata/bidata/sql/16_ft_52_ar_plan.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:00
+-----------------------
+/home/bidata/bidata/sql/17_ft_61_dispatch.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:00
+-----------------------
+/home/bidata/bidata/sql/18_ft_71_employee.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:01
+-----------------------
+/home/bidata/bidata/sql/19_ft_72_employee_tran.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:01
+-----------------------
+/home/bidata/bidata/sql/20_ft_73_employee_monthlyreport.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:03
+-----------------------
+/home/bidata/bidata/sql/21_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:03
+-----------------------
+/home/bidata/bidata/sql/22_ft_82_expenses_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:04
+-----------------------
+/home/bidata/bidata/sql/23_ft_83_eq_depreciation_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:04
+-----------------------
+/home/bidata/bidata/sql/24_ft_84_expenses_settlement.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:04
+-----------------------
+/home/bidata/bidata/sql/25_ft_91_gantt_opportunities.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:05
+-----------------------
+/home/bidata/bidata/sql/50_dt_02_update_date.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:05
+-----------------------
+/home/bidata/bidata/sql/51_dt_11_cohr.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/52_dt_12_customer.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/53_dt_12_customer_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/54_dt_12_customer_arclass.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/55_dt_13_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/56_dt_14_inventory.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/57_dt_15_person_ehr_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/58_dt_16_person_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:08
+-----------------------
+/home/bidata/bidata/sql/59_dt_17_cusitem_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:08
+-----------------------
+/home/bidata/bidata/sql/59_dt_21_deptment.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:08
+-----------------------
+/home/bidata/bidata/sql/60_dt_22_code_account.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:30
+-----------------------
+/home/bidata/bidata/sql/99_ft_23_outdepot_forecast.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:30
+-----------------------
+/home/bidata/bidata/sql/200_cusitem_analysis_mon.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1146 (42S02) at line 265: Table 'bidata.cusitem_analysis_mon' doesn't exist
+time:17:26:39
+-----------------------
+/home/bidata/bidata/sql/211_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+USE SCHEDULE
+date:2019-09-28 04:00:00.146824
+**************************
+time:04:00:01
+-----------------------
+/home/bidata/bidata/sql/01_ft_01_sales_total.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:02
+-----------------------
+/home/bidata/bidata/sql/02_ft_02_sales_total_province.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:03
+-----------------------
+/home/bidata/bidata/sql/03_ft_11_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:04
+-----------------------
+/home/bidata/bidata/sql/04_ft_12_sales_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:05
+-----------------------
+/home/bidata/bidata/sql/05_ft_13_sales_budget_new.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:05
+-----------------------
+/home/bidata/bidata/sql/06_ft_14_sales_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:17
+-----------------------
+/home/bidata/bidata/sql/07_ft_15_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:21
+-----------------------
+/home/bidata/bidata/sql/08_ft_17_personscore_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:23
+-----------------------
+/home/bidata/bidata/sql/09_ft_26_outdepot_yj.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:25
+-----------------------
+/home/bidata/bidata/sql/09_ft_21_outdepot.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:31
+-----------------------
+/home/bidata/bidata/sql/10_ft_22_outdepot_uninvoice.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:32
+-----------------------
+/home/bidata/bidata/sql/11_ft_25_outdepot_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:33
+-----------------------
+/home/bidata/bidata/sql/12_ft_31_checklist.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:35
+-----------------------
+/home/bidata/bidata/sql/13_ft_41_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:35
+-----------------------
+/home/bidata/bidata/sql/13_update_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:57
+-----------------------
+/home/bidata/bidata/sql/14_ft_51_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:57
+-----------------------
+/home/bidata/bidata/sql/15_ft_52_ar_detail.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:58
+-----------------------
+/home/bidata/bidata/sql/16_ft_52_ar_plan.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:59
+-----------------------
+/home/bidata/bidata/sql/17_ft_61_dispatch.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:59
+-----------------------
+/home/bidata/bidata/sql/18_ft_71_employee.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:00
+-----------------------
+/home/bidata/bidata/sql/19_ft_72_employee_tran.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:00
+-----------------------
+/home/bidata/bidata/sql/20_ft_73_employee_monthlyreport.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:02
+-----------------------
+/home/bidata/bidata/sql/21_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:02
+-----------------------
+/home/bidata/bidata/sql/22_ft_82_expenses_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:03
+-----------------------
+/home/bidata/bidata/sql/23_ft_83_eq_depreciation_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:03
+-----------------------
+/home/bidata/bidata/sql/24_ft_84_expenses_settlement.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:03
+-----------------------
+/home/bidata/bidata/sql/25_ft_91_gantt_opportunities.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:03
+-----------------------
+/home/bidata/bidata/sql/50_dt_02_update_date.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:04
+-----------------------
+/home/bidata/bidata/sql/51_dt_11_cohr.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/52_dt_12_customer.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/53_dt_12_customer_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/54_dt_12_customer_arclass.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/55_dt_13_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/56_dt_14_inventory.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/57_dt_15_person_ehr_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/58_dt_16_person_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/59_dt_17_cusitem_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/59_dt_21_deptment.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:07
+-----------------------
+/home/bidata/bidata/sql/60_dt_22_code_account.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:28
+-----------------------
+/home/bidata/bidata/sql/99_ft_23_outdepot_forecast.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:29
+-----------------------
+/home/bidata/bidata/sql/200_cusitem_analysis_mon.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1146 (42S02) at line 265: Table 'bidata.cusitem_analysis_mon' doesn't exist
+time:04:01:38
+-----------------------
+/home/bidata/bidata/sql/211_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+USE SCHEDULE
+date:2019-09-28 17:25:00.615984
+**************************
+time:17:25:02
+-----------------------
+/home/bidata/bidata/sql/01_ft_01_sales_total.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:02
+-----------------------
+/home/bidata/bidata/sql/02_ft_02_sales_total_province.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:04
+-----------------------
+/home/bidata/bidata/sql/03_ft_11_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:05
+-----------------------
+/home/bidata/bidata/sql/04_ft_12_sales_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:06
+-----------------------
+/home/bidata/bidata/sql/05_ft_13_sales_budget_new.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:06
+-----------------------
+/home/bidata/bidata/sql/06_ft_14_sales_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:18
+-----------------------
+/home/bidata/bidata/sql/07_ft_15_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:21
+-----------------------
+/home/bidata/bidata/sql/08_ft_17_personscore_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:23
+-----------------------
+/home/bidata/bidata/sql/09_ft_26_outdepot_yj.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:25
+-----------------------
+/home/bidata/bidata/sql/09_ft_21_outdepot.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:32
+-----------------------
+/home/bidata/bidata/sql/10_ft_22_outdepot_uninvoice.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:32
+-----------------------
+/home/bidata/bidata/sql/11_ft_25_outdepot_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:33
+-----------------------
+/home/bidata/bidata/sql/12_ft_31_checklist.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:35
+-----------------------
+/home/bidata/bidata/sql/13_ft_41_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:36
+-----------------------
+/home/bidata/bidata/sql/13_update_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:57
+-----------------------
+/home/bidata/bidata/sql/14_ft_51_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:58
+-----------------------
+/home/bidata/bidata/sql/15_ft_52_ar_detail.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:58
+-----------------------
+/home/bidata/bidata/sql/16_ft_52_ar_plan.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:25:59
+-----------------------
+/home/bidata/bidata/sql/17_ft_61_dispatch.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:00
+-----------------------
+/home/bidata/bidata/sql/18_ft_71_employee.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:00
+-----------------------
+/home/bidata/bidata/sql/19_ft_72_employee_tran.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:00
+-----------------------
+/home/bidata/bidata/sql/20_ft_73_employee_monthlyreport.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:02
+-----------------------
+/home/bidata/bidata/sql/21_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:02
+-----------------------
+/home/bidata/bidata/sql/22_ft_82_expenses_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:03
+-----------------------
+/home/bidata/bidata/sql/23_ft_83_eq_depreciation_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:03
+-----------------------
+/home/bidata/bidata/sql/24_ft_84_expenses_settlement.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:03
+-----------------------
+/home/bidata/bidata/sql/25_ft_91_gantt_opportunities.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:04
+-----------------------
+/home/bidata/bidata/sql/50_dt_02_update_date.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:04
+-----------------------
+/home/bidata/bidata/sql/51_dt_11_cohr.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:05
+-----------------------
+/home/bidata/bidata/sql/52_dt_12_customer.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:05
+-----------------------
+/home/bidata/bidata/sql/53_dt_12_customer_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/54_dt_12_customer_arclass.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/55_dt_13_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/56_dt_14_inventory.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/57_dt_15_person_ehr_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/58_dt_16_person_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/59_dt_17_cusitem_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:06
+-----------------------
+/home/bidata/bidata/sql/59_dt_21_deptment.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:07
+-----------------------
+/home/bidata/bidata/sql/60_dt_22_code_account.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:28
+-----------------------
+/home/bidata/bidata/sql/99_ft_23_outdepot_forecast.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:17:26:28
+-----------------------
+/home/bidata/bidata/sql/200_cusitem_analysis_mon.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1146 (42S02) at line 265: Table 'bidata.cusitem_analysis_mon' doesn't exist
+time:17:26:37
+-----------------------
+/home/bidata/bidata/sql/211_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+USE SCHEDULE
+date:2019-09-29 04:00:00.283407
+**************************
+time:04:00:01
+-----------------------
+/home/bidata/bidata/sql/01_ft_01_sales_total.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:02
+-----------------------
+/home/bidata/bidata/sql/02_ft_02_sales_total_province.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:03
+-----------------------
+/home/bidata/bidata/sql/03_ft_11_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:04
+-----------------------
+/home/bidata/bidata/sql/04_ft_12_sales_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:05
+-----------------------
+/home/bidata/bidata/sql/05_ft_13_sales_budget_new.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:06
+-----------------------
+/home/bidata/bidata/sql/06_ft_14_sales_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:17
+-----------------------
+/home/bidata/bidata/sql/07_ft_15_sales_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:21
+-----------------------
+/home/bidata/bidata/sql/08_ft_17_personscore_sales.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:23
+-----------------------
+/home/bidata/bidata/sql/09_ft_26_outdepot_yj.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:25
+-----------------------
+/home/bidata/bidata/sql/09_ft_21_outdepot.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:31
+-----------------------
+/home/bidata/bidata/sql/10_ft_22_outdepot_uninvoice.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:32
+-----------------------
+/home/bidata/bidata/sql/11_ft_25_outdepot_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:33
+-----------------------
+/home/bidata/bidata/sql/12_ft_31_checklist.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:35
+-----------------------
+/home/bidata/bidata/sql/13_ft_41_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:35
+-----------------------
+/home/bidata/bidata/sql/13_update_cusitem_occupy.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:57
+-----------------------
+/home/bidata/bidata/sql/14_ft_51_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:57
+-----------------------
+/home/bidata/bidata/sql/15_ft_52_ar_detail.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:57
+-----------------------
+/home/bidata/bidata/sql/16_ft_52_ar_plan.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:58
+-----------------------
+/home/bidata/bidata/sql/17_ft_61_dispatch.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:59
+-----------------------
+/home/bidata/bidata/sql/18_ft_71_employee.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:00:59
+-----------------------
+/home/bidata/bidata/sql/19_ft_72_employee_tran.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:00
+-----------------------
+/home/bidata/bidata/sql/20_ft_73_employee_monthlyreport.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:01
+-----------------------
+/home/bidata/bidata/sql/21_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:02
+-----------------------
+/home/bidata/bidata/sql/22_ft_82_expenses_budget.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:02
+-----------------------
+/home/bidata/bidata/sql/23_ft_83_eq_depreciation_19.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:03
+-----------------------
+/home/bidata/bidata/sql/24_ft_84_expenses_settlement.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:03
+-----------------------
+/home/bidata/bidata/sql/25_ft_91_gantt_opportunities.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:03
+-----------------------
+/home/bidata/bidata/sql/50_dt_02_update_date.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:03
+-----------------------
+/home/bidata/bidata/sql/51_dt_11_cohr.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:04
+-----------------------
+/home/bidata/bidata/sql/52_dt_12_customer.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/53_dt_12_customer_hzbs.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/54_dt_12_customer_arclass.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/55_dt_13_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/56_dt_14_inventory.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:05
+-----------------------
+/home/bidata/bidata/sql/57_dt_15_person_ehr_bonus.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/58_dt_16_person_ar.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/59_dt_17_cusitem_person.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:06
+-----------------------
+/home/bidata/bidata/sql/59_dt_21_deptment.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:07
+-----------------------
+/home/bidata/bidata/sql/60_dt_22_code_account.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:28
+-----------------------
+/home/bidata/bidata/sql/99_ft_23_outdepot_forecast.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:04:01:29
+-----------------------
+/home/bidata/bidata/sql/200_cusitem_analysis_mon.sql
+256
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1146 (42S02) at line 265: Table 'bidata.cusitem_analysis_mon' doesn't exist
+time:04:01:37
+-----------------------
+/home/bidata/bidata/sql/211_ft_81_expenses.sql
+0
+Warning: Using a password on the command line interface can be insecure.

@@ -78,7 +78,7 @@ select
 from ufdata.sales_budget_new_1906;
 
 -- 7. 导入2019年7月更新后计划
-insert into ufdata.x_sales_budget_19_new_copy1 (cohr,ccuscode,item_code,cinvcode,iquantity_budget_1907,inum_person_1907,isum_budget_1907)
+insert into ufdata.x_sales_budget_19_new (cohr,ccuscode,item_code,cinvcode,iquantity_budget_1907,inum_person_1907,isum_budget_1907)
 select
 	 cohr
 	,ccuscode
@@ -90,7 +90,7 @@ select
 from ufdata.sales_budget_new_1907;
 
 -- 8. 导入2019年8月更新后计划
-insert into ufdata.x_sales_budget_19_new_copy1 (cohr,ccuscode,item_code,cinvcode,iquantity_budget_1908,inum_person_1908,isum_budget_1908)
+insert into ufdata.x_sales_budget_19_new (cohr,ccuscode,item_code,cinvcode,iquantity_budget_1908,inum_person_1908,isum_budget_1908)
 select
 	 cohr
 	,ccuscode
@@ -100,11 +100,57 @@ select
 	,inum_person_tem
 	,isum_budget_tem
 from ufdata.sales_budget_new_1908;
--- 9. 导入2019年9月更新后计划
--- 10. 导入2019年10月更新后计划
--- 11. 导入2019年11月更新后计划
--- 12. 导入2019年12月更新后计划
 
+-- 9. 导入2019年9月更新后计划
+insert into ufdata.x_sales_budget_19_new (cohr,ccuscode,item_code,cinvcode,iquantity_budget_1909,inum_person_1909,isum_budget_1909)
+select
+	 cohr
+	,ccuscode
+	,item_code
+	,cinvcode
+	,iquantity_budget_tem
+	,inum_person_tem
+	,isum_budget_tem
+from ufdata.sales_budget_new_1909;
+
+-- 10. 导入2019年10月更新后计划
+insert into ufdata.x_sales_budget_19_new (cohr,ccuscode,item_code,cinvcode,plan_success_rate,iquantity_budget_1910,inum_person_1910,isum_budget_1910)
+select
+	 cohr
+	,ccuscode
+	,item_code
+	,cinvcode
+	,plan_success_rate
+	,iquantity_budget_tem
+	,inum_person_tem
+	,isum_budget_tem
+from ufdata.sales_budget_new_1910;
+
+-- 11. 导入2019年11月更新后计划
+insert into ufdata.x_sales_budget_19_new (cohr,ccuscode,item_code,cinvcode,plan_success_rate,iquantity_budget_1911,inum_person_1911,isum_budget_1911)
+select
+	 cohr
+	,ccuscode
+	,item_code
+	,cinvcode
+	,plan_success_rate
+	,iquantity_budget_tem
+	,inum_person_tem
+	,isum_budget_tem
+from ufdata.sales_budget_new_1911;
+
+-- 12. 导入2019年12月更新后计划
+insert into ufdata.x_sales_budget_19_new (cohr,ccuscode,item_code,cinvcode,plan_success_rate,iquantity_budget_1912,inum_person_1912,isum_budget_1912)
+select
+	 cohr
+	,ccuscode
+	,item_code
+	,cinvcode
+	,plan_success_rate
+	,iquantity_budget_tem
+	,inum_person_tem
+	,isum_budget_tem
+from ufdata.sales_budget_new_1912;
 
 
 

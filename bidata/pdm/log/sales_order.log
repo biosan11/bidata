@@ -36406,3 +36406,449 @@ select a.csocode
 
 ;
 SQL结束执行时间：20190925113148
+
+20190926011042开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926011042
+
+
+create temporary table pdm.sales_order_pre as 
+select a.*
+      ,b.type as ccustype
+  from edw.sales_order a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+ where left(a.sys_time,10) >= '2019-09-25'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20190926011042
+SQL开始执行时间：20190926011042
+
+
+
+create temporary table pdm.sales_order_item as
+select e.bi_cinvcode
+      ,e.business_class
+      ,e.cinvbrand
+      ,e.item_code
+      ,case when f.true_item_code is null then '请核查'
+            else f.plan_class end as plan_class
+      ,case when f.true_item_code is null then '请核查'
+            else f.key_project end as key_project
+   from (select bi_cinvcode,item_code,business_class,cinvbrand from edw.map_inventory group by bi_cinvcode) e
+   left join (select ccuscode,true_item_code,plan_class,key_project from edw.x_sales_budget_18 group by ccuscode,true_item_code) f
+    on e.item_code = f.true_item_code
+
+;
+SQL结束执行时间：20190926011042
+SQL开始执行时间：20190926011042
+
+
+delete from pdm.sales_order_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20190926011042
+SQL开始执行时间：20190926011042
+
+delete from pdm.sales_order where concat(id,db) in (select concat(id,db) from  pdm.sales_order_pre)
+;
+SQL结束执行时间：20190926011057
+SQL开始执行时间：20190926011057
+
+insert into pdm.sales_order
+select a.csocode
+      ,a.autoid
+      ,a.id
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '杭州贝生'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝荣'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '奥博特'
+            when a.db = 'UFDATA_588_2019' then '奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '美博特'
+            when a.db = 'UFDATA_889_2019' then '美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            end
+      ,a.ddate
+      ,a.cpersoncode
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.ccustype
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,e.business_class
+      ,a.cdefine22
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.true_itemcode
+      ,e.plan_class
+      ,e.key_project
+      ,a.itaxunitprice
+      ,a.iquantity
+      ,a.itax
+      ,a.isum
+      ,a.citemname
+      ,e.cinvbrand
+      ,a.cstcode
+      ,localtimestamp()
+  from pdm.sales_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode 
+  left join (select cdepcode,db,cdepname from ufdata.department group by cdepcode,db) d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+  left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.sales_order_item group by bi_cinvcode) e
+    on a.bi_cinvcode = e.bi_cinvcode
+
+;
+SQL结束执行时间：20190926011057
+
+20190927011041开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927011042
+
+
+create temporary table pdm.sales_order_pre as 
+select a.*
+      ,b.type as ccustype
+  from edw.sales_order a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+ where left(a.sys_time,10) >= '2019-09-26'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20190927011042
+SQL开始执行时间：20190927011042
+
+
+
+create temporary table pdm.sales_order_item as
+select e.bi_cinvcode
+      ,e.business_class
+      ,e.cinvbrand
+      ,e.item_code
+      ,case when f.true_item_code is null then '请核查'
+            else f.plan_class end as plan_class
+      ,case when f.true_item_code is null then '请核查'
+            else f.key_project end as key_project
+   from (select bi_cinvcode,item_code,business_class,cinvbrand from edw.map_inventory group by bi_cinvcode) e
+   left join (select ccuscode,true_item_code,plan_class,key_project from edw.x_sales_budget_18 group by ccuscode,true_item_code) f
+    on e.item_code = f.true_item_code
+
+;
+SQL结束执行时间：20190927011042
+SQL开始执行时间：20190927011042
+
+
+delete from pdm.sales_order_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20190927011042
+SQL开始执行时间：20190927011042
+
+delete from pdm.sales_order where concat(id,db) in (select concat(id,db) from  pdm.sales_order_pre)
+;
+SQL结束执行时间：20190927011051
+SQL开始执行时间：20190927011051
+
+insert into pdm.sales_order
+select a.csocode
+      ,a.autoid
+      ,a.id
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '杭州贝生'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝荣'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '奥博特'
+            when a.db = 'UFDATA_588_2019' then '奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '美博特'
+            when a.db = 'UFDATA_889_2019' then '美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            end
+      ,a.ddate
+      ,a.cpersoncode
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.ccustype
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,e.business_class
+      ,a.cdefine22
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.true_itemcode
+      ,e.plan_class
+      ,e.key_project
+      ,a.itaxunitprice
+      ,a.iquantity
+      ,a.itax
+      ,a.isum
+      ,a.citemname
+      ,e.cinvbrand
+      ,a.cstcode
+      ,localtimestamp()
+  from pdm.sales_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode 
+  left join (select cdepcode,db,cdepname from ufdata.department group by cdepcode,db) d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+  left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.sales_order_item group by bi_cinvcode) e
+    on a.bi_cinvcode = e.bi_cinvcode
+
+;
+SQL结束执行时间：20190927011052
+
+20190928011044开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928011044
+
+
+create temporary table pdm.sales_order_pre as 
+select a.*
+      ,b.type as ccustype
+  from edw.sales_order a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+ where left(a.sys_time,10) >= '2019-09-27'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20190928011044
+SQL开始执行时间：20190928011044
+
+
+
+create temporary table pdm.sales_order_item as
+select e.bi_cinvcode
+      ,e.business_class
+      ,e.cinvbrand
+      ,e.item_code
+      ,case when f.true_item_code is null then '请核查'
+            else f.plan_class end as plan_class
+      ,case when f.true_item_code is null then '请核查'
+            else f.key_project end as key_project
+   from (select bi_cinvcode,item_code,business_class,cinvbrand from edw.map_inventory group by bi_cinvcode) e
+   left join (select ccuscode,true_item_code,plan_class,key_project from edw.x_sales_budget_18 group by ccuscode,true_item_code) f
+    on e.item_code = f.true_item_code
+
+;
+SQL结束执行时间：20190928011044
+SQL开始执行时间：20190928011044
+
+
+delete from pdm.sales_order_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20190928011044
+SQL开始执行时间：20190928011044
+
+delete from pdm.sales_order where concat(id,db) in (select concat(id,db) from  pdm.sales_order_pre)
+;
+SQL结束执行时间：20190928011054
+SQL开始执行时间：20190928011054
+
+insert into pdm.sales_order
+select a.csocode
+      ,a.autoid
+      ,a.id
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '杭州贝生'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝荣'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '奥博特'
+            when a.db = 'UFDATA_588_2019' then '奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '美博特'
+            when a.db = 'UFDATA_889_2019' then '美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            end
+      ,a.ddate
+      ,a.cpersoncode
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.ccustype
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,e.business_class
+      ,a.cdefine22
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.true_itemcode
+      ,e.plan_class
+      ,e.key_project
+      ,a.itaxunitprice
+      ,a.iquantity
+      ,a.itax
+      ,a.isum
+      ,a.citemname
+      ,e.cinvbrand
+      ,a.cstcode
+      ,localtimestamp()
+  from pdm.sales_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode 
+  left join (select cdepcode,db,cdepname from ufdata.department group by cdepcode,db) d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+  left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.sales_order_item group by bi_cinvcode) e
+    on a.bi_cinvcode = e.bi_cinvcode
+
+;
+SQL结束执行时间：20190928011054
+SQL开始执行时间：20190928011054
+
+update pdm.sales_order s
+  join (select * from ufdata.department where db = 'UFDATA_111_2018'  group by cdepcode) c
+    on s.cdepcode = c.cdepcode
+   set s.cdepname = c.cdepname
+ where s.cdepname is null
+   and s.cdepcode is not null
+
+;
+SQL结束执行时间：20190928011054
+
+20190929011039开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929011039
+
+
+create temporary table pdm.sales_order_pre as 
+select a.*
+      ,b.type as ccustype
+  from edw.sales_order a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+ where left(a.sys_time,10) >= '2019-09-28'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20190929011039
+SQL开始执行时间：20190929011039
+
+
+
+create temporary table pdm.sales_order_item as
+select e.bi_cinvcode
+      ,e.business_class
+      ,e.cinvbrand
+      ,e.item_code
+      ,case when f.true_item_code is null then '请核查'
+            else f.plan_class end as plan_class
+      ,case when f.true_item_code is null then '请核查'
+            else f.key_project end as key_project
+   from (select bi_cinvcode,item_code,business_class,cinvbrand from edw.map_inventory group by bi_cinvcode) e
+   left join (select ccuscode,true_item_code,plan_class,key_project from edw.x_sales_budget_18 group by ccuscode,true_item_code) f
+    on e.item_code = f.true_item_code
+
+;
+SQL结束执行时间：20190929011039
+SQL开始执行时间：20190929011039
+
+
+delete from pdm.sales_order_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20190929011039
+SQL开始执行时间：20190929011039
+
+delete from pdm.sales_order where concat(id,db) in (select concat(id,db) from  pdm.sales_order_pre)
+;
+SQL结束执行时间：20190929011047
+SQL开始执行时间：20190929011047
+
+insert into pdm.sales_order
+select a.csocode
+      ,a.autoid
+      ,a.id
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '杭州贝生'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝荣'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '奥博特'
+            when a.db = 'UFDATA_588_2019' then '奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '美博特'
+            when a.db = 'UFDATA_889_2019' then '美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            end
+      ,a.ddate
+      ,a.cpersoncode
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.ccustype
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,e.business_class
+      ,a.cdefine22
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.true_itemcode
+      ,e.plan_class
+      ,e.key_project
+      ,a.itaxunitprice
+      ,a.iquantity
+      ,a.itax
+      ,a.isum
+      ,a.citemname
+      ,e.cinvbrand
+      ,a.cstcode
+      ,localtimestamp()
+  from pdm.sales_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode 
+  left join (select cdepcode,db,cdepname from ufdata.department group by cdepcode,db) d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+  left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.sales_order_item group by bi_cinvcode) e
+    on a.bi_cinvcode = e.bi_cinvcode
+
+;
+SQL结束执行时间：20190929011047
+SQL开始执行时间：20190929011047
+
+update pdm.sales_order s
+  join (select * from ufdata.department where db = 'UFDATA_111_2018'  group by cdepcode) c
+    on s.cdepcode = c.cdepcode
+   set s.cdepname = c.cdepname
+ where s.cdepname is null
+   and s.cdepcode is not null
+
+;
+SQL结束执行时间：20190929011047

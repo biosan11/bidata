@@ -3595,3 +3595,135 @@ select a.budgetinfoid
  where a.cdepname_lv1 is null
 ;
 SQL结束执行时间：20190925090900
+
+20190926002216开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926002216
+
+truncate table pdm.oa_budget_19
+;
+SQL结束执行时间：20190926002216
+SQL开始执行时间：20190926002216
+insert into pdm.oa_budget_19
+select a.budgetinfoid
+      ,a.name_ehr_id
+      ,a.name_ehr
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.person
+      ,a.name
+      ,a.u8kemubm
+      ,a.cdlx
+      ,cast(concat('2019-',a.budgetperiodslist,'-01') as date) as budgetperiodslist
+      ,a.budgetaccount
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,a.remark
+  from edw.oa_budget_19 a
+ where a.cdepname_lv1 is null
+;
+SQL结束执行时间：20190926002217
+
+20190927094205开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927094205
+
+truncate table pdm.oa_budget_19
+;
+SQL结束执行时间：20190927094205
+SQL开始执行时间：20190927094205
+insert into pdm.oa_budget_19
+select a.budgetinfoid
+      ,a.name_ehr_id
+      ,a.name_ehr
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.person
+      ,a.name
+      ,a.u8kemubm
+      ,a.cdlx
+      ,cast(concat('2019-',a.budgetperiodslist,'-01') as date) as budgetperiodslist
+      ,a.budgetaccount
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,a.remark
+  from edw.oa_budget_19 a
+ where a.cdepname_lv1 is null
+;
+SQL结束执行时间：20190927094205
+
+20190928002210开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928002210
+
+truncate table pdm.oa_budget_19
+;
+SQL结束执行时间：20190928002211
+SQL开始执行时间：20190928002211
+insert into pdm.oa_budget_19
+select a.budgetinfoid
+      ,a.name_ehr_id
+      ,a.name_ehr
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.person
+      ,a.name
+      ,a.u8kemubm
+      ,a.cdlx
+      ,cast(concat('2019-',a.budgetperiodslist,'-01') as date) as budgetperiodslist
+      ,a.budgetaccount
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,a.remark
+  from edw.oa_budget_19 a
+ where a.cdepname_lv1 is null
+;
+SQL结束执行时间：20190928002211
+
+20190929002205开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929002205
+
+truncate table pdm.oa_budget_19
+;
+SQL结束执行时间：20190929002205
+SQL开始执行时间：20190929002205
+insert into pdm.oa_budget_19
+select a.budgetinfoid
+      ,a.name_ehr_id
+      ,a.name_ehr
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.person
+      ,a.name
+      ,a.u8kemubm
+      ,a.cdlx
+      ,cast(concat('2019-',a.budgetperiodslist,'-01') as date) as budgetperiodslist
+      ,a.budgetaccount
+      ,a.createdate
+      ,a.approverid
+      ,a.createrid
+      ,a.budgetremark
+      ,a.fnaincrement
+      ,a.remark
+  from edw.oa_budget_19 a
+ where a.cdepname_lv1 is null
+;
+SQL结束执行时间：20190929002205

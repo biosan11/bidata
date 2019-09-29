@@ -19480,3 +19480,407 @@ set a.specification_type = c.cinvstd
 
 ;
 SQL结束执行时间：20190925021519
+
+20190926021500开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926021500
+
+
+
+use edw
+;
+SQL结束执行时间：20190926021500
+SQL开始执行时间：20190926021500
+
+create temporary table edw.inventory_pre as
+select *
+  from ufdata.inventory a
+
+;
+SQL结束执行时间：20190926021501
+SQL开始执行时间：20190926021501
+
+
+
+
+truncate table edw.inventory
+;
+SQL结束执行时间：20190926021501
+SQL开始执行时间：20190926021501
+insert into edw.inventory
+select a.db
+      ,a.cinvcode
+      ,a.cinvname
+      ,case when b.cinvcode is null then '请核查' else b.bi_cinvcode end
+      ,case when b.cinvcode is null then '请核查' else b.bi_cinvname end
+      ,a.cinvstd
+      ,a.cinvdefine8
+      ,a.cinvdefine9
+      ,a.cinvdefine13
+      ,a.cinvdefine5
+      ,a.cinvccode
+      ,a.cvencode
+      ,a.bsale
+      ,a.dsdate
+      ,a.dedate
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,a.cinvdefine7
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.inventory_pre a
+  left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
+    on a.cinvcode = b.cinvcode
+ where a.db not in ('UFDATA_222_2018','UFDATA_222_2019', 'UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018')
+
+;
+SQL结束执行时间：20190926021501
+SQL开始执行时间：20190926021501
+insert into edw.inventory
+select a.db
+      ,a.cinvcode
+      ,a.cinvname
+      ,case when b.db is null then '请核查' else b.bi_cinvcode end
+      ,case when b.db is null then '请核查' else b.bi_cinvname end
+      ,a.cinvstd
+      ,a.cinvdefine8
+      ,a.cinvdefine9
+      ,a.cinvdefine13
+      ,a.cinvdefine5
+      ,a.cinvccode
+      ,a.cvencode
+      ,a.bsale
+      ,a.dsdate
+      ,a.dedate
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,a.cinvdefine7
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.inventory_pre a
+  left join dic_inventory b
+    on left(a.db,10) = left(b.db,10)
+   and a.cinvcode = b.cinvcode
+ where a.db in ('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018')
+
+;
+SQL结束执行时间：20190926021519
+SQL开始执行时间：20190926021519
+
+update edw.map_inventory a
+inner join (select * from edw.dic_inventory group by bi_cinvcode) b
+  on a.bi_cinvcode = b.bi_cinvcode
+inner join (select * from edw.inventory_pre group by cinvcode) c
+  on b.cinvcode = c.cinvcode
+set a.specification_type = c.cinvstd
+   ,a.start_date = c.dsdate
+   ,a.end_date = c.dedate
+   ,a.product = c.cinvccode
+   ,a.cinvbrand = c.cinvdefine5
+   ,a.itax = c.itaxrate
+   ,a.latest_cost = c.iinvncost
+
+;
+SQL结束执行时间：20190926021519
+
+20190927021501开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927021501
+
+
+
+use edw
+;
+SQL结束执行时间：20190927021501
+SQL开始执行时间：20190927021501
+
+create temporary table edw.inventory_pre as
+select *
+  from ufdata.inventory a
+
+;
+SQL结束执行时间：20190927021502
+SQL开始执行时间：20190927021502
+
+
+
+
+truncate table edw.inventory
+;
+SQL结束执行时间：20190927021502
+SQL开始执行时间：20190927021502
+insert into edw.inventory
+select a.db
+      ,a.cinvcode
+      ,a.cinvname
+      ,case when b.cinvcode is null then '请核查' else b.bi_cinvcode end
+      ,case when b.cinvcode is null then '请核查' else b.bi_cinvname end
+      ,a.cinvstd
+      ,a.cinvdefine8
+      ,a.cinvdefine9
+      ,a.cinvdefine13
+      ,a.cinvdefine5
+      ,a.cinvccode
+      ,a.cvencode
+      ,a.bsale
+      ,a.dsdate
+      ,a.dedate
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,a.cinvdefine7
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.inventory_pre a
+  left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
+    on a.cinvcode = b.cinvcode
+ where a.db not in ('UFDATA_222_2018','UFDATA_222_2019', 'UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018')
+
+;
+SQL结束执行时间：20190927021502
+SQL开始执行时间：20190927021502
+insert into edw.inventory
+select a.db
+      ,a.cinvcode
+      ,a.cinvname
+      ,case when b.db is null then '请核查' else b.bi_cinvcode end
+      ,case when b.db is null then '请核查' else b.bi_cinvname end
+      ,a.cinvstd
+      ,a.cinvdefine8
+      ,a.cinvdefine9
+      ,a.cinvdefine13
+      ,a.cinvdefine5
+      ,a.cinvccode
+      ,a.cvencode
+      ,a.bsale
+      ,a.dsdate
+      ,a.dedate
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,a.cinvdefine7
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.inventory_pre a
+  left join dic_inventory b
+    on left(a.db,10) = left(b.db,10)
+   and a.cinvcode = b.cinvcode
+ where a.db in ('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018')
+
+;
+SQL结束执行时间：20190927021519
+SQL开始执行时间：20190927021519
+
+update edw.map_inventory a
+inner join (select * from edw.dic_inventory group by bi_cinvcode) b
+  on a.bi_cinvcode = b.bi_cinvcode
+inner join (select * from edw.inventory_pre group by cinvcode) c
+  on b.cinvcode = c.cinvcode
+set a.specification_type = c.cinvstd
+   ,a.start_date = c.dsdate
+   ,a.end_date = c.dedate
+   ,a.product = c.cinvccode
+   ,a.cinvbrand = c.cinvdefine5
+   ,a.itax = c.itaxrate
+   ,a.latest_cost = c.iinvncost
+
+;
+SQL结束执行时间：20190927021520
+
+20190928021500开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928021500
+
+
+
+use edw
+;
+SQL结束执行时间：20190928021500
+SQL开始执行时间：20190928021500
+
+create temporary table edw.inventory_pre as
+select *
+  from ufdata.inventory a
+
+;
+SQL结束执行时间：20190928021501
+SQL开始执行时间：20190928021501
+
+
+
+
+truncate table edw.inventory
+;
+SQL结束执行时间：20190928021501
+SQL开始执行时间：20190928021501
+insert into edw.inventory
+select a.db
+      ,a.cinvcode
+      ,a.cinvname
+      ,case when b.cinvcode is null then '请核查' else b.bi_cinvcode end
+      ,case when b.cinvcode is null then '请核查' else b.bi_cinvname end
+      ,a.cinvstd
+      ,a.cinvdefine8
+      ,a.cinvdefine9
+      ,a.cinvdefine13
+      ,a.cinvdefine5
+      ,a.cinvccode
+      ,a.cvencode
+      ,a.bsale
+      ,a.dsdate
+      ,a.dedate
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,a.cinvdefine7
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.inventory_pre a
+  left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
+    on a.cinvcode = b.cinvcode
+ where a.db not in ('UFDATA_222_2018','UFDATA_222_2019', 'UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018')
+
+;
+SQL结束执行时间：20190928021501
+SQL开始执行时间：20190928021501
+insert into edw.inventory
+select a.db
+      ,a.cinvcode
+      ,a.cinvname
+      ,case when b.db is null then '请核查' else b.bi_cinvcode end
+      ,case when b.db is null then '请核查' else b.bi_cinvname end
+      ,a.cinvstd
+      ,a.cinvdefine8
+      ,a.cinvdefine9
+      ,a.cinvdefine13
+      ,a.cinvdefine5
+      ,a.cinvccode
+      ,a.cvencode
+      ,a.bsale
+      ,a.dsdate
+      ,a.dedate
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,a.cinvdefine7
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.inventory_pre a
+  left join dic_inventory b
+    on left(a.db,10) = left(b.db,10)
+   and a.cinvcode = b.cinvcode
+ where a.db in ('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018')
+
+;
+SQL结束执行时间：20190928021519
+SQL开始执行时间：20190928021519
+
+update edw.map_inventory a
+inner join (select * from edw.dic_inventory group by bi_cinvcode) b
+  on a.bi_cinvcode = b.bi_cinvcode
+inner join (select * from edw.inventory_pre group by cinvcode) c
+  on b.cinvcode = c.cinvcode
+set a.specification_type = c.cinvstd
+   ,a.start_date = c.dsdate
+   ,a.end_date = c.dedate
+   ,a.product = c.cinvccode
+   ,a.cinvbrand = c.cinvdefine5
+   ,a.itax = c.itaxrate
+   ,a.latest_cost = c.iinvncost
+
+;
+SQL结束执行时间：20190928021519
+
+20190929021500开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929021500
+
+
+
+use edw
+;
+SQL结束执行时间：20190929021500
+SQL开始执行时间：20190929021500
+
+create temporary table edw.inventory_pre as
+select *
+  from ufdata.inventory a
+
+;
+SQL结束执行时间：20190929021501
+SQL开始执行时间：20190929021501
+
+
+
+
+truncate table edw.inventory
+;
+SQL结束执行时间：20190929021501
+SQL开始执行时间：20190929021501
+insert into edw.inventory
+select a.db
+      ,a.cinvcode
+      ,a.cinvname
+      ,case when b.cinvcode is null then '请核查' else b.bi_cinvcode end
+      ,case when b.cinvcode is null then '请核查' else b.bi_cinvname end
+      ,a.cinvstd
+      ,a.cinvdefine8
+      ,a.cinvdefine9
+      ,a.cinvdefine13
+      ,a.cinvdefine5
+      ,a.cinvccode
+      ,a.cvencode
+      ,a.bsale
+      ,a.dsdate
+      ,a.dedate
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,a.cinvdefine7
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.inventory_pre a
+  left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
+    on a.cinvcode = b.cinvcode
+ where a.db not in ('UFDATA_222_2018','UFDATA_222_2019', 'UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018')
+
+;
+SQL结束执行时间：20190929021502
+SQL开始执行时间：20190929021502
+insert into edw.inventory
+select a.db
+      ,a.cinvcode
+      ,a.cinvname
+      ,case when b.db is null then '请核查' else b.bi_cinvcode end
+      ,case when b.db is null then '请核查' else b.bi_cinvname end
+      ,a.cinvstd
+      ,a.cinvdefine8
+      ,a.cinvdefine9
+      ,a.cinvdefine13
+      ,a.cinvdefine5
+      ,a.cinvccode
+      ,a.cvencode
+      ,a.bsale
+      ,a.dsdate
+      ,a.dedate
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,a.cinvdefine7
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.inventory_pre a
+  left join dic_inventory b
+    on left(a.db,10) = left(b.db,10)
+   and a.cinvcode = b.cinvcode
+ where a.db in ('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018')
+
+;
+SQL结束执行时间：20190929021518
+SQL开始执行时间：20190929021518
+
+update edw.map_inventory a
+inner join (select * from edw.dic_inventory group by bi_cinvcode) b
+  on a.bi_cinvcode = b.bi_cinvcode
+inner join (select * from edw.inventory_pre group by cinvcode) c
+  on b.cinvcode = c.cinvcode
+set a.specification_type = c.cinvstd
+   ,a.start_date = c.dsdate
+   ,a.end_date = c.dedate
+   ,a.product = c.cinvccode
+   ,a.cinvbrand = c.cinvdefine5
+   ,a.itax = c.itaxrate
+   ,a.latest_cost = c.iinvncost
+
+;
+SQL结束执行时间：20190929021519

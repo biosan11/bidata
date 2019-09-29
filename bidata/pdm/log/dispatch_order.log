@@ -33087,3 +33087,441 @@ SQL开始执行时间：20190925113841
 delete from pdm.dispatch_order where concat(db,dlid) in (select concat(db,dlid) from edw.dispatch_order where state = '无效') 
 ;
 SQL结束执行时间：20190925113911
+
+20190926012138开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926012138
+
+
+create temporary table pdm.dispatch_order_pre as 
+select *
+  from edw.dispatch_order a
+ where left(a.sys_time,10) >= '2019-09-25'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20190926012139
+SQL开始执行时间：20190926012139
+
+
+
+delete from pdm.dispatch_order_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20190926012139
+SQL开始执行时间：20190926012139
+
+CREATE INDEX index_dispatch_order_pre_db ON pdm.dispatch_order_pre(db)
+;
+SQL结束执行时间：20190926012139
+SQL开始执行时间：20190926012139
+CREATE INDEX index_dispatch_order_pre_dlid ON pdm.dispatch_order_pre(dlid)
+;
+SQL结束执行时间：20190926012139
+SQL开始执行时间：20190926012139
+delete from pdm.dispatch_order where concat(dlid,db) in (select concat(dlid,db) from  pdm.dispatch_order_pre)
+;
+SQL结束执行时间：20190926012254
+SQL开始执行时间：20190926012254
+
+insert into pdm.dispatch_order
+select a.cdlcode
+      ,a.dlid
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝莱'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '湖北奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '四川美博特'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_588_2019' then '湖北奥博特'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_889_2019' then '四川美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            end
+      ,a.ddate
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,e.business_class
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.true_itemcode
+      ,a.true_itemname
+      ,a.cstcode
+      ,a.csocode
+      ,a.cvouchtype
+      ,a.isale
+      ,case when a.breturnflag = 'Y' then '是'
+          else '否' end
+      ,a.bsaleoutcreatebill
+      ,a.autoid
+      ,a.isosid
+      ,a.cdefine22
+      ,a.foutquantity
+      ,case when a.itb = '1' then '退补'
+          else '正常' end
+      ,localtimestamp()
+  from pdm.dispatch_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join (select cdepcode,db,cdepname from ufdata.department group by cdepcode,db) d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+  left join edw.map_inventory e
+    on a.bi_cinvcode = e.bi_cinvcode
+
+;
+SQL结束执行时间：20190926012254
+SQL开始执行时间：20190926012254
+
+
+delete from pdm.dispatch_order where concat(db,dlid) in (select concat(db,dlid) from edw.dispatch_order where state = '无效') 
+;
+SQL结束执行时间：20190926012325
+
+20190927012149开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927012149
+
+
+create temporary table pdm.dispatch_order_pre as 
+select *
+  from edw.dispatch_order a
+ where left(a.sys_time,10) >= '2019-09-26'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20190927012150
+SQL开始执行时间：20190927012150
+
+
+
+delete from pdm.dispatch_order_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20190927012150
+SQL开始执行时间：20190927012150
+
+CREATE INDEX index_dispatch_order_pre_db ON pdm.dispatch_order_pre(db)
+;
+SQL结束执行时间：20190927012150
+SQL开始执行时间：20190927012150
+CREATE INDEX index_dispatch_order_pre_dlid ON pdm.dispatch_order_pre(dlid)
+;
+SQL结束执行时间：20190927012150
+SQL开始执行时间：20190927012150
+delete from pdm.dispatch_order where concat(dlid,db) in (select concat(dlid,db) from  pdm.dispatch_order_pre)
+;
+SQL结束执行时间：20190927012227
+SQL开始执行时间：20190927012227
+
+insert into pdm.dispatch_order
+select a.cdlcode
+      ,a.dlid
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝莱'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '湖北奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '四川美博特'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_588_2019' then '湖北奥博特'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_889_2019' then '四川美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            end
+      ,a.ddate
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,e.business_class
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.true_itemcode
+      ,a.true_itemname
+      ,a.cstcode
+      ,a.csocode
+      ,a.cvouchtype
+      ,a.isale
+      ,case when a.breturnflag = 'Y' then '是'
+          else '否' end
+      ,a.bsaleoutcreatebill
+      ,a.autoid
+      ,a.isosid
+      ,a.cdefine22
+      ,a.foutquantity
+      ,case when a.itb = '1' then '退补'
+          else '正常' end
+      ,localtimestamp()
+  from pdm.dispatch_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join (select cdepcode,db,cdepname from ufdata.department group by cdepcode,db) d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+  left join edw.map_inventory e
+    on a.bi_cinvcode = e.bi_cinvcode
+
+;
+SQL结束执行时间：20190927012227
+SQL开始执行时间：20190927012227
+
+
+delete from pdm.dispatch_order where concat(db,dlid) in (select concat(db,dlid) from edw.dispatch_order where state = '无效') 
+;
+SQL结束执行时间：20190927012302
+
+20190928012136开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928012136
+
+
+create temporary table pdm.dispatch_order_pre as 
+select *
+  from edw.dispatch_order a
+ where left(a.sys_time,10) >= '2019-09-27'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20190928012136
+SQL开始执行时间：20190928012136
+
+
+
+delete from pdm.dispatch_order_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20190928012136
+SQL开始执行时间：20190928012136
+
+CREATE INDEX index_dispatch_order_pre_db ON pdm.dispatch_order_pre(db)
+;
+SQL结束执行时间：20190928012137
+SQL开始执行时间：20190928012137
+CREATE INDEX index_dispatch_order_pre_dlid ON pdm.dispatch_order_pre(dlid)
+;
+SQL结束执行时间：20190928012137
+SQL开始执行时间：20190928012137
+delete from pdm.dispatch_order where concat(dlid,db) in (select concat(dlid,db) from  pdm.dispatch_order_pre)
+;
+SQL结束执行时间：20190928012210
+SQL开始执行时间：20190928012210
+
+insert into pdm.dispatch_order
+select a.cdlcode
+      ,a.dlid
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝莱'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '湖北奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '四川美博特'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_588_2019' then '湖北奥博特'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_889_2019' then '四川美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            end
+      ,a.ddate
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,e.business_class
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.true_itemcode
+      ,a.true_itemname
+      ,a.cstcode
+      ,a.csocode
+      ,a.cvouchtype
+      ,a.isale
+      ,case when a.breturnflag = 'Y' then '是'
+          else '否' end
+      ,a.bsaleoutcreatebill
+      ,a.autoid
+      ,a.isosid
+      ,a.cdefine22
+      ,a.foutquantity
+      ,case when a.itb = '1' then '退补'
+          else '正常' end
+      ,localtimestamp()
+  from pdm.dispatch_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join (select cdepcode,db,cdepname from ufdata.department group by cdepcode,db) d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+  left join edw.map_inventory e
+    on a.bi_cinvcode = e.bi_cinvcode
+
+;
+SQL结束执行时间：20190928012210
+SQL开始执行时间：20190928012210
+
+
+delete from pdm.dispatch_order where concat(db,dlid) in (select concat(db,dlid) from edw.dispatch_order where state = '无效') 
+;
+SQL结束执行时间：20190928012246
+SQL开始执行时间：20190928012246
+
+update pdm.dispatch_order s
+  join (select * from ufdata.department where db = 'UFDATA_111_2018'  group by cdepcode) c
+    on s.cdepcode = c.cdepcode
+   set s.cdepname = c.cdepname
+ where s.cdepname is null
+   and s.cdepcode is not null
+
+;
+SQL结束执行时间：20190928012246
+
+20190929012127开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929012127
+
+
+create temporary table pdm.dispatch_order_pre as 
+select *
+  from edw.dispatch_order a
+ where left(a.sys_time,10) >= '2019-09-28'
+  and year(ddate)>=2018
+;
+SQL结束执行时间：20190929012127
+SQL开始执行时间：20190929012127
+
+
+
+delete from pdm.dispatch_order_pre where left(true_ccuscode,2) = 'GL'
+;
+SQL结束执行时间：20190929012127
+SQL开始执行时间：20190929012127
+
+CREATE INDEX index_dispatch_order_pre_db ON pdm.dispatch_order_pre(db)
+;
+SQL结束执行时间：20190929012127
+SQL开始执行时间：20190929012127
+CREATE INDEX index_dispatch_order_pre_dlid ON pdm.dispatch_order_pre(dlid)
+;
+SQL结束执行时间：20190929012127
+SQL开始执行时间：20190929012127
+delete from pdm.dispatch_order where concat(dlid,db) in (select concat(dlid,db) from  pdm.dispatch_order_pre)
+;
+SQL结束执行时间：20190929012149
+SQL开始执行时间：20190929012149
+
+insert into pdm.dispatch_order
+select a.cdlcode
+      ,a.dlid
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝莱'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '湖北奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '四川美博特'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_588_2019' then '湖北奥博特'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_889_2019' then '四川美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            end
+      ,a.ddate
+      ,a.cdepcode
+      ,d.cdepname
+      ,b.sales_region
+      ,b.province
+      ,b.city
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.true_finnal_ccuscode as finnal_ccuscode
+      ,a.true_finnal_ccusname2 as finnal_ccusname
+      ,e.business_class
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.true_itemcode
+      ,a.true_itemname
+      ,a.cstcode
+      ,a.csocode
+      ,a.cvouchtype
+      ,a.isale
+      ,case when a.breturnflag = 'Y' then '是'
+          else '否' end
+      ,a.bsaleoutcreatebill
+      ,a.autoid
+      ,a.isosid
+      ,a.cdefine22
+      ,a.foutquantity
+      ,case when a.itb = '1' then '退补'
+          else '正常' end
+      ,localtimestamp()
+  from pdm.dispatch_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join (select cdepcode,db,cdepname from ufdata.department group by cdepcode,db) d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+  left join edw.map_inventory e
+    on a.bi_cinvcode = e.bi_cinvcode
+
+;
+SQL结束执行时间：20190929012149
+SQL开始执行时间：20190929012149
+
+
+delete from pdm.dispatch_order where concat(db,dlid) in (select concat(db,dlid) from edw.dispatch_order where state = '无效') 
+;
+SQL结束执行时间：20190929012225
+SQL开始执行时间：20190929012225
+
+update pdm.dispatch_order s
+  join (select * from ufdata.department where db = 'UFDATA_111_2018'  group by cdepcode) c
+    on s.cdepcode = c.cdepcode
+   set s.cdepname = c.cdepname
+ where s.cdepname is null
+   and s.cdepcode is not null
+
+;
+SQL结束执行时间：20190929012225

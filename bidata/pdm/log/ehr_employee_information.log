@@ -13975,3 +13975,271 @@ update pdm.ehr_employee a
 
 ;
 SQL结束执行时间：20190925020011
+
+20190926020007开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190926020007
+
+truncate table pdm.ehr_employee
+;
+SQL结束执行时间：20190926020007
+SQL开始执行时间：20190926020007
+insert into pdm.ehr_employee
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.address_usual
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(a.birthday)), '%Y')+0 AS ag
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+      ,a.start_dt
+      ,a.end_dt
+  from edw.ehr_employee a
+ where end_dt = '3000-12-31'
+;
+SQL结束执行时间：20190926020007
+SQL开始执行时间：20190926020007
+
+update pdm.ehr_employee a
+ inner join edw.dic_ehr_withdrawn b
+    on a.name = b.name
+   set a.third_dept = b.third_dept
+      ,a.fourth_dept = b.fourth_dept
+      ,a.fifth_dept = b.fifth_dept
+      ,a.sixth_dept = b.sixth_dept
+ where b.type = '1'
+
+;
+SQL结束执行时间：20190926020008
+
+20190927020011开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190927020011
+
+truncate table pdm.ehr_employee
+;
+SQL结束执行时间：20190927020011
+SQL开始执行时间：20190927020011
+insert into pdm.ehr_employee
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.address_usual
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(a.birthday)), '%Y')+0 AS ag
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+      ,a.start_dt
+      ,a.end_dt
+  from edw.ehr_employee a
+ where end_dt = '3000-12-31'
+;
+SQL结束执行时间：20190927020011
+SQL开始执行时间：20190927020011
+
+update pdm.ehr_employee a
+ inner join edw.dic_ehr_withdrawn b
+    on a.name = b.name
+   set a.third_dept = b.third_dept
+      ,a.fourth_dept = b.fourth_dept
+      ,a.fifth_dept = b.fifth_dept
+      ,a.sixth_dept = b.sixth_dept
+ where b.type = '1'
+
+;
+SQL结束执行时间：20190927020012
+
+20190928020009开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190928020009
+
+truncate table pdm.ehr_employee
+;
+SQL结束执行时间：20190928020009
+SQL开始执行时间：20190928020009
+insert into pdm.ehr_employee
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.address_usual
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(a.birthday)), '%Y')+0 AS ag
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+      ,a.start_dt
+      ,a.end_dt
+  from edw.ehr_employee a
+ where end_dt = '3000-12-31'
+;
+SQL结束执行时间：20190928020009
+SQL开始执行时间：20190928020009
+
+update pdm.ehr_employee a
+ inner join edw.dic_ehr_withdrawn b
+    on a.name = b.name
+   set a.third_dept = b.third_dept
+      ,a.fourth_dept = b.fourth_dept
+      ,a.fifth_dept = b.fifth_dept
+      ,a.sixth_dept = b.sixth_dept
+ where b.type = '1'
+
+;
+SQL结束执行时间：20190928020009
+
+20190929020006开始执行2019-09-29数据加载日志:
+SQL开始执行时间：20190929020006
+
+truncate table pdm.ehr_employee
+;
+SQL结束执行时间：20190929020006
+SQL开始执行时间：20190929020006
+insert into pdm.ehr_employee
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.address_usual
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(a.birthday)), '%Y')+0 AS ag
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+      ,a.start_dt
+      ,a.end_dt
+  from edw.ehr_employee a
+ where end_dt = '3000-12-31'
+;
+SQL结束执行时间：20190929020006
+SQL开始执行时间：20190929020006
+
+update pdm.ehr_employee a
+ inner join edw.dic_ehr_withdrawn b
+    on a.name = b.name
+   set a.third_dept = b.third_dept
+      ,a.fourth_dept = b.fourth_dept
+      ,a.fifth_dept = b.fifth_dept
+      ,a.sixth_dept = b.sixth_dept
+ where b.type = '1'
+
+;
+SQL结束执行时间：20190929020006

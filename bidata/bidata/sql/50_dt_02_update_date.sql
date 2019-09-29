@@ -31,3 +31,6 @@ select "ft_81_expenses_x",max(dbill_date) from bidata.ft_81_expenses_x;
 
 insert into bidata.dt_02_update_date 
 select "ft_41_cusitem_occupy",max(last_invoice_dt) from bidata.ft_41_cusitem_occupy;
+
+insert into bidata.dt_02_update_date 
+select "ft_81_expenses",max(dbill_date) from bidata.ft_81_expenses;

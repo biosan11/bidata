@@ -5378,3 +5378,127 @@ time:11:40:01
 /home/bidata/jc/sql/5_jc_abnormal_else.sql
 0
 Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-26 08:00:00.648331
+**************************
+time:08:00:02
+-----------------------
+/home/bidata/jc/sql/1_jc_abnormal_cust.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:03
+-----------------------
+/home/bidata/jc/sql/2_jc_abnormal_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:08
+-----------------------
+/home/bidata/jc/sql/3_jc_abnormal_num.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:09
+-----------------------
+/home/bidata/jc/sql/4_jc_abnormal_pro.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:11
+-----------------------
+/home/bidata/jc/sql/5_jc_abnormal_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-27 08:00:00.598278
+**************************
+time:08:00:02
+-----------------------
+/home/bidata/jc/sql/1_jc_abnormal_cust.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:03
+-----------------------
+/home/bidata/jc/sql/2_jc_abnormal_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:10
+-----------------------
+/home/bidata/jc/sql/3_jc_abnormal_num.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:11
+-----------------------
+/home/bidata/jc/sql/4_jc_abnormal_pro.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:13
+-----------------------
+/home/bidata/jc/sql/5_jc_abnormal_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-28 08:00:00.392597
+**************************
+time:08:00:02
+-----------------------
+/home/bidata/jc/sql/1_jc_abnormal_cust.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:02
+-----------------------
+/home/bidata/jc/sql/2_jc_abnormal_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:08
+-----------------------
+/home/bidata/jc/sql/3_jc_abnormal_num.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:09
+-----------------------
+/home/bidata/jc/sql/4_jc_abnormal_pro.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:11
+-----------------------
+/home/bidata/jc/sql/5_jc_abnormal_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+
+
+
+MANUAL
+date:2019-09-29 08:00:00.646936
+**************************
+time:08:00:02
+-----------------------
+/home/bidata/jc/sql/1_jc_abnormal_cust.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:03
+-----------------------
+/home/bidata/jc/sql/2_jc_abnormal_item.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:08
+-----------------------
+/home/bidata/jc/sql/3_jc_abnormal_num.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:09
+-----------------------
+/home/bidata/jc/sql/4_jc_abnormal_pro.sql
+0
+Warning: Using a password on the command line interface can be insecure.
+time:08:00:12
+-----------------------
+/home/bidata/jc/sql/5_jc_abnormal_else.sql
+0
+Warning: Using a password on the command line interface can be insecure.

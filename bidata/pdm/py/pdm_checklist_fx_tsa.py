@@ -3,6 +3,7 @@
 # author:Jin
 
 import datetime
+import math
 import pymysql
 import pandas as pd
 import numpy as np
@@ -11,12 +12,19 @@ from sqlalchemy import create_engine
 from statsmodels.tsa.api import Holt
 pd.options.mode.chained_assignment = None ##关闭pandas警告
 # 自定义，增加计算增加月份得到日期的函数
-def add_month(dt,n):
-    if dt.month + n > 12:
-        year_interval = int((dt.month + n) / 12)
-        dt_new = datetime.datetime(dt.year+year_interval,dt.month+n - year_interval*12,dt.day)
-    else:
-        dt_new = datetime.datetime(dt.year,dt.month+n,dt.day)
+# def add_month(dt,n):
+#     if dt.month + n > 12:
+#         year_interval = int((dt.month + n) / 12)
+#         dt_new = datetime.datetime(dt.year+year_interval,dt.month+n - year_interval*12,dt.day)
+#     else:
+#         dt_new = datetime.datetime(dt.year,dt.month+n,dt.day)
+#     return dt_new
+    
+def add_month (dt,inter):
+    m = dt.month+inter-1
+    y = dt.year+math.floor(m/12)
+    m = m % 12 +1
+    dt_new = datetime.datetime(y, m, dt.day)
     return dt_new
 
 # 传入一个dataframe 找出异常值（用四分位数法） 并用中位数替换
@@ -85,15 +93,15 @@ def job(df):
         print(index)
         print(data_cusitem.loc[index][0],"---",data_cusitem.loc[index][1])
         df_1 = editor_outliers(df_cusitem)
-        df_2 = holt_(df_1,0.3,0.1,4)
+        df_2 = holt_(df_1,0.3,0.1,20)
         pd.io.sql.to_sql(df_2, "checklist_fx_pd", conn1, if_exists='append')
 
 if __name__=='__main__':
     # 先运行 checklist_fx.sql 脚本
-    sqlpath = "/home/bidata/pdm/sql/checklist_fx.sql"
-    command = "mysql -h172.16.0.181 -p3306 -uroot -pbiosan <%s" % sqlpath
-    (status, output) = subprocess.getstatusoutput(command)
-    print(status)
+    #sqlpath = "/home/bidata/pdm/sql/checklist_fx.sql"
+    #command = "mysql -h172.16.0.181 -p3306 -uroot -pbiosan <%s" % sqlpath
+    #(status, output) = subprocess.getstatusoutput(command)
+    #print(status)
     #运行查找异常值脚本 以及 holt时间序列预测
     conn = pymysql.connect(host="172.16.0.181", port=3306, user="root", passwd="biosan")
     cursor = conn.cursor()

@@ -139993,3 +139993,1635 @@ SQL开始执行时间：20190925113135
 delete from ufdata.so_sodetails where autoid = '48568'
 ;
 SQL结束执行时间：20190925113135
+
+20190926011034开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926011034
+
+
+use edw
+;
+SQL结束执行时间：20190926011034
+SQL开始执行时间：20190926011034
+drop table if exists edw.sales_order_pre
+;
+SQL结束执行时间：20190926011034
+SQL开始执行时间：20190926011034
+create temporary table edw.sales_order_pre as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cuscode end as true_ccuscode 
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cusname end as true_ccusname 
+      ,a.cdefine10 as finnal_ccusname
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from ufdata.so_somain a
+  left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
+    on a.ccuscode = b.ccuscode
+ where (left(a.dcreatesystime,10) >= '2019-09-25' or left(a.dmodifysystime,10) >= '2019-09-25')
+   and a.db <> 'UFDATA_889_2019'
+   and a.db <> 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190926011034
+SQL开始执行时间：20190926011034
+
+
+
+insert into edw.sales_order_pre
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cuscode end as true_ccuscode 
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cusname end as true_ccusname 
+      ,a.cdefine10 as finnal_ccusname
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from ufdata.so_somain a
+  left join edw.dic_customer b
+    on a.ccuscode = b.ccuscode
+   and left(a.db,10) = left(b.db,10)
+ where (left(a.dcreatesystime,10) >= '2019-09-25' or left(a.dmodifysystime,10) >= '2019-09-25')
+   and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018')
+;
+SQL结束执行时间：20190926011034
+SQL开始执行时间：20190926011034
+
+
+
+drop table if exists edw.mid1_sales_order
+;
+SQL结束执行时间：20190926011034
+SQL开始执行时间：20190926011034
+create temporary table edw.mid1_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,case when b.bi_cuscode is null then "请核查"
+       else b.finnal_ccusname end as true_finnal_ccusname1
+      ,case when a.finnal_ccusname is null then
+            case when b.bi_cuscode is null then "请核查"
+                 else b.finnal_ccusname end
+            else case when c.ccusname is null then a.finnal_ccusname
+                 else c.bi_cusname end 
+       end  as true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from edw.sales_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join (select ccusname,bi_cusname from edw.dic_customer group by ccusname) c
+    on a.finnal_ccusname = c.ccusname
+;
+SQL结束执行时间：20190926011034
+SQL开始执行时间：20190926011034
+
+create temporary table edw.mid2_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccusname1
+      ,case when a.true_finnal_ccusname2 like "个人%" and char_LENGTH(a.true_finnal_ccusname2) > 6 then substr(a.true_finnal_ccusname2,4,char_length(a.true_finnal_ccusname2)-4) else a.true_finnal_ccusname2 end as true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from edw.mid1_sales_order a
+  left join (select bi_cuscode,bi_cusname from edw.dic_customer group by bi_cusname) c
+    on a.true_finnal_ccusname2 = c.bi_cusname
+
+;
+SQL结束执行时间：20190926011034
+SQL开始执行时间：20190926011034
+
+delete from edw.sales_order where concat(id,db) in (select concat(id,db) from edw.sales_order_pre)
+;
+SQL结束执行时间：20190926011035
+SQL开始执行时间：20190926011035
+CREATE INDEX index_mid2_sales_order_db ON edw.mid2_sales_order(db)
+;
+SQL结束执行时间：20190926011035
+SQL开始执行时间：20190926011035
+CREATE INDEX index_mid2_sales_order_id ON edw.mid2_sales_order(id)
+;
+SQL结束执行时间：20190926011035
+SQL开始执行时间：20190926011035
+
+
+create temporary table edw.mid3_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,case when c.ccusname is null then "请核查"
+       else c.bi_cuscode end as true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,b.autoid
+      ,b.cdefine22
+      ,b.csocode as child_csocode
+      ,b.cinvcode
+      ,b.iquantity
+      ,b.itaxunitprice
+      ,b.itax
+      ,b.isum
+      ,b.itaxrate
+      ,b.citemcode
+      ,b.citem_class
+      ,b.citemname
+      ,b.citem_cname
+      ,b.isosid
+      ,localtimestamp() as sys_time
+  from edw.mid2_sales_order a
+  left join ufdata.so_sodetails b
+    on a.id = b.id
+   and a.db = b.db
+  left join (select bi_cuscode,ccusname from edw.dic_customer group by ccusname) c
+    on a.true_finnal_ccusname2 = c.ccusname
+
+;
+SQL结束执行时间：20190926011037
+SQL开始执行时间：20190926011037
+
+create temporary table edw.mid4_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvcode is null then '请核查' else b.bi_cinvcode end as bi_cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvname is null then '请核查' else b.bi_cinvname end as bi_cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid3_sales_order a
+  left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
+    on a.cinvcode = b.cinvcode
+ where a.db not in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
+
+;
+SQL结束执行时间：20190926011037
+SQL开始执行时间：20190926011037
+
+insert into edw.mid4_sales_order
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvcode is null then '请核查' else b.bi_cinvcode end
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvname is null then '请核查' else b.bi_cinvname end
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid3_sales_order a
+  left join dic_inventory b
+    on left(a.db,10) = left(b.db,10)
+   and a.cinvcode = b.cinvcode
+ where a.db in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
+
+;
+SQL结束执行时间：20190926011037
+SQL开始执行时间：20190926011037
+
+
+insert into edw.sales_order
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,a.bi_cinvcode
+      ,a.bi_cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,case when b.bi_cinvcode is null then '请核查' else b.item_code end as true_itemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,'有效'
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid4_sales_order a
+  left join edw.map_inventory b
+    on a.bi_cinvcode = b.bi_cinvcode
+;
+SQL结束执行时间：20190926011037
+SQL开始执行时间：20190926011037
+
+create temporary table edw.mid5_sales_order as 
+select a.csocode
+      ,a.db
+  from edw.sales_order a
+  left join (select * from ufdata.so_somain where year(ddate) > '2018') b
+    on a.csocode = b.csocode
+   and a.db = b.db
+ where b.csocode is null
+   and a.db <> 'UFDATA_889_2018'
+   and year(a.ddate) > '2018'
+
+;
+SQL结束执行时间：20190926011037
+SQL开始执行时间：20190926011037
+
+update edw.sales_order set state = '无效',sys_time = localtimestamp() where concat(db,csocode) in (select concat(db,csocode) from edw.mid5_sales_order) 
+;
+SQL结束执行时间：20190926011042
+SQL开始执行时间：20190926011042
+
+delete from ufdata.so_sodetails where autoid = '48568'
+;
+SQL结束执行时间：20190926011042
+
+20190927011034开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927011034
+
+
+use edw
+;
+SQL结束执行时间：20190927011034
+SQL开始执行时间：20190927011034
+drop table if exists edw.sales_order_pre
+;
+SQL结束执行时间：20190927011034
+SQL开始执行时间：20190927011034
+create temporary table edw.sales_order_pre as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cuscode end as true_ccuscode 
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cusname end as true_ccusname 
+      ,a.cdefine10 as finnal_ccusname
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from ufdata.so_somain a
+  left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
+    on a.ccuscode = b.ccuscode
+ where (left(a.dcreatesystime,10) >= '2019-09-26' or left(a.dmodifysystime,10) >= '2019-09-26')
+   and a.db <> 'UFDATA_889_2019'
+   and a.db <> 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190927011034
+SQL开始执行时间：20190927011034
+
+
+
+insert into edw.sales_order_pre
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cuscode end as true_ccuscode 
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cusname end as true_ccusname 
+      ,a.cdefine10 as finnal_ccusname
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from ufdata.so_somain a
+  left join edw.dic_customer b
+    on a.ccuscode = b.ccuscode
+   and left(a.db,10) = left(b.db,10)
+ where (left(a.dcreatesystime,10) >= '2019-09-26' or left(a.dmodifysystime,10) >= '2019-09-26')
+   and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018')
+;
+SQL结束执行时间：20190927011034
+SQL开始执行时间：20190927011034
+
+
+
+drop table if exists edw.mid1_sales_order
+;
+SQL结束执行时间：20190927011034
+SQL开始执行时间：20190927011034
+create temporary table edw.mid1_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,case when b.bi_cuscode is null then "请核查"
+       else b.finnal_ccusname end as true_finnal_ccusname1
+      ,case when a.finnal_ccusname is null then
+            case when b.bi_cuscode is null then "请核查"
+                 else b.finnal_ccusname end
+            else case when c.ccusname is null then a.finnal_ccusname
+                 else c.bi_cusname end 
+       end  as true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from edw.sales_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join (select ccusname,bi_cusname from edw.dic_customer group by ccusname) c
+    on a.finnal_ccusname = c.ccusname
+;
+SQL结束执行时间：20190927011034
+SQL开始执行时间：20190927011034
+
+create temporary table edw.mid2_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccusname1
+      ,case when a.true_finnal_ccusname2 like "个人%" and char_LENGTH(a.true_finnal_ccusname2) > 6 then substr(a.true_finnal_ccusname2,4,char_length(a.true_finnal_ccusname2)-4) else a.true_finnal_ccusname2 end as true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from edw.mid1_sales_order a
+  left join (select bi_cuscode,bi_cusname from edw.dic_customer group by bi_cusname) c
+    on a.true_finnal_ccusname2 = c.bi_cusname
+
+;
+SQL结束执行时间：20190927011034
+SQL开始执行时间：20190927011034
+
+delete from edw.sales_order where concat(id,db) in (select concat(id,db) from edw.sales_order_pre)
+;
+SQL结束执行时间：20190927011035
+SQL开始执行时间：20190927011035
+CREATE INDEX index_mid2_sales_order_db ON edw.mid2_sales_order(db)
+;
+SQL结束执行时间：20190927011035
+SQL开始执行时间：20190927011035
+CREATE INDEX index_mid2_sales_order_id ON edw.mid2_sales_order(id)
+;
+SQL结束执行时间：20190927011035
+SQL开始执行时间：20190927011035
+
+
+create temporary table edw.mid3_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,case when c.ccusname is null then "请核查"
+       else c.bi_cuscode end as true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,b.autoid
+      ,b.cdefine22
+      ,b.csocode as child_csocode
+      ,b.cinvcode
+      ,b.iquantity
+      ,b.itaxunitprice
+      ,b.itax
+      ,b.isum
+      ,b.itaxrate
+      ,b.citemcode
+      ,b.citem_class
+      ,b.citemname
+      ,b.citem_cname
+      ,b.isosid
+      ,localtimestamp() as sys_time
+  from edw.mid2_sales_order a
+  left join ufdata.so_sodetails b
+    on a.id = b.id
+   and a.db = b.db
+  left join (select bi_cuscode,ccusname from edw.dic_customer group by ccusname) c
+    on a.true_finnal_ccusname2 = c.ccusname
+
+;
+SQL结束执行时间：20190927011036
+SQL开始执行时间：20190927011036
+
+create temporary table edw.mid4_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvcode is null then '请核查' else b.bi_cinvcode end as bi_cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvname is null then '请核查' else b.bi_cinvname end as bi_cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid3_sales_order a
+  left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
+    on a.cinvcode = b.cinvcode
+ where a.db not in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
+
+;
+SQL结束执行时间：20190927011036
+SQL开始执行时间：20190927011036
+
+insert into edw.mid4_sales_order
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvcode is null then '请核查' else b.bi_cinvcode end
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvname is null then '请核查' else b.bi_cinvname end
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid3_sales_order a
+  left join dic_inventory b
+    on left(a.db,10) = left(b.db,10)
+   and a.cinvcode = b.cinvcode
+ where a.db in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
+
+;
+SQL结束执行时间：20190927011036
+SQL开始执行时间：20190927011036
+
+
+insert into edw.sales_order
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,a.bi_cinvcode
+      ,a.bi_cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,case when b.bi_cinvcode is null then '请核查' else b.item_code end as true_itemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,'有效'
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid4_sales_order a
+  left join edw.map_inventory b
+    on a.bi_cinvcode = b.bi_cinvcode
+;
+SQL结束执行时间：20190927011036
+SQL开始执行时间：20190927011036
+
+create temporary table edw.mid5_sales_order as 
+select a.csocode
+      ,a.db
+  from edw.sales_order a
+  left join (select * from ufdata.so_somain where year(ddate) > '2018') b
+    on a.csocode = b.csocode
+   and a.db = b.db
+ where b.csocode is null
+   and a.db <> 'UFDATA_889_2018'
+   and year(a.ddate) > '2018'
+
+;
+SQL结束执行时间：20190927011036
+SQL开始执行时间：20190927011036
+
+update edw.sales_order set state = '无效',sys_time = localtimestamp() where concat(db,csocode) in (select concat(db,csocode) from edw.mid5_sales_order) 
+;
+SQL结束执行时间：20190927011041
+SQL开始执行时间：20190927011041
+
+delete from ufdata.so_sodetails where autoid = '48568'
+;
+SQL结束执行时间：20190927011041
+
+20190928011036开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928011036
+
+
+use edw
+;
+SQL结束执行时间：20190928011036
+SQL开始执行时间：20190928011036
+drop table if exists edw.sales_order_pre
+;
+SQL结束执行时间：20190928011036
+SQL开始执行时间：20190928011036
+create temporary table edw.sales_order_pre as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cuscode end as true_ccuscode 
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cusname end as true_ccusname 
+      ,a.cdefine10 as finnal_ccusname
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from ufdata.so_somain a
+  left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
+    on a.ccuscode = b.ccuscode
+ where (left(a.dcreatesystime,10) >= '2019-09-27' or left(a.dmodifysystime,10) >= '2019-09-27')
+   and a.db <> 'UFDATA_889_2019'
+   and a.db <> 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190928011036
+SQL开始执行时间：20190928011036
+
+
+
+insert into edw.sales_order_pre
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cuscode end as true_ccuscode 
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cusname end as true_ccusname 
+      ,a.cdefine10 as finnal_ccusname
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from ufdata.so_somain a
+  left join edw.dic_customer b
+    on a.ccuscode = b.ccuscode
+   and left(a.db,10) = left(b.db,10)
+ where (left(a.dcreatesystime,10) >= '2019-09-27' or left(a.dmodifysystime,10) >= '2019-09-27')
+   and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018')
+;
+SQL结束执行时间：20190928011036
+SQL开始执行时间：20190928011036
+
+
+
+drop table if exists edw.mid1_sales_order
+;
+SQL结束执行时间：20190928011036
+SQL开始执行时间：20190928011036
+create temporary table edw.mid1_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,case when b.bi_cuscode is null then "请核查"
+       else b.finnal_ccusname end as true_finnal_ccusname1
+      ,case when a.finnal_ccusname is null then
+            case when b.bi_cuscode is null then "请核查"
+                 else b.finnal_ccusname end
+            else case when c.ccusname is null then a.finnal_ccusname
+                 else c.bi_cusname end 
+       end  as true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from edw.sales_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join (select ccusname,bi_cusname from edw.dic_customer group by ccusname) c
+    on a.finnal_ccusname = c.ccusname
+;
+SQL结束执行时间：20190928011037
+SQL开始执行时间：20190928011037
+
+create temporary table edw.mid2_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccusname1
+      ,case when a.true_finnal_ccusname2 like "个人%" and char_LENGTH(a.true_finnal_ccusname2) > 6 then substr(a.true_finnal_ccusname2,4,char_length(a.true_finnal_ccusname2)-4) else a.true_finnal_ccusname2 end as true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from edw.mid1_sales_order a
+  left join (select bi_cuscode,bi_cusname from edw.dic_customer group by bi_cusname) c
+    on a.true_finnal_ccusname2 = c.bi_cusname
+
+;
+SQL结束执行时间：20190928011037
+SQL开始执行时间：20190928011037
+
+delete from edw.sales_order where concat(id,db) in (select concat(id,db) from edw.sales_order_pre)
+;
+SQL结束执行时间：20190928011037
+SQL开始执行时间：20190928011037
+CREATE INDEX index_mid2_sales_order_db ON edw.mid2_sales_order(db)
+;
+SQL结束执行时间：20190928011037
+SQL开始执行时间：20190928011037
+CREATE INDEX index_mid2_sales_order_id ON edw.mid2_sales_order(id)
+;
+SQL结束执行时间：20190928011037
+SQL开始执行时间：20190928011037
+
+
+create temporary table edw.mid3_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,case when c.ccusname is null then "请核查"
+       else c.bi_cuscode end as true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,b.autoid
+      ,b.cdefine22
+      ,b.csocode as child_csocode
+      ,b.cinvcode
+      ,b.iquantity
+      ,b.itaxunitprice
+      ,b.itax
+      ,b.isum
+      ,b.itaxrate
+      ,b.citemcode
+      ,b.citem_class
+      ,b.citemname
+      ,b.citem_cname
+      ,b.isosid
+      ,localtimestamp() as sys_time
+  from edw.mid2_sales_order a
+  left join ufdata.so_sodetails b
+    on a.id = b.id
+   and a.db = b.db
+  left join (select bi_cuscode,ccusname from edw.dic_customer group by ccusname) c
+    on a.true_finnal_ccusname2 = c.ccusname
+
+;
+SQL结束执行时间：20190928011038
+SQL开始执行时间：20190928011038
+
+create temporary table edw.mid4_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvcode is null then '请核查' else b.bi_cinvcode end as bi_cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvname is null then '请核查' else b.bi_cinvname end as bi_cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid3_sales_order a
+  left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
+    on a.cinvcode = b.cinvcode
+ where a.db not in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
+
+;
+SQL结束执行时间：20190928011038
+SQL开始执行时间：20190928011038
+
+insert into edw.mid4_sales_order
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvcode is null then '请核查' else b.bi_cinvcode end
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvname is null then '请核查' else b.bi_cinvname end
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid3_sales_order a
+  left join dic_inventory b
+    on left(a.db,10) = left(b.db,10)
+   and a.cinvcode = b.cinvcode
+ where a.db in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
+
+;
+SQL结束执行时间：20190928011038
+SQL开始执行时间：20190928011038
+
+
+insert into edw.sales_order
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,a.bi_cinvcode
+      ,a.bi_cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,case when b.bi_cinvcode is null then '请核查' else b.item_code end as true_itemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,'有效'
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid4_sales_order a
+  left join edw.map_inventory b
+    on a.bi_cinvcode = b.bi_cinvcode
+;
+SQL结束执行时间：20190928011038
+SQL开始执行时间：20190928011038
+
+create temporary table edw.mid5_sales_order as 
+select a.csocode
+      ,a.db
+  from edw.sales_order a
+  left join (select * from ufdata.so_somain where year(ddate) > '2018') b
+    on a.csocode = b.csocode
+   and a.db = b.db
+ where b.csocode is null
+   and a.db <> 'UFDATA_889_2018'
+   and year(a.ddate) > '2018'
+
+;
+SQL结束执行时间：20190928011039
+SQL开始执行时间：20190928011039
+
+update edw.sales_order set state = '无效',sys_time = localtimestamp() where concat(db,csocode) in (select concat(db,csocode) from edw.mid5_sales_order) 
+;
+SQL结束执行时间：20190928011043
+SQL开始执行时间：20190928011043
+
+delete from ufdata.so_sodetails where autoid = '48568'
+;
+SQL结束执行时间：20190928011043
+
+20190929011033开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929011033
+
+
+use edw
+;
+SQL结束执行时间：20190929011033
+SQL开始执行时间：20190929011033
+drop table if exists edw.sales_order_pre
+;
+SQL结束执行时间：20190929011033
+SQL开始执行时间：20190929011033
+create temporary table edw.sales_order_pre as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cuscode end as true_ccuscode 
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cusname end as true_ccusname 
+      ,a.cdefine10 as finnal_ccusname
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from ufdata.so_somain a
+  left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
+    on a.ccuscode = b.ccuscode
+ where (left(a.dcreatesystime,10) >= '2019-09-28' or left(a.dmodifysystime,10) >= '2019-09-28')
+   and a.db <> 'UFDATA_889_2019'
+   and a.db <> 'UFDATA_555_2018'
+;
+SQL结束执行时间：20190929011033
+SQL开始执行时间：20190929011033
+
+
+
+insert into edw.sales_order_pre
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cuscode end as true_ccuscode 
+      ,case when b.ccusname is null then "请核查"
+       else b.bi_cusname end as true_ccusname 
+      ,a.cdefine10 as finnal_ccusname
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from ufdata.so_somain a
+  left join edw.dic_customer b
+    on a.ccuscode = b.ccuscode
+   and left(a.db,10) = left(b.db,10)
+ where (left(a.dcreatesystime,10) >= '2019-09-28' or left(a.dmodifysystime,10) >= '2019-09-28')
+   and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018')
+;
+SQL结束执行时间：20190929011033
+SQL开始执行时间：20190929011033
+
+
+
+drop table if exists edw.mid1_sales_order
+;
+SQL结束执行时间：20190929011033
+SQL开始执行时间：20190929011033
+create temporary table edw.mid1_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,case when b.bi_cuscode is null then "请核查"
+       else b.finnal_ccusname end as true_finnal_ccusname1
+      ,case when a.finnal_ccusname is null then
+            case when b.bi_cuscode is null then "请核查"
+                 else b.finnal_ccusname end
+            else case when c.ccusname is null then a.finnal_ccusname
+                 else c.bi_cusname end 
+       end  as true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from edw.sales_order_pre a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join (select ccusname,bi_cusname from edw.dic_customer group by ccusname) c
+    on a.finnal_ccusname = c.ccusname
+;
+SQL结束执行时间：20190929011033
+SQL开始执行时间：20190929011033
+
+create temporary table edw.mid2_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccusname1
+      ,case when a.true_finnal_ccusname2 like "个人%" and char_LENGTH(a.true_finnal_ccusname2) > 6 then substr(a.true_finnal_ccusname2,4,char_length(a.true_finnal_ccusname2)-4) else a.true_finnal_ccusname2 end as true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+  from edw.mid1_sales_order a
+  left join (select bi_cuscode,bi_cusname from edw.dic_customer group by bi_cusname) c
+    on a.true_finnal_ccusname2 = c.bi_cusname
+
+;
+SQL结束执行时间：20190929011033
+SQL开始执行时间：20190929011033
+
+delete from edw.sales_order where concat(id,db) in (select concat(id,db) from edw.sales_order_pre)
+;
+SQL结束执行时间：20190929011033
+SQL开始执行时间：20190929011033
+CREATE INDEX index_mid2_sales_order_db ON edw.mid2_sales_order(db)
+;
+SQL结束执行时间：20190929011033
+SQL开始执行时间：20190929011033
+CREATE INDEX index_mid2_sales_order_id ON edw.mid2_sales_order(id)
+;
+SQL结束执行时间：20190929011034
+SQL开始执行时间：20190929011034
+
+
+create temporary table edw.mid3_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,case when c.ccusname is null then "请核查"
+       else c.bi_cuscode end as true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,b.autoid
+      ,b.cdefine22
+      ,b.csocode as child_csocode
+      ,b.cinvcode
+      ,b.iquantity
+      ,b.itaxunitprice
+      ,b.itax
+      ,b.isum
+      ,b.itaxrate
+      ,b.citemcode
+      ,b.citem_class
+      ,b.citemname
+      ,b.citem_cname
+      ,b.isosid
+      ,localtimestamp() as sys_time
+  from edw.mid2_sales_order a
+  left join ufdata.so_sodetails b
+    on a.id = b.id
+   and a.db = b.db
+  left join (select bi_cuscode,ccusname from edw.dic_customer group by ccusname) c
+    on a.true_finnal_ccusname2 = c.ccusname
+
+;
+SQL结束执行时间：20190929011034
+SQL开始执行时间：20190929011034
+
+create temporary table edw.mid4_sales_order as
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvcode is null then '请核查' else b.bi_cinvcode end as bi_cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvname is null then '请核查' else b.bi_cinvname end as bi_cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid3_sales_order a
+  left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
+    on a.cinvcode = b.cinvcode
+ where a.db not in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
+
+;
+SQL结束执行时间：20190929011034
+SQL开始执行时间：20190929011034
+
+insert into edw.mid4_sales_order
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvcode is null then '请核查' else b.bi_cinvcode end
+      ,case when b.cinvcode is null then '请核查' 
+            when b.bi_cinvname is null then '请核查' else b.bi_cinvname end
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid3_sales_order a
+  left join dic_inventory b
+    on left(a.db,10) = left(b.db,10)
+   and a.cinvcode = b.cinvcode
+ where a.db in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
+
+;
+SQL结束执行时间：20190929011034
+SQL开始执行时间：20190929011034
+
+
+insert into edw.sales_order
+select a.db
+      ,a.csocode
+      ,a.id
+      ,a.ddate
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.true_ccuscode
+      ,a.true_ccusname
+      ,a.finnal_ccusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname1
+      ,a.true_finnal_ccusname2
+      ,a.cmaker
+      ,a.cverifier
+      ,a.cmodifier
+      ,a.dcreatesystime
+      ,a.dmodifysystime
+      ,a.cdepcode
+      ,a.cstcode
+      ,a.cpersoncode
+      ,a.ccusperson
+      ,a.ccuspersoncode
+      ,a.cdefine2
+      ,a.cdefine3
+      ,a.autoid
+      ,a.cdefine22
+      ,a.child_csocode
+      ,a.cinvcode
+      ,a.bi_cinvcode
+      ,a.bi_cinvname
+      ,a.iquantity
+      ,a.itaxunitprice
+      ,a.itax
+      ,a.isum
+      ,a.itaxrate
+      ,a.citemcode
+      ,case when b.bi_cinvcode is null then '请核查' else b.item_code end as true_itemcode
+      ,a.citem_class
+      ,a.citemname
+      ,a.citem_cname
+      ,'有效'
+      ,a.isosid
+      ,a.sys_time
+  from edw.mid4_sales_order a
+  left join edw.map_inventory b
+    on a.bi_cinvcode = b.bi_cinvcode
+;
+SQL结束执行时间：20190929011034
+SQL开始执行时间：20190929011034
+
+create temporary table edw.mid5_sales_order as 
+select a.csocode
+      ,a.db
+  from edw.sales_order a
+  left join (select * from ufdata.so_somain where year(ddate) > '2018') b
+    on a.csocode = b.csocode
+   and a.db = b.db
+ where b.csocode is null
+   and a.db <> 'UFDATA_889_2018'
+   and year(a.ddate) > '2018'
+
+;
+SQL结束执行时间：20190929011034
+SQL开始执行时间：20190929011034
+
+update edw.sales_order set state = '无效',sys_time = localtimestamp() where concat(db,csocode) in (select concat(db,csocode) from edw.mid5_sales_order) 
+;
+SQL结束执行时间：20190929011039
+SQL开始执行时间：20190929011039
+
+delete from ufdata.so_sodetails where autoid = '48568'
+;
+SQL结束执行时间：20190929011039

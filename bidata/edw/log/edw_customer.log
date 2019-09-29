@@ -7734,3 +7734,363 @@ SQL开始执行时间：20190925021701
 delete from edw.customer where ccusname = '测试555555'
 ;
 SQL结束执行时间：20190925021701
+
+20190926021700开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926021700
+
+
+
+
+create temporary table edw.customer_pre as
+select a.*
+      ,localtimestamp()
+  from ufdata.customer a
+;
+SQL结束执行时间：20190926021701
+SQL开始执行时间：20190926021701
+
+
+
+truncate table edw.customer
+;
+SQL结束执行时间：20190926021701
+SQL开始执行时间：20190926021701
+insert into edw.customer
+select a.db
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccuscode is null then '请核查' else b.ccuscode end as bi_cuscode
+      ,case when b.ccuscode is null then '请核查' else b.ccusname end as bi_cusname
+      ,a.ccusabbname
+      ,a.ccccode
+      ,a.cdccode
+      ,a.ccusdepart
+      ,a.iarmoney
+      ,a.dlastdate
+      ,a.denddate
+      ,a.ccusdefine4
+      ,a.ccusdefine5
+      ,a.dcuscreatedatetime
+      ,a.drecentcontractdate
+      ,a.drecentdeliverydate
+      ,a.drecentoutbounddate
+      ,a.btransflag
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.customer_pre a
+  left join (select * from edw.dic_customer  where left(db,10) = 'UFDATA_889' ) b
+    on a.ccuscode = b.ccuscode
+ where left(a.db,10) = 'UFDATA_889'
+
+;
+SQL结束执行时间：20190926021701
+SQL开始执行时间：20190926021701
+
+insert into edw.customer
+select a.db
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccuscode is null then '请核查' else b.ccuscode end as bi_cuscode
+      ,case when b.ccuscode is null then '请核查' else b.ccusname end as bi_cusname
+      ,a.ccusabbname
+      ,a.ccccode
+      ,a.cdccode
+      ,a.ccusdepart
+      ,a.iarmoney
+      ,a.dlastdate
+      ,a.denddate
+      ,a.ccusdefine4
+      ,a.ccusdefine5
+      ,a.dcuscreatedatetime
+      ,a.drecentcontractdate
+      ,a.drecentdeliverydate
+      ,a.drecentoutbounddate
+      ,a.btransflag
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.customer_pre a
+  left join (select * from edw.dic_customer  where left(db,10) <> 'UFDATA_889' group by ccuscode) b
+    on a.ccuscode = b.ccuscode
+ where left(a.db,10) <> 'UFDATA_889'
+
+;
+SQL结束执行时间：20190926021701
+SQL开始执行时间：20190926021701
+
+delete from edw.customer where ccusname = '测试555555'
+;
+SQL结束执行时间：20190926021701
+
+20190927021700开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927021700
+
+
+
+
+create temporary table edw.customer_pre as
+select a.*
+      ,localtimestamp()
+  from ufdata.customer a
+;
+SQL结束执行时间：20190927021701
+SQL开始执行时间：20190927021701
+
+
+
+truncate table edw.customer
+;
+SQL结束执行时间：20190927021701
+SQL开始执行时间：20190927021701
+insert into edw.customer
+select a.db
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccuscode is null then '请核查' else b.ccuscode end as bi_cuscode
+      ,case when b.ccuscode is null then '请核查' else b.ccusname end as bi_cusname
+      ,a.ccusabbname
+      ,a.ccccode
+      ,a.cdccode
+      ,a.ccusdepart
+      ,a.iarmoney
+      ,a.dlastdate
+      ,a.denddate
+      ,a.ccusdefine4
+      ,a.ccusdefine5
+      ,a.dcuscreatedatetime
+      ,a.drecentcontractdate
+      ,a.drecentdeliverydate
+      ,a.drecentoutbounddate
+      ,a.btransflag
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.customer_pre a
+  left join (select * from edw.dic_customer  where left(db,10) = 'UFDATA_889' ) b
+    on a.ccuscode = b.ccuscode
+ where left(a.db,10) = 'UFDATA_889'
+
+;
+SQL结束执行时间：20190927021701
+SQL开始执行时间：20190927021701
+
+insert into edw.customer
+select a.db
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccuscode is null then '请核查' else b.ccuscode end as bi_cuscode
+      ,case when b.ccuscode is null then '请核查' else b.ccusname end as bi_cusname
+      ,a.ccusabbname
+      ,a.ccccode
+      ,a.cdccode
+      ,a.ccusdepart
+      ,a.iarmoney
+      ,a.dlastdate
+      ,a.denddate
+      ,a.ccusdefine4
+      ,a.ccusdefine5
+      ,a.dcuscreatedatetime
+      ,a.drecentcontractdate
+      ,a.drecentdeliverydate
+      ,a.drecentoutbounddate
+      ,a.btransflag
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.customer_pre a
+  left join (select * from edw.dic_customer  where left(db,10) <> 'UFDATA_889' group by ccuscode) b
+    on a.ccuscode = b.ccuscode
+ where left(a.db,10) <> 'UFDATA_889'
+
+;
+SQL结束执行时间：20190927021701
+SQL开始执行时间：20190927021701
+
+delete from edw.customer where ccusname = '测试555555'
+;
+SQL结束执行时间：20190927021701
+
+20190928021700开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928021700
+
+
+
+
+create temporary table edw.customer_pre as
+select a.*
+      ,localtimestamp()
+  from ufdata.customer a
+;
+SQL结束执行时间：20190928021701
+SQL开始执行时间：20190928021701
+
+
+
+truncate table edw.customer
+;
+SQL结束执行时间：20190928021701
+SQL开始执行时间：20190928021701
+insert into edw.customer
+select a.db
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccuscode is null then '请核查' else b.ccuscode end as bi_cuscode
+      ,case when b.ccuscode is null then '请核查' else b.ccusname end as bi_cusname
+      ,a.ccusabbname
+      ,a.ccccode
+      ,a.cdccode
+      ,a.ccusdepart
+      ,a.iarmoney
+      ,a.dlastdate
+      ,a.denddate
+      ,a.ccusdefine4
+      ,a.ccusdefine5
+      ,a.dcuscreatedatetime
+      ,a.drecentcontractdate
+      ,a.drecentdeliverydate
+      ,a.drecentoutbounddate
+      ,a.btransflag
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.customer_pre a
+  left join (select * from edw.dic_customer  where left(db,10) = 'UFDATA_889' ) b
+    on a.ccuscode = b.ccuscode
+ where left(a.db,10) = 'UFDATA_889'
+
+;
+SQL结束执行时间：20190928021701
+SQL开始执行时间：20190928021701
+
+insert into edw.customer
+select a.db
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccuscode is null then '请核查' else b.ccuscode end as bi_cuscode
+      ,case when b.ccuscode is null then '请核查' else b.ccusname end as bi_cusname
+      ,a.ccusabbname
+      ,a.ccccode
+      ,a.cdccode
+      ,a.ccusdepart
+      ,a.iarmoney
+      ,a.dlastdate
+      ,a.denddate
+      ,a.ccusdefine4
+      ,a.ccusdefine5
+      ,a.dcuscreatedatetime
+      ,a.drecentcontractdate
+      ,a.drecentdeliverydate
+      ,a.drecentoutbounddate
+      ,a.btransflag
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.customer_pre a
+  left join (select * from edw.dic_customer  where left(db,10) <> 'UFDATA_889' group by ccuscode) b
+    on a.ccuscode = b.ccuscode
+ where left(a.db,10) <> 'UFDATA_889'
+
+;
+SQL结束执行时间：20190928021701
+SQL开始执行时间：20190928021701
+
+delete from edw.customer where ccusname = '测试555555'
+;
+SQL结束执行时间：20190928021701
+
+20190929021700开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929021700
+
+
+
+
+create temporary table edw.customer_pre as
+select a.*
+      ,localtimestamp()
+  from ufdata.customer a
+;
+SQL结束执行时间：20190929021701
+SQL开始执行时间：20190929021701
+
+
+
+truncate table edw.customer
+;
+SQL结束执行时间：20190929021701
+SQL开始执行时间：20190929021701
+insert into edw.customer
+select a.db
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccuscode is null then '请核查' else b.ccuscode end as bi_cuscode
+      ,case when b.ccuscode is null then '请核查' else b.ccusname end as bi_cusname
+      ,a.ccusabbname
+      ,a.ccccode
+      ,a.cdccode
+      ,a.ccusdepart
+      ,a.iarmoney
+      ,a.dlastdate
+      ,a.denddate
+      ,a.ccusdefine4
+      ,a.ccusdefine5
+      ,a.dcuscreatedatetime
+      ,a.drecentcontractdate
+      ,a.drecentdeliverydate
+      ,a.drecentoutbounddate
+      ,a.btransflag
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.customer_pre a
+  left join (select * from edw.dic_customer  where left(db,10) = 'UFDATA_889' ) b
+    on a.ccuscode = b.ccuscode
+ where left(a.db,10) = 'UFDATA_889'
+
+;
+SQL结束执行时间：20190929021701
+SQL开始执行时间：20190929021701
+
+insert into edw.customer
+select a.db
+      ,a.ccuscode
+      ,a.ccusname
+      ,case when b.ccuscode is null then '请核查' else b.ccuscode end as bi_cuscode
+      ,case when b.ccuscode is null then '请核查' else b.ccusname end as bi_cusname
+      ,a.ccusabbname
+      ,a.ccccode
+      ,a.cdccode
+      ,a.ccusdepart
+      ,a.iarmoney
+      ,a.dlastdate
+      ,a.denddate
+      ,a.ccusdefine4
+      ,a.ccusdefine5
+      ,a.dcuscreatedatetime
+      ,a.drecentcontractdate
+      ,a.drecentdeliverydate
+      ,a.drecentoutbounddate
+      ,a.btransflag
+      ,a.cmodifyperson
+      ,a.dmodifydate
+      ,'3000-12-31'
+      ,localtimestamp()
+  from edw.customer_pre a
+  left join (select * from edw.dic_customer  where left(db,10) <> 'UFDATA_889' group by ccuscode) b
+    on a.ccuscode = b.ccuscode
+ where left(a.db,10) <> 'UFDATA_889'
+
+;
+SQL结束执行时间：20190929021701
+SQL开始执行时间：20190929021701
+
+delete from edw.customer where ccusname = '测试555555'
+;
+SQL结束执行时间：20190929021701
