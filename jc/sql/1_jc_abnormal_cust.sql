@@ -43,7 +43,7 @@ select distinct 'crm'
   from edw.accvouch_u8 where bi_cuscode = '请核查'
 ;
 
--- 增加oa费用客户的监控
+-- 增加oa费用客户的监控,这家客户不知道什么情况
 insert into tracking.jc_abnormal_day
 select distinct 'crm'
       ,'edw' as source
@@ -55,7 +55,7 @@ select distinct 'crm'
       ,'客户清洗' as type
       ,1 as leve
       ,CURDATE( ) as date
-  from edw.accvouch_oa where bi_cuscode = '请核查'
+  from edw.accvouch_oa where bi_cuscode = '请核查' and kehumc <> 'Hamilton'
 ;
 
 insert into tracking.jc_abnormal_day
