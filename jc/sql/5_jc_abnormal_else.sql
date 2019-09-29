@@ -63,7 +63,7 @@ select distinct
   from(select sum(isum) as isum 
          from pdm.invoice_order 
         where left(ddate,4) = '2018') a
- where round(a.isum,0) <> '910318116';
+ where round(a.isum,0) <> '909718116';
 
 -- 杭州贝生出现的客户需要单独的客户档案
 insert into tracking.jc_abnormal_day
