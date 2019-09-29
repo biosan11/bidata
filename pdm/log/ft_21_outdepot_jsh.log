@@ -1,0 +1,4990 @@
+
+20190411134316开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411134316
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411134317
+SQL开始执行时间：20190411134317
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 12 month)
+
+;
+SQL结束执行时间：20190411134329
+SQL开始执行时间：20190411134329
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,365/count(*) as s_day
+      ,365/iquantity as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411134329
+SQL开始执行时间：20190411134329
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + b.iquantity
+      ,'1'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411134330
+SQL开始执行时间：20190411134330
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + b.iquantity
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411134330
+
+20190411134336开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411134336
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411134336
+SQL开始执行时间：20190411134336
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 12 month)
+
+;
+SQL结束执行时间：20190411134350
+SQL开始执行时间：20190411134350
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,365/count(*) as s_day
+      ,365/iquantity as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411134350
+SQL开始执行时间：20190411134350
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + b.iquantity
+      ,'2'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411134350
+SQL开始执行时间：20190411134350
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + b.iquantity
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411134351
+
+20190411134505开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411134505
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411134505
+SQL开始执行时间：20190411134505
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 12 month)
+
+;
+SQL结束执行时间：20190411134517
+SQL开始执行时间：20190411134517
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/365 as s_day
+      ,iquantity/365 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411134518
+SQL开始执行时间：20190411134518
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + b.iquantity*s_day
+      ,'1'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411134518
+SQL开始执行时间：20190411134518
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + b.iquantity
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411134519
+
+20190411134528开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411134528
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411134528
+SQL开始执行时间：20190411134528
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 12 month)
+
+;
+SQL结束执行时间：20190411134541
+SQL开始执行时间：20190411134541
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/365 as s_day
+      ,iquantity/365 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411134541
+SQL开始执行时间：20190411134541
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + b.iquantity*s_day
+      ,'2'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411134542
+SQL开始执行时间：20190411134542
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + b.iquantity
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411134543
+
+20190411134809开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411134809
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411134809
+SQL开始执行时间：20190411134809
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 12 month)
+
+;
+SQL结束执行时间：20190411134822
+SQL开始执行时间：20190411134822
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/365 as s_day
+      ,iquantity/365 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411134823
+SQL开始执行时间：20190411134823
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + b.iquantity*s_day
+      ,'3'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411134823
+SQL开始执行时间：20190411134823
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + b.iquantity
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411134824
+
+20190411135007开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411135007
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411135008
+SQL开始执行时间：20190411135008
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 12 month)
+
+;
+SQL结束执行时间：20190411135020
+SQL开始执行时间：20190411135020
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/365 as s_day
+      ,iquantity/365 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411135020
+SQL开始执行时间：20190411135020
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135021
+SQL开始执行时间：20190411135021
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135021
+
+20190411135030开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411135030
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411135030
+SQL开始执行时间：20190411135030
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 12 month)
+
+;
+SQL结束执行时间：20190411135043
+SQL开始执行时间：20190411135043
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/365 as s_day
+      ,iquantity/365 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411135043
+SQL开始执行时间：20190411135043
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'2'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135044
+SQL开始执行时间：20190411135044
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135044
+
+20190411135103开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411135103
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411135104
+SQL开始执行时间：20190411135104
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 12 month)
+
+;
+SQL结束执行时间：20190411135117
+SQL开始执行时间：20190411135117
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/365 as s_day
+      ,iquantity/365 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411135117
+SQL开始执行时间：20190411135117
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'3'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135118
+SQL开始执行时间：20190411135118
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135119
+
+20190411135123开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411135123
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411135123
+SQL开始执行时间：20190411135123
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 12 month)
+
+;
+SQL结束执行时间：20190411135137
+SQL开始执行时间：20190411135137
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/365 as s_day
+      ,iquantity/365 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411135137
+SQL开始执行时间：20190411135137
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'4'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135138
+SQL开始执行时间：20190411135138
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135139
+
+20190411135143开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411135143
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411135144
+SQL开始执行时间：20190411135144
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 12 month)
+
+;
+SQL结束执行时间：20190411135158
+SQL开始执行时间：20190411135158
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/365 as s_day
+      ,iquantity/365 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411135159
+SQL开始执行时间：20190411135159
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'5'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135159
+SQL开始执行时间：20190411135159
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135200
+
+20190411135209开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411135209
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411135209
+SQL开始执行时间：20190411135209
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 12 month)
+
+;
+SQL结束执行时间：20190411135224
+SQL开始执行时间：20190411135224
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/365 as s_day
+      ,iquantity/365 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411135225
+SQL开始执行时间：20190411135225
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'6'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135225
+SQL开始执行时间：20190411135225
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411135226
+
+20190411143813开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411143813
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411143814
+SQL开始执行时间：20190411143814
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411143826
+SQL开始执行时间：20190411143826
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411143826
+SQL开始执行时间：20190411143826
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143827
+SQL开始执行时间：20190411143827
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143828
+
+20190411143828开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411143828
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411143828
+SQL开始执行时间：20190411143828
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411143841
+SQL开始执行时间：20190411143841
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411143841
+SQL开始执行时间：20190411143841
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'2'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143842
+SQL开始执行时间：20190411143842
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143842
+
+20190411143842开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411143842
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411143843
+SQL开始执行时间：20190411143843
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411143856
+SQL开始执行时间：20190411143856
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411143856
+SQL开始执行时间：20190411143856
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'3'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143857
+SQL开始执行时间：20190411143857
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143858
+
+20190411143858开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411143858
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411143858
+SQL开始执行时间：20190411143858
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411143912
+SQL开始执行时间：20190411143912
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411143913
+SQL开始执行时间：20190411143913
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'4'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143913
+SQL开始执行时间：20190411143913
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143914
+
+20190411143914开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411143914
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411143914
+SQL开始执行时间：20190411143914
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411143929
+SQL开始执行时间：20190411143929
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411143929
+SQL开始执行时间：20190411143929
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'5'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143930
+SQL开始执行时间：20190411143930
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143931
+
+20190411143931开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411143931
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411143931
+SQL开始执行时间：20190411143931
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411143946
+SQL开始执行时间：20190411143946
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411143947
+SQL开始执行时间：20190411143947
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'6'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143947
+SQL开始执行时间：20190411143947
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411143948
+
+20190411144541开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411144541
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411144542
+SQL开始执行时间：20190411144542
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411144558
+SQL开始执行时间：20190411144558
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411144558
+SQL开始执行时间：20190411144558
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'7'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411144559
+SQL开始执行时间：20190411144559
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411144559
+
+20190411144639开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411144639
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411144640
+SQL开始执行时间：20190411144640
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411144657
+SQL开始执行时间：20190411144657
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411144657
+SQL开始执行时间：20190411144657
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'8'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411144657
+SQL开始执行时间：20190411144657
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411144658
+
+20190411144719开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411144719
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411144720
+SQL开始执行时间：20190411144720
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411144732
+SQL开始执行时间：20190411144732
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411144732
+SQL开始执行时间：20190411144732
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411144733
+SQL开始执行时间：20190411144733
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411144734
+
+20190411145039开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411145039
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411145039
+SQL开始执行时间：20190411145039
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411145049
+SQL开始执行时间：20190411145049
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411145049
+SQL开始执行时间：20190411145049
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145049
+SQL开始执行时间：20190411145049
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145050
+
+20190411145236开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411145236
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411145236
+SQL开始执行时间：20190411145236
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411145246
+SQL开始执行时间：20190411145246
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411145246
+SQL开始执行时间：20190411145246
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145246
+SQL开始执行时间：20190411145246
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145247
+
+20190411145302开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411145302
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411145302
+SQL开始执行时间：20190411145302
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411145312
+SQL开始执行时间：20190411145312
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,count(*)/730 as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411145312
+SQL开始执行时间：20190411145312
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'2'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145312
+SQL开始执行时间：20190411145312
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145313
+
+20190411145821开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411145821
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411145822
+SQL开始执行时间：20190411145822
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411145831
+SQL开始执行时间：20190411145831
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411145831
+SQL开始执行时间：20190411145831
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145831
+SQL开始执行时间：20190411145831
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145832
+
+20190411145852开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411145852
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411145853
+SQL开始执行时间：20190411145853
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411145903
+SQL开始执行时间：20190411145903
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411145903
+SQL开始执行时间：20190411145903
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'2'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145903
+SQL开始执行时间：20190411145903
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145904
+
+20190411145904开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411145904
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411145904
+SQL开始执行时间：20190411145904
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411145914
+SQL开始执行时间：20190411145914
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411145914
+SQL开始执行时间：20190411145914
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'3'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145915
+SQL开始执行时间：20190411145915
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145916
+
+20190411145916开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411145916
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411145916
+SQL开始执行时间：20190411145916
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411145927
+SQL开始执行时间：20190411145927
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411145927
+SQL开始执行时间：20190411145927
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'4'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145927
+SQL开始执行时间：20190411145927
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145928
+
+20190411145928开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411145928
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411145928
+SQL开始执行时间：20190411145928
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411145939
+SQL开始执行时间：20190411145939
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411145939
+SQL开始执行时间：20190411145939
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'5'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145940
+SQL开始执行时间：20190411145940
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145940
+
+20190411145940开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411145940
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411145941
+SQL开始执行时间：20190411145941
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411145953
+SQL开始执行时间：20190411145953
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411145953
+SQL开始执行时间：20190411145953
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'6'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145953
+SQL开始执行时间：20190411145953
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411145954
+
+20190411145954开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411145954
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411145954
+SQL开始执行时间：20190411145954
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411150006
+SQL开始执行时间：20190411150006
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411150007
+SQL开始执行时间：20190411150007
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'7'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411150007
+SQL开始执行时间：20190411150007
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411150008
+
+20190411150029开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190411150029
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190411150029
+SQL开始执行时间：20190411150029
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190411150042
+SQL开始执行时间：20190411150042
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190411150042
+SQL开始执行时间：20190411150042
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'8'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411150043
+SQL开始执行时间：20190411150043
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190411150043
+
+20190416144704开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416144704
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416144704
+SQL开始执行时间：20190416144704
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416144704
+SQL开始执行时间：20190416144704
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416144704
+SQL开始执行时间：20190416144704
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144704
+SQL开始执行时间：20190416144704
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144704
+
+20190416144705开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416144705
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416144705
+SQL开始执行时间：20190416144705
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416144706
+SQL开始执行时间：20190416144706
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416144706
+SQL开始执行时间：20190416144706
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'2'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144706
+SQL开始执行时间：20190416144706
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144706
+
+20190416144721开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416144721
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416144721
+SQL开始执行时间：20190416144721
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416144721
+SQL开始执行时间：20190416144721
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416144721
+SQL开始执行时间：20190416144721
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'3'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144721
+SQL开始执行时间：20190416144721
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144721
+
+20190416144723开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416144723
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416144723
+SQL开始执行时间：20190416144723
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416144723
+SQL开始执行时间：20190416144723
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416144723
+SQL开始执行时间：20190416144723
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'4'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144723
+SQL开始执行时间：20190416144723
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144723
+
+20190416144725开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416144725
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416144725
+SQL开始执行时间：20190416144725
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416144725
+SQL开始执行时间：20190416144725
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416144725
+SQL开始执行时间：20190416144725
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'5'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144725
+SQL开始执行时间：20190416144725
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144725
+
+20190416144726开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416144726
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416144726
+SQL开始执行时间：20190416144726
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416144726
+SQL开始执行时间：20190416144726
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416144726
+SQL开始执行时间：20190416144726
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'6'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144726
+SQL开始执行时间：20190416144726
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416144726
+
+20190416145952开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416145952
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416145952
+SQL开始执行时间：20190416145952
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416145952
+SQL开始执行时间：20190416145952
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416145952
+SQL开始执行时间：20190416145952
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+
+20190416150022开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150022
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150022
+SQL开始执行时间：20190416150022
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150022
+SQL开始执行时间：20190416150022
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150022
+SQL开始执行时间：20190416150022
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+      ,a.s_day
+      ,a.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+
+20190416150046开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150046
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150046
+SQL开始执行时间：20190416150046
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150046
+SQL开始执行时间：20190416150046
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150046
+SQL开始执行时间：20190416150046
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150046
+SQL开始执行时间：20190416150046
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150046
+
+20190416150048开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150048
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150048
+SQL开始执行时间：20190416150048
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150048
+SQL开始执行时间：20190416150048
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150049
+SQL开始执行时间：20190416150049
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'2'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150049
+SQL开始执行时间：20190416150049
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150049
+
+20190416150050开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150050
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150050
+SQL开始执行时间：20190416150050
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150051
+SQL开始执行时间：20190416150051
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150051
+SQL开始执行时间：20190416150051
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'3'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150051
+SQL开始执行时间：20190416150051
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150051
+
+20190416150052开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150052
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150052
+SQL开始执行时间：20190416150052
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150052
+SQL开始执行时间：20190416150052
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150052
+SQL开始执行时间：20190416150052
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'4'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150052
+SQL开始执行时间：20190416150052
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150052
+
+20190416150053开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150053
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150053
+SQL开始执行时间：20190416150053
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150053
+SQL开始执行时间：20190416150053
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150053
+SQL开始执行时间：20190416150053
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'5'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150053
+SQL开始执行时间：20190416150053
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150053
+
+20190416150055开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150055
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150055
+SQL开始执行时间：20190416150055
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150055
+SQL开始执行时间：20190416150055
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150055
+SQL开始执行时间：20190416150055
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'6'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150055
+SQL开始执行时间：20190416150055
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150055
+
+20190416150306开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150306
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150306
+SQL开始执行时间：20190416150306
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150306
+SQL开始执行时间：20190416150306
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150306
+SQL开始执行时间：20190416150306
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150306
+SQL开始执行时间：20190416150306
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150306
+
+20190416150308开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150308
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150308
+SQL开始执行时间：20190416150308
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150308
+SQL开始执行时间：20190416150308
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150308
+SQL开始执行时间：20190416150308
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'2'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150308
+SQL开始执行时间：20190416150308
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150308
+
+20190416150309开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150309
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150309
+SQL开始执行时间：20190416150309
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150309
+SQL开始执行时间：20190416150309
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150309
+SQL开始执行时间：20190416150309
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'3'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150309
+SQL开始执行时间：20190416150309
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150309
+
+20190416150311开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150311
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150311
+SQL开始执行时间：20190416150311
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150311
+SQL开始执行时间：20190416150311
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150311
+SQL开始执行时间：20190416150311
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'4'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150311
+SQL开始执行时间：20190416150311
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150311
+
+20190416150312开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150312
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150312
+SQL开始执行时间：20190416150312
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150312
+SQL开始执行时间：20190416150312
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150312
+SQL开始执行时间：20190416150312
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'5'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150312
+SQL开始执行时间：20190416150312
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150312
+
+20190416150314开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150314
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150314
+SQL开始执行时间：20190416150314
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150314
+SQL开始执行时间：20190416150314
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150315
+SQL开始执行时间：20190416150315
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'6'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150315
+SQL开始执行时间：20190416150315
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150315
+
+20190416150402开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150402
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150402
+SQL开始执行时间：20190416150402
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150402
+SQL开始执行时间：20190416150402
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150402
+SQL开始执行时间：20190416150402
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'1'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150402
+SQL开始执行时间：20190416150402
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150402
+
+20190416150404开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150404
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150404
+SQL开始执行时间：20190416150404
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150404
+SQL开始执行时间：20190416150404
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150404
+SQL开始执行时间：20190416150404
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'2'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150404
+SQL开始执行时间：20190416150404
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150404
+
+20190416150405开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150405
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150405
+SQL开始执行时间：20190416150405
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150406
+SQL开始执行时间：20190416150406
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150406
+SQL开始执行时间：20190416150406
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'3'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150406
+SQL开始执行时间：20190416150406
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150406
+
+20190416150407开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150407
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150407
+SQL开始执行时间：20190416150407
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150407
+SQL开始执行时间：20190416150407
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150407
+SQL开始执行时间：20190416150407
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'4'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150407
+SQL开始执行时间：20190416150407
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150407
+
+20190416150408开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150408
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150408
+SQL开始执行时间：20190416150408
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150408
+SQL开始执行时间：20190416150408
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150408
+SQL开始执行时间：20190416150408
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'5'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150408
+SQL开始执行时间：20190416150408
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150408
+
+20190416150410开始执行2019-04-16数据加载日志:
+SQL开始执行时间：20190416150410
+
+
+
+
+create temporary table jsh.ft_21_outdepot_temp1 as
+select *
+  from (select * from jsh.ft_21_outdepot_copy1 order by finnal_ccuscode,item_code,cinvcode,ddate desc) a
+ group by finnal_ccuscode,item_code,cinvcode
+;
+SQL结束执行时间：20190416150410
+SQL开始执行时间：20190416150410
+
+create temporary table jsh.ft_21_outdepot_temp2 as
+select a.*
+  from jsh.ft_21_outdepot_copy1 a
+  left join jsh.ft_21_outdepot_temp1 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+ where a.ddate >= date_sub(b.ddate, interval 24 month)
+
+;
+SQL结束执行时间：20190416150410
+SQL开始执行时间：20190416150410
+
+create temporary table jsh.ft_21_outdepot_temp3 as
+select finnal_ccuscode
+      ,item_code
+      ,cinvcode
+      ,730/count(*) as s_day
+      ,iquantity/730 as iquantity
+  from jsh.ft_21_outdepot_temp2
+ group by finnal_ccuscode,item_code,cinvcode
+ order by finnal_ccuscode,item_code,cinvcode
+
+;
+SQL结束执行时间：20190416150410
+SQL开始执行时间：20190416150410
+
+insert into jsh.ft_21_outdepot_forecast
+select a.finnal_ccuscode
+      ,a.item_code
+      ,a.cinvcode
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,'6'
+      ,b.s_day
+      ,b.iquantity
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150410
+SQL开始执行时间：20190416150410
+
+insert into jsh.ft_21_outdepot_copy1
+select null
+      ,null
+      ,date_add(a.ddate, interval cast(b.s_day as SIGNED) day)
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.finnal_ccuscode
+      ,null
+      ,null
+      ,a.cinvcode
+      ,null
+      ,a.iquantity + cast(b.iquantity*s_day as SIGNED)
+      ,null
+      ,null
+      ,a.item_code
+      ,null
+      ,null
+      ,null
+      ,null
+  from jsh.ft_21_outdepot_temp1 a
+  left join jsh.ft_21_outdepot_temp3 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.cinvcode = b.cinvcode
+
+;
+SQL结束执行时间：20190416150410

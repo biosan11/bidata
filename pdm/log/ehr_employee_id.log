@@ -1,0 +1,685 @@
+
+20190527105021开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190527105021
+
+truncate table pdm.ehr_employee_id
+;
+SQL结束执行时间：20190527105021
+SQL开始执行时间：20190527105021
+insert into pdm.ehr_employee_id
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(a.birthday, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS decimal(3,0) )  as age
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+  from edw.ehr_employee_id a
+
+;
+SQL结束执行时间：20190527105021
+
+20190527160345开始执行2019-01-01数据加载日志:
+SQL开始执行时间：20190527160345
+
+truncate table pdm.ehr_employee_id
+;
+SQL结束执行时间：20190527160345
+SQL开始执行时间：20190527160345
+insert into pdm.ehr_employee_id
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(a.birthday, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS decimal(3,0) )  as age
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+  from edw.ehr_employee_id a
+
+;
+SQL结束执行时间：20190527160345
+
+20190617172926开始执行2019-06-17数据加载日志:
+SQL开始执行时间：20190617172926
+
+
+
+drop table if exists pdm.ehr_employee_id_mid1
+;
+SQL结束执行时间：20190617172926
+SQL开始执行时间：20190617172926
+create table pdm.ehr_employee_id_mid1 as
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(a.birthday, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS decimal(3,0) )  as age
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+  from edw.ehr_employee_id a
+ order by entrydate desc
+
+;
+SQL结束执行时间：20190617172926
+SQL开始执行时间：20190617172926
+
+drop procedure if exists pdm.ehr_employee_id
+;
+SQL结束执行时间：20190617172926
+SQL开始执行时间：20190617172926
+
+delimiter $
+create procedure pdm.ehr_employee_id()
+begin
+
+drop table if exists pdm.ehr_employee_id_mid2
+;
+
+20190617173221开始执行2019-06-17数据加载日志:
+SQL开始执行时间：20190617173221
+
+
+
+drop table if exists pdm.ehr_employee_id_mid1
+;
+SQL结束执行时间：20190617173221
+SQL开始执行时间：20190617173221
+create table pdm.ehr_employee_id_mid1 as
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(a.birthday, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS decimal(3,0) )  as age
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+  from edw.ehr_employee_id a
+ order by entrydate desc
+
+;
+SQL结束执行时间：20190617173221
+SQL开始执行时间：20190617173221
+
+drop procedure if exists pdm.ehr_employee_id
+;
+SQL结束执行时间：20190617173221
+SQL开始执行时间：20190617173221
+
+delimiter $
+create procedure pdm.ehr_employee_id()
+;
+
+20190617173240开始执行2019-06-17数据加载日志:
+SQL开始执行时间：20190617173240
+
+
+
+drop table if exists pdm.ehr_employee_id_mid1
+;
+SQL结束执行时间：20190617173240
+SQL开始执行时间：20190617173240
+create table pdm.ehr_employee_id_mid1 as
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(a.birthday, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS decimal(3,0) )  as age
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+  from edw.ehr_employee_id a
+ order by entrydate desc
+
+;
+SQL结束执行时间：20190617173241
+SQL开始执行时间：20190617173241
+
+drop procedure if exists pdm.ehr_employee_id
+;
+SQL结束执行时间：20190617173241
+SQL开始执行时间：20190617173241
+
+delimiter $
+;
+
+20190617173251开始执行2019-06-17数据加载日志:
+SQL开始执行时间：20190617173251
+
+
+
+drop table if exists pdm.ehr_employee_id_mid1
+;
+SQL结束执行时间：20190617173251
+SQL开始执行时间：20190617173251
+create table pdm.ehr_employee_id_mid1 as
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(a.birthday, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS decimal(3,0) )  as age
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+  from edw.ehr_employee_id a
+ order by entrydate desc
+
+;
+SQL结束执行时间：20190617173251
+SQL开始执行时间：20190617173251
+
+drop procedure if exists pdm.ehr_employee_id
+;
+SQL结束执行时间：20190617173251
+SQL开始执行时间：20190617173251
+
+delimiter $
+;
+
+20190617173442开始执行2019-06-17数据加载日志:
+SQL开始执行时间：20190617173442
+
+
+
+drop table if exists pdm.ehr_employee_id_mid1
+;
+SQL结束执行时间：20190617173442
+SQL开始执行时间：20190617173442
+create table pdm.ehr_employee_id_mid1 as
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(a.birthday, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS decimal(3,0) )  as age
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+  from edw.ehr_employee_id a
+ order by entrydate desc
+
+;
+SQL结束执行时间：20190617173442
+SQL开始执行时间：20190617173442
+
+drop procedure if exists pdm.ehr_employee_id
+;
+SQL结束执行时间：20190617173442
+SQL开始执行时间：20190617173442
+
+delimiter $
+;
+
+20190617173813开始执行2019-06-17数据加载日志:
+SQL开始执行时间：20190617173813
+
+
+
+drop table if exists pdm.ehr_employee_id_mid1
+;
+SQL结束执行时间：20190617173813
+SQL开始执行时间：20190617173813
+create table pdm.ehr_employee_id_mid1 as
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(a.birthday, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS decimal(3,0) )  as age
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+  from edw.ehr_employee_id a
+ order by entrydate desc
+
+;
+SQL结束执行时间：20190617173814
+SQL开始执行时间：20190617173814
+
+drop procedure if exists pdm.ehr_employee_id
+;
+SQL结束执行时间：20190617173814
+SQL开始执行时间：20190617173814
+
+create procedure pdm.ehr_employee_id()
+begin
+
+drop table if exists pdm.ehr_employee_id_mid2
+;
+
+20190617173949开始执行2019-06-17数据加载日志:
+SQL开始执行时间：20190617173949
+
+
+
+drop table if exists pdm.ehr_employee_id_mid1
+;
+SQL结束执行时间：20190617173949
+SQL开始执行时间：20190617173949
+create table pdm.ehr_employee_id_mid1 as
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(a.birthday, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS decimal(3,0) )  as age
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+  from edw.ehr_employee_id a
+ order by entrydate desc
+
+;
+SQL结束执行时间：20190617173950
+SQL开始执行时间：20190617173950
+
+drop procedure if exists pdm.ehr_employee_id
+;
+SQL结束执行时间：20190617173950
+SQL开始执行时间：20190617173950
+
+`delimiter $;`
+create procedure pdm.ehr_employee_id()
+begin
+
+drop table if exists pdm.ehr_employee_id_mid2
+;
+
+20190617174009开始执行2019-06-17数据加载日志:
+SQL开始执行时间：20190617174009
+
+
+
+drop table if exists pdm.ehr_employee_id_mid1
+;
+SQL结束执行时间：20190617174009
+SQL开始执行时间：20190617174009
+create table pdm.ehr_employee_id_mid1 as
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(a.birthday, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS decimal(3,0) )  as age
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+  from edw.ehr_employee_id a
+ order by entrydate desc
+
+;
+SQL结束执行时间：20190617174009
+SQL开始执行时间：20190617174009
+
+drop procedure if exists pdm.ehr_employee_id
+;
+SQL结束执行时间：20190617174009
+SQL开始执行时间：20190617174009
+
+`delimiter $`
+;
+
+20190723100944开始执行2019-07-23数据加载日志:
+SQL开始执行时间：20190723100944
+
+
+
+drop table if exists pdm.ehr_employee_id_mid1
+;
+SQL结束执行时间：20190723100944
+SQL开始执行时间：20190723100944
+create table pdm.ehr_employee_id_mid1 as
+select distinct a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(a.birthday, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS decimal(3,0) )  as age
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,case when a.workdate is null and employeestatus <> '待入职' then CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) )
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(workdate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end as workyeartotal
+      ,case when employeestatus = '待入职' then 0
+       else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
+      ,a.birthday
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+  from edw.ehr_employee_id a
+ order by entrydate desc
+
+;
+SQL结束执行时间：20190723100944
+SQL开始执行时间：20190723100944
+
+drop procedure if exists pdm.ehr_employee_id
+;
+SQL结束执行时间：20190723100944
+SQL开始执行时间：20190723100944
+
+delimiter $
+create procedure pdm.ehr_employee_id()
+begin
+
+drop table if exists pdm.ehr_employee_id_mid2
+;
