@@ -11,7 +11,7 @@ def get_rlist():
     conn = pymysql.connect(host='172.16.0.181', user='root', password='biosan', db='ufdata', charset='utf8')
     curson = conn.cursor()
     sql = "select db,tb_name,min(ddate) from tracking.jc_abnormal_day where type = '项目清洗' or type = '客户清洗' " \
-          "or type = '产品清洗' or type = '最终客户清洗' and type <> '数量监控' group by tb_name order by db"
+          "or type = '产品清洗' or type = '最终客户清洗' or type = '部门监控' and type <> '数量监控' group by tb_name order by db"
     curson.execute(sql)
     rest = curson.fetchall()
     return rest
