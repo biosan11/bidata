@@ -817,15 +817,15 @@ select distinct
       ,'bidata' as source
       ,'ft_52_ar_plan' as tb_name
       ,null
-      ,'ccuscode' as err_col
+      ,'true_ccuscode' as err_col
       ,null as err_value
-      ,ccuscode as err_col_name
+      ,true_ccuscode as err_col_name
       ,'客户监控' as type
       ,1 as leve
       ,CURDATE( ) as date
   from bidata.ft_52_ar_plan a
   left join bidata.dt_12_customer b
-    on a.ccuscode  = b.bi_cuscode
+    on a.true_ccuscode  = b.bi_cuscode
  where b.bi_cuscode is null
 ;
 
