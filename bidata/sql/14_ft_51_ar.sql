@@ -148,7 +148,13 @@ case
 ,a.ccancelno
 ,a.ccovouchtype
 ,a.ccovouchid
-,ifnull(if((b.aperiod REGEXP '[^0-9.]')=1,365,b.aperiod),365) as aperiod
+-- 以下2019-9-30修改  来源表edw.x_ar_plan 中 aperiod 字段 出现空白 （不是null） 代码运行出错 修改代码如下
+,case 
+    when b.aperiod = "" then 365
+    when (b.aperiod REGEXP '[^0-9.]')=1 then 365 
+    else b.aperiod
+ end as aperiod
+-- ,ifnull(if((b.aperiod REGEXP '[^0-9.]')=1,365,b.aperiod),365) as aperiod
 ,if(b.true_ccuscode is null,0,1) as mark_aperiod
 ,a.mark as mark_cinvcode
 ,case 

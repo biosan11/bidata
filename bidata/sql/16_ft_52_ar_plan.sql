@@ -40,13 +40,31 @@ concat(true_ccuscode,class)
 ,true_ccusname
 ,cpersonname
 ,areadirector
-,ifnull(if((aperiod REGEXP '[^0-9.]')=1,365,aperiod),365) as aperiod
+-- 以下2019-9-30修改  来源表edw.x_ar_plan 中 aperiod 字段 出现空白 （不是null） 代码运行出错 修改代码如下
+,case 
+    when aperiod = "" then 365
+    when (aperiod REGEXP '[^0-9.]')=1 then 365 
+    else aperiod
+ end as aperiod
+,case 
+    when aperiod = "" then null 
+    when (aperiod REGEXP '[^0-9.]')=1 then null 
+    else aperiod
+ end as aperiod_special
+,case 
+    when aperiod = "" then "否"
+    when aperiod = null then "否"
+    when (aperiod REGEXP '[^0-9.]')=1 then "否"
+    else "是"
+ end as mark_aperiod
+/*,ifnull(if((aperiod REGEXP '[^0-9.]')=1,365,aperiod),365) as aperiod
 ,if((aperiod REGEXP '[^0-9.]')=1,aperiod,null) as aperiod_special
 ,case 
     when (aperiod REGEXP '[^0-9.]')=1 then "否" 
     when aperiod is null then "否"
     else "是"
     end as mark_aperiod   -- 是否常规账期标记
+*/
 ,ddate
 ,class
 ,round(amount_plan/1000,2)
