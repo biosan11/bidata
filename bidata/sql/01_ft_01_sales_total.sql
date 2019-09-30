@@ -1,3 +1,4 @@
+-- 测试git jin 190930
 -- 1_ft_01_sales_total
 /*
 -- 建表 bidata.ft_01_sales_total
