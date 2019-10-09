@@ -424,4 +424,21 @@ update edw.sales_order set state = '无效',sys_time = localtimestamp() where co
 
 delete from ufdata.so_sodetails where autoid = '48568';
 
+-- 针对无效的数据更新清洗为空
+update edw.sales_order
+   set bi_cinvcode = ''
+      ,bi_cinvname = ''
+ where state = '无效'
+   and bi_cinvcode = '请核查'
+;
+
+update edw.sales_order
+   set true_ccuscode = ''
+      ,true_ccusname = ''
+      ,true_finnal_ccuscode = ''
+      ,true_finnal_ccusname2 = ''
+ where state = '无效'
+   and true_ccuscode = '请核查'
+;
+
 

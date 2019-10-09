@@ -551,4 +551,22 @@ update edw.invoice_order
 ,'1000000087'
 );
 
+-- 针对无效的数据更新清洗为空
+update edw.invoice_order
+   set bi_cinvcode = ''
+      ,bi_cinvname = ''
+ where state = '无效'
+   and bi_cinvcode = '请核查'
+;
+
+update edw.invoice_order
+   set true_ccuscode = ''
+      ,true_ccusname = ''
+      ,true_finnal_ccuscode = ''
+      ,true_finnal_ccusname2 = ''
+ where state = '无效'
+   and true_ccuscode = '请核查'
+;
+
+
 
