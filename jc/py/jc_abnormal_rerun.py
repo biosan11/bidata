@@ -23,7 +23,7 @@ def run_py():
     path2 = 'python /home/bidata/pdm/py/'
     for list in rest:
         # 线上的收入模块的重新运行
-        if (list[0] == 'UFDATA_111' or list[0] == 'UFDATA_889' or list[0] == 'UFDATA_666' or list[0] == 'UFDATA_222' or list[0] == 'UFDATA_588' or list[0] == 'yj') and list[1] != "account_fy":
+        if (list[0] == 'UFDATA_111' or list[0] == 'UFDATA_889' or list[0] == 'UFDATA_666' or list[0] == 'UFDATA_222' or list[0] == 'UFDATA_588') and list[1] != "account_fy":
             if str(list[2]) == 'None' :
                 path_edw = path1 + list[1] + ".py" + " " + str(list[2])
                 path_edw = path_edw.replace("None",time.strftime("%Y-%m-%d", time.localtime()))
@@ -41,6 +41,11 @@ def run_py():
                 print(path_pdm)
                 os.system(path_pdm)
         # 线下的excel的自动运行
+        elif list[0] == "yj":
+            path_edw = path1 + list[1] + ".py" + " " + str(list[2]+ datetime.timedelta(seconds = -1))
+            path_edw = path_edw.replace("None",time.strftime("%Y-%m-%d", time.localtime()))
+            print(path_edw)
+            os.system(path_edw)
         elif list[0] == "excel":
             path_ex = "sh /home/bidata/edw/xx_sql/user.sh " + list[1] + ".sql"
             print(path_ex)
