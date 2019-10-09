@@ -74,7 +74,11 @@ select
 	,inum_person_1901
 	,iunitcost
 	,isum_budget_1901
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1901 != 0 and iquantity_budget_1901 is not null ) 
+or (inum_person_1901 != 0 and inum_person_1901 is not null )
+or (isum_budget_1901 != 0 and isum_budget_1901 is not null );
 
 -- 1902
 insert into edw.x_sales_budget_19_new
@@ -107,7 +111,11 @@ select
 	,inum_person_1902
 	,iunitcost
 	,isum_budget_1902
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1902 != 0 and iquantity_budget_1902 is not null ) 
+or (inum_person_1902 != 0 and inum_person_1902 is not null )
+or (isum_budget_1902 != 0 and isum_budget_1902 is not null );
 
 -- 1903
 insert into edw.x_sales_budget_19_new
@@ -140,7 +148,11 @@ select
 	,inum_person_1903
 	,iunitcost
 	,isum_budget_1903
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1902 != 0 and iquantity_budget_1902 is not null ) 
+or (inum_person_1903 != 0 and inum_person_1903 is not null )
+or (isum_budget_1903 != 0 and isum_budget_1903 is not null );
 
 -- 1904
 insert into edw.x_sales_budget_19_new
@@ -173,7 +185,11 @@ select
 	,inum_person_1904
 	,iunitcost
 	,isum_budget_1904
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1904 != 0 and iquantity_budget_1904 is not null ) 
+or (inum_person_1904 != 0 and inum_person_1904 is not null )
+or (isum_budget_1904 != 0 and isum_budget_1904 is not null );
 
 -- 1905
 insert into edw.x_sales_budget_19_new
@@ -206,7 +222,11 @@ select
 	,inum_person_1905
 	,iunitcost
 	,isum_budget_1905
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1905 != 0 and iquantity_budget_1905 is not null ) 
+or (inum_person_1905 != 0 and inum_person_1905 is not null )
+or (isum_budget_1905 != 0 and isum_budget_1905 is not null );
 
 -- 1906
 insert into edw.x_sales_budget_19_new
@@ -239,7 +259,11 @@ select
 	,inum_person_1906
 	,iunitcost
 	,isum_budget_1906
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1906 != 0 and iquantity_budget_1906 is not null ) 
+or (inum_person_1906 != 0 and inum_person_1906 is not null )
+or (isum_budget_1906 != 0 and isum_budget_1906 is not null );
 
 -- 1907
 insert into edw.x_sales_budget_19_new
@@ -272,7 +296,11 @@ select
 	,inum_person_1907
 	,iunitcost
 	,isum_budget_1907
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1907 != 0 and iquantity_budget_1907 is not null ) 
+or (inum_person_1907 != 0 and inum_person_1907 is not null )
+or (isum_budget_1907 != 0 and isum_budget_1907 is not null );
 
 -- 1908
 insert into edw.x_sales_budget_19_new
@@ -305,7 +333,11 @@ select
 	,inum_person_1908
 	,iunitcost
 	,isum_budget_1908
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1908 != 0 and iquantity_budget_1908 is not null ) 
+or (inum_person_1908 != 0 and inum_person_1908 is not null )
+or (isum_budget_1908 != 0 and isum_budget_1908 is not null );
 
 -- 1909
 insert into edw.x_sales_budget_19_new
@@ -338,7 +370,11 @@ select
 	,inum_person_1909
 	,iunitcost
 	,isum_budget_1909
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1909 != 0 and iquantity_budget_1909 is not null ) 
+or (inum_person_1909 != 0 and inum_person_1909 is not null )
+or (isum_budget_1909 != 0 and isum_budget_1909 is not null );
 
 -- 1910
 insert into edw.x_sales_budget_19_new
@@ -371,7 +407,11 @@ select
 	,inum_person_1910
 	,iunitcost
 	,isum_budget_1910
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1910 != 0 and iquantity_budget_1910 is not null ) 
+or (inum_person_1910 != 0 and inum_person_1910 is not null )
+or (isum_budget_1910 != 0 and isum_budget_1910 is not null );
 
 -- 1911
 insert into edw.x_sales_budget_19_new
@@ -404,7 +444,11 @@ select
 	,inum_person_1911
 	,iunitcost
 	,isum_budget_1911
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1911 != 0 and iquantity_budget_1911 is not null ) 
+or (inum_person_1911 != 0 and inum_person_1911 is not null )
+or (isum_budget_1911 != 0 and isum_budget_1911 is not null );
 
 -- 1912
 insert into edw.x_sales_budget_19_new
@@ -437,4 +481,14 @@ select
 	,inum_person_1912
 	,iunitcost
 	,isum_budget_1912
-from ufdata.x_sales_budget_19_new;
+from ufdata.x_sales_budget_19_new
+-- 191009更新 新增条件 去除是0的无效数据 
+where (iquantity_budget_1912 != 0 and iquantity_budget_1912 is not null ) 
+or (inum_person_1912 != 0 and inum_person_1912 is not null )
+or (isum_budget_1912 != 0 and isum_budget_1912 is not null );
+
+-- 20191009更新 新增修改字段 cbustype 通过cinvcode字段生成  Jin
+update edw.x_sales_budget_19_new as a 
+left join edw.map_inventory as b 
+on a.cinvcode = b.bi_cinvcode 
+set a.cbustype = b.business_class;
