@@ -10,12 +10,15 @@ create table if not exists bidata.ft_83_eq_depreciation_19(
     bi_cuscode varchar(20) comment '客户编码',
     eq_name varchar(255) comment '折旧设备',
     item_code varchar(60) comment '项目编码',
+    isum float(13,3) comment '设备原值',
     ddate date comment '折旧日期',
     amount_depre float(13,3) comment '折旧金额',
     key bidata_ft_83_eq_depreciation_19_cohr (cohr),
     key bidata_ft_83_eq_depreciation_19_bi_cuscode (bi_cuscode)
 ) engine=innodb default charset=utf8 comment='bi设备折旧表';
  */
+
+-- 191009 更新 在bi层设备折旧表中 加入原值isum字段
 
 -- 导入数据 来源第二层 edw.x_eq_depreciation_19
 truncate table bidata.ft_83_eq_depreciation_19;
@@ -26,6 +29,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-01-01'
     ,amount_depre_1
 from edw.x_eq_depreciation_19;
@@ -38,6 +42,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-02-01'
     ,amount_depre_2
 from edw.x_eq_depreciation_19;
@@ -50,6 +55,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-03-01'
     ,amount_depre_3
 from edw.x_eq_depreciation_19;
@@ -62,6 +68,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-04-01'
     ,amount_depre_4
 from edw.x_eq_depreciation_19;
@@ -74,6 +81,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-05-01'
     ,amount_depre_5
 from edw.x_eq_depreciation_19;
@@ -86,6 +94,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-06-01'
     ,amount_depre_6
 from edw.x_eq_depreciation_19;
@@ -98,6 +107,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-07-01'
     ,amount_depre_7
 from edw.x_eq_depreciation_19;
@@ -110,6 +120,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-08-01'
     ,amount_depre_8
 from edw.x_eq_depreciation_19;
@@ -122,6 +133,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-09-01'
     ,amount_depre_9
 from edw.x_eq_depreciation_19;
@@ -134,6 +146,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-10-01'
     ,amount_depre_10
 from edw.x_eq_depreciation_19;
@@ -146,6 +159,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-11-01'
     ,amount_depre_11
 from edw.x_eq_depreciation_19;
@@ -158,6 +172,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2019-12-01'
     ,amount_depre_12
 from edw.x_eq_depreciation_19;
@@ -170,6 +185,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-01-01'
     ,amount_depre_1
 from edw.x_eq_depreciation_18;
@@ -182,6 +198,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-02-01'
     ,amount_depre_2
 from edw.x_eq_depreciation_18;
@@ -194,6 +211,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-03-01'
     ,amount_depre_3
 from edw.x_eq_depreciation_18;
@@ -206,6 +224,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-04-01'
     ,amount_depre_4
 from edw.x_eq_depreciation_18;
@@ -218,6 +237,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-05-01'
     ,amount_depre_5
 from edw.x_eq_depreciation_18;
@@ -230,6 +250,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-06-01'
     ,amount_depre_6
 from edw.x_eq_depreciation_18;
@@ -242,6 +263,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-07-01'
     ,amount_depre_7
 from edw.x_eq_depreciation_18;
@@ -254,6 +276,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-08-01'
     ,amount_depre_8
 from edw.x_eq_depreciation_18;
@@ -266,6 +289,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-09-01'
     ,amount_depre_9
 from edw.x_eq_depreciation_18;
@@ -278,6 +302,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-10-01'
     ,amount_depre_10
 from edw.x_eq_depreciation_18;
@@ -290,6 +315,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-11-01'
     ,amount_depre_11
 from edw.x_eq_depreciation_18;
@@ -302,6 +328,7 @@ select
     ,bi_cuscode
     ,eq_name
     ,item_code
+    ,isum
     ,'2018-12-01'
     ,amount_depre_12
 from edw.x_eq_depreciation_18;
