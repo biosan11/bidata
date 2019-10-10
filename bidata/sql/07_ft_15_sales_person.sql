@@ -117,6 +117,12 @@ ddate
 from bidata.ft_12_sales_budget 
 where cohr = "博圣"
 and (isum_budget != 0 or inum_budget != 0) ;
+-- 20191010更新 edw.map_cusitem_person 中 将人员字段 有一些“空白” 替换成null     --Jin
+update edw.map_cusitem_person set p_charge = null where p_charge = "";
+update edw.map_cusitem_person set p_sales_sup_tec = null where p_sales_sup_tec = "";
+update edw.map_cusitem_person set p_sales_spe_tec = null where p_sales_spe_tec = "";
+update edw.map_cusitem_person set p_sales_sup_clinic = null where p_sales_sup_clinic = "";
+update edw.map_cusitem_person set p_sales_spe_clinic = null where p_sales_spe_clinic = "";
 
 -- 新建临时表 处理中英文括号问题
 drop temporary table if exists bidata.sales_person_tem00;
