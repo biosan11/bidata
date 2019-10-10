@@ -586,6 +586,11 @@ update edw.dispatch_order
    and true_ccuscode = '请核查'
 ;
 
+update edw.dispatch_order
+   set true_itemcode = ''
+ where state = '无效'
+   and true_itemcode = '请核查'
+;
 
 
 
