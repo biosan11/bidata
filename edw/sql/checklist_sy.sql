@@ -27,7 +27,7 @@ drop table if exists edw.checklist_sy_pre;
 create temporary table edw.checklist_sy_pre as
 select * 
   from share.neo_amount_experiment_date 
- where experiment_date = '${start_dt}'
+ where experiment_date >= '${start_dt}'
 ;
 
 -- alter table edw.checklist_sy_pre engine=MEMORY;  
@@ -66,7 +66,7 @@ select a.conclusion
     on concat(a.hospital,'-',a.collection_hospital) = d.ccusname
 ;
 
-delete from edw.checklist_sy where ddate = '${start_dt}';
+delete from edw.checklist_sy where ddate >= '${start_dt}';
 insert into edw.checklist_sy
 select c.province
       ,b.p_charge
