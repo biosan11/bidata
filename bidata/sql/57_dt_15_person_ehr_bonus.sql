@@ -34,7 +34,8 @@ select
     ,employeestatus
     ,lastworkdate
 from pdm.ehr_employee
-where second_dept = "营销中心"
+-- 20191010更新 新增条件 second_dept  = "营销中心" or third_dept = "销售中心"
+where (second_dept  = "营销中心" or third_dept = "销售中心")
 and employeestatus in ("离职","试用","正式")
 group by name ;
 
