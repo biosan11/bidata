@@ -195,6 +195,7 @@ select left(a.ddate,7) as y_mon
     on a.finnal_ccuscode = b.bi_cuscode
  where b.province in('江苏省','上海市','山西省','山东省','安徽省','浙江省','福建省','云南省','湖北省','湖南省','陕西省','海南省','四川省','河南省','黑龙江省')
    and left(a.finnal_ccuscode,2) not in ('GL','QT')
+   and a.cohr <> '杭州贝生'
  group by b.province,left(a.ddate,7)
 ;
 -- 到客户的总金额，每家客户情况
@@ -210,6 +211,7 @@ select a.finnal_ccuscode as ccuscode
     on a.finnal_ccuscode = b.bi_cuscode
  where b.province in('江苏省','上海市','山西省','山东省','安徽省','浙江省','福建省','云南省','湖北省','湖南省','陕西省','海南省','四川省','河南省','黑龙江省')
    and left(a.finnal_ccuscode,2) not in ('GL','QT')
+   and a.cohr <> '杭州贝生'
  group by b.province,left(a.ddate,7),a.finnal_ccuscode
 ;
 
@@ -341,6 +343,7 @@ select left(a.ddate,7) as y_mon
  where b.sales_region in('销售二区','销售八区','销售一区','销售四区','销售五区','销售零区','销售三区','销售六区','销售七区','销售九区')
    and left(a.ddate,7) >= '2018-01'
    and left(a.finnal_ccuscode,2) not in ('GL','QT')
+   and a.cohr <> '杭州贝生'
  group by b.sales_region,left(a.ddate,7)
 ;
 -- 到客户的总金额，每家客户情况
@@ -357,6 +360,7 @@ select a.finnal_ccuscode as ccuscode
  where b.sales_region in('销售二区','销售八区','销售一区','销售四区','销售五区','销售零区','销售三区','销售六区','销售七区','销售九区')
    and left(a.ddate,7) >= '2018-01'
    and left(a.finnal_ccuscode,2) not in ('GL','QT')
+   and a.cohr <> '杭州贝生'
  group by b.sales_region,left(a.ddate,7),a.finnal_ccuscode
 ;
 
@@ -396,6 +400,7 @@ select distinct a.finnal_ccuscode as ccuscode
     on a.finnal_ccuscode = b.bi_cuscode
  where b.sales_region in('销售二区','销售八区','销售一区','销售四区','销售五区','销售零区','销售三区','销售六区','销售七区','销售九区')
    and left(a.ddate,7) >= '2018-01'
+   and a.cohr <> '杭州贝生'
    and left(a.finnal_ccuscode,2) not in ('GL','QT')
 -- group by b.sales_region,left(a.ddate,4),a.finnal_ccuscode
 ;
@@ -472,6 +477,7 @@ select left(a.ddate,7) as y_mon
       ,sum(a.isum) as md
   from bidata.ft_11_sales a
  where ddate >= '2018-01-01'
+   and a.cohr <> '杭州贝生'
    and left(a.finnal_ccuscode,2) not in ('GL','QT')
  group by left(a.ddate,7)
 ;
@@ -485,6 +491,7 @@ select a.finnal_ccuscode as ccuscode
   from bidata.ft_11_sales a
  where left(a.finnal_ccuscode,2) not in ('GL','QT')
    and a.ddate >= '2018-01-01'
+   and a.cohr <> '杭州贝生'
  group by left(a.ddate,7),a.finnal_ccuscode
 ;
 
