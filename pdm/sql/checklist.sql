@@ -89,7 +89,40 @@ select min(auto_id)
   left join (select bi_cinvcode,item_code,level_three from edw.map_inventory group by bi_cinvcode) c
     on a.bi_cinvcode = c.bi_cinvcode
  where left(a.true_ccuscode,2) <> 'GL' 
---   and ddate < '2019-06-01'
+   and ddate < '2019-06-01'
+ group by a.ddate,a.true_ccuscode,a.bi_cinvcode,a.class_smaple
+;
+
+-- 6月以后的数据外送一览表不取甄元贝康
+insert into pdm.checklist
+select min(auto_id)
+      ,'bkgr'
+      ,b.province
+      ,a.person_ori
+      ,a.ddate_sample
+      ,a.class_smaple
+      ,a.company_exp
+      ,a.ddate
+      ,a.true_ccuscode as ccuscode
+      ,a.true_ccusname as ccusname
+      ,a.bi_cinvcode as cinvcode
+      ,a.bi_cinvname as cinvname
+      ,case when c.bi_cinvcode is not null then c.item_code else '请核查' end
+      ,case when c.bi_cinvcode is not null then c.level_three else '请核查' end
+      ,'LDT'
+      ,count(*) as inum_person
+      ,null
+      ,'否'
+      ,null
+      ,localtimestamp()
+  from edw.x_sales_bkgr a
+  left join edw.map_customer b
+    on a.true_ccuscode = b.bi_cuscode
+  left join (select bi_cinvcode,item_code,level_three from edw.map_inventory group by bi_cinvcode) c
+    on a.bi_cinvcode = c.bi_cinvcode
+ where left(a.true_ccuscode,2) <> 'GL' 
+   and ddate >= '2019-06-01'
+   and company_exp not in('甄元','贝康')
  group by a.ddate,a.true_ccuscode,a.bi_cinvcode,a.class_smaple
 ;
 
