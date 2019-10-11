@@ -265,3 +265,12 @@ on a.matchid = d.matchid
 left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) as e
 on a.cdwcode = e.ccuscode 
 where a.cdwcode not in ("001","002","003","004","005","006","007","008","009","010","011","012","013");
+
+-- 跟新这里的客户是个人和代理商的，条件是对应map是一堆一
+update report.fin_31_account_ori a
+ inner join edw.map_customer b
+    on a.ccuscode = b.bi_cuscode
+  set a.ccuscode = b.finnal_cuscode
+ where (left(a.ccuscode,2) = 'GR' or left(a.ccuscode,2) = 'DL')
+   and b.finnal_cuscode <> 'multi'
+;
