@@ -7,6 +7,7 @@ drop table if exists bidata.ft_83_eq_depreciation_19;
 create table if not exists bidata.ft_83_eq_depreciation_19(
     cohr varchar(20) comment '公司',
     vouchid varchar(60) comment '卡片编码',
+    ccuscode_ori varchar(20) comment '原始数据中的客户',
     bi_cuscode varchar(20) comment '客户编码',
     eq_name varchar(255) comment '折旧设备',
     item_code varchar(60) comment '项目编码',
@@ -27,6 +28,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -39,6 +41,7 @@ insert into bidata.ft_83_eq_depreciation_19
 select 
     cohr
     ,vouchid
+    ,bi_cuscode
     ,bi_cuscode
     ,eq_name
     ,item_code
@@ -53,6 +56,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -65,6 +69,7 @@ insert into bidata.ft_83_eq_depreciation_19
 select 
     cohr
     ,vouchid
+    ,bi_cuscode
     ,bi_cuscode
     ,eq_name
     ,item_code
@@ -79,6 +84,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -91,6 +97,7 @@ insert into bidata.ft_83_eq_depreciation_19
 select 
     cohr
     ,vouchid
+    ,bi_cuscode
     ,bi_cuscode
     ,eq_name
     ,item_code
@@ -105,6 +112,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -117,6 +125,7 @@ insert into bidata.ft_83_eq_depreciation_19
 select 
     cohr
     ,vouchid
+    ,bi_cuscode
     ,bi_cuscode
     ,eq_name
     ,item_code
@@ -131,6 +140,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -143,6 +153,7 @@ insert into bidata.ft_83_eq_depreciation_19
 select 
     cohr
     ,vouchid
+    ,bi_cuscode
     ,bi_cuscode
     ,eq_name
     ,item_code
@@ -157,6 +168,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -169,6 +181,7 @@ insert into bidata.ft_83_eq_depreciation_19
 select 
     cohr
     ,vouchid
+    ,bi_cuscode
     ,bi_cuscode
     ,eq_name
     ,item_code
@@ -183,6 +196,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -195,6 +209,7 @@ insert into bidata.ft_83_eq_depreciation_19
 select 
     cohr
     ,vouchid
+    ,bi_cuscode
     ,bi_cuscode
     ,eq_name
     ,item_code
@@ -209,6 +224,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -221,6 +237,7 @@ insert into bidata.ft_83_eq_depreciation_19
 select 
     cohr
     ,vouchid
+    ,bi_cuscode
     ,bi_cuscode
     ,eq_name
     ,item_code
@@ -235,6 +252,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -247,6 +265,7 @@ insert into bidata.ft_83_eq_depreciation_19
 select 
     cohr
     ,vouchid
+    ,bi_cuscode
     ,bi_cuscode
     ,eq_name
     ,item_code
@@ -261,6 +280,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -273,6 +293,7 @@ insert into bidata.ft_83_eq_depreciation_19
 select 
     cohr
     ,vouchid
+    ,bi_cuscode
     ,bi_cuscode
     ,eq_name
     ,item_code
@@ -287,6 +308,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -299,6 +321,7 @@ insert into bidata.ft_83_eq_depreciation_19
 select 
     cohr
     ,vouchid
+    ,bi_cuscode
     ,bi_cuscode
     ,eq_name
     ,item_code
@@ -313,6 +336,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -326,6 +350,7 @@ select
     cohr
     ,vouchid
     ,bi_cuscode
+    ,bi_cuscode
     ,eq_name
     ,item_code
     ,isum
@@ -334,3 +359,12 @@ select
 from edw.x_eq_depreciation_18;
 -- 将amount_depre中所有空值 替换成0  
 update bidata.ft_83_eq_depreciation_19 set amount_depre = 0 where amount_depre is null ;
+
+-- 191011更新 新增一列 将DL开头代理商 通过map档案一对一的处理成终端客户 
+update bidata.ft_83_eq_depreciation_19 as a 
+left join edw.map_customer as b 
+on a.ccuscode_ori = b.bi_cuscode 
+set a.bi_cuscode = b.finnal_cuscode
+where left(a.ccuscode_ori,2) = "DL";
+-- 处理的结果 如果是multi 则返回原客户编码
+update bidata.ft_83_eq_depreciation_19 set bi_cuscode = ccuscode_ori where bi_cuscode = "multi";
