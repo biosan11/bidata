@@ -386,8 +386,10 @@ update pdm.account_fy a
  inner join (select * from ufdata.department where db = 'UFDATA_111_2018' group by cdepcode) b
     on a.cdept_id = b.cdepcode
    set a.name_u8 = cdepname
- where a.db = 'UFDATA_118_2018'
+ where (a.db = 'UFDATA_118_2018'
     or a.db = 'UFDATA_123_2018'
+    or a.db = 'UFDATA_588_2019')
+   and a.name_u8 is null
 ;
 
 update pdm.account_fy set kemu = '6602专业机构费',code='66020015',code_name='专业机构费',code_lv2='66020015',code_name_lv2 ='专业机构费' where cohr = '甄元' and kemu = '6601材料'; 
@@ -404,7 +406,5 @@ update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花
 update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '贝安云' and kemu = '6602印花税'; 
 update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '美博特' and kemu = '6601院内沙龙'; 
 update pdm.account_fy set kemu = '6601耗材及配件',code='660118',code_name='耗材及配件',code_lv2='660118',code_name_lv2 ='耗材及配件' where cohr = '甄元' and kemu = '6601运营费用'; 
-
-
 
 
