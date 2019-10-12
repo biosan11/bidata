@@ -51,7 +51,7 @@ select a.auto_id
   from ufdata.x_sales_bk a
   left join (select ccusname,bi_cuscode,bi_cusname from edw.dic_customer group by ccusname) b
     on a.ccusname_ori = b.ccusname
-  left join (select cinvname,bi_cinvcode,bi_cinvname from edw.dic_inventory group by cinvname) c
+  left join (select cinvname,bi_cinvcode,bi_cinvname from edw.dic_inventory where db = 'ZYJC' group by cinvname) c
     on a.product_ori = c.cinvname
  where db = 'ZYSY' or db = 'ZYJK'
 ;
