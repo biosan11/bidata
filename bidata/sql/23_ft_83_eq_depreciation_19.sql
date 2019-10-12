@@ -368,3 +368,6 @@ set a.bi_cuscode = b.finnal_cuscode
 where left(a.ccuscode_ori,2) = "DL";
 -- 处理的结果 如果是multi 则返回原客户编码
 update bidata.ft_83_eq_depreciation_19 set bi_cuscode = ccuscode_ori where bi_cuscode = "multi";
+
+-- 删除amount_depre是0的数据
+delete from bidata.ft_83_eq_depreciation_19 where amount_depre = '0';
