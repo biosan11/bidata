@@ -98,10 +98,10 @@ def job(df):
 
 if __name__=='__main__':
     # 先运行 checklist_fx.sql 脚本
-    #sqlpath = "/home/bidata/pdm/sql/checklist_fx.sql"
-    #command = "mysql -h172.16.0.181 -p3306 -uroot -pbiosan <%s" % sqlpath
-    #(status, output) = subprocess.getstatusoutput(command)
-    #print(status)
+    sqlpath = "/home/bidata/pdm/sql/checklist_fx.sql"
+    command = "mysql -h172.16.0.181 -p3306 -uroot -pbiosan <%s" % sqlpath
+    (status, output) = subprocess.getstatusoutput(command)
+    print(status)
     #运行查找异常值脚本 以及 holt时间序列预测
     conn = pymysql.connect(host="172.16.0.181", port=3306, user="root", passwd="biosan")
     cursor = conn.cursor()
@@ -119,3 +119,8 @@ if __name__=='__main__':
     conn.commit()
     cursor.close()
     conn.close()
+    # 运行送检对应的情况变更
+    sqlpath = "/home/bidata/pdm/sql/checklist_fx_pd_sj.sql"
+    command = "mysql -h172.16.0.181 -p3306 -uroot -pbiosan <%s" % sqlpath
+    (status, output) = subprocess.getstatusoutput(command)
+    print(status)
