@@ -78,45 +78,59 @@ from bidata.x_insure_cover_pre;
 
 
 
--- drop temporary table if exists bidata.x_account_insettle_pre;
--- create temporary table bidata.x_account_insettle_pre 
-insert into bidata.ft_84_expenses_settlement
-select bi_cuscode,2019,1,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
-select bi_cuscode,2019,2,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
-select bi_cuscode,2019,3,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
-select bi_cuscode,2019,4,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
-select bi_cuscode,2019,5,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
-select bi_cuscode,2019,6,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
-select bi_cuscode,2019,7,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
-select bi_cuscode,2019,8,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center";
+-- -- drop temporary table if exists bidata.x_account_insettle_pre;
+-- -- create temporary table bidata.x_account_insettle_pre 
+-- insert into bidata.ft_84_expenses_settlement
+-- select bi_cuscode,2019,1,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
+-- select bi_cuscode,2019,2,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
+-- select bi_cuscode,2019,3,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
+-- select bi_cuscode,2019,4,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
+-- select bi_cuscode,2019,5,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
+-- select bi_cuscode,2019,6,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
+-- select bi_cuscode,2019,7,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center" union all
+-- select bi_cuscode,2019,8,0,0,isum/8,0,0,0 from edw.x_account_insettle where type = "infor_center";
+-- 
+-- insert into bidata.ft_84_expenses_settlement
+-- select bi_cuscode,2019,1,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
+-- select bi_cuscode,2019,2,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
+-- select bi_cuscode,2019,3,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
+-- select bi_cuscode,2019,4,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
+-- select bi_cuscode,2019,5,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
+-- select bi_cuscode,2019,6,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
+-- select bi_cuscode,2019,7,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
+-- select bi_cuscode,2019,8,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical";
+-- 
+-- insert into bidata.ft_84_expenses_settlement
+-- select bi_cuscode,2019,1,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
+-- select bi_cuscode,2019,2,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
+-- select bi_cuscode,2019,3,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
+-- select bi_cuscode,2019,4,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
+-- select bi_cuscode,2019,5,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
+-- select bi_cuscode,2019,6,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
+-- select bi_cuscode,2019,7,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
+-- select bi_cuscode,2019,8,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance";
+-- 
+-- insert into bidata.ft_84_expenses_settlement
+-- select bi_cuscode,2019,1,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
+-- select bi_cuscode,2019,2,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
+-- select bi_cuscode,2019,3,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
+-- select bi_cuscode,2019,4,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
+-- select bi_cuscode,2019,5,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
+-- select bi_cuscode,2019,6,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
+-- select bi_cuscode,2019,7,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
+-- select bi_cuscode,2019,8,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics";
 
+-- 这里对内部结算的数据进行修正，第二层表结构变更
+-- 新增18年的内部结算的数据
 insert into bidata.ft_84_expenses_settlement
-select bi_cuscode,2019,1,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
-select bi_cuscode,2019,2,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
-select bi_cuscode,2019,3,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
-select bi_cuscode,2019,4,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
-select bi_cuscode,2019,5,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
-select bi_cuscode,2019,6,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
-select bi_cuscode,2019,7,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical" union all
-select bi_cuscode,2019,8,0,0,0,isum/8,0,0 from edw.x_account_insettle where type = "technical";
-
-insert into bidata.ft_84_expenses_settlement
-select bi_cuscode,2019,1,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
-select bi_cuscode,2019,2,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
-select bi_cuscode,2019,3,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
-select bi_cuscode,2019,4,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
-select bi_cuscode,2019,5,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
-select bi_cuscode,2019,6,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
-select bi_cuscode,2019,7,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance" union all
-select bi_cuscode,2019,8,0,0,0,0,isum/8,0 from edw.x_account_insettle where type = "maintenance";
-
-insert into bidata.ft_84_expenses_settlement
-select bi_cuscode,2019,1,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
-select bi_cuscode,2019,2,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
-select bi_cuscode,2019,3,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
-select bi_cuscode,2019,4,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
-select bi_cuscode,2019,5,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
-select bi_cuscode,2019,6,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
-select bi_cuscode,2019,7,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics" union all
-select bi_cuscode,2019,8,0,0,0,0,0,isum/8 from edw.x_account_insettle where type = "logistics";
-
+select bi_cuscode
+      ,left(y_mon,4) as year_
+      ,cast(RIGHT(y_mon,2) as SIGNED) as month_
+      ,0
+      ,0
+      ,case when type = 'infor_center' then isum else 0 end as xxzx_md
+      ,case when type = 'technical' then isum else 0 end as jsbz_md
+      ,case when type = 'maintenance' then isum else 0 end as wb_md
+      ,case when type = 'logistics' then isum else 0 end as wl_md
+  from edw.x_account_insettle
+;
