@@ -175,6 +175,7 @@ where iquantity > 0
          ,(case when finnal_ccuscode = 'multi' then ccuscode else finnal_ccuscode end )
 	       ,item_code
 	       ,cinvcode
+	       ,yearmonth
  having sum(iquantity) > 0) a
 -- union all
 -- select LEFT(ccuscode,2) as type,
