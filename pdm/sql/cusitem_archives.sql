@@ -106,6 +106,36 @@ select a.ccuscode
    and a.item_code = b.item_code
    and a.cbustype = b.cbustype;
 
+-- 插入竞品公司的信息
+insert into pdm.cusitem_archives
+select a.bi_cuscode
+      ,a.bi_cusname
+      ,a.bi_item_code
+      ,a.bi_item_name
+      ,a.type
+      ,case when a.new_project_status in('购买','投放','自建') then '产品类' else 'LDT' end
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,null
+      ,null
+      ,a.cinvbrand
+      ,'是'
+      ,a.cvenabbname
+  from edw.x_competitor_item a
+ group by bi_cuscode,bi_item_code
+;
+
 -- 预算数据的插入处理
 -- create temporary table pdm.mid2_cusitem_archives as
 -- select true_ccuscode as ccuscode
