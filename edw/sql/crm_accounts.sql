@@ -115,6 +115,21 @@ select a.accountid as crm_num
 	  on a.modifiedby = h.ownerid
 ;
 
+-- 这里监测需要加入备份昨天的客户资质相关的数据
+truncate table edw.crm_accounts_jc;
+insert into edw.crm_accounts_jc
+select new_erp_num
+      ,new_xs
+      ,new_xsc
+      ,new_cs
+      ,new_csc
+      ,new_cz
+      ,new_czc
+      ,new_pcr
+      ,localtimestamp() as sys_time
+  from edw.crm_accounts
+;
+
 -- 防止重跑
 delete from edw.crm_accounts where end_dt = '3000-12-31' and new_num in (select new_num from edw.mid1_crm_accounts);
 update edw.crm_accounts set end_dt = '3000-12-31' where end_dt = '${start_dt}';
@@ -182,18 +197,23 @@ set a.ccusgrade          = c.new_grade
    ,a.Credit_rating      = c.new_credit_status
    ,a.ccus_sname         = c.new_ccusabbname
    ,a.ccus_uname         = c.new_other_name
-   ,a.nsieve_mechanism   = c.new_xs
-   ,a.medical_mechanism  = c.new_cz
-   ,a.screen_mechanism   = c.new_cs
-   ,a.license_plate      = c.new_pcr
+--   ,a.nsieve_mechanism   = c.new_xs
+--   ,a.medical_mechanism  = c.new_cz
+--   ,a.screen_mechanism   = c.new_cs
+--   ,a.license_plate      = c.new_pcr
    ,a.ccsu_strdate       = c.new_develop_date 
    ,a.ccus_situation     = c.new_account
 ;
 
 
-
-
-
-
-
+-- 这里增加对客户档案的资质的线下的数据
+update edw.map_customer a inner join (select * from edw.x_ccus_seniority group by bi_cuscode) b on a.bi_cuscode = b.bi_cuscode set a.nsieve_mechanism = 'True' where new_cz = '新筛中心';
+update edw.map_customer a inner join (select * from edw.x_ccus_seniority group by bi_cuscode) b on a.bi_cuscode = b.bi_cuscode set a.medical_mechanism = 'True' where new_cz = '产前诊断中心';
+update edw.map_customer a inner join (select * from edw.x_ccus_seniority group by bi_cuscode) b on a.bi_cuscode = b.bi_cuscode set a.screen_mechanism = 'True' where new_cz = '产前筛查机构';
+update edw.map_customer a inner join (select * from edw.x_ccus_seniority group by bi_cuscode) b on a.bi_cuscode = b.bi_cuscode set a.tlsc_mechanism = 'True' where new_cz = '听力筛查机构';
+update edw.map_customer a inner join (select * from edw.x_ccus_seniority group by bi_cuscode) b on a.bi_cuscode = b.bi_cuscode set a.tlzd_mechanism = 'True' where new_cz = '听力诊治机构';
+update edw.map_customer a inner join (select * from edw.x_ccus_seniority group by bi_cuscode) b on a.bi_cuscode = b.bi_cuscode set a.screen_mechanism = 'True' where new_cz = '筹备产前筛查机构';
+update edw.map_customer a inner join (select * from edw.x_ccus_seniority group by bi_cuscode) b on a.bi_cuscode = b.bi_cuscode set a.medical_mechanism = 'True' where new_cz = '拟筹建产前诊断中心';
+update edw.map_customer a inner join (select * from edw.x_ccus_seniority group by bi_cuscode) b on a.bi_cuscode = b.bi_cuscode set a.cssc_mechanism = 'True' where new_cz = '超声筛查机构';
+update edw.map_customer a inner join (select * from edw.x_ccus_seniority group by bi_cuscode) b on a.bi_cuscode = b.bi_cuscode set a.tlzd_mechanism = 'True' where new_cz = '耳聋基因听力诊断';
 
