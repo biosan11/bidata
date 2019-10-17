@@ -12,6 +12,7 @@ select a.province
       ,a.item_name
       ,case when c.item_code is null then '请核查' else c.item_code end as bi_item_code
       ,case when c.item_code is null then '请核查' else c.level_three end as bi_item_name
+			,a.cbustype
       ,a.cinvbrand
       ,a.new_project_status
       ,a.specification_type

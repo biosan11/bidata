@@ -113,7 +113,7 @@ select a.bi_cuscode
       ,a.bi_item_code
       ,a.bi_item_name
       ,a.type
-      ,case when a.new_project_status in('购买','投放','自建') then '产品类' else 'LDT' end
+      ,a.cbustype
       ,null
       ,null
       ,null
