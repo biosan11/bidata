@@ -97,6 +97,12 @@ select ccuscode from bidata.ft_84_expenses_settlement group by ccuscode;
 insert into bidata.bi_customer_pre
 select ccuscode from bidata.ft_81_expenses group by ccuscode;
 
+-- 2.7 取ft_61_dispatch去重客户
+insert into bidata.bi_customer_pre
+select ccuscode from bidata.ft_61_dispatch group by ccuscode;
+insert into bidata.bi_customer_pre
+select finnal_ccuscode from bidata.ft_61_dispatch group by finnal_ccuscode;
+
 -- 1.* 生成bi_customer
 truncate table bidata.dt_12_customer;
 insert into bidata.dt_12_customer
