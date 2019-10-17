@@ -215,6 +215,21 @@ insert into tracking.jc_abnormal_day
 select distinct 
        'excel'
       ,'edw' as source
+      ,'x_competitor_item' as tb_name
+      ,null
+      ,'ccusname' as err_col
+      ,null as err_value
+      ,ccusname as err_col_name
+      ,'客户清洗' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from edw.x_competitor_item where bi_cuscode = '请核查'
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'excel'
+      ,'edw' as source
       ,'x_account_sy' as tb_name
       ,null
       ,'ccusname' as err_col

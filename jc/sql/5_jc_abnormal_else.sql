@@ -259,4 +259,47 @@ where b.bi_cuscode is null
   and a.ccuscode <> '请核查'
 ;
 
+-- crm用户资质表更监控
+insert into tracking.jc_abnormal_day
+select distinct 
+       'edw'
+      ,'edw' as source
+      ,'crm_accounts'
+      ,null
+      ,'bi_cusname'
+      ,d.bi_cusname
+      ,c.new_zz
+      ,'客户资质变更' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from (select a.name,
+               case when ifnull(a.new_xs ,'') <> ifnull(b.new_xs ,'') then '新筛变更' 
+                    when ifnull(a.new_cs ,'') <> ifnull(b.new_cs ,'') then '产筛变更'  
+                    when ifnull(a.new_cz ,'') <> ifnull(b.new_cz ,'') then '产诊变更' 
+                    when ifnull(a.new_pcr,'') <> ifnull(b.new_pcr,'')  then 'PCR变更' else '' end as new_zz
+          from (select * from edw.crm_accounts where left(sys_time,10) = CURDATE() and new_erp_num is not null) a
+         left join edw.crm_accounts_jc b
+           on ifnull(a.new_erp_num,'') = ifnull(b.new_erp_num,'')) c
+  left join (select * from edw.dic_customer group by ccusname) d
+    on c.name = d.ccusname
+ where c.new_zz <> ''
+   and d.ccusname is not null
+;
 
+-- 客户项目人重复监控
+insert into tracking.jc_abnormal_day
+select distinct
+       'edw'
+      ,'edw'
+      ,'map_cusitem_person'
+      ,null
+      ,'autoid'
+      ,autoid
+      ,uniqueid
+      ,'客户项目人重复'
+      ,2
+      ,CURDATE( ) as date
+  from edw.map_cusitem_person 
+ group by ddate_effect,uniqueid 
+ having count(*) >=2
+;

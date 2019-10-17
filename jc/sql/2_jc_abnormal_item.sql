@@ -103,6 +103,21 @@ select distinct 'excel'
 insert into tracking.jc_abnormal_day
 select distinct 'excel'
       ,'edw' as source
+      ,'x_competitor_item' as tb_name
+      ,null
+      ,'item_code' as err_col_id
+      ,item_code as err_value
+      ,item_name as err_value2
+      ,'项目清洗' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from edw.x_competitor_item 
+ where bi_item_code = '请核查'
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 'excel'
+      ,'edw' as source
       ,'x_eq_depreciation_19' as tb_name
       ,null
       ,'cinvcode' as err_col_id
