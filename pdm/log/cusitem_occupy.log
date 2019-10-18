@@ -1,0 +1,5276 @@
+
+20190115152323开始执行2019-01-14数据加载日志:
+SQL开始执行时间：20190115152323
+
+/*
+use pdm
+;
+
+20190115153353开始执行2019-01-14数据加载日志:
+SQL开始执行时间：20190115153353
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190115153353
+SQL开始执行时间：20190115153353
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190115153353
+SQL开始执行时间：20190115153353
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190115153353
+SQL开始执行时间：20190115153353
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190115153354
+SQL开始执行时间：20190115153354
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190115153354
+SQL开始执行时间：20190115153354
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190115153354
+SQL开始执行时间：20190115153354
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190115153354
+SQL开始执行时间：20190115153354
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190115153354
+SQL开始执行时间：20190115153354
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190115153354
+SQL开始执行时间：20190115153354
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190115153354
+SQL开始执行时间：20190115153354
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190115153354
+SQL开始执行时间：20190115153354
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190115153354
+SQL开始执行时间：20190115153354
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190115153355
+
+20190116020337开始执行2019-01-15数据加载日志:
+SQL开始执行时间：20190116020337
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190116020337
+SQL开始执行时间：20190116020337
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190116020337
+SQL开始执行时间：20190116020337
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190116020337
+SQL开始执行时间：20190116020337
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190116020338
+SQL开始执行时间：20190116020338
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190116020338
+SQL开始执行时间：20190116020338
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190116020338
+SQL开始执行时间：20190116020338
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190116020338
+SQL开始执行时间：20190116020338
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190116020338
+SQL开始执行时间：20190116020338
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190116020338
+SQL开始执行时间：20190116020338
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190116020338
+SQL开始执行时间：20190116020338
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190116020338
+SQL开始执行时间：20190116020338
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190116020338
+SQL开始执行时间：20190116020338
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190116020339
+
+20190117020333开始执行2019-01-16数据加载日志:
+SQL开始执行时间：20190117020333
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190117020333
+SQL开始执行时间：20190117020333
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190117020333
+SQL开始执行时间：20190117020333
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190117020333
+SQL开始执行时间：20190117020333
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190117020333
+SQL开始执行时间：20190117020333
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190117020333
+SQL开始执行时间：20190117020333
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190117020334
+SQL开始执行时间：20190117020334
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190117020334
+SQL开始执行时间：20190117020334
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190117020334
+SQL开始执行时间：20190117020334
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190117020334
+SQL开始执行时间：20190117020334
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190117020334
+SQL开始执行时间：20190117020334
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190117020334
+SQL开始执行时间：20190117020334
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190117020334
+SQL开始执行时间：20190117020334
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190117020334
+
+20190117104041开始执行2019-01-16数据加载日志:
+SQL开始执行时间：20190117104041
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190117104041
+SQL开始执行时间：20190117104041
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190117104042
+SQL开始执行时间：20190117104042
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190117104042
+SQL开始执行时间：20190117104042
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190117104042
+SQL开始执行时间：20190117104042
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190117104042
+SQL开始执行时间：20190117104042
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190117104042
+SQL开始执行时间：20190117104042
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190117104042
+SQL开始执行时间：20190117104042
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190117104043
+SQL开始执行时间：20190117104043
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190117104043
+SQL开始执行时间：20190117104043
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190117104043
+SQL开始执行时间：20190117104043
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190117104043
+SQL开始执行时间：20190117104043
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190117104043
+SQL开始执行时间：20190117104043
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190117104043
+
+20190117173411开始执行2019-01-16数据加载日志:
+SQL开始执行时间：20190117173411
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190117173411
+SQL开始执行时间：20190117173411
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190117173411
+SQL开始执行时间：20190117173411
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190117173412
+SQL开始执行时间：20190117173412
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190117173412
+SQL开始执行时间：20190117173412
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190117173412
+SQL开始执行时间：20190117173412
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190117173412
+SQL开始执行时间：20190117173412
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190117173412
+SQL开始执行时间：20190117173412
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190117173412
+SQL开始执行时间：20190117173412
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190117173413
+SQL开始执行时间：20190117173413
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190117173413
+SQL开始执行时间：20190117173413
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190117173413
+SQL开始执行时间：20190117173413
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190117173413
+SQL开始执行时间：20190117173413
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190117173413
+
+20190118020332开始执行2019-01-17数据加载日志:
+SQL开始执行时间：20190118020332
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190118020332
+SQL开始执行时间：20190118020332
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190118020332
+SQL开始执行时间：20190118020332
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190118020332
+SQL开始执行时间：20190118020332
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190118020333
+SQL开始执行时间：20190118020333
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190118020333
+SQL开始执行时间：20190118020333
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190118020333
+SQL开始执行时间：20190118020333
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190118020333
+SQL开始执行时间：20190118020333
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190118020333
+SQL开始执行时间：20190118020333
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190118020333
+SQL开始执行时间：20190118020333
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190118020333
+SQL开始执行时间：20190118020333
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190118020333
+SQL开始执行时间：20190118020333
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190118020333
+SQL开始执行时间：20190118020333
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190118020334
+
+20190119020335开始执行2019-01-18数据加载日志:
+SQL开始执行时间：20190119020335
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190119020335
+SQL开始执行时间：20190119020335
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190119020336
+SQL开始执行时间：20190119020336
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190119020336
+SQL开始执行时间：20190119020336
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190119020336
+SQL开始执行时间：20190119020336
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190119020336
+SQL开始执行时间：20190119020336
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190119020336
+SQL开始执行时间：20190119020336
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190119020336
+SQL开始执行时间：20190119020336
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190119020337
+SQL开始执行时间：20190119020337
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190119020337
+SQL开始执行时间：20190119020337
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190119020337
+SQL开始执行时间：20190119020337
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190119020337
+SQL开始执行时间：20190119020337
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190119020337
+SQL开始执行时间：20190119020337
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190119020337
+
+20190120020333开始执行2019-01-19数据加载日志:
+SQL开始执行时间：20190120020333
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190120020333
+SQL开始执行时间：20190120020333
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190120020334
+SQL开始执行时间：20190120020334
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190120020334
+SQL开始执行时间：20190120020334
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190120020334
+SQL开始执行时间：20190120020334
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190120020334
+SQL开始执行时间：20190120020334
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190120020334
+SQL开始执行时间：20190120020334
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190120020334
+SQL开始执行时间：20190120020334
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190120020335
+SQL开始执行时间：20190120020335
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190120020335
+SQL开始执行时间：20190120020335
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190120020335
+SQL开始执行时间：20190120020335
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190120020335
+SQL开始执行时间：20190120020335
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190120020335
+SQL开始执行时间：20190120020335
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190120020335
+
+20190121020332开始执行2019-01-20数据加载日志:
+SQL开始执行时间：20190121020332
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190121020332
+SQL开始执行时间：20190121020332
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190121020332
+SQL开始执行时间：20190121020332
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190121020332
+SQL开始执行时间：20190121020332
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190121020333
+SQL开始执行时间：20190121020333
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190121020333
+SQL开始执行时间：20190121020333
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190121020333
+SQL开始执行时间：20190121020333
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190121020333
+SQL开始执行时间：20190121020333
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190121020333
+SQL开始执行时间：20190121020333
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190121020333
+SQL开始执行时间：20190121020333
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190121020333
+SQL开始执行时间：20190121020333
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190121020333
+SQL开始执行时间：20190121020333
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190121020333
+SQL开始执行时间：20190121020333
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190121020333
+
+20190122020333开始执行2019-01-21数据加载日志:
+SQL开始执行时间：20190122020333
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190122020333
+SQL开始执行时间：20190122020333
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190122020334
+SQL开始执行时间：20190122020334
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190122020334
+SQL开始执行时间：20190122020334
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190122020334
+SQL开始执行时间：20190122020334
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190122020334
+SQL开始执行时间：20190122020334
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190122020334
+SQL开始执行时间：20190122020334
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190122020334
+SQL开始执行时间：20190122020334
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190122020334
+SQL开始执行时间：20190122020334
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190122020335
+SQL开始执行时间：20190122020335
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190122020335
+SQL开始执行时间：20190122020335
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190122020335
+SQL开始执行时间：20190122020335
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190122020335
+SQL开始执行时间：20190122020335
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190122020335
+
+20190123020331开始执行2019-01-22数据加载日志:
+SQL开始执行时间：20190123020331
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190123020331
+SQL开始执行时间：20190123020331
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190123020331
+SQL开始执行时间：20190123020331
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190123020331
+SQL开始执行时间：20190123020331
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190123020332
+SQL开始执行时间：20190123020332
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190123020332
+SQL开始执行时间：20190123020332
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190123020332
+SQL开始执行时间：20190123020332
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190123020332
+SQL开始执行时间：20190123020332
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190123020332
+SQL开始执行时间：20190123020332
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190123020332
+SQL开始执行时间：20190123020332
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190123020332
+SQL开始执行时间：20190123020332
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190123020332
+SQL开始执行时间：20190123020332
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190123020332
+SQL开始执行时间：20190123020332
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190123020333
+
+20190124020334开始执行2019-01-23数据加载日志:
+SQL开始执行时间：20190124020334
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190124020334
+SQL开始执行时间：20190124020334
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190124020334
+SQL开始执行时间：20190124020334
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190124020334
+SQL开始执行时间：20190124020334
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190124020334
+SQL开始执行时间：20190124020334
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190124020334
+SQL开始执行时间：20190124020334
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190124020334
+SQL开始执行时间：20190124020334
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190124020335
+SQL开始执行时间：20190124020335
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190124020335
+SQL开始执行时间：20190124020335
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190124020335
+SQL开始执行时间：20190124020335
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190124020335
+SQL开始执行时间：20190124020335
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190124020335
+SQL开始执行时间：20190124020335
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190124020335
+SQL开始执行时间：20190124020335
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190124020335
+
+20190126020226开始执行2019-01-25数据加载日志:
+SQL开始执行时间：20190126020226
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190126020226
+SQL开始执行时间：20190126020226
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190126020226
+SQL开始执行时间：20190126020226
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190126020227
+SQL开始执行时间：20190126020227
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190126020227
+SQL开始执行时间：20190126020227
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190126020227
+SQL开始执行时间：20190126020227
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190126020227
+SQL开始执行时间：20190126020227
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190126020227
+SQL开始执行时间：20190126020227
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190126020227
+SQL开始执行时间：20190126020227
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190126020227
+SQL开始执行时间：20190126020227
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190126020227
+SQL开始执行时间：20190126020227
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190126020227
+SQL开始执行时间：20190126020227
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190126020227
+SQL开始执行时间：20190126020227
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190126020227
+
+20190127020226开始执行2019-01-26数据加载日志:
+SQL开始执行时间：20190127020226
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190127020226
+SQL开始执行时间：20190127020226
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190127020226
+SQL开始执行时间：20190127020226
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190127020226
+SQL开始执行时间：20190127020226
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190127020226
+SQL开始执行时间：20190127020226
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190127020226
+SQL开始执行时间：20190127020226
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190127020226
+SQL开始执行时间：20190127020226
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190127020226
+SQL开始执行时间：20190127020226
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190127020227
+SQL开始执行时间：20190127020227
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190127020227
+SQL开始执行时间：20190127020227
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190127020227
+SQL开始执行时间：20190127020227
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190127020227
+SQL开始执行时间：20190127020227
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190127020227
+SQL开始执行时间：20190127020227
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190127020227
+
+20190128020226开始执行2019-01-27数据加载日志:
+SQL开始执行时间：20190128020226
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190128020226
+SQL开始执行时间：20190128020226
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190128020226
+SQL开始执行时间：20190128020226
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190128020227
+SQL开始执行时间：20190128020227
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190128020227
+SQL开始执行时间：20190128020227
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190128020227
+SQL开始执行时间：20190128020227
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190128020227
+SQL开始执行时间：20190128020227
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190128020227
+SQL开始执行时间：20190128020227
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190128020227
+SQL开始执行时间：20190128020227
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190128020227
+SQL开始执行时间：20190128020227
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190128020227
+SQL开始执行时间：20190128020227
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190128020227
+SQL开始执行时间：20190128020227
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190128020227
+SQL开始执行时间：20190128020227
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190128020227
+
+20190129020242开始执行2019-01-28数据加载日志:
+SQL开始执行时间：20190129020242
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190129020242
+SQL开始执行时间：20190129020242
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190129020242
+SQL开始执行时间：20190129020242
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190129020243
+SQL开始执行时间：20190129020243
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190129020243
+SQL开始执行时间：20190129020243
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190129020243
+SQL开始执行时间：20190129020243
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190129020243
+SQL开始执行时间：20190129020243
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190129020243
+SQL开始执行时间：20190129020243
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190129020243
+SQL开始执行时间：20190129020243
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190129020243
+SQL开始执行时间：20190129020243
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190129020243
+SQL开始执行时间：20190129020243
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190129020243
+SQL开始执行时间：20190129020243
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190129020243
+SQL开始执行时间：20190129020243
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190129020243
+
+20190130020322开始执行2019-01-29数据加载日志:
+SQL开始执行时间：20190130020322
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190130020322
+SQL开始执行时间：20190130020322
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190130020322
+SQL开始执行时间：20190130020322
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190130020322
+SQL开始执行时间：20190130020322
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190130020323
+SQL开始执行时间：20190130020323
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190130020323
+SQL开始执行时间：20190130020323
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190130020323
+SQL开始执行时间：20190130020323
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190130020323
+SQL开始执行时间：20190130020323
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190130020323
+SQL开始执行时间：20190130020323
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190130020323
+SQL开始执行时间：20190130020323
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190130020323
+SQL开始执行时间：20190130020323
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190130020323
+SQL开始执行时间：20190130020323
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190130020323
+SQL开始执行时间：20190130020323
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190130020323
+
+20190131020322开始执行2019-01-30数据加载日志:
+SQL开始执行时间：20190131020322
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190131020322
+SQL开始执行时间：20190131020322
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190131020322
+SQL开始执行时间：20190131020322
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190131020323
+SQL开始执行时间：20190131020323
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190131020323
+SQL开始执行时间：20190131020323
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190131020323
+SQL开始执行时间：20190131020323
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190131020323
+SQL开始执行时间：20190131020323
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190131020323
+SQL开始执行时间：20190131020323
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190131020323
+SQL开始执行时间：20190131020323
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190131020323
+SQL开始执行时间：20190131020323
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190131020323
+SQL开始执行时间：20190131020323
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190131020323
+SQL开始执行时间：20190131020323
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190131020323
+SQL开始执行时间：20190131020323
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190131020323
+
+20190201020320开始执行2019-01-31数据加载日志:
+SQL开始执行时间：20190201020320
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190201020320
+SQL开始执行时间：20190201020320
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190201020321
+SQL开始执行时间：20190201020321
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190201020321
+SQL开始执行时间：20190201020321
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190201020321
+SQL开始执行时间：20190201020321
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190201020321
+SQL开始执行时间：20190201020321
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190201020321
+SQL开始执行时间：20190201020321
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190201020321
+SQL开始执行时间：20190201020321
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190201020321
+SQL开始执行时间：20190201020321
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190201020321
+SQL开始执行时间：20190201020321
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190201020322
+SQL开始执行时间：20190201020322
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190201020322
+SQL开始执行时间：20190201020322
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190201020322
+SQL开始执行时间：20190201020322
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190201020322
+
+20190202020321开始执行2019-02-01数据加载日志:
+SQL开始执行时间：20190202020321
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190202020321
+SQL开始执行时间：20190202020321
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190202020322
+SQL开始执行时间：20190202020322
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190202020322
+SQL开始执行时间：20190202020322
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190202020322
+SQL开始执行时间：20190202020322
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190202020322
+SQL开始执行时间：20190202020322
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190202020322
+SQL开始执行时间：20190202020322
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190202020322
+SQL开始执行时间：20190202020322
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190202020322
+SQL开始执行时间：20190202020322
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190202020322
+SQL开始执行时间：20190202020322
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190202020322
+SQL开始执行时间：20190202020322
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190202020322
+SQL开始执行时间：20190202020322
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190202020322
+SQL开始执行时间：20190202020322
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190202020323
+
+20190203020321开始执行2019-02-02数据加载日志:
+SQL开始执行时间：20190203020321
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190203020321
+SQL开始执行时间：20190203020321
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190203020321
+SQL开始执行时间：20190203020321
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190203020321
+SQL开始执行时间：20190203020321
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190203020321
+SQL开始执行时间：20190203020321
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190203020321
+SQL开始执行时间：20190203020321
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190203020321
+SQL开始执行时间：20190203020321
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190203020321
+SQL开始执行时间：20190203020321
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190203020321
+SQL开始执行时间：20190203020321
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190203020322
+SQL开始执行时间：20190203020322
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190203020322
+SQL开始执行时间：20190203020322
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190203020322
+SQL开始执行时间：20190203020322
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190203020322
+SQL开始执行时间：20190203020322
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190203020322
+
+20190204020321开始执行2019-02-03数据加载日志:
+SQL开始执行时间：20190204020321
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190204020321
+SQL开始执行时间：20190204020321
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190204020321
+SQL开始执行时间：20190204020321
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190204020321
+SQL开始执行时间：20190204020321
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190204020321
+SQL开始执行时间：20190204020321
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190204020321
+SQL开始执行时间：20190204020321
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190204020321
+SQL开始执行时间：20190204020321
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190204020322
+SQL开始执行时间：20190204020322
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190204020322
+SQL开始执行时间：20190204020322
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190204020322
+SQL开始执行时间：20190204020322
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190204020322
+SQL开始执行时间：20190204020322
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190204020322
+SQL开始执行时间：20190204020322
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190204020322
+SQL开始执行时间：20190204020322
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190204020322
+
+20190205020319开始执行2019-02-04数据加载日志:
+SQL开始执行时间：20190205020319
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190205020319
+SQL开始执行时间：20190205020319
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190205020319
+SQL开始执行时间：20190205020319
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190205020320
+SQL开始执行时间：20190205020320
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190205020320
+SQL开始执行时间：20190205020320
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190205020320
+SQL开始执行时间：20190205020320
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190205020320
+SQL开始执行时间：20190205020320
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190205020320
+SQL开始执行时间：20190205020320
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190205020320
+SQL开始执行时间：20190205020320
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190205020320
+SQL开始执行时间：20190205020320
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190205020320
+SQL开始执行时间：20190205020320
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190205020320
+SQL开始执行时间：20190205020320
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190205020320
+SQL开始执行时间：20190205020320
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190205020321
+
+20190206020320开始执行2019-02-05数据加载日志:
+SQL开始执行时间：20190206020320
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190206020320
+SQL开始执行时间：20190206020320
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190206020320
+SQL开始执行时间：20190206020320
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190206020321
+SQL开始执行时间：20190206020321
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190206020321
+SQL开始执行时间：20190206020321
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190206020321
+SQL开始执行时间：20190206020321
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190206020321
+SQL开始执行时间：20190206020321
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190206020321
+SQL开始执行时间：20190206020321
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190206020321
+SQL开始执行时间：20190206020321
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190206020321
+SQL开始执行时间：20190206020321
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190206020321
+SQL开始执行时间：20190206020321
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190206020321
+SQL开始执行时间：20190206020321
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190206020321
+SQL开始执行时间：20190206020321
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190206020321
+
+20190207020321开始执行2019-02-06数据加载日志:
+SQL开始执行时间：20190207020321
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190207020321
+SQL开始执行时间：20190207020321
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190207020321
+SQL开始执行时间：20190207020321
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190207020321
+SQL开始执行时间：20190207020321
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190207020321
+SQL开始执行时间：20190207020321
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190207020321
+SQL开始执行时间：20190207020321
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190207020321
+SQL开始执行时间：20190207020321
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190207020321
+SQL开始执行时间：20190207020321
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190207020321
+SQL开始执行时间：20190207020321
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190207020321
+SQL开始执行时间：20190207020321
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190207020322
+SQL开始执行时间：20190207020322
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190207020322
+SQL开始执行时间：20190207020322
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190207020322
+SQL开始执行时间：20190207020322
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190207020322
+
+20190208020320开始执行2019-02-07数据加载日志:
+SQL开始执行时间：20190208020320
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190208020320
+SQL开始执行时间：20190208020320
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190208020321
+SQL开始执行时间：20190208020321
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190208020321
+SQL开始执行时间：20190208020321
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190208020321
+SQL开始执行时间：20190208020321
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190208020321
+SQL开始执行时间：20190208020321
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190208020321
+SQL开始执行时间：20190208020321
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190208020321
+SQL开始执行时间：20190208020321
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190208020321
+SQL开始执行时间：20190208020321
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190208020321
+SQL开始执行时间：20190208020321
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190208020322
+SQL开始执行时间：20190208020322
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190208020322
+SQL开始执行时间：20190208020322
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190208020322
+SQL开始执行时间：20190208020322
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190208020322
+
+20190209020320开始执行2019-02-08数据加载日志:
+SQL开始执行时间：20190209020320
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190209020320
+SQL开始执行时间：20190209020320
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190209020321
+SQL开始执行时间：20190209020321
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190209020321
+SQL开始执行时间：20190209020321
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190209020321
+SQL开始执行时间：20190209020321
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190209020321
+SQL开始执行时间：20190209020321
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190209020321
+SQL开始执行时间：20190209020321
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190209020321
+SQL开始执行时间：20190209020321
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190209020321
+SQL开始执行时间：20190209020321
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190209020321
+SQL开始执行时间：20190209020321
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190209020322
+SQL开始执行时间：20190209020322
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190209020322
+SQL开始执行时间：20190209020322
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190209020322
+SQL开始执行时间：20190209020322
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190209020322
+
+20190210020320开始执行2019-02-09数据加载日志:
+SQL开始执行时间：20190210020320
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190210020320
+SQL开始执行时间：20190210020320
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190210020320
+SQL开始执行时间：20190210020320
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190210020321
+SQL开始执行时间：20190210020321
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190210020321
+SQL开始执行时间：20190210020321
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190210020321
+SQL开始执行时间：20190210020321
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190210020321
+SQL开始执行时间：20190210020321
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190210020321
+SQL开始执行时间：20190210020321
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190210020321
+SQL开始执行时间：20190210020321
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190210020321
+SQL开始执行时间：20190210020321
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190210020321
+SQL开始执行时间：20190210020321
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190210020321
+SQL开始执行时间：20190210020321
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190210020321
+SQL开始执行时间：20190210020321
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190210020322
+
+20190211020320开始执行2019-02-10数据加载日志:
+SQL开始执行时间：20190211020320
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190211020320
+SQL开始执行时间：20190211020320
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190211020321
+SQL开始执行时间：20190211020321
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190211020321
+SQL开始执行时间：20190211020321
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190211020321
+SQL开始执行时间：20190211020321
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190211020321
+SQL开始执行时间：20190211020321
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190211020321
+SQL开始执行时间：20190211020321
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190211020321
+SQL开始执行时间：20190211020321
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190211020321
+SQL开始执行时间：20190211020321
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190211020321
+SQL开始执行时间：20190211020321
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190211020322
+SQL开始执行时间：20190211020322
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190211020322
+SQL开始执行时间：20190211020322
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190211020322
+SQL开始执行时间：20190211020322
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190211020322
+
+20190212020320开始执行2019-02-11数据加载日志:
+SQL开始执行时间：20190212020320
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190212020320
+SQL开始执行时间：20190212020320
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190212020320
+SQL开始执行时间：20190212020320
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190212020320
+SQL开始执行时间：20190212020320
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190212020320
+SQL开始执行时间：20190212020320
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190212020320
+SQL开始执行时间：20190212020320
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190212020320
+SQL开始执行时间：20190212020320
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190212020320
+SQL开始执行时间：20190212020320
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190212020320
+SQL开始执行时间：20190212020320
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190212020320
+SQL开始执行时间：20190212020320
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190212020321
+SQL开始执行时间：20190212020321
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190212020321
+SQL开始执行时间：20190212020321
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190212020321
+SQL开始执行时间：20190212020321
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;
+SQL结束执行时间：20190212020321
+
+20190213020318开始执行2019-02-12数据加载日志:
+SQL开始执行时间：20190213020318
+
+
+
+
+drop temporary table if exists pdm.cusitem_tem00
+;
+SQL结束执行时间：20190213020318
+SQL开始执行时间：20190213020318
+create temporary table if not exists pdm.cusitem_tem00
+select 
+	 a.ccuscode
+	,a.ccusname
+	,a.item_code
+	,a.citemname as item_name
+	,b.equipment as equipment
+	,b.screen_class as screen_class
+	,a.cbustype
+	,a.competitor
+	,min(a.plan_start_dt) as plan_start_dt
+	,min(a.bidding_dt) as bidding_dt
+	,min(a.contract_dt) as contract_dt
+	,min(install_dt) as install_dt
+	,sum(a.iquantity_addup) as iquantity_addup
+	,min(a.first_consign_dt) as first_consign_dt
+	,sum(a.isum_addup) as isum_addup
+	,min(a.first_invoice_price_dt) as first_invoice_price_dt
+	,min(a.first_invoice_dt) as first_invoice_dt
+	,null as end_date
+	,case 
+		when isum_addup >0
+			then "购买" 
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is not null 
+			then "赠送"
+		when (isum_addup <=0 or isum_addup is null)
+			and iquantity_addup >0
+			and first_invoice_dt is null 
+			then "发货未开票" 
+		else "未知"
+		end as occupy_class
+from pdm.cusitem_archives as a
+left join bidata.auxi_cusitem_ne_sc_me as b
+on a.item_code = b.item_code
+where left(ccuscode,2) = "ZD"
+and type != "个人销售"
+and b.item_code is not null
+group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190213020318
+SQL开始执行时间：20190213020318
+
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190213020318
+SQL开始执行时间：20190213020318
+alter table pdm.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code)
+;
+SQL结束执行时间：20190213020318
+SQL开始执行时间：20190213020318
+
+
+drop temporary table if exists pdm.cusitem_tem01
+;
+SQL结束执行时间：20190213020318
+SQL开始执行时间：20190213020318
+create temporary table if not exists pdm.cusitem_tem01
+select 
+	 *
+	,case 
+		when equipment = "是" 
+			and occupy_class in ("未知","赠送","发货未开票") 
+			then install_dt 
+		when occupy_class = "购买"
+			then first_invoice_price_dt
+		when equipment = "否" 
+			and occupy_class in ("赠送","发货未开票")
+			then first_consign_dt
+		else null 
+		end as item_start_dt
+	,"已占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is null and end_date is null
+;
+SQL结束执行时间：20190213020318
+SQL开始执行时间：20190213020318
+
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_ccuscode (ccuscode)
+;
+SQL结束执行时间：20190213020318
+SQL开始执行时间：20190213020318
+alter table pdm.cusitem_tem01 add index index_cusitem_tem01_item_code (item_code)
+;
+SQL结束执行时间：20190213020318
+SQL开始执行时间：20190213020318
+alter table pdm.cusitem_tem01 modify occupy_status varchar(20)
+;
+SQL结束执行时间：20190213020319
+SQL开始执行时间：20190213020319
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"计划占有" as occupy_status
+from pdm.cusitem_tem00
+where plan_start_dt is not null
+;
+SQL结束执行时间：20190213020319
+SQL开始执行时间：20190213020319
+
+insert into pdm.cusitem_tem01
+select 
+	 *
+	,null
+	,"确认丢单" as occupy_status
+from pdm.cusitem_tem00
+where end_date is not null
+;
+SQL结束执行时间：20190213020319
+SQL开始执行时间：20190213020319
+
+
+truncate table pdm.cusitem_occupy
+;
+SQL结束执行时间：20190213020319
+SQL开始执行时间：20190213020319
+insert into pdm.cusitem_occupy
+select 
+	 b.sales_region
+	,b.province
+	,b.city
+	,a.ccuscode
+	,a.ccusname
+	,c.level_one
+	,c.level_two
+	,a.item_code
+	,a.item_name
+	,a.equipment
+	,a.screen_class
+	,a.cbustype
+	,a.competitor
+	,a.plan_start_dt
+	,a.bidding_dt
+	,a.contract_dt
+	,a.install_dt
+	,a.iquantity_addup
+	,a.first_consign_dt
+	,a.isum_addup
+	,a.first_invoice_price_dt
+	,a.first_invoice_dt
+	,a.end_date
+	,a.occupy_class
+	,a.item_start_dt
+	,a.occupy_status
+	,case 
+		when a.occupy_status = "已占有" and a.item_start_dt is null
+			then "已占有无时间"
+		else null
+		end as problem_mark
+from pdm.cusitem_tem01 as a
+left join edw.map_customer as b
+on a.ccuscode = b.bi_cuscode
+left join edw.map_item as c
+on a.item_code = c.item_code
+;

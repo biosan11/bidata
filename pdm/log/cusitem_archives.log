@@ -1,0 +1,5472 @@
+
+20190115152322开始执行2019-01-14数据加载日志:
+SQL开始执行时间：20190115152322
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190115152322
+SQL开始执行时间：20190115152322
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190115152322
+SQL开始执行时间：20190115152322
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190115152322
+
+20190116020336开始执行2019-01-15数据加载日志:
+SQL开始执行时间：20190116020336
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190116020336
+SQL开始执行时间：20190116020336
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190116020336
+SQL开始执行时间：20190116020336
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190116020336
+
+20190117020332开始执行2019-01-16数据加载日志:
+SQL开始执行时间：20190117020332
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190117020332
+SQL开始执行时间：20190117020332
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190117020332
+SQL开始执行时间：20190117020332
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190117020332
+
+20190117104040开始执行2019-01-16数据加载日志:
+SQL开始执行时间：20190117104040
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190117104040
+SQL开始执行时间：20190117104040
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190117104041
+SQL开始执行时间：20190117104041
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190117104041
+
+20190117173410开始执行2019-01-16数据加载日志:
+SQL开始执行时间：20190117173410
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190117173410
+SQL开始执行时间：20190117173410
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190117173410
+SQL开始执行时间：20190117173410
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190117173411
+
+20190118020331开始执行2019-01-17数据加载日志:
+SQL开始执行时间：20190118020331
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190118020331
+SQL开始执行时间：20190118020331
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190118020331
+SQL开始执行时间：20190118020331
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190118020331
+
+20190119020334开始执行2019-01-18数据加载日志:
+SQL开始执行时间：20190119020334
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190119020334
+SQL开始执行时间：20190119020334
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190119020335
+SQL开始执行时间：20190119020335
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190119020335
+
+20190120020332开始执行2019-01-19数据加载日志:
+SQL开始执行时间：20190120020332
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190120020332
+SQL开始执行时间：20190120020332
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190120020333
+SQL开始执行时间：20190120020333
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190120020333
+
+20190121020331开始执行2019-01-20数据加载日志:
+SQL开始执行时间：20190121020331
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190121020331
+SQL开始执行时间：20190121020331
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190121020331
+SQL开始执行时间：20190121020331
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190121020331
+
+20190122020332开始执行2019-01-21数据加载日志:
+SQL开始执行时间：20190122020332
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190122020332
+SQL开始执行时间：20190122020332
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190122020333
+SQL开始执行时间：20190122020333
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190122020333
+
+20190123020330开始执行2019-01-22数据加载日志:
+SQL开始执行时间：20190123020330
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190123020330
+SQL开始执行时间：20190123020330
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190123020330
+SQL开始执行时间：20190123020330
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190123020331
+
+20190124020333开始执行2019-01-23数据加载日志:
+SQL开始执行时间：20190124020333
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190124020333
+SQL开始执行时间：20190124020333
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190124020333
+SQL开始执行时间：20190124020333
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190124020333
+
+20190126020225开始执行2019-01-25数据加载日志:
+SQL开始执行时间：20190126020225
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190126020225
+SQL开始执行时间：20190126020225
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190126020226
+SQL开始执行时间：20190126020226
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190126020226
+
+20190127020225开始执行2019-01-26数据加载日志:
+SQL开始执行时间：20190127020225
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190127020225
+SQL开始执行时间：20190127020225
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190127020225
+SQL开始执行时间：20190127020225
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190127020226
+
+20190128020225开始执行2019-01-27数据加载日志:
+SQL开始执行时间：20190128020225
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190128020225
+SQL开始执行时间：20190128020225
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190128020226
+SQL开始执行时间：20190128020226
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190128020226
+
+20190129020241开始执行2019-01-28数据加载日志:
+SQL开始执行时间：20190129020241
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190129020241
+SQL开始执行时间：20190129020241
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190129020242
+SQL开始执行时间：20190129020242
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190129020242
+
+20190130020321开始执行2019-01-29数据加载日志:
+SQL开始执行时间：20190130020321
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190130020321
+SQL开始执行时间：20190130020321
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190130020321
+SQL开始执行时间：20190130020321
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190130020321
+
+20190131020321开始执行2019-01-30数据加载日志:
+SQL开始执行时间：20190131020321
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190131020321
+SQL开始执行时间：20190131020321
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190131020322
+SQL开始执行时间：20190131020322
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190131020322
+
+20190201020320开始执行2019-01-31数据加载日志:
+SQL开始执行时间：20190201020320
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190201020320
+SQL开始执行时间：20190201020320
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190201020320
+SQL开始执行时间：20190201020320
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190201020320
+
+20190202020320开始执行2019-02-01数据加载日志:
+SQL开始执行时间：20190202020320
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190202020321
+SQL开始执行时间：20190202020321
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190202020321
+SQL开始执行时间：20190202020321
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190202020321
+
+20190203020320开始执行2019-02-02数据加载日志:
+SQL开始执行时间：20190203020320
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190203020320
+SQL开始执行时间：20190203020320
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190203020320
+SQL开始执行时间：20190203020320
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190203020320
+
+20190204020320开始执行2019-02-03数据加载日志:
+SQL开始执行时间：20190204020320
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190204020320
+SQL开始执行时间：20190204020320
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190204020320
+SQL开始执行时间：20190204020320
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190204020320
+
+20190205020318开始执行2019-02-04数据加载日志:
+SQL开始执行时间：20190205020318
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190205020318
+SQL开始执行时间：20190205020318
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190205020319
+SQL开始执行时间：20190205020319
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190205020319
+
+20190206020319开始执行2019-02-05数据加载日志:
+SQL开始执行时间：20190206020319
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190206020319
+SQL开始执行时间：20190206020319
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190206020320
+SQL开始执行时间：20190206020320
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190206020320
+
+20190207020320开始执行2019-02-06数据加载日志:
+SQL开始执行时间：20190207020320
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190207020320
+SQL开始执行时间：20190207020320
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190207020320
+SQL开始执行时间：20190207020320
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190207020320
+
+20190208020320开始执行2019-02-07数据加载日志:
+SQL开始执行时间：20190208020320
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190208020320
+SQL开始执行时间：20190208020320
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190208020320
+SQL开始执行时间：20190208020320
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190208020320
+
+20190209020320开始执行2019-02-08数据加载日志:
+SQL开始执行时间：20190209020320
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190209020320
+SQL开始执行时间：20190209020320
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190209020320
+SQL开始执行时间：20190209020320
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190209020320
+
+20190210020319开始执行2019-02-09数据加载日志:
+SQL开始执行时间：20190210020319
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190210020319
+SQL开始执行时间：20190210020319
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190210020320
+SQL开始执行时间：20190210020320
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190210020320
+
+20190211020319开始执行2019-02-10数据加载日志:
+SQL开始执行时间：20190211020319
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190211020319
+SQL开始执行时间：20190211020319
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190211020320
+SQL开始执行时间：20190211020320
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190211020320
+
+20190212020319开始执行2019-02-11数据加载日志:
+SQL开始执行时间：20190212020319
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190212020319
+SQL开始执行时间：20190212020319
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190212020319
+SQL开始执行时间：20190212020319
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190212020319
+
+20190213020317开始执行2019-02-12数据加载日志:
+SQL开始执行时间：20190213020317
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190213020317
+SQL开始执行时间：20190213020317
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190213020317
+SQL开始执行时间：20190213020317
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190213020317
+
+20190213110132开始执行2019-02-12数据加载日志:
+SQL开始执行时间：20190213110132
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190213110132
+SQL开始执行时间：20190213110132
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190213110132
+SQL开始执行时间：20190213110132
+
+insert into pdm.cusitem_archives
+select * 
+  from pdm.mid1_cusitem_archives
+;
+SQL结束执行时间：20190213110133
+
+20190624154606开始执行2019-06-24数据加载日志:
+SQL开始执行时间：20190624154606
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190624154606
+SQL开始执行时间：20190624154606
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190624154606
+SQL开始执行时间：20190624154606
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190624154607
+
+20190806093646开始执行2019-08-05数据加载日志:
+SQL开始执行时间：20190806093646
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190806093646
+SQL开始执行时间：20190806093646
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190806093647
+SQL开始执行时间：20190806093647
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190806093647
+
+20190807033640开始执行2019-08-06数据加载日志:
+SQL开始执行时间：20190807033640
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190807033640
+SQL开始执行时间：20190807033640
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190807033640
+SQL开始执行时间：20190807033640
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190807033640
+
+20190808033643开始执行2019-08-07数据加载日志:
+SQL开始执行时间：20190808033643
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190808033643
+SQL开始执行时间：20190808033643
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190808033644
+SQL开始执行时间：20190808033644
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190808033644
+
+20190809033642开始执行2019-08-08数据加载日志:
+SQL开始执行时间：20190809033642
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190809033642
+SQL开始执行时间：20190809033642
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190809033642
+SQL开始执行时间：20190809033642
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190809033643
+
+20190810033657开始执行2019-08-09数据加载日志:
+SQL开始执行时间：20190810033657
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190810033657
+SQL开始执行时间：20190810033657
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190810033657
+SQL开始执行时间：20190810033657
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190810033657
+
+20190811033657开始执行2019-08-10数据加载日志:
+SQL开始执行时间：20190811033657
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190811033657
+SQL开始执行时间：20190811033657
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190811033658
+SQL开始执行时间：20190811033658
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190811033658
+
+20190812033703开始执行2019-08-11数据加载日志:
+SQL开始执行时间：20190812033704
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190812033704
+SQL开始执行时间：20190812033704
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190812033704
+SQL开始执行时间：20190812033704
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190812033704
+
+20190813033647开始执行2019-08-12数据加载日志:
+SQL开始执行时间：20190813033647
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190813033647
+SQL开始执行时间：20190813033647
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190813033647
+SQL开始执行时间：20190813033647
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190813033648
+
+20190814033643开始执行2019-08-13数据加载日志:
+SQL开始执行时间：20190814033643
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190814033643
+SQL开始执行时间：20190814033643
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190814033643
+SQL开始执行时间：20190814033643
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190814033644
+
+20190815033644开始执行2019-08-14数据加载日志:
+SQL开始执行时间：20190815033644
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190815033644
+SQL开始执行时间：20190815033644
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190815033644
+SQL开始执行时间：20190815033644
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190815033645
+
+20190816033644开始执行2019-08-15数据加载日志:
+SQL开始执行时间：20190816033644
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190816033644
+SQL开始执行时间：20190816033644
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190816033644
+SQL开始执行时间：20190816033644
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190816033644
+
+20190817033651开始执行2019-08-16数据加载日志:
+SQL开始执行时间：20190817033651
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190817033651
+SQL开始执行时间：20190817033651
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190817033651
+SQL开始执行时间：20190817033651
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190817033652
+
+20190818033651开始执行2019-08-17数据加载日志:
+SQL开始执行时间：20190818033651
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190818033651
+SQL开始执行时间：20190818033651
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190818033652
+SQL开始执行时间：20190818033652
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190818033652
+
+20190819033652开始执行2019-08-18数据加载日志:
+SQL开始执行时间：20190819033652
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190819033652
+SQL开始执行时间：20190819033652
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190819033652
+SQL开始执行时间：20190819033652
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190819033652
+
+20190820033652开始执行2019-08-19数据加载日志:
+SQL开始执行时间：20190820033652
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190820033652
+SQL开始执行时间：20190820033652
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190820033653
+SQL开始执行时间：20190820033653
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190820033653
+
+20190821033650开始执行2019-08-20数据加载日志:
+SQL开始执行时间：20190821033650
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190821033650
+SQL开始执行时间：20190821033650
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190821033650
+SQL开始执行时间：20190821033650
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190821033650
+
+20190822033651开始执行2019-08-21数据加载日志:
+SQL开始执行时间：20190822033651
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190822033651
+SQL开始执行时间：20190822033651
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190822033651
+SQL开始执行时间：20190822033651
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190822033652
+
+20190823033652开始执行2019-08-22数据加载日志:
+SQL开始执行时间：20190823033652
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190823033652
+SQL开始执行时间：20190823033652
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190823033652
+SQL开始执行时间：20190823033652
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190823033652
+
+20190824033651开始执行2019-08-23数据加载日志:
+SQL开始执行时间：20190824033651
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190824033651
+SQL开始执行时间：20190824033651
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190824033651
+SQL开始执行时间：20190824033651
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190824033651
+
+20190825033653开始执行2019-08-24数据加载日志:
+SQL开始执行时间：20190825033653
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190825033653
+SQL开始执行时间：20190825033653
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190825033653
+SQL开始执行时间：20190825033653
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190825033654
+
+20190826033651开始执行2019-08-25数据加载日志:
+SQL开始执行时间：20190826033651
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190826033651
+SQL开始执行时间：20190826033651
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190826033652
+SQL开始执行时间：20190826033652
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190826033652
+
+20190827033656开始执行2019-08-26数据加载日志:
+SQL开始执行时间：20190827033656
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190827033656
+SQL开始执行时间：20190827033656
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190827033656
+SQL开始执行时间：20190827033656
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190827033656
+
+20190828033655开始执行2019-08-27数据加载日志:
+SQL开始执行时间：20190828033655
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190828033655
+SQL开始执行时间：20190828033655
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190828033656
+SQL开始执行时间：20190828033656
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190828033656
+
+20190829033655开始执行2019-08-28数据加载日志:
+SQL开始执行时间：20190829033655
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190829033655
+SQL开始执行时间：20190829033655
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190829033655
+SQL开始执行时间：20190829033655
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190829033655
+
+20190830033703开始执行2019-08-29数据加载日志:
+SQL开始执行时间：20190830033703
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190830033703
+SQL开始执行时间：20190830033703
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190830033704
+SQL开始执行时间：20190830033704
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190830033704
+
+20190831033659开始执行2019-08-30数据加载日志:
+SQL开始执行时间：20190831033700
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190831033700
+SQL开始执行时间：20190831033700
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190831033700
+SQL开始执行时间：20190831033700
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190831033700
+
+20190901033700开始执行2019-08-31数据加载日志:
+SQL开始执行时间：20190901033700
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190901033700
+SQL开始执行时间：20190901033700
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190901033700
+SQL开始执行时间：20190901033700
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190901033700
+
+20190902033659开始执行2019-09-01数据加载日志:
+SQL开始执行时间：20190902033659
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190902033659
+SQL开始执行时间：20190902033659
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,min(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190902033659
+SQL开始执行时间：20190902033659
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190902033700
+
+20190903090743开始执行2019-09-02数据加载日志:
+SQL开始执行时间：20190903090743
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190903090743
+SQL开始执行时间：20190903090743
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190903090744
+SQL开始执行时间：20190903090744
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190903090744
+
+20190904033604开始执行2019-09-03数据加载日志:
+SQL开始执行时间：20190904033604
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190904033604
+SQL开始执行时间：20190904033604
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190904033604
+SQL开始执行时间：20190904033604
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190904033604
+
+20190905033609开始执行2019-09-04数据加载日志:
+SQL开始执行时间：20190905033609
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190905033609
+SQL开始执行时间：20190905033609
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190905033610
+SQL开始执行时间：20190905033610
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190905033610
+
+20190906033609开始执行2019-09-05数据加载日志:
+SQL开始执行时间：20190906033609
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190906033609
+SQL开始执行时间：20190906033609
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190906033609
+SQL开始执行时间：20190906033609
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190906033610
+
+20190907033609开始执行2019-09-06数据加载日志:
+SQL开始执行时间：20190907033609
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190907033609
+SQL开始执行时间：20190907033609
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190907033610
+SQL开始执行时间：20190907033610
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190907033610
+
+20190908033611开始执行2019-09-07数据加载日志:
+SQL开始执行时间：20190908033611
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190908033611
+SQL开始执行时间：20190908033611
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190908033611
+SQL开始执行时间：20190908033611
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190908033612
+
+20190909033608开始执行2019-09-08数据加载日志:
+SQL开始执行时间：20190909033608
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190909033608
+SQL开始执行时间：20190909033608
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190909033608
+SQL开始执行时间：20190909033608
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190909033608
+
+20190910033609开始执行2019-09-09数据加载日志:
+SQL开始执行时间：20190910033609
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190910033609
+SQL开始执行时间：20190910033609
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190910033610
+SQL开始执行时间：20190910033610
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190910033610
+
+20190911033610开始执行2019-09-10数据加载日志:
+SQL开始执行时间：20190911033610
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190911033610
+SQL开始执行时间：20190911033610
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190911033610
+SQL开始执行时间：20190911033610
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190911033611
+
+20190912033610开始执行2019-09-11数据加载日志:
+SQL开始执行时间：20190912033610
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190912033610
+SQL开始执行时间：20190912033610
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190912033611
+SQL开始执行时间：20190912033611
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190912033611
+
+20190913033613开始执行2019-09-12数据加载日志:
+SQL开始执行时间：20190913033613
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190913033613
+SQL开始执行时间：20190913033613
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190913033613
+SQL开始执行时间：20190913033613
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190913033613
+
+20190914033614开始执行2019-09-13数据加载日志:
+SQL开始执行时间：20190914033614
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190914033614
+SQL开始执行时间：20190914033614
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190914033615
+SQL开始执行时间：20190914033615
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190914033615
+
+20190915033615开始执行2019-09-14数据加载日志:
+SQL开始执行时间：20190915033615
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190915033615
+SQL开始执行时间：20190915033615
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190915033615
+SQL开始执行时间：20190915033615
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190915033616
+
+20190916033615开始执行2019-09-15数据加载日志:
+SQL开始执行时间：20190916033615
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190916033615
+SQL开始执行时间：20190916033615
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190916033615
+SQL开始执行时间：20190916033615
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190916033616
+
+20190917033613开始执行2019-09-16数据加载日志:
+SQL开始执行时间：20190917033613
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190917033613
+SQL开始执行时间：20190917033613
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190917033614
+SQL开始执行时间：20190917033614
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190917033614
+
+20190918033617开始执行2019-09-17数据加载日志:
+SQL开始执行时间：20190918033617
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190918033617
+SQL开始执行时间：20190918033617
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190918033618
+SQL开始执行时间：20190918033618
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190918033618
+
+20190919033614开始执行2019-09-18数据加载日志:
+SQL开始执行时间：20190919033614
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190919033614
+SQL开始执行时间：20190919033614
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190919033614
+SQL开始执行时间：20190919033614
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190919033614
+
+20190920033615开始执行2019-09-19数据加载日志:
+SQL开始执行时间：20190920033615
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190920033615
+SQL开始执行时间：20190920033615
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190920033616
+SQL开始执行时间：20190920033616
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190920033616
+
+20190921033616开始执行2019-09-20数据加载日志:
+SQL开始执行时间：20190921033616
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190921033616
+SQL开始执行时间：20190921033616
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190921033616
+SQL开始执行时间：20190921033616
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190921033616
+
+20190922033619开始执行2019-09-21数据加载日志:
+SQL开始执行时间：20190922033619
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190922033619
+SQL开始执行时间：20190922033619
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190922033619
+SQL开始执行时间：20190922033619
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190922033620
+
+20190923033625开始执行2019-09-22数据加载日志:
+SQL开始执行时间：20190923033625
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190923033625
+SQL开始执行时间：20190923033625
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190923033625
+SQL开始执行时间：20190923033625
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190923033626
+
+20190924033626开始执行2019-09-23数据加载日志:
+SQL开始执行时间：20190924033626
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190924033626
+SQL开始执行时间：20190924033626
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190924033627
+SQL开始执行时间：20190924033627
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190924033627
+
+20190925033632开始执行2019-09-24数据加载日志:
+SQL开始执行时间：20190925033632
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190925033632
+SQL开始执行时间：20190925033632
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190925033633
+SQL开始执行时间：20190925033633
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190925033633
+
+20190926033628开始执行2019-09-25数据加载日志:
+SQL开始执行时间：20190926033628
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190926033628
+SQL开始执行时间：20190926033628
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190926033628
+SQL开始执行时间：20190926033628
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190926033629
+
+20190927033629开始执行2019-09-26数据加载日志:
+SQL开始执行时间：20190927033629
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190927033629
+SQL开始执行时间：20190927033629
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190927033629
+SQL开始执行时间：20190927033629
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190927033630
+
+20190928033628开始执行2019-09-27数据加载日志:
+SQL开始执行时间：20190928033629
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190928033629
+SQL开始执行时间：20190928033629
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190928033629
+SQL开始执行时间：20190928033629
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190928033629
+
+20190929033627开始执行2019-09-28数据加载日志:
+SQL开始执行时间：20190929033627
+
+
+
+truncate table pdm.cusitem_archives
+;
+SQL结束执行时间：20190929033627
+SQL开始执行时间：20190929033627
+create temporary table pdm.mid1_cusitem_archives as
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,min(a.plan_start_dt) as plan_start_dt
+      ,null as bidding_dt
+      ,null as contract_dt
+      ,min(a.first_consign_dt) as first_consign_dt
+      ,max(a.last_consign_dt) as last_consign_dt
+      ,sum(a.iquantity_addup) as iquantity_addup
+      ,min(a.install_dt) as install_dt
+      ,min(a.first_invoice_dt) as first_invoice_dt
+      ,min(a.first_invoice_price_dt) as first_invoice_price_dt
+      ,max(a.last_invoice_dt) as last_invoice_dt
+      ,sum(a.isum_addup) as isum_addup
+      ,min(a.product_start_dt) as product_start_dt
+      ,max(a.product_end_dt) as product_end_dt
+      ,null as end_date
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.cuspro_archives a
+ group by a.ccuscode,a.item_code,a.cbustype
+;
+SQL结束执行时间：20190929033627
+SQL开始执行时间：20190929033627
+
+insert into pdm.cusitem_archives
+select a.ccuscode
+      ,a.ccusname
+      ,a.item_code
+      ,a.citemname
+      ,a.type
+      ,a.cbustype
+      ,a.plan_start_dt
+      ,a.bidding_dt
+      ,a.contract_dt
+      ,a.first_consign_dt
+      ,a.last_consign_dt
+      ,a.iquantity_addup
+      ,a.install_dt
+      ,a.first_invoice_dt
+      ,a.first_invoice_price_dt
+      ,a.last_invoice_dt
+      ,a.isum_addup
+      ,a.product_start_dt
+      ,a.product_end_dt
+      ,b.end_date
+      ,b.status_class
+      ,a.cinvbrand
+      ,a.competitor
+      ,a.cohr
+  from pdm.mid1_cusitem_archives a
+  left join ufdata.x_cusitem_enddate b
+    on a.ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+;
+SQL结束执行时间：20190929033627
