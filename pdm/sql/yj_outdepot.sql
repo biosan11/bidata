@@ -179,7 +179,8 @@ select 'yj' as source
                    ,'安徽省'
                    ,'福建省'
                    ,'湖南省'
-                   ,'湖北省')
+                   ,'湖北省'
+                   ,'上海市')
 ;
 
 drop table if exists pdm.outdepot_order_fx;
@@ -209,7 +210,8 @@ create temporary table pdm.outdepot_order_fx as select * from pdm.outdepot_order
                    ,'安徽省'
                    ,'福建省'
                    ,'湖南省'
-                   ,'湖北省')
+                   ,'湖北省'
+                   ,'上海市')
 ;
 
 
