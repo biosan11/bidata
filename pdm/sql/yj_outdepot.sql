@@ -294,3 +294,95 @@ alter table pdm.yj_outdepot_fx change zq_mon zq_mon decimal(10,2);
 
 -- 删除字段
 alter table pdm.yj_outdepot_fx DROP COLUMN dqty;
+
+
+-- 对历史数据分组聚合一下
+drop table if exists pdm.yj_outdepot_fx_jh;
+create temporary table pdm.yj_outdepot_fx_jh as select * from pdm.yj_outdepot_fx;
+
+truncate table pdm.yj_outdepot_fx;
+insert into pdm.yj_outdepot_fx 
+select source
+      ,province
+      ,tbilldate
+      ,item_code
+      ,item_name
+      ,sum(inum_person) as inum_person
+      ,ccuscode
+      ,ccusname
+      ,finnal_ccuscode
+      ,finnal_ccusname
+      ,state
+      ,avg_inum_person
+      ,zq_mon
+      ,status
+  from pdm.yj_outdepot_fx_jh
+ group by item_code,finnal_ccuscode,left(tbilldate,7)
+ order by finnal_ccuscode,item_code,left(tbilldate,7)
+;
+
+-- 这里新增分组排序来计算月均和发货周期
+drop table if exists pdm.yj_outdepot_fx_px;
+create table pdm.yj_outdepot_fx_px
+SELECT
+    @r:= case when @finnal_ccuscode=a.finnal_ccuscode and @item_code = a.item_code then @r+1 else 1 end as rownum,
+    @finnal_ccuscode:=a.finnal_ccuscode as finnal_ccuscode,
+    @item_code:= a.item_code as item_code,
+    @tbilldate:= a.tbilldate as tbilldate,
+       a.source
+      ,a.province
+      ,a.item_name
+      ,a.inum_person
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.finnal_ccusname
+from
+    (select * from pdm.yj_outdepot_fx
+      group by finnal_ccuscode,item_code,tbilldate
+      order by finnal_ccuscode,item_code,tbilldate) a
+   ,(select @r:=0 ,@finnal_ccuscode:='',@item_code:='') b
+;
+
+CREATE INDEX index_yj_outdepot_fx_px_finnal_ccuscode ON pdm.yj_outdepot_fx_px(finnal_ccuscode);
+CREATE INDEX index_yj_outdepot_fx_px_finnal_item_code ON pdm.yj_outdepot_fx_px(item_code);
+
+truncate table pdm.yj_outdepot_fx;
+insert into pdm.yj_outdepot_fx 
+select a.source
+      ,a.province
+      ,a.tbilldate
+      ,a.item_code
+      ,a.item_name
+      ,a.inum_person
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.finnal_ccuscode
+      ,a.finnal_ccusname
+      ,0 as state
+      ,case when a.rownum < 3 then 0 else (b.inum_person + c.inum_person ) / (cast(DATEDIFF(a.tbilldate,c.tbilldate)/30 as SIGNED)) end as avg_inum_person
+      ,case when a.rownum < 3 then 0 else a.inum_person / ((b.inum_person + c.inum_person ) / (cast(DATEDIFF(a.tbilldate,c.tbilldate)/30 as SIGNED))) end as zq_mon
+      ,null
+  from pdm.yj_outdepot_fx_px a
+  left join pdm.yj_outdepot_fx_px b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   and a.rownum = b.rownum + 1
+  left join pdm.yj_outdepot_fx_px c
+    on a.finnal_ccuscode = c.finnal_ccuscode
+   and a.item_code = c.item_code
+   and a.rownum = c.rownum + 2
+;
+
+-- 更新第1，2次没有做月均的数据的补充，用第三次的来处理
+update pdm.yj_outdepot_fx a
+ inner join (select * from pdm.yj_outdepot_fx where avg_inum_person <> 0 group by finnal_ccuscode,item_code) b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.item_code = b.item_code
+   set a.avg_inum_person = b.avg_inum_person
+      ,a.zq_mon = a.inum_person / b.b.avg_inum_person
+ where a.avg_inum_person = 0
+;
+
+drop table if exists pdm.yj_outdepot_fx_px;
+
+
