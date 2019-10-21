@@ -89,7 +89,7 @@ left join bidata.auxi_cusitem_ne_sc_me as b
 on a.item_code = b.item_code
 left join ufdata.x_cusitem_enddate as c
 on a.ccuscode = c.ccuscode and a.item_code = c.item_code
-where left(a.ccuscode,2) = "ZD" AND a.competitor="是" -- 暂时接入竞争对手，先前很多代码未考虑表格中加竞争对手
+where left(a.ccuscode,2) = "ZD" 
 and type != "个人销售"
 and b.item_code is not null 
 group by a.ccuscode,a.item_code,a.cbustype,a.competitor;
@@ -223,3 +223,6 @@ left join edw.map_customer as b
 on a.ccuscode = b.bi_cuscode
 left join edw.map_item as c
 on a.item_code = c.item_code;
+
+UPDATE bidata.ft_41_cusitem_occupy as a set a.cinvbrand="博圣" WHERE a.competitor="否";
+UPDATE bidata.ft_41_cusitem_occupy as a set a.occupy_class="",a.occupy_status="",a.problem_mark="" WHERE a.competitor="是";
