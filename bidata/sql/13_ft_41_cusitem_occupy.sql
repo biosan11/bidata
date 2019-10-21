@@ -29,6 +29,7 @@
 --     last_invoice_dt date comment '末次开票日期',
 --     end_date date comment '确认丢单日期',
 --     occupy_class varchar(20) comment '占有类型',
+--     cinvbrand varchar(30) comment '项目公司',
 --     item_start_dt date comment '项目启用日期',
 --     occupy_status varchar(20) comment '占有阶段',
 --     problem_mark varchar(20) comment '问题标记',
@@ -82,15 +83,16 @@ select
 			then "发货未开票" 
 		else "未知"
 		end as occupy_class
+	,a.cinvbrand
 from pdm.cusitem_archives as a
 left join bidata.auxi_cusitem_ne_sc_me as b
 on a.item_code = b.item_code
 left join ufdata.x_cusitem_enddate as c
 on a.ccuscode = c.ccuscode and a.item_code = c.item_code
-where left(a.ccuscode,2) = "ZD"
+where left(a.ccuscode,2) = "ZD" AND a.competitor="是" -- 暂时接入竞争对手，先前很多代码未考虑表格中加竞争对手
 and type != "个人销售"
 and b.item_code is not null 
-group by a.ccuscode,a.item_code,a.cbustype;
+group by a.ccuscode,a.item_code,a.cbustype,a.competitor;
 
 alter table bidata.cusitem_tem00 add index index_cusitem_tem00_ccuscode (ccuscode);
 alter table bidata.cusitem_tem00 add index index_cusitem_tem00_item_code (item_code);
@@ -203,6 +205,7 @@ select
 	,a.last_invoice_dt
 	,a.end_date
 	,a.occupy_class
+	,a.cinvbrand
 	,a.item_start_dt
 	,a.occupy_status
 	,case 
