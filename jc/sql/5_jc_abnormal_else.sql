@@ -175,6 +175,49 @@ where b.bi_cuscode is null
   and a.ccuscode <> '请核查'
 ;
 
+-- 监控19年线下预算
+insert into tracking.jc_abnormal_day
+select distinct 
+       'edw'
+      ,'edw' as source
+      ,'x_sales_budget_19'
+      ,null
+      ,'bi_cuscode'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,'客户编号变动' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from edw.x_sales_budget_19 a
+	left join (select * from edw.dic_customer group by bi_cuscode,bi_cusname) b
+	  on a.bi_cuscode = b.bi_cuscode
+	and a.bi_cusname = b.bi_cusname
+where b.bi_cuscode is null
+  and a.bi_cuscode <> '请核查'
+  and a.bi_cusname is not null
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'edw'
+      ,'edw' as source
+      ,'x_sales_budget_19_new'
+      ,null
+      ,'ccuscode'
+      ,a.ccuscode
+      ,a.ccusname
+      ,'客户编号变动' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from edw.x_sales_budget_19_new a
+	left join (select * from edw.dic_customer group by bi_cuscode,bi_cusname) b
+	  on a.ccuscode = b.bi_cuscode
+	and a.ccusname = b.bi_cusname
+where b.bi_cuscode is null
+  and a.ccuscode <> '请核查'
+  and a.ccusname is not null
+;
+
 
 
 -- 增加对19年以前的发票、出库、订单、发货的客户由于bi调整编号的产生的不同

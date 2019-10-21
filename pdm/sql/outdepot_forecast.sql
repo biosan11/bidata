@@ -448,7 +448,7 @@ update pdm.yj_outdepot_fx a
 -- 增加一个字段，打上停用的标签
 -- ALTER TABLE pdm.yj_outdepot_fx ADD COLUMN status varchar(50);
 update pdm.yj_outdepot_fx a
- inner join (select * from edw.x_cusitem_enddate group by item_code,ccuscode) b
+ inner join (select * from edw.x_cusitem_enddate where cbustype = '产品类' group by item_code,ccuscode) b
     on a.item_code = b.item_code
    and a.ccuscode  = b.ccuscode
    set a.status = '停用'
