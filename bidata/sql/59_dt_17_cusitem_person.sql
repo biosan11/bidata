@@ -71,3 +71,8 @@ from edw.map_cusitem_person as a
 left join edw.map_item as b 
 on a.item_code = b.item_code;
 
+-- 更新 手动调整 宁波市妇女儿童医院  与绍兴市妇幼保健院 NIPT 的比例 技术8 临床2 
+update bidata.dt_17_cusitem_person 
+set per_tec = 0.8 
+where year(ddate_effect) = 2019 and year(end_dt) = 2019 
+and ccuscode in("ZD3302012","ZD3306001") and item_code = "CQ0101";
