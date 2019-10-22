@@ -2,7 +2,7 @@
 create temporary table edw.code as
 select distinct ccode,ccode_name
   from ufdata.code
- where db = 'UFDATA_111_2018'
+ where (db = 'UFDATA_111_2018' or db = 'UFDATA_222_2019')
    and iyear = "2019" union
 select distinct ccode,ccode_name
   from ufdata.code
