@@ -407,4 +407,12 @@ update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花
 update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '美博特' and kemu = '6601院内沙龙'; 
 update pdm.account_fy set kemu = '6601耗材及配件',code='660118',code_name='耗材及配件',code_lv2='660118',code_name_lv2 ='耗材及配件' where cohr = '甄元' and kemu = '6601运营费用'; 
 
+-- 修正发生日期明显错误的数据
+update pdm.account_fy set fashengrq = '2019-04-23' where fashengrq = '0019-04-23' and dbill_date = '2019-10-21';
+update pdm.account_fy set fashengrq = '2019-06-26' where fashengrq = '2017-06-26' and dbill_date = '2019-08-27';
+update pdm.account_fy set fashengrq = '2019-09-04' where fashengrq = '6019-09-04' and dbill_date = '2019-09-24';
+update pdm.account_fy set fashengrq = '2019-09-21' where fashengrq = '2020-09-21' and dbill_date = '2019-10-14';
+update pdm.account_fy set fashengrq = '2019-09-17' where fashengrq = '0019-09-17' and dbill_date = '2019-10-10';
+
+
 
