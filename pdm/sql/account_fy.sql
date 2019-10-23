@@ -414,5 +414,8 @@ update pdm.account_fy set fashengrq = '2019-09-04' where fashengrq = '6019-09-04
 update pdm.account_fy set fashengrq = '2019-09-21' where fashengrq = '2020-09-21' and dbill_date = '2019-10-14';
 update pdm.account_fy set fashengrq = '2019-09-17' where fashengrq = '0019-09-17' and dbill_date = '2019-10-10';
 
-
-
+-- 更新cpersonname 报销人是有人的但是承担人是没有人的 u8独有的数据
+update pdm.account_fy 
+   set cd_name = cpersonname
+ WHERE `cpersonname` IS NOT NULL AND `cd_name` IS NULL
+;
