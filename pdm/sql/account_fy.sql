@@ -275,7 +275,7 @@ select f.i_id
 create temporary table pdm.account_fy_mon_del as
 select distinct liuchengbh
       ,dbill_date
-  from pdm.account_fy_mon
+  from edw.x_account_fy_mon
  where state2 = '2'
 ;
 
@@ -325,7 +325,7 @@ select a.i_id
       ,a.state
       ,a.cdept_id
       ,a.status
-  from pdm.account_fy_mon a
+  from edw.x_account_fy_mon a
   left join pdm.account_fy_mon_del1 b
     on a.dbill_date = b.dbill_date
    and a.liuchengbh = b.liuchengbh
