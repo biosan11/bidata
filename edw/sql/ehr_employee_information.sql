@@ -219,7 +219,8 @@ select a.*
    and ifnull(a.lastworkdate,'') = ifnull(b.lastworkdate,'')
    and ifnull(a.extlizhireason_107502_632202192,'') = ifnull(b.extlizhireason_107502_632202192,'')
    and ifnull(a.workyearbefore,'') = ifnull(b.workyearbefore,'')
-   and ifnull(a.workyearcompanybefore,'') = ifnull(b.workyearcompanybefore,''))
+   and ifnull(a.workyearcompanybefore,'') = ifnull(b.workyearcompanybefore,'')
+   and end_dt = '3000-12-31')
 ;
 
 -- 防止数据重跑先删除今天的数据，更新增量数据，历史数据保留记录
