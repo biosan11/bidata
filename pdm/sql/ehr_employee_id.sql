@@ -6,6 +6,8 @@ create table pdm.ehr_employee_id_mid1 as
 select distinct a.userid
       ,a.jobnumber
       ,a.name
+      ,a.address_usual
+      ,a.address_fuli
       ,a.poidempadmin
       ,a.poidempreserve2
       ,DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(a.birthday)), '%Y')+0 AS age
@@ -108,6 +110,8 @@ insert into pdm.ehr_employee_id
 select a.userid
       ,a.jobnumber
       ,a.name
+      ,a.address_usual
+      ,a.address_fuli
       ,a.poidempadmin
       ,a.poidempreserve2
       ,a.age
@@ -154,6 +158,8 @@ insert into pdm.ehr_employee_id
 select a.userid
       ,a.jobnumber
       ,a.name
+      ,a.address_usual
+      ,a.address_fuli
       ,a.poidempadmin
       ,a.poidempreserve2
       ,a.age
