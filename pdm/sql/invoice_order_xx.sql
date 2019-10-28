@@ -42,10 +42,10 @@ select '17'
       ,e.key_project
       ,ifnull(a.isum,0) as itaxunitprice
       ,1 as iquantity
-      ,case when year(a.ddate) = '2019' then ifnull(a.isum,0) /(1+0.06)*0.06
-            when year(a.ddate) = '2018' then ifnull(a.isum,0) /(1+0.06)*0.06
+      ,case when year(a.ddate) = '2019' then round(ifnull(a.isum,0) /(1+0.06)*0.06,2)
+            when year(a.ddate) = '2018' then round(ifnull(a.isum,0) /(1+0.06)*0.06,2)
           else null end
-      ,ifnull(a.isum,0)
+      ,round(ifnull(a.isum,0),2)
       ,c.level_three
       ,e.cinvbrand
       ,null
@@ -103,10 +103,10 @@ select '17'
       ,e.key_project
       ,a.price
       ,a.iquantity
-      ,case when year(a.ddate) = '2019' then a.itax
-            when year(a.ddate) = '2018' then ifnull(a.isum,0) /(1+0.06)*0.06
+      ,case when year(a.ddate) = '2019' then round(a.itax,2)
+            when year(a.ddate) = '2018' then round(ifnull(a.isum,0) /(1+0.06)*0.06,2)
           else null end
-      ,ifnull(a.isum,0)
+      ,round(ifnull(a.isum,0),2)
       ,c.level_three
       ,e.cinvbrand
       ,null

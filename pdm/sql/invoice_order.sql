@@ -139,10 +139,10 @@ select a.sbvid
       ,f.item_code
       ,e.plan_class
       ,e.key_project
-      ,a.itaxunitprice
-      ,a.iquantity
-      ,a.itax
-      ,a.isum
+      ,round(a.itaxunitprice,2)
+      ,round(a.iquantity,2)
+      ,round(a.itax,2)
+      ,round(a.isum,2)
       ,f.level_three
       ,e.cinvbrand
       ,a.cvenabbname
