@@ -301,7 +301,7 @@ select a.db
       ,b.fsettleqty
       ,localtimestamp() as sys_time
   from edw.mid2_outdepot_order a
-  left join ufdata.rdrecords32 b
+  left join (select * from ufdata.rdrecords32 where dbkeepdate>= '2018-12-01') b
     on a.id = b.id
    and a.db = b.db
   left join (select bi_cuscode,ccusname from edw.dic_customer group by ccusname) c
