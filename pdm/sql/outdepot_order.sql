@@ -177,6 +177,6 @@ update pdm.outdepot_order s
 ;
 
 -- 增加对无效客户的删除
-delete from pdm.outdepot_order where ccuscode = 'DL1101002' and cinvcode = 'QT00004';
 delete from pdm.outdepot_order where left(ccuscode,2) = 'GL';
+delete from pdm.outdepot_order where left(cinvcode,2) = 'JC';
 
