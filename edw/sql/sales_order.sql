@@ -250,7 +250,7 @@ select a.db
       ,b.isosid
       ,localtimestamp() as sys_time
   from edw.mid2_sales_order a
-  left join ufdata.so_sodetails b
+  left join (select * from ufdata.so_sodetails where dPreDate >= '2018-01-01') b
     on a.id = b.id
    and a.db = b.db
   left join (select bi_cuscode,ccusname from edw.dic_customer group by ccusname) c

@@ -320,7 +320,7 @@ select a.db
       ,b.iTB
       ,localtimestamp() as sys_time
   from edw.mid2_dispatch_order a
-  left join ufdata.dispatchlists b
+  left join (select * from ufdata.dispatchlists where dkeepdate >= '2018-01-01' or dkeepdate is null) b
     on a.dlid = b.dlid
    and a.db = b.db
   left join (select bi_cuscode,ccusname,bi_cusname from edw.dic_customer group by ccusname) c
