@@ -69,7 +69,7 @@ select a.*
   left join edw.map_customer b
     on a.true_ccuscode = b.bi_cuscode
  where left(a.sys_time,10) >= '${start_dt}'
-  and year(ddate)>=2018
+  and year(ddate)>=2019
   and state = '有效';
 
 -- 删除贝康、检测收入
