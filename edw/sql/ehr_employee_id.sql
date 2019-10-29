@@ -90,6 +90,8 @@ select a.userid
 ,a.workyearbefore
 ,a.workyearcompanybefore
 ,a.employmenttype
+,j.name as address_usual
+,k.name as address_fuli
   from ufdata.ehr_employment_record_id a
   left join (select id,name from edw.dic_ehr where type = 'probation') b
     on a.probationresult = b.id
@@ -107,6 +109,10 @@ select a.userid
     on a.poidempadmin = h.userid
   left join (select userid,name from ufdata.ehr_employee_information where stdisdeleted = 'false' group by userid) i
     on a.poidempadmin = i.userid
+  left join (select * from edw.dic_ehr where type = 'address') j
+    on a.extzhudi_107502_1469764567 = j.id
+  left join (select * from edw.dic_ehr where type = 'address') k
+    on a.extfulidi_107502_234107054 = k.id
  where a.stdisdeleted = 'false'
  order by sys_date desc) b
 ;
@@ -118,6 +124,8 @@ create temporary table edw.mid1_ehr_employee_id as
 select a.userid
 ,b.jobnumber
 ,a.name
+,b.address_usual
+,b.address_fuli
 ,b.poidempadmin
 ,b.poidempreserve2
 ,a.gender

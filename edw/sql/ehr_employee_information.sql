@@ -94,6 +94,7 @@ select a.userid
 ,a.workyearcompanybefore
 ,a.employmenttype
 ,j.name as address_usual
+,k.name as address_fuli
   from ufdata.ehr_employment_record a
   left join (select id,name from edw.dic_ehr where type = 'probation') b
     on a.probationresult = b.id
@@ -112,7 +113,9 @@ select a.userid
   left join (select userid,name from ufdata.ehr_employee_information where stdisdeleted = 'false' group by userid) i
     on a.poidempadmin = i.userid
   left join (select * from edw.dic_ehr where type = 'address') j
-    on e.place = j.id
+    on a.extzhudi_107502_1469764567 = j.id
+  left join (select * from edw.dic_ehr where type = 'address') k
+    on a.extfulidi_107502_234107054 = k.id
  where a.stdisdeleted = 'false'
  order by sys_date desc) b
  group by b.userid order by b.sys_date desc
@@ -126,6 +129,7 @@ select a.userid
 ,b.jobnumber
 ,a.name
 ,b.address_usual
+,b.address_fuli
 ,b.poidempadmin
 ,b.poidempreserve2
 ,a.gender
@@ -194,33 +198,35 @@ select a.userid
 alter table edw.mid1_ehr_employee convert to character set utf8;
 
 -- 获取到增量的变化时间
-create temporary table edw.mid2_ehr_employee as
-select a.*
-  from edw.mid1_ehr_employee a
- where not exists(select 1 from edw.ehr_employee b
- where ifnull(a.poidempadmin,'') = ifnull(b.poidempadmin,'')
-   and ifnull(a.mobilephone,'') = ifnull(b.mobilephone,'')
-   and ifnull(a.address_usual,'') = ifnull(b.address_usual,'')
-   and ifnull(a.first_dept,'') = ifnull(b.first_dept,'')
-   and ifnull(a.second_dept,'') = ifnull(b.second_dept,'')
-   and ifnull(a.third_dept,'') = ifnull(b.third_dept,'')
-   and ifnull(a.fourth_dept,'') = ifnull(b.fourth_dept,'')
-   and ifnull(a.fifth_dept,'') = ifnull(b.fifth_dept,'')
-   and ifnull(a.sixth_dept,'') = ifnull(b.sixth_dept,'')
-   and ifnull(a.position_name,'') = ifnull(b.position_name,'')
-   and ifnull(a.jobpost_name,'') = ifnull(b.jobpost_name,'')
-   and ifnull(a.oidjoblevel,'') = ifnull(b.oidjoblevel,'')
-   and ifnull(a.startdate,'') = ifnull(b.startdate,'')
-   and ifnull(a.TransitionType,'') = ifnull(b.TransitionType,'')
-   and ifnull(a.employeestatus,'') = ifnull(b.employeestatus,'')
-   and ifnull(a.regularizationdate,'') = ifnull(b.regularizationdate,'')
-   and ifnull(a.employmenttype,'') = ifnull(b.employmenttype,'')
-   and ifnull(a.probationresult,'') = ifnull(b.probationresult,'')
-   and ifnull(a.lastworkdate,'') = ifnull(b.lastworkdate,'')
-   and ifnull(a.extlizhireason_107502_632202192,'') = ifnull(b.extlizhireason_107502_632202192,'')
-   and ifnull(a.workyearbefore,'') = ifnull(b.workyearbefore,'')
-   and ifnull(a.workyearcompanybefore,'') = ifnull(b.workyearcompanybefore,''))
-;
+-- create temporary table edw.mid2_ehr_employee as
+-- select a.*
+--   from edw.mid1_ehr_employee a
+--  where not exists(select 1 from edw.ehr_employee b
+--  where ifnull(a.poidempadmin,'') = ifnull(b.poidempadmin,'')
+--    and ifnull(a.mobilephone,'') = ifnull(b.mobilephone,'')
+--    and ifnull(a.address_usual,'') = ifnull(b.address_usual,'')
+--    and ifnull(a.address_fuli,'') = ifnull(b.address_fuli,'')
+--    and ifnull(a.first_dept,'') = ifnull(b.first_dept,'')
+--    and ifnull(a.second_dept,'') = ifnull(b.second_dept,'')
+--    and ifnull(a.third_dept,'') = ifnull(b.third_dept,'')
+--    and ifnull(a.fourth_dept,'') = ifnull(b.fourth_dept,'')
+--    and ifnull(a.fifth_dept,'') = ifnull(b.fifth_dept,'')
+--    and ifnull(a.sixth_dept,'') = ifnull(b.sixth_dept,'')
+--    and ifnull(a.position_name,'') = ifnull(b.position_name,'')
+--    and ifnull(a.jobpost_name,'') = ifnull(b.jobpost_name,'')
+--    and ifnull(a.oidjoblevel,'') = ifnull(b.oidjoblevel,'')
+--    and ifnull(a.startdate,'') = ifnull(b.startdate,'')
+--    and ifnull(a.TransitionType,'') = ifnull(b.TransitionType,'')
+--    and ifnull(a.employeestatus,'') = ifnull(b.employeestatus,'')
+--    and ifnull(a.regularizationdate,'') = ifnull(b.regularizationdate,'')
+--    and ifnull(a.employmenttype,'') = ifnull(b.employmenttype,'')
+--    and ifnull(a.probationresult,'') = ifnull(b.probationresult,'')
+--    and ifnull(a.lastworkdate,'') = ifnull(b.lastworkdate,'')
+--    and ifnull(a.extlizhireason_107502_632202192,'') = ifnull(b.extlizhireason_107502_632202192,'')
+--    and ifnull(a.workyearbefore,'') = ifnull(b.workyearbefore,'')
+--    and ifnull(a.workyearcompanybefore,'') = ifnull(b.workyearcompanybefore,'')
+--    and end_dt = '3000-12-31')
+-- ;
 
 -- 防止数据重跑先删除今天的数据，更新增量数据，历史数据保留记录
 -- delete from edw.ehr_employee where end_dt = '${start_dt}';
@@ -229,11 +235,12 @@ select a.*
 -- update edw.ehr_employee set end_dt = '3000-12-31' where end_dt = '${start_dt}';
 
 -- 历史数据变更
-update edw.ehr_employee set end_dt = '${start_dt}' where userid in (select userid from edw.mid2_ehr_employee);
+-- update edw.ehr_employee set end_dt = '${start_dt}' where userid in (select userid from edw.mid2_ehr_employee);
 -- 插入数据	
+truncate table edw.ehr_employee;
 insert into edw.ehr_employee
 select distinct * 
-  from edw.mid2_ehr_employee;
+  from edw.mid1_ehr_employee;
 
 delete from edw.ehr_employee where employmenttype = '未知' and oidjoblevel is null;
 delete from edw.ehr_employee where employmenttype = '外部' and lastworkdate is null;

@@ -5,6 +5,7 @@ truncate table edw.x_sales_budget_18new;
 insert into edw.x_sales_budget_18new
 select a.auto_id
       ,a.db
+      ,'博圣体系'
       ,a.ccuscode
       ,a.ccusname
 	  ,case when b.bi_cuscode is null then '请核查'
