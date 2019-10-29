@@ -288,7 +288,7 @@ select a.db
       ,b.tbquantity
       ,localtimestamp() as sys_time
   from edw.mid2_invoice_order a
-  left join (select * from ufdata.salebillvouchs where dbkeepdate>= '2018-01-01' or dbkeepdate is null) b
+  left join (select * from ufdata.salebillvouchs where dkeepdate>= '2018-01-01' or dkeepdate is null) b
     on a.sbvid = b.sbvid
    and a.db = b.db
   left join (select bi_cuscode,ccusname from edw.dic_customer group by ccusname) c
