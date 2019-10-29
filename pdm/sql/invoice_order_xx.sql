@@ -188,3 +188,75 @@ select '17'
  where year(a.ddate) < 2018 or (a.auto_id >= '448548')
 ;
 
+-- 插入18年历史数据
+delete from pdm.invoice_order where year(ddate) = '2018';
+insert into pdm.invoice_order
+select a.sbvid
+      ,a.autoid
+      ,a.ddate
+      ,a.db
+      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '杭州贝生'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝荣'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '奥博特'
+            when a.db = 'UFDATA_588_2019' then '奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '美博特'
+            when a.db = 'UFDATA_889_2019' then '美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            end
+      ,a.csbvcode
+      ,a.csocode
+      ,a.cwhcode
+      ,c.cwhname
+      ,a.cdepcode
+      ,d.cdepname
+      ,a.cpersoncode
+      ,a.sales_region
+      ,a.province
+      ,a.city
+      ,a.ccustype
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.true_finnal_ccuscode
+      ,a.true_finnal_ccusname
+      ,a.cbustype
+      ,a.sales_region
+      ,a.bi_cinvcode
+      ,a.bi_cinvname
+      ,a.item_code
+      ,b.plan_class
+      ,b.key_project
+      ,a.itaxunitprice
+      ,a.iquantity
+      ,a.itax
+      ,a.isum
+      ,a.item_name
+      ,b.cinvbrand
+      ,a.cvenabbname
+      ,a.cstcode
+      ,a.specification_type
+      ,a.itb
+      ,a.breturnflag
+      ,a.tbquantity
+      ,localtimestamp()
+  from edw.x_invoice_order_18 a
+  left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.invoice_order_item group by bi_cinvcode) b
+    on a.bi_cinvcode = b.bi_cinvcode
+  left join (select cwhcode,db,cwhname from ufdata.warehouse group by cwhcode,db) c
+    on a.cwhcode = c.cwhcode
+   and a.db = c.db
+  left join (select cdepcode,db,cdepname from ufdata.department group by cdepcode,db) d
+    on a.cdepcode = d.cdepcode
+   and a.db = d.db
+ where left(bi_cuscode,2) <> 'GL'
+   and (bi_cuscode <> 'DL1101002' and cinvcode <> 'QT00004')
+;
+
+

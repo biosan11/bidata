@@ -57,7 +57,7 @@
 --   key index_invoice_order_db  (`db`)
 -- ) engine=innodb default charset=utf8 comment '销售发票表';
 
--- 抽取增量
+-- 抽取增量，修改只取2019年以后的数据
 create temporary table pdm.invoice_order_pre as 
 select a.*
       ,b.type as ccustype
@@ -65,7 +65,7 @@ select a.*
   left join edw.map_customer b
     on a.true_ccuscode = b.bi_cuscode
  where left(a.sys_time,10) >= '${start_dt}'
-  and year(ddate)>=2018;
+  and year(ddate)>=2019;
   
 -- 删除贝康、检测收入
 delete from pdm.invoice_order_pre where left(true_ccuscode,2) = 'GL';
