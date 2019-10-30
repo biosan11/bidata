@@ -29,6 +29,7 @@ select a.autoid
     on a.bi_cuscode = b.bi_cuscode
  where a.detection_num > 0
    and a.state = '取用'
+   and db <> '外送一览表'
 ;
 
 insert into pdm.checklist
@@ -57,6 +58,7 @@ select a.autoid
     on a.bi_cuscode = b.bi_cuscode
  where a.competitor_num > 0
    and a.state = '取用'
+   and db <> '外送一览表'
 ;
 
 
