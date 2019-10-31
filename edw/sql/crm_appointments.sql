@@ -60,6 +60,18 @@ select a._parentcustomerid_value
     on a._parentcustomerid_value = b.accountid
 ;
 
+-- 客户项目甘特表
+drop table if exists edw.crm_gantt_opportunities_app;
+create temporary table edw.crm_gantt_opportunities_app as 
+select a.opportunityid
+      ,d.name
+  from ufdata.crm_gantt_opportunities a  
+  left join ufdata.crm_accounts c
+    on a._parentaccountid_value = c.accountid
+  left join edw.crm_accounts d
+    on c.new_num = d.new_num
+;
+
 update edw.crm_appointments a
  inner join edw.crm_contacts b
     on a.regardingobjectid = b.contactid
@@ -69,10 +81,23 @@ update edw.crm_appointments a
 
 
 update edw.crm_appointments a
- inner join edw.crm_gantt_opportunities b
+ inner join edw.crm_gantt_opportunities_app b
     on a.regardingobjectid = b.opportunityid
-   set a.ccusname = b.bi_cusname
+   set a.ccusname = b.name
  where a.ccusname is null
 ;
 
+update edw.crm_appointments a
+ inner join ufdata.crm_new_companies b
+    on a.regardingobjectid = b.new_companyid
+   set a.ccusname = b.new_name
+ where a.ccusname is null
+;
+
+update edw.crm_appointments a
+ inner join ufdata.crm_new_leads b
+    on a.regardingobjectid = b.new_leadid
+   set a.ccusname = b.new_name
+ where a.ccusname is null
+;
 
