@@ -37,6 +37,7 @@ select a.subject
       ,a.new_num
       ,a.scheduleddurationminutes
       ,'拜访'
+      ,regardingobjectid
       ,localtimestamp() as sys_time
   from ufdata.crm_appointments a
   left join ufdata.crm_systemusers b
@@ -48,5 +49,30 @@ select a.subject
 ;
 
 
+-- 创建联系人的更新表
+drop table if exists edw.crm_contacts;
+create temporary table edw.crm_contacts as 
+select a._parentcustomerid_value
+      ,a.contactid
+      ,b.name
+  from ufdata.crm_contacts a
+  left join ufdata.crm_accounts b
+    on a._parentcustomerid_value = b.accountid
+;
+
+update edw.crm_appointments a
+ inner join edw.crm_contacts b
+    on a.regardingobjectid = b.contactid
+   set a.ccusname = b.name
+ where a.ccusname is null
+;
+
+
+update edw.crm_appointments a
+ inner join edw.crm_gantt_opportunities b
+    on a.regardingobjectid = b.opportunityid
+   set a.ccusname = b.bi_cusname
+ where a.ccusname is null
+;
 
 
