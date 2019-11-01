@@ -10,6 +10,7 @@ select a.province
       ,a.source
       ,a.url
       ,a.remark
+      ,keshi
   from ufdata.x_ccus_seniority a
   left join (select * from edw.dic_customer group by ccusname) b
     on a.ccusname = b.ccusname
