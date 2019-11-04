@@ -180,7 +180,7 @@ select a.db
       ,case when a.finnal_ccusname is null then
             case when b.bi_cuscode is null then "请核查"
                  else b.finnal_ccusname end
-            else case when c.ccusname is null then a.finnal_ccusname
+            else case when c.ccusname is null then '请核查'
                  else c.bi_cusname end 
        end  as true_finnal_ccusname2
       ,a.cmaker
