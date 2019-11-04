@@ -24,7 +24,7 @@ select a.autoid
       ,a.competitor
       ,a.recall_num
   from ufdata.x_detection_table a
-  left join (select bi_cuscode,bi_cusname from edw.dic_customer group by bi_cuscode) b
-    on a.ccuscode = b.bi_cuscode
+  left join (select * from edw.dic_customer group by ccusname) b
+    on a.ccusname = b.ccusname
   left join (select item_code,level_three from edw.map_item group by item_code) c
     on a.item_code = c.item_code;
