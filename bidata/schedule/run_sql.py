@@ -37,7 +37,7 @@ def job1():
 
 if __name__=='__main__':
     schedule.every().day.at("4:00").do(job1)
-    schedule.every().day.at("17:25").do(job1)
+    # schedule.every().day.at("17:25").do(job1) #191105修改 这个脚本每天下午不自动跑 在调度工具中运行
     while True:
         schedule.run_pending()
         time.sleep(1)
