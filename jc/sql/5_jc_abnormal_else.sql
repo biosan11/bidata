@@ -346,3 +346,42 @@ select distinct
  group by ddate_effect,uniqueid 
  having count(*) >=2
 ;
+
+-- 新增对费用科目的监控,费用非甄元的数据，二级科目都是6位
+insert into tracking.jc_abnormal_day
+select distinct
+       'pdm'
+      ,'pdm'
+      ,'account_fy'
+      ,null
+      ,'code_lv2'
+      ,code_lv2
+      ,code_name_lv2
+      ,'费用科目'
+      ,2
+      ,CURDATE( ) as date
+  from pdm.account_fy
+ where db <> 'UFDATA_007_2019'
+   and LENGTH(code_lv2) <> '6'
+;
+
+-- 甄元的科目存在几条修正的当时是按照6位提供的，还有3天关联上了oa的流程导致也是6位
+insert into tracking.jc_abnormal_day
+select distinct
+       'pdm'
+      ,'pdm'
+      ,'account_fy'
+      ,null
+      ,'code_lv2'
+      ,code_lv2
+      ,code_name_lv2
+      ,'费用科目'
+      ,2
+      ,CURDATE( ) as date
+  from pdm.account_fy
+ where db = 'UFDATA_007_2019'
+   and LENGTH(code_lv2) <> '6'
+   and LENGTH(code_lv2) <> '8'
+;
+
+

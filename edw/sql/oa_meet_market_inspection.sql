@@ -31,3 +31,6 @@ select a.liuchengbh
   left join (select * from edw.dic_customer group by ccusname) b
     on a.kehumc = b.ccusname
 ;
+
+-- 删除2条测试数据
+delete from edw.oa_meet_market_inspection where shenqinxx = '测试';

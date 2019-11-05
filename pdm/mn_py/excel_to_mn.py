@@ -69,7 +69,7 @@ def sed_email():
     password='JSW19941123aa'
     sender='jiangsunhui@biosan.cn'
     # 收件人
-    receiver = ['jiangsunhui@biosan.cn','张梅妮<zhangmeini@biosan.cn>','彭丽<pengli@biosan.cn>',' 李秦秦<liqinqin@biosan.cn>','wangshaojie@biosan.cn']
+    receiver = ['jiangsunhui@biosan.cn','张梅妮<zhangmeini@biosan.cn>','彭丽<pengli@biosan.cn>',' 李秦秦<liqinqin@biosan.cn>','wangshaojie@biosan.cn','丁明君<dingmingjun@biosan.cn>,']
     # ,'张梅妮<zhangmeini@biosan.cn>','彭丽<pengli@biosan.cn>',' 李秦秦<liqinqin@biosan.cn>'
     # 抄送
     cc = ['jiangsunhui@biosan.cn']

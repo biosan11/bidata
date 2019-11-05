@@ -151,7 +151,7 @@ select distinct
       ,2 as leve
       ,CURDATE( ) as date
   FROM (SELECT count( * ) AS num FROM ufdata.rdrecord32 a
-		LEFT JOIN edw.outdepot_order b ON a.id = b.id and a.db = b.db WHERE b.id IS NULL ) a 
+		LEFT JOIN edw.outdepot_order b ON a.id = b.id and a.db = b.db WHERE b.id IS NULL and a.ddate>='2019-01-01') a 
 WHERE a.num > 0;
 
 insert into tracking.jc_abnormal_day
@@ -168,7 +168,7 @@ select distinct
       ,CURDATE( ) as date
   FROM (SELECT count( * ) AS num FROM ufdata.salebillvouch a
 		LEFT JOIN edw.invoice_order b ON a.sbvid = b.sbvid and a.db = b.db
-	WHERE b.sbvid IS NULL ) a 
+	WHERE b.sbvid IS NULL and a.ddate>='2019-01-01') a 
 WHERE a.num > 0;
 
 insert into tracking.jc_abnormal_day
