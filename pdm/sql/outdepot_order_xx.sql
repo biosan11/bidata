@@ -137,6 +137,9 @@ select null
 ;
 
 
+-- 增加对无效客户的删除
+delete from pdm.outdepot_order where left(ccuscode,2) = 'GL';
+delete from pdm.outdepot_order where left(cinvcode,2) = 'JC';
 
 
 -- 检测外送数据的插入
@@ -245,8 +248,5 @@ select null
 ;
 
 
--- 增加对无效客户的删除
-delete from pdm.outdepot_order where left(ccuscode,2) = 'GL';
-delete from pdm.outdepot_order where left(cinvcode,2) = 'JC';
 
 
