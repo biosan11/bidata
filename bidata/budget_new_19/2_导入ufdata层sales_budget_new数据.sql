@@ -12,7 +12,7 @@ select
 ,item_code
 ,cbustype
 ,sum(isum) 
-from pdm.invoice_order 
+from bidata.ft_11_sales
 where year(ddate) = 2019 and month(ddate) = 1
 and item_code != "jk0101"
 group by finnal_ccuscode,cinvcode,item_code,cbustype;
@@ -25,7 +25,7 @@ select
 ,item_code
 ,cbustype
 ,sum(isum) 
-from pdm.invoice_order 
+from bidata.ft_11_sales
 where year(ddate) = 2019 and month(ddate) = 2
 and item_code != "jk0101"
 group by finnal_ccuscode,cinvcode,item_code,cbustype;
