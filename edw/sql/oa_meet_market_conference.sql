@@ -19,13 +19,15 @@ select a.liuchengbh
       ,a.yusuanxjje
       ,a.juesuanje
       ,a.liuchengjd
-      ,case when LENGTH(xs_md) = 1 and xs_md = 0 then null
+      ,case when LENGTH(xs_md) = 1 then xs_md
+            when xs_md = 0 then null
             when LENGTH(xs_md) = 2 then concat(SUBSTRING(xs_md, 1, 1),';',SUBSTRING(xs_md, 2, 1))
             when LENGTH(xs_md) = 3 then concat(SUBSTRING(xs_md, 1, 1),';',SUBSTRING(xs_md, 2, 1),';',SUBSTRING(xs_md, 3, 1))
             when LENGTH(xs_md) = 4 then concat(SUBSTRING(xs_md, 1, 1),';',SUBSTRING(xs_md, 2, 1),';',SUBSTRING(xs_md, 3, 1),';',SUBSTRING(xs_md, 4, 1))
             when LENGTH(xs_md) = 5 then concat(SUBSTRING(xs_md, 1, 1),';',SUBSTRING(xs_md, 2, 1),';',SUBSTRING(xs_md, 3, 1),';',SUBSTRING(xs_md, 4, 1),';',SUBSTRING(xs_md, 5, 1))
             else null end as xs_md
-      ,case when LENGTH(cs_md) = 1 and xs_md = 0 then null
+      ,case when LENGTH(cs_md) = 1 then cs_md
+            when cs_md = 0 then null
             when LENGTH(cs_md) = 2 then concat(SUBSTRING(cs_md, 1, 1),';',SUBSTRING(cs_md, 2, 1))
             when LENGTH(cs_md) = 3 then concat(SUBSTRING(cs_md, 1, 1),';',SUBSTRING(cs_md, 2, 1),';',SUBSTRING(cs_md, 3, 1))
             when LENGTH(cs_md) = 4 then concat(SUBSTRING(cs_md, 1, 1),';',SUBSTRING(cs_md, 2, 1),';',SUBSTRING(cs_md, 3, 1),';',SUBSTRING(cs_md, 4, 1))
@@ -34,13 +36,15 @@ select a.liuchengbh
             when LENGTH(cs_md) = 7 then concat(SUBSTRING(cs_md, 1, 1),';',SUBSTRING(cs_md, 2, 1),';',SUBSTRING(cs_md, 3, 1),';',SUBSTRING(cs_md, 4, 1),';',SUBSTRING(cs_md, 5, 1),';',SUBSTRING(cs_md, 6, 1),';',SUBSTRING(cs_md, 7, 1))
             when LENGTH(cs_md) = 7 then concat(SUBSTRING(cs_md, 8, 1),';',SUBSTRING(cs_md, 2, 1),';',SUBSTRING(cs_md, 3, 1),';',SUBSTRING(cs_md, 4, 1),';',SUBSTRING(cs_md, 5, 1),';',SUBSTRING(cs_md, 6, 1),';',SUBSTRING(cs_md, 7, 1),';',SUBSTRING(cs_md, 8, 1))
             else null end as cs_md
-      ,case when LENGTH(qt_md1) = 1 and xs_md = 0 then null
+      ,case when LENGTH(qt_md1) = 1 then qt_md1
+            when qt_md1 = 0 then null
             when LENGTH(qt_md1) = 2 then concat(SUBSTRING(qt_md1, 1, 1),';',SUBSTRING(qt_md1, 2, 1))
             when LENGTH(qt_md1) = 3 then concat(SUBSTRING(qt_md1, 1, 1),';',SUBSTRING(qt_md1, 2, 1),';',SUBSTRING(qt_md1, 3, 1))
             when LENGTH(qt_md1) = 4 then concat(SUBSTRING(qt_md1, 1, 1),';',SUBSTRING(qt_md1, 2, 1),';',SUBSTRING(qt_md1, 3, 1),';',SUBSTRING(qt_md1, 4, 1))
             when LENGTH(qt_md1) = 5 then concat(SUBSTRING(qt_md1, 1, 1),';',SUBSTRING(qt_md1, 2, 1),';',SUBSTRING(qt_md1, 3, 1),';',SUBSTRING(qt_md1, 4, 1),';',SUBSTRING(qt_md1, 5, 1))
             else null end as qt_md1
-      ,case when LENGTH(qt_md2) = 1 and xs_md = 0 then null
+      ,case when LENGTH(qt_md2) = 1 then qt_md2
+            when qt_md2 = 0 then null
             when LENGTH(qt_md2) = 2 then concat(SUBSTRING(qt_md2, 1, 1),';',SUBSTRING(qt_md2, 2, 1))
             when LENGTH(qt_md2) = 3 then concat(SUBSTRING(qt_md2, 1, 1),';',SUBSTRING(qt_md2, 2, 1),';',SUBSTRING(qt_md2, 3, 1))
             when LENGTH(qt_md2) = 4 then concat(SUBSTRING(qt_md2, 1, 1),';',SUBSTRING(qt_md2, 2, 1),';',SUBSTRING(qt_md2, 3, 1),';',SUBSTRING(qt_md2, 4, 1))
