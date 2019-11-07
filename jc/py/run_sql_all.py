@@ -10,6 +10,8 @@ import pymysql
 
 t_list = ['invoice_order','dispatch_order','outdepot_order','sales_order']
 xx_xs = sys.argv[1]
+# 获取7天前的时间戳
+threeDayAgo = (datetime.datetime.now() - datetime.timedelta(days = 7))
 # t_list = ['outdepot_order']
 
 # 获取当前路径所有的sql脚本
@@ -51,6 +53,9 @@ def run_edwpy(t_name):
     os.system("python /home/bidata/edw/py/%s.py 1900-01-01"%(t_name))
     curson = conn.cursor()
     curson.execute("insert into edw.%s select * from edw18.%s_edw where state = '无效'"%(t_name,t_name))
+    conn.commit()
+    # 时间推到7天前
+    curson.execute("update edw.%s set sys_time = '%s'"%(t_name,threeDayAgo))
     conn.commit()
     print(t_name+'edw层ok')
 
