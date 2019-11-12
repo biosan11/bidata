@@ -10,7 +10,7 @@ select a.y_mon
       ,case when a.kehumc <> '' and a.kehumc is not null and b.ccusname is null then '请核查'  else b.bi_cuscode end as cuscode
       ,case when a.kehumc <> '' and a.kehumc is not null and b.ccusname is null then '请核查'  else b.bi_cusname end as cusname
       ,a.kehumc
-      ,a.province
+      ,c.province
       ,a.name_u8
       ,a.name_ehr_id
       ,a.name_ehr
@@ -39,6 +39,8 @@ select a.y_mon
       ,a.state2
   from ufdata.x_account_fy_mon a
   left join (select * from edw.dic_customer group by ccusname) b
-  on a.kehumc = b.ccusname
+    on a.kehumc = b.ccusname
+  left join (select * from edw.map_customer group by bi_cuscode) c
+    on b.bi_cuscode = c.bi_cuscode
 ;
 
