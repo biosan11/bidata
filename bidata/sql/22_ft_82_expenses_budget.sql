@@ -64,6 +64,7 @@ select
     ,personname
     ,amount_budget
 from edw.x_expenses_budget_19
+where amount_budget !="" and amount_budget is not null
 ;
 
 
