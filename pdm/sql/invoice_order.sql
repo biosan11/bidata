@@ -154,6 +154,8 @@ select a.sbvid
           else '否' end
       ,a.tbquantity
       ,a.isosid
+      ,a.idlsid
+      ,a.isaleoutid
       ,localtimestamp()
   from pdm.invoice_order_pre a
   left join edw.map_customer b
