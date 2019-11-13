@@ -72,6 +72,7 @@ select a.id
       ,b.cinvbrand
       ,a.cstcode
       ,a.fsettleqty
+      ,a.iorderdid
       ,localtimestamp()
   from edw.x_outdepot_order_18 a
   left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.outdepot_order_item group by bi_cinvcode) b
@@ -122,6 +123,7 @@ select null
       ,g.level_three
       ,null
       ,e.cinvbrand
+      ,null
       ,null
       ,null
       ,localtimestamp()
@@ -230,6 +232,7 @@ select null
       ,null
       ,null
       ,case when f.item_code is not null then f.level_three end 
+      ,null
       ,null
       ,null
       ,null

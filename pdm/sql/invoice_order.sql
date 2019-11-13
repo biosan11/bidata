@@ -76,11 +76,11 @@ delete from pdm.invoice_order_pre where true_ccuscode = 'DL1101002' and cinvcode
 
 
 -- 删除今天更新的数据
---delete from pdm.invoice_order where sbvid in (select sbvid from  pdm.invoice_order_pre);
+-- delete from pdm.invoice_order where sbvid in (select sbvid from  pdm.invoice_order_pre);
 delete from pdm.invoice_order where concat(db,autoid) in (select concat(db,autoid) from  pdm.invoice_order_pre);
 
 
---创建中间临时表加工item_code
+-- 创建中间临时表加工item_code
 -- drop table if exists pdm.invoice_order_item;
 create temporary table pdm.invoice_order_item as
 select e.bi_cinvcode
@@ -153,6 +153,7 @@ select a.sbvid
       ,case when a.breturnflag = 'Y' then '是'
           else '否' end
       ,a.tbquantity
+      ,a.isosid
       ,localtimestamp()
   from pdm.invoice_order_pre a
   left join edw.map_customer b

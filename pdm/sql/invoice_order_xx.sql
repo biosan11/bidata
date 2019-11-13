@@ -68,6 +68,7 @@ select a.sbvid
       ,a.itb
       ,a.breturnflag
       ,a.tbquantity
+      ,a.isosid
       ,localtimestamp()
   from edw.x_invoice_order_18 a
   left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.invoice_order_item group by bi_cinvcode) b
@@ -118,6 +119,7 @@ select '17'
       ,round(ifnull(a.isum,0),2)
       ,c.level_three
       ,e.cinvbrand
+      ,null
       ,null
       ,null
       ,null
@@ -185,6 +187,7 @@ select '17'
       ,null
       ,null
       ,null
+      ,null
       ,localtimestamp()
   from edw.x_sales_bk a
   left join edw.map_customer b
@@ -239,6 +242,7 @@ select '17'
       ,a.isum
       ,c.level_three
       ,e.cinvbrand
+      ,null
       ,null
       ,null
       ,null
