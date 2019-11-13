@@ -30,6 +30,7 @@ create table bidata.ft_71_employee(
     TransitionType varchar(120) comment '异动类型',
     employeestatus varchar(20) comment '是否在职',
     employmenttype varchar(20) comment '员工类型',
+    lastworkdate date comment '最后工作日',
     extlizhireason_107502_632202192 text comment '离职原因说明',
     educationlevel_ varchar(20) comment '学历分段',
     age_ varchar(20) comment '年龄分段',
@@ -113,6 +114,7 @@ select
     ,TransitionType
     ,employeestatus
     ,employmenttype
+    ,lastworkdate
     ,extlizhireason_107502_632202192
     ,case 
         when educationlevel = "博士研究生" then "博士研究生"
