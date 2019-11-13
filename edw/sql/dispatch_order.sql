@@ -318,6 +318,7 @@ select a.db
       ,b.icoridlsid
       ,b.iRetQuantity
       ,b.iTB
+      ,b.idlsid
       ,localtimestamp() as sys_time
   from edw.mid2_dispatch_order a
   left join (select * from ufdata.dispatchlists where dkeepdate >= '2018-01-01' or dkeepdate is null) b
@@ -396,6 +397,7 @@ select a.db
       ,a.icoridlsid
       ,a.iRetQuantity
       ,a.itb
+      ,a.idlsid
       ,a.sys_time
  from edw.mid3_dispatch_order a
   left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
@@ -471,6 +473,7 @@ select a.db
       ,a.icoridlsid
       ,a.iRetQuantity
       ,a.itb
+      ,a.idlsid
       ,a.sys_time
  from edw.mid3_dispatch_order a
   left join dic_inventory b
@@ -547,6 +550,7 @@ select a.db
       ,a.icoridlsid
       ,a.iRetQuantity
       ,a.itb
+      ,a.idlsid
       ,'有效'
       ,a.sys_time
   from edw.mid4_dispatch_order a
