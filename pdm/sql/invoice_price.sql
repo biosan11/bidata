@@ -50,8 +50,8 @@ order by ccuscode,finnal_ccuscode,cinvcode,ddate ASC,round(itaxunitprice,2);
 
 -- 全部非零数据
 create temporary table pdm.mid3_invoice_price
-select
-     c.ccuscode
+select c.id
+    ,c.ccuscode
     ,c.ccusname
     ,c.finnal_ccuscode
     ,c.finnal_ccusname
@@ -88,6 +88,7 @@ and a.finnal_ccuscode = b.finnal_ccuscode
     on c.cinvcode = d.bi_cinvcode
 where c.state = 1;
 
+
 -- 把存在赠送的数据导入进去
 create temporary table pdm.mid1_invoice_price
 select a.ccuscode
@@ -123,6 +124,49 @@ select a.ccuscode
       ,ROUND(a.itaxunitprice,2) as price
   from (select * from pdm.mid3_invoice_price order by ddate desc) a
     group by ccuscode,cinvcode,finnal_ccuscode
+;
+
+-- 一天之内出现2个价格对于最后一次价格的判断
+drop table if exists pdm.mid4_invoice_price;
+create temporary table pdm.mid4_invoice_price
+select max(id) as id
+      ,ddate
+  from pdm.mid3_invoice_price
+ group by ccuscode,cinvcode,finnal_ccuscode,ddate
+having count(*) > 1
+;
+
+-- 获取下一次价格
+drop table if exists pdm.mid5_invoice_price;
+create temporary table pdm.mid5_invoice_price
+select a.id
+      ,a.ccuscode
+      ,a.cinvcode
+      ,a.finnal_ccuscode
+      ,b.ddate
+      ,a.itaxunitprice
+  from pdm.invoice_price_temp a
+  left join pdm.mid4_invoice_price b
+    on a.id -1 = b.id
+ where b.id is not null
+;
+
+
+drop table if exists pdm.mid6_invoice_price;
+create temporary table pdm.mid6_invoice_price
+select a.id
+      ,a.ccuscode
+      ,a.cinvcode
+      ,a.finnal_ccuscode
+      ,a.ddate
+      ,a.itaxunitprice
+  from pdm.mid5_invoice_price a
+  left join pdm.mid2_invoice_price b
+     on a.ccuscode = b.ccuscode
+   and a.finnal_ccuscode = b.finnal_ccuscode
+   and a.cinvcode = b.cinvcode
+   and a.ddate = b.ddate
+ where b.ccuscode is not null
 ;
 
 -- 插入数据
@@ -169,3 +213,22 @@ select a.province
 
 -- drop table if exists pdm.invoice_price;
 drop table if exists pdm.invoice_price_temp;
+
+update pdm.invoice_price a
+ inner join pdm.mid6_invoice_price b
+     on a.ccuscode = b.ccuscode
+   and a.finnal_ccuscode = b.finnal_ccuscode
+   and a.cinvcode = b.cinvcode
+   and a.ddate = b.ddate
+   set a.state = '过程中价格'
+;
+
+update pdm.invoice_price a
+ inner join pdm.mid6_invoice_price b
+     on a.ccuscode = b.ccuscode
+   and a.finnal_ccuscode = b.finnal_ccuscode
+   and a.cinvcode = b.cinvcode
+   and a.ddate = b.ddate
+   and ROUND(a.itaxunitprice,2) = ROUND(b.itaxunitprice,2)
+   set a.state = '最后一次价格'
+;
