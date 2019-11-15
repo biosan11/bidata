@@ -13,8 +13,8 @@ from string import Template
 start_dt = sys.argv[1]
 
 #常量
-SQL_FILE = '/home/bidata/edw/sql/oa_uf_shebeicpqd.sql'
-LOG_FILE = '/home/bidata/edw/log/oa_uf_shebeicpqd.log'
+SQL_FILE = '/home/bidata/edw/sql/oa_uf_chanpinsbdz.sql'
+LOG_FILE = '/home/bidata/edw/log/oa_uf_chanpinsbdz.log'
 
 # 系统当前时间
 sysCurDate=time.strftime("%Y%m%d%H%M%S",time.localtime(time.time()))
