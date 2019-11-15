@@ -1,5 +1,5 @@
 
--- ¼Ó¹¤crm¹¤µ¥
+-- åŠ å·¥crmå·¥å•
 truncate table edw.crm_new_work_orders;
 insert into edw.crm_new_work_orders
 select a.new_num
@@ -7,15 +7,15 @@ select a.new_num
       ,new_finishwo
       ,b.new_area
       ,b.new_province
-      ,b.name as ccusname -- ÕâÀïÈ±Ê§Ò»¸öÁªÏµÈË
+      ,b.name as ccusname -- è¿™é‡Œç¼ºå¤±ä¸€ä¸ªè”ç³»äºº
       ,b.new_grade
       ,c.bi_cinvcode
       ,c.bi_cinvname
       ,i.new_name as new_type_3
       ,date_add(left(a.modifiedon,19), interval 8 hour) as modifiedon
       ,date_add(left(a.new_problem_happen_time,19), interval 8 hour) as problem_happen_time
-      ,case when a.new_macover = 'false' then '±£Íâ'
-            else '±£ÄÚ' end as new_macover
+      ,case when a.new_macover = 'false' then 'ä¿å¤–'
+            else 'ä¿å†…' end as new_macover
       ,a.new_opinion as opinion
       ,a.new_actual_problem_description as actual_problem_description
       ,d.lastname as assign_superior
@@ -23,8 +23,8 @@ select a.new_num
       ,e.lastname as ownerid
       ,f.name as business_nuit
       ,e.title
-      ,concat(a.new_working,'¸ö¹¤×÷ÈÕ') as working
-      ,concat(a.new_estimate_difficulty,'¼¶') as estimate_difficulty
+      ,concat(a.new_working,'ä¸ªå·¥ä½œæ—¥') as working
+      ,concat(a.new_estimate_difficulty,'çº§') as estimate_difficulty
       ,a.new_satisfied
       ,g.lastname as perform_engineer
       ,a.new_skill
@@ -32,21 +32,21 @@ select a.new_num
       ,date_add(left(a.new_assign_record_time,19), interval 8 hour) as assign_record_time
       ,date_add(left(a.new_resolution_time,19), interval 8 hour) as resolution_time
       ,a.new_service_hours
-      ,concat(a.new_superior_comment,'ĞÇ') as superior_comment
+      ,concat(a.new_superior_comment,'æ˜Ÿ') as superior_comment
       ,a.new_technology_comment
       ,a.new_manager_comment
-      ,case when new_return_visit = 'e72f56b2-9e73-e811-80c6-0050569a5e34' then 'ÊÇ'
-            else 'Î´Öª' end as return_visit
+      ,case when new_return_visit = 'e72f56b2-9e73-e811-80c6-0050569a5e34' then 'æ˜¯'
+            else 'æœªçŸ¥' end as return_visit
       ,h.lastname as return_visit_user
       ,date_add(left(a.new_return_visit_time,19), interval 8 hour) as return_visit_time
-      ,case when new_ifclose = 1 then 'ÊÇ'
-            when new_ifclose = 2 then '·ñ'
-            else 'Î´Öª' end as new_ifclose
+      ,case when new_ifclose = 1 then 'æ˜¯'
+            when new_ifclose = 2 then 'å¦'
+            else 'æœªçŸ¥' end as new_ifclose
       ,a.new_acknowledgement
       ,a.new_troubleshooting
-      ,case when a.new_this_repair = 'False' then '·ñ'
-            when a.new_this_repair = 'True' then 'ÊÇ'
-            else 'Î´Öª' end as this_repair
+      ,case when a.new_this_repair = 'False' then 'å¦'
+            when a.new_this_repair = 'True' then 'æ˜¯'
+            else 'æœªçŸ¥' end as this_repair
       ,localtimestamp() as sys_time
   from ufdata.crm_new_work_orders a
   left join edw.crm_account_equipments c
