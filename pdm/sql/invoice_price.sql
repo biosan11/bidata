@@ -1,3 +1,128 @@
+
+
+
+-- 为pdm.invoice_price 做的基础表  解决开错发票, 财务调账等问题数据 
+drop temporary table if exists pdm.invoice_order_tem;
+create temporary table if not exists pdm.invoice_order_tem
+select 
+    concat(db,autoid) as concatid
+    ,ccuscode
+    ,ccusname
+    ,finnal_ccuscode
+    ,finnal_ccusname
+    ,cinvcode
+    ,cinvname
+    ,ddate
+    ,round(itaxunitprice,2) as itaxunitprice
+    ,cinvbrand
+    ,province
+    ,db
+    ,autoid
+    ,isosid
+    ,isum 
+    ,iquantity
+from pdm.invoice_order 
+where year(ddate) >=2018;
+alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_ccuscode (ccuscode);
+alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_finnal_ccuscode (finnal_ccuscode);
+alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_cinvcode (cinvcode);
+alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_cinvbrand (cinvbrand);
+alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_province (province);
+alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_db (db);
+alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_autoid (autoid);
+alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_isosid (isosid);
+
+
+drop temporary table if exists pdm.invoice_price_tem00;
+create temporary table if not exists pdm.invoice_price_tem00(
+    uniqueid varchar(255), 
+    key pdm_invoice_price_tem00_uniqueid (uniqueid)
+)engine=innodb default charset=utf8;
+
+drop temporary table if exists pdm.invoice_price_tem01;
+create temporary table if not exists pdm.invoice_price_tem01(
+    uniqueid_ varchar(255), 
+    key pdm_invoice_price_tem00_uniqueid_ (uniqueid_)
+)engine=innodb default charset=utf8;
+
+-- 取出需要处理的异常数据, 并组合出一个对应编号ID 
+
+insert into pdm.invoice_price_tem00 (uniqueid) 
+select 
+    concat(db,-1*round(isum,2),isosid)
+from pdm.invoice_order_tem 
+where isosid is not null and isosid != 0 
+and isum < 0;
+
+insert into pdm.invoice_price_tem01 (uniqueid_) 
+select 
+    concat(db,round(isum,2),isosid)
+from pdm.invoice_order_tem 
+where isosid is not null and isosid != 0 
+and isum < 0;
+
+drop temporary table if exists pdm.invoice_order_tem_;
+create temporary table if not exists pdm.invoice_order_tem_
+select 
+    concat(a.db,a.autoid) as concatid_
+    ,a.ccuscode
+    ,a.ccusname
+    ,a.finnal_ccuscode
+    ,a.finnal_ccusname
+    ,a.cinvcode
+    ,a.cinvname
+    ,a.ddate
+    ,a.itaxunitprice
+    ,a.cinvbrand
+    ,a.province
+    ,a.db
+    ,a.autoid
+    ,a.isosid
+    ,a.isum 
+    ,a.iquantity
+from pdm.invoice_order_tem as a 
+left join (select * from pdm.invoice_price_tem00 group by uniqueid) as b 
+on concat(a.db,round(a.isum,2),a.isosid) = b.uniqueid
+left join (select * from pdm.invoice_price_tem01 group by uniqueid_)as c
+on concat(a.db,round(a.isum,2),a.isosid) = c.uniqueid_
+where b.uniqueid is not null or c.uniqueid_ is not null;
+alter table pdm.invoice_order_tem_ add index pdm_invoice_order_tem_concatid_ (concatid_);
+
+
+delete from pdm.invoice_order_tem 
+where concatid in 
+(select concatid_ from pdm.invoice_order_tem_ );
+
+insert into pdm.invoice_order_tem 
+select 
+    null
+    ,a.ccuscode
+    ,a.ccusname
+    ,a.finnal_ccuscode
+    ,a.finnal_ccusname
+    ,a.cinvcode
+    ,a.cinvname
+    ,a.ddate
+    ,round(sum(a.isum)/sum(a.iquantity),2) as itaxunitprice
+    ,a.cinvbrand
+    ,a.province
+    ,a.db
+    ,a.autoid
+    ,a.isosid
+    ,sum(a.isum) as isum  
+    ,sum(a.iquantity) as iquantity
+from pdm.invoice_order_tem_ as a group by a.db,a.isosid;
+
+-- 以上基础数据 过程来自金晶
+
+
+
+
+
+
+
+
+
 drop table if exists pdm.invoice_price_temp;
 create table if not exists pdm.invoice_price_temp(
     id int primary  key auto_increment,
@@ -63,7 +188,7 @@ create table if not exists pdm.invoice_price_pre(
 truncate table pdm.invoice_price_temp;
 insert into pdm.invoice_price_temp (ccuscode,ccusname,finnal_ccuscode,finnal_ccusname,cinvcode,cinvname,ddate,itaxunitprice,cinvbrand,province)
 select ccuscode,ccusname,finnal_ccuscode,finnal_ccusname,cinvcode,cinvname,ddate,round(itaxunitprice,2),cinvbrand,province
-from (select * from pdm.invoice_order order by cinvbrand,province) a
+from (select * from pdm.invoice_order_tem order by cinvbrand,province) a
 where year(ddate) >= 2018
 and itaxunitprice > 0
 and isum > 0
@@ -125,7 +250,7 @@ select a.ccuscode
       ,0 as price
       ,b.specification_type
       ,b.inum_unit_person
-  from pdm.invoice_order a
+  from pdm.invoice_order_tem a
   left join edw.map_inventory b
     on a.cinvcode = b.bi_cinvcode
 where itaxunitprice = 0
