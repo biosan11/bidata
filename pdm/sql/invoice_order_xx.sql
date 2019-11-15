@@ -104,8 +104,8 @@ select '17'
       ,b.type
       ,a.true_ccuscode as ccuscode
       ,a.true_ccusname as ccusname
-      ,b.finnal_cuscode
-      ,b.finnal_ccusname
+      ,a.finnal_cuscode
+      ,a.finnal_ccusname
       ,'LDT'
       ,'销售'
       ,a.bi_cinvcode
@@ -133,7 +133,7 @@ select '17'
       ,localtimestamp()
   from edw.x_sales_bkgr a
   left join edw.map_customer b
-    on a.true_ccuscode = b.bi_cuscode
+    on a.finnal_cuscode = b.bi_cuscode
   left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.invoice_order_item group by bi_cinvcode) e
     on a.bi_cinvcode = e.bi_cinvcode
   left join (select item_code,level_three from edw.map_item group by item_code) c
