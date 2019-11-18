@@ -1,126 +1,92 @@
 
-
-
--- 为pdm.invoice_price 做的基础表  解决开错发票, 财务调账等问题数据 
+-- 得到18年以后负票
 drop temporary table if exists pdm.invoice_order_tem;
 create temporary table if not exists pdm.invoice_order_tem
-select 
-    concat(db,autoid) as concatid
-    ,ccuscode
-    ,ccusname
-    ,finnal_ccuscode
-    ,finnal_ccusname
-    ,cinvcode
-    ,cinvname
-    ,ddate
-    ,round(itaxunitprice,2) as itaxunitprice
-    ,cinvbrand
-    ,province
-    ,db
-    ,autoid
-    ,isosid
-    ,isum 
-    ,iquantity
-from pdm.invoice_order 
-where year(ddate) >=2018;
-alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_ccuscode (ccuscode);
-alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_finnal_ccuscode (finnal_ccuscode);
-alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_cinvcode (cinvcode);
-alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_cinvbrand (cinvbrand);
-alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_province (province);
-alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_db (db);
-alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_autoid (autoid);
-alter table pdm.invoice_order_tem add index pdm_invoice_order_tem_isosid (isosid);
+select concat(db,autoid) as concatid
+      ,ccuscode
+      ,ccusname
+      ,finnal_ccuscode
+      ,finnal_ccusname
+      ,cinvcode
+      ,cinvname
+      ,ddate
+      ,round(itaxunitprice,2) as itaxunitprice
+      ,cinvbrand
+      ,province
+      ,db
+      ,autoid
+      ,isosid
+      ,isum 
+      ,iquantity
+  from pdm.invoice_order 
+ where year(ddate) >=2018
+   and  isum < 0
+;
 
+-- 得到时间差
+drop table if exists pdm.invoice_order_tem1;
+create temporary table if not exists pdm.invoice_order_tem1
+select a.*
+      ,datediff(b.ddate,a.ddate) as date_diff
+      ,b.ddate as ddate_
+  from pdm.invoice_order a
+  left join pdm.invoice_order_tem b
+    on left(a.db,10) = left(b.db,10)
+   and a.ccuscode = b.ccuscode
+   and a.finnal_ccuscode = b.finnal_ccuscode
+   and a.cinvcode = b.cinvcode
+   and round(a.itaxunitprice,2) = round(b.itaxunitprice,2)
+ where a.ddate <= b.ddate
+   and b.ccuscode is not null
+   and a.isum > 0
+;
 
-drop temporary table if exists pdm.invoice_price_tem00;
-create temporary table if not exists pdm.invoice_price_tem00(
-    uniqueid varchar(255), 
-    key pdm_invoice_price_tem00_uniqueid (uniqueid)
-)engine=innodb default charset=utf8;
+-- 先取当天存在0的记录
+drop table if exists pdm.invoice_order_tem2;
+create temporary table if not exists pdm.invoice_order_tem2
+select *
+  from pdm.invoice_order_tem1
+ where date_diff = 0
+ group by ccuscode,finnal_ccuscode,cinvcode,db,ddate_
+;
 
-drop temporary table if exists pdm.invoice_price_tem01;
-create temporary table if not exists pdm.invoice_price_tem01(
-    uniqueid_ varchar(255), 
-    key pdm_invoice_price_tem00_uniqueid_ (uniqueid_)
-)engine=innodb default charset=utf8;
+-- 取不等于0的记录数
+drop table if exists pdm.invoice_order_tem3;
+create table if not exists pdm.invoice_order_tem3
+select *
+  from (select * from pdm.invoice_order_tem1 order by ddate_) a
+ where date_diff <> 0
+ group by ccuscode,finnal_ccuscode,cinvcode,db,ddate_
+;
 
--- 取出需要处理的异常数据, 并组合出一个对应编号ID 
+-- 这里先去之前存在相同的正票，没有在取今天的正票
+insert into pdm.invoice_order_tem3
+select a.* 
+  from pdm.invoice_order_tem2 a
+  left join pdm.invoice_order_tem3 b
+    on left(a.db,10) = left(b.db,10)
+   and a.ccuscode = b.ccuscode
+   and a.finnal_ccuscode = b.finnal_ccuscode
+   and a.cinvcode = b.cinvcode
+   and a.ddate_ = b.ddate_
+ where b.db is null
+;
+alter table pdm.invoice_order_tem3 add index pdm_invoice_order_tem3_db (db);
+alter table pdm.invoice_order_tem3 add index pdm_invoice_order_tem3_autoid (autoid);
 
-insert into pdm.invoice_price_tem00 (uniqueid) 
-select 
-    concat(db,-1*round(isum,2),isosid)
-from pdm.invoice_order_tem 
-where isosid is not null and isosid != 0 
-and isum < 0;
+drop temporary table if exists pdm.invoice_order_tem;
+create temporary table if not exists pdm.invoice_order_tem
+select a.*
+  from pdm.invoice_order a
+  left join pdm.invoice_order_tem3 b
+    on a.autoid = b.autoid
+   and a.db = b.db
+ where year(a.ddate) >=2018
+   and a.isum >= 0
+   and b.autoid is null
+;
 
-insert into pdm.invoice_price_tem01 (uniqueid_) 
-select 
-    concat(db,round(isum,2),isosid)
-from pdm.invoice_order_tem 
-where isosid is not null and isosid != 0 
-and isum < 0;
-
-drop temporary table if exists pdm.invoice_order_tem_;
-create temporary table if not exists pdm.invoice_order_tem_
-select 
-    concat(a.db,a.autoid) as concatid_
-    ,a.ccuscode
-    ,a.ccusname
-    ,a.finnal_ccuscode
-    ,a.finnal_ccusname
-    ,a.cinvcode
-    ,a.cinvname
-    ,a.ddate
-    ,a.itaxunitprice
-    ,a.cinvbrand
-    ,a.province
-    ,a.db
-    ,a.autoid
-    ,a.isosid
-    ,a.isum 
-    ,a.iquantity
-from pdm.invoice_order_tem as a 
-left join (select * from pdm.invoice_price_tem00 group by uniqueid) as b 
-on concat(a.db,round(a.isum,2),a.isosid) = b.uniqueid
-left join (select * from pdm.invoice_price_tem01 group by uniqueid_)as c
-on concat(a.db,round(a.isum,2),a.isosid) = c.uniqueid_
-where b.uniqueid is not null or c.uniqueid_ is not null;
-alter table pdm.invoice_order_tem_ add index pdm_invoice_order_tem_concatid_ (concatid_);
-
-
-delete from pdm.invoice_order_tem 
-where concatid in 
-(select concatid_ from pdm.invoice_order_tem_ );
-
-insert into pdm.invoice_order_tem 
-select 
-    null
-    ,a.ccuscode
-    ,a.ccusname
-    ,a.finnal_ccuscode
-    ,a.finnal_ccusname
-    ,a.cinvcode
-    ,a.cinvname
-    ,a.ddate
-    ,round(sum(a.isum)/sum(a.iquantity),2) as itaxunitprice
-    ,a.cinvbrand
-    ,a.province
-    ,a.db
-    ,a.autoid
-    ,a.isosid
-    ,sum(a.isum) as isum  
-    ,sum(a.iquantity) as iquantity
-from pdm.invoice_order_tem_ as a group by a.db,a.isosid;
-
--- 以上基础数据 过程来自金晶
-
-
-
-
-
-
-
+drop table pdm.invoice_order_tem3;
 
 
 drop table if exists pdm.invoice_price_temp;
