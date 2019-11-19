@@ -147,6 +147,8 @@ select a.id
       ,e.cinvbrand
       ,a.cstcode
       ,a.fsettleqty
+      ,a.iorderdid
+      ,a.idlsid
       ,localtimestamp()
   from pdm.outdepot_order_pre a
   left join edw.map_customer b

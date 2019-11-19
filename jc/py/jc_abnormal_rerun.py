@@ -42,7 +42,7 @@ def run_py():
                 os.system(path_pdm)
         # 线下的excel的自动运行
         elif list[0] == "yj":
-            path_edw = path1 + list[1] + ".py" + " " + str(list[2]+ datetime.timedelta(seconds = -1))
+            path_edw = path1 + list[1] + ".py" + " 2019-01-01"
             path_edw = path_edw.replace("None",time.strftime("%Y-%m-%d", time.localtime()))
             print(path_edw)
             os.system(path_edw)

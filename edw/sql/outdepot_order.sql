@@ -114,7 +114,7 @@ select a.db
   from ufdata.rdrecord32 a
   left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
     on a.ccuscode = b.ccuscode
- where (left(a.dnmaketime,10) >= '${start1_dt}' or left(a.dnmodifytime,10) >= '${start1_dt}')
+ where (left(a.dnmaketime,10) >= '${start1_dt}' or left(a.dnmodifytime,10) >= '${start1_dt}' or left(a.dVeriDate,10) >= '${start1_dt}')
    and a.db <> 'UFDATA_889_2019'
    and a.db <> 'UFDATA_666_2018'
    and a.db <> 'UFDATA_555_2018'
@@ -156,7 +156,7 @@ select a.db
   left join edw.dic_customer b
     on a.ccuscode = b.ccuscode
    and left(a.db,10) = left(b.db,10)
- where (left(a.dnmaketime,10) >= '${start1_dt}' or left(a.dnmodifytime,10) >= '${start1_dt}')
+ where (left(a.dnmaketime,10) >= '${start1_dt}' or left(a.dnmodifytime,10) >= '${start1_dt}' or left(a.dVeriDate,10) >= '${start1_dt}')
    and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018' or a.db = 'UFDATA_666_2018')
    and year(a.ddate) >= '2019';
 --   and a.ccuscode in ("001","002","003","004","005","006","007","008","009","010","011","012","013");

@@ -27,6 +27,9 @@ select a.guid
       ,b.strName
       ,case when c.cinvname is null and b.strcode is not null then '请核查' else c.bi_cinvcode end as bi_cinvcode
       ,case when c.cinvname is null and b.strcode is not null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,g.item_code
+      ,g.level_three as item_name
+      ,g.business_class as cbustype
       ,b.dblQuantity
       ,b.strMeasureUnit
       ,b.dblPriceRMB
@@ -46,6 +49,8 @@ select a.guid
     on a.cdefine10 = d.ccusname
   left join (select * from edw.customer group by ccuscode) f
     on a.strbisectionunit = f.ccuscode
+  left join (select * from edw.map_inventory group by bi_cinvcode) g
+    on c.bi_cinvcode = g.bi_cinvcode
  where a.strcontractkind = '销售类合同'
 ;
 

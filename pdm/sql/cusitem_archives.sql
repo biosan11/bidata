@@ -75,6 +75,20 @@ select a.ccuscode
   from pdm.cuspro_archives a
  group by a.ccuscode,a.item_code,a.cbustype;
 
+
+-- 增加合同时间处理，取客户项目最早一次时间
+drop table if exists pdm.cm_contract_pre;
+create temporary table pdm.cm_contract_pre as
+select bi_cuscode as ccuscode
+      ,bi_cusname as ccusname
+      ,item_code
+      ,item_name
+      ,cbustype
+      ,min(strcontractstartdate) as ddate
+  from edw.cm_contract
+ group by bi_cuscode,item_code,cbustype
+;
+
 insert into pdm.cusitem_archives
 select a.ccuscode
       ,a.ccusname
@@ -84,7 +98,7 @@ select a.ccuscode
       ,a.cbustype
       ,a.plan_start_dt
       ,a.bidding_dt
-      ,a.contract_dt
+      ,c.ddate
       ,a.first_consign_dt
       ,a.last_consign_dt
       ,a.iquantity_addup
@@ -104,7 +118,12 @@ select a.ccuscode
   left join ufdata.x_cusitem_enddate b
     on a.ccuscode = b.ccuscode
    and a.item_code = b.item_code
-   and a.cbustype = b.cbustype;
+   and a.cbustype = b.cbustype
+  left join pdm.cm_contract_pre c
+    on a.ccuscode = c.ccuscode
+   and a.item_code = c.item_code
+   and a.cbustype = c.cbustype
+;
 
 -- 插入竞品公司的信息
 insert into pdm.cusitem_archives

@@ -117,7 +117,7 @@ select a.db
   from ufdata.dispatchlist a
   left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
     on a.ccuscode = b.ccuscode
- where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}')
+ where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
    and a.db <> 'UFDATA_889_2019'
    and a.db <> 'UFDATA_666_2018'
    and a.db <> 'UFDATA_555_2018'; 
@@ -160,7 +160,7 @@ select a.db
   left join edw.dic_customer b
     on a.ccuscode = b.ccuscode
    and left(a.db,10) = left(b.db,10)
- where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}')
+ where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
    and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018' or a.db = 'UFDATA_666_2018');
 --   and a.ccuscode in ("001","002","003","004","005","006","007","008","009","010","011","012","013");
 
@@ -318,6 +318,7 @@ select a.db
       ,b.icoridlsid
       ,b.iRetQuantity
       ,b.iTB
+      ,b.idlsid
       ,localtimestamp() as sys_time
   from edw.mid2_dispatch_order a
   left join (select * from ufdata.dispatchlists where dkeepdate >= '2018-01-01' or dkeepdate is null) b
@@ -396,6 +397,7 @@ select a.db
       ,a.icoridlsid
       ,a.iRetQuantity
       ,a.itb
+      ,a.idlsid
       ,a.sys_time
  from edw.mid3_dispatch_order a
   left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
@@ -471,6 +473,7 @@ select a.db
       ,a.icoridlsid
       ,a.iRetQuantity
       ,a.itb
+      ,a.idlsid
       ,a.sys_time
  from edw.mid3_dispatch_order a
   left join dic_inventory b
@@ -547,6 +550,7 @@ select a.db
       ,a.icoridlsid
       ,a.iRetQuantity
       ,a.itb
+      ,a.idlsid
       ,'有效'
       ,a.sys_time
   from edw.mid4_dispatch_order a

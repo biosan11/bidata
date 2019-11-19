@@ -231,10 +231,10 @@ update edw.map_customer a inner join edw.x_ccus_seniority b on a.bi_cuscode = b.
 
 -- 先全部去除
 update edw.map_customer set ccusgrade_new = null;
-update edw.map_customer set ccusgrade_new = 'VVIP' where ccus_Hierarchy = '省级' and (nsieve_mechanism = 'True' or medical_mechanism  = 'True');
-update edw.map_customer set ccusgrade_new = 'VIP' where nsieve_mechanism = 'True' or medical_mechanism  = 'True';
-update edw.map_customer set ccusgrade_new = 'V+ VIP' where nsieve_mechanism = 'True' and medical_mechanism  = 'True';
-update edw.map_customer set ccusgrade_new = '一般客户' where screen_mechanism = 'True';
 update edw.map_customer set ccusgrade_new = '其他客户' where ccusgrade_new is null;
+update edw.map_customer set ccusgrade_new = '一般客户' where screen_mechanism = 'True';
+update edw.map_customer set ccusgrade_new = 'VIP' where nsieve_mechanism = 'True' or medical_mechanism  = 'True';
+update edw.map_customer set ccusgrade_new = 'V+VIP' where nsieve_mechanism = 'True' and medical_mechanism  = 'True';
+update edw.map_customer set ccusgrade_new = 'VVIP' where ccus_Hierarchy = '省级' and (nsieve_mechanism = 'True' or medical_mechanism  = 'True');
 
 
