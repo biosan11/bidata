@@ -419,3 +419,19 @@ update pdm.account_fy
    set cd_name = cpersonname
  WHERE `cpersonname` IS NOT NULL AND `cd_name` IS NULL
 ;
+
+-- 彭丽需求。去除名字带括号的括号内的字符
+update pdm.account_fy 
+   set cd_name = substr(cd_name,1,instr(cd_name,'(')-1)
+ where cd_name like '%(%' 
+;
+
+update pdm.account_fy 
+   set cd_name = substr(cd_name,1,instr(cd_name,'（')-1)
+ where cd_name like '%（%' 
+;
+-- 名字是吴婕 改为 吴沂禧
+update pdm.account_fy 
+   set cd_name = '吴沂禧'
+ where cd_name = '吴婕'
+;
