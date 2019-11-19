@@ -37,6 +37,7 @@ select
     end as fy_share_ifccus
   from pdm.account_fy a
  where status = '取'
+   and dbill_date >= '2019-01-01'
  group by cohr,dbill_date,cpersonname,ccuscode,name_ehr_id,bx_name,voucher_id,code
 ;
 
