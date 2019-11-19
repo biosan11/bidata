@@ -15,7 +15,7 @@ insert into report.price_vary (ccuscode,cinvcode,ddate,itaxunitprice)
 select 
     a.ccuscode
     ,a.cinvcode
-    ,a.ddate
+    ,a.start_dt
     ,a.itaxunitprice
 from pdm.invoice_price as a 
 left join edw.map_inventory as b 
@@ -24,8 +24,8 @@ where a.province in ("浙江省","江苏省","安徽省","福建省","山东省"
 and b.level_one != "服务类" and b.level_two not in ("辅助试剂耗材","遗传病诊断耗材") and b.equipment = "否" and b.business_class != "ldt"
 and state != "存在赠送记录"
 and left(a.ccuscode,2) = "zd"
-group by a.ccuscode,a.cinvcode,a.ddate,a.itaxunitprice
-order by a.ccuscode,a.cinvcode,a.ddate asc; 
+group by a.ccuscode,a.cinvcode,a.start_dt,a.itaxunitprice
+order by a.ccuscode,a.cinvcode,a.start_dt asc; 
 
 -- 根据自增id 自己join自己  
 drop temporary table if exists report.price_tem0;
