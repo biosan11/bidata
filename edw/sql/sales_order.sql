@@ -92,7 +92,7 @@ select a.db
   from ufdata.so_somain a
   left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
     on a.ccuscode = b.ccuscode
- where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}')
+ where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}') or left(a.dverifydate,10) >= '${start1_dt}')
    and a.db <> 'UFDATA_889_2019'
    and a.db <> 'UFDATA_555_2018'
    and a.db <> 'UFDATA_666_2018'; 
