@@ -223,7 +223,9 @@ select
     ,-1 * sy_md
     ,0
 from report.fin_prov_11_expenses_fw 
-where sy_md != 0;
+where sy_md != 0
+ and (year_ = 2018 or (year_ = 2019 and month_ < 9))
+;
 
 insert into report.fin_prov_08_expenses_share_qs_groupby
 select 
