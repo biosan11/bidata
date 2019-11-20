@@ -431,7 +431,7 @@ select null
       ,null
       ,'u8独有'
       ,null
-      ,null
+      ,'取'
   from edw.x_account_fy a
   left join (select * from edw.dic_deptment group by cdept_id_ehr) b
     on a.cdept_id_ehr = b.cdept_id_ehr
