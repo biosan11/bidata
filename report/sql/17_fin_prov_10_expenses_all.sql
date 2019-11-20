@@ -53,6 +53,8 @@ select bi_cuscode
  group by bi_cuscode
 ;
 
+
+
 drop table if exists report.expenses_pre;
 create temporary table report.expenses_pre as
 select distinct ccuscode,y_mon from report.fin_prov_10_expense_yx union
@@ -89,10 +91,10 @@ select a.y_mon
             when a.y_mon = '2019-06' then ifnull(b.mon_6 ,0)
             when a.y_mon = '2019-07' then ifnull(b.mon_7 ,0)
             when a.y_mon = '2019-08' then ifnull(b.mon_8 ,0)
-            when a.y_mon = '2019-09' then ifnull(b.mon_9 ,0)
-            when a.y_mon = '2019-10' then ifnull(b.mon_10,0)
-            when a.y_mon = '2019-11' then ifnull(b.mon_11,0)
-            when a.y_mon = '2019-12' then ifnull(b.mon_12,0)
+--            when a.y_mon = '2019-09' then ifnull(b.mon_9 ,0)
+--            when a.y_mon = '2019-10' then ifnull(b.mon_10,0)
+--            when a.y_mon = '2019-11' then ifnull(b.mon_11,0)
+--            when a.y_mon = '2019-12' then ifnull(b.mon_12,0)
             else 0 end as sy_md
       ,ifnull(c.md,0)
       ,0
@@ -110,23 +112,80 @@ select a.y_mon
    and a.y_mon = d.y_mon
 ;
 
+-- 这里由于19-09以后拆分调整
+drop table if exists report.x_account_sy_pre1;
+create temporary table report.x_account_sy_pre1 as
+select concat(year_,'-01') as y_mon,bi_cuscode as ccuscode ,sum(mon_1)  as md from edw.x_account_sy a group by year_ ,bi_cuscode union
+select concat(year_,'-02') as y_mon,bi_cuscode as ccuscode ,sum(mon_2)  as md from edw.x_account_sy a group by year_ ,bi_cuscode union
+select concat(year_,'-03') as y_mon,bi_cuscode as ccuscode ,sum(mon_3)  as md from edw.x_account_sy a group by year_ ,bi_cuscode union
+select concat(year_,'-04') as y_mon,bi_cuscode as ccuscode ,sum(mon_4)  as md from edw.x_account_sy a group by year_ ,bi_cuscode union
+select concat(year_,'-05') as y_mon,bi_cuscode as ccuscode ,sum(mon_5)  as md from edw.x_account_sy a group by year_ ,bi_cuscode union
+select concat(year_,'-06') as y_mon,bi_cuscode as ccuscode ,sum(mon_6)  as md from edw.x_account_sy a group by year_ ,bi_cuscode union
+select concat(year_,'-07') as y_mon,bi_cuscode as ccuscode ,sum(mon_7)  as md from edw.x_account_sy a group by year_ ,bi_cuscode union
+select concat(year_,'-08') as y_mon,bi_cuscode as ccuscode ,sum(mon_8)  as md from edw.x_account_sy a group by year_ ,bi_cuscode union
+select concat(year_,'-09') as y_mon,bi_cuscode as ccuscode ,sum(mon_9)  as md from edw.x_account_sy a group by year_ ,bi_cuscode union
+select concat(year_,'-10') as y_mon,bi_cuscode as ccuscode ,sum(mon_10)  as md from edw.x_account_sy a group by year_,bi_cuscode union
+select concat(year_,'-11') as y_mon,bi_cuscode as ccuscode ,sum(mon_11)  as md from edw.x_account_sy a group by year_,bi_cuscode union
+select concat(year_,'-12') as y_mon,bi_cuscode as ccuscode ,sum(mon_12)  as md from edw.x_account_sy a group by year_,bi_cuscode 
+;
+
+
+drop table if exists report.fin_prov_10_expense_else_pre;
+create temporary table report.fin_prov_10_expense_else_pre
+select a.y_mon
+      ,a.ccuscode
+      ,a.cohr
+      ,a.dept_name
+      ,sum(ifnull(a.cc_md,0)) as cc_md
+      ,sum(ifnull(a.sq_md,0)) as sq_md
+      ,sum(ifnull(a.xxzx_md,0)) as xxzx_md
+      ,sum(ifnull(a.jsbz_md,0)) as jsbz_md
+      ,sum(ifnull(a.wb_md  ,0)) as wb_md
+      ,sum(ifnull(a.wl_md  ,0)) as wl_md
+  from report.fin_prov_10_expense_else a
+ group by a.y_mon,a.ccuscode,a.dept_name
+union all
+select a.y_mon
+      ,a.ccuscode
+      ,'bs'
+      ,'技术保障中心'
+      ,0
+      ,0
+      ,0
+      ,0
+      ,0
+      ,0
+  from (select * from report.x_account_sy_pre1 where y_mon >= '2019-09') a
+  left join report.fin_prov_10_expense_else b
+    on a.ccuscode = b.ccuscode
+   and a.y_mon = b.y_mon
+ where b.y_mon is null
+;
+
+
 -- 插入公司其他的部门的数据
 insert into report.fin_prov_10_expense_all
 select a.y_mon
       ,a.ccuscode
       ,a.cohr
       ,a.dept_name
-      ,ifnull(a.cc_md,0)
+      ,a.cc_md
       ,0
       ,0
-      ,ifnull(a.sq_md,0)
+      ,a.sq_md
+      ,case when a.y_mon = '2019-09' and a.dept_name = '技术保障中心' then ifnull(b.mon_9 ,0)
+            when a.y_mon = '2019-10' and a.dept_name = '技术保障中心' then ifnull(b.mon_10,0)
+            when a.y_mon = '2019-11' and a.dept_name = '技术保障中心' then ifnull(b.mon_11,0)
+            when a.y_mon = '2019-12' and a.dept_name = '技术保障中心' then ifnull(b.mon_12,0)
+            else 0 end as sy_md
       ,0
-      ,0
-      ,ifnull(a.xxzx_md,0)
-      ,ifnull(a.jsbz_md,0)
-      ,ifnull(a.wb_md  ,0)
-      ,ifnull(a.wl_md  ,0)
-  from report.fin_prov_10_expense_else a
+      ,a.xxzx_md
+      ,a.jsbz_md
+      ,a.wb_md
+      ,a.wl_md
+  from report.fin_prov_10_expense_else_pre a
+  left join report.x_account_sy_pre b
+    on a.ccuscode = b.bi_cuscode
 ;
 
 

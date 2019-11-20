@@ -233,6 +233,7 @@ select a.finnal_ccuscode as ccuscode
 drop table if exists report.x_account_sy_pre;
 create table report.x_account_sy_pre as
 select left(a.province,2) as province
+      ,year_
       ,sum(mon_1)  as mon_1
       ,sum(mon_2) as mon_2 
       ,sum(mon_3) as mon_3 
@@ -246,7 +247,7 @@ select left(a.province,2) as province
       ,sum(mon_11) as mon_11
       ,sum(mon_12) as mon_12
   from edw.x_account_sy a
- group by left(a.province,2)
+ group by left(a.province,2),year_
 ;
 
 -- 不到客户的总金额 减去实验员金额
@@ -259,7 +260,7 @@ select left(a.province,2) as province
  group by left(a.province,2),left(ddate,7)
 ;
 
--- 分配的客户整理合集
+-- 分配的客户整理合集,19年9月以后实验员数据不算在营销中心
 drop table if exists report.expenses_mid22;
 create temporary table report.expenses_mid22 as
 select distinct y_mon,left(dept_name,2) as dept_name from report.expenses_mid2 union 
@@ -271,10 +272,10 @@ select distinct '2019-05',province from report.x_account_sy_pre where ifnull(rou
 select distinct '2019-06',province from report.x_account_sy_pre where ifnull(round(mon_6 ,0),0)<> 0 union
 select distinct '2019-07',province from report.x_account_sy_pre where ifnull(round(mon_7 ,0),0)<> 0 union
 select distinct '2019-08',province from report.x_account_sy_pre where ifnull(round(mon_8 ,0),0)<> 0 union
-select distinct '2019-09',province from report.x_account_sy_pre where ifnull(round(mon_9 ,0),0)<> 0 union
-select distinct '2019-10',province from report.x_account_sy_pre where ifnull(round(mon_10,0),0) <> 0 union
-select distinct '2019-11',province from report.x_account_sy_pre where ifnull(round(mon_11,0),0) <> 0 union
-select distinct '2019-12',province from report.x_account_sy_pre where ifnull(round(mon_12,0),0) <> 0 union
+-- select distinct '2019-09',province from report.x_account_sy_pre where ifnull(round(mon_9 ,0),0)<> 0 union
+-- select distinct '2019-10',province from report.x_account_sy_pre where ifnull(round(mon_10,0),0) <> 0 union
+-- select distinct '2019-11',province from report.x_account_sy_pre where ifnull(round(mon_11,0),0) <> 0 union
+-- select distinct '2019-12',province from report.x_account_sy_pre where ifnull(round(mon_12,0),0) <> 0 union
 select distinct y_mon,province from report.x_insure_cover_pre 
 ;
 
@@ -290,10 +291,10 @@ select a.y_mon
             when a.y_mon = '2019-06' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_6 ,0)
             when a.y_mon = '2019-07' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_7 ,0)
             when a.y_mon = '2019-08' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_8 ,0)
-            when a.y_mon = '2019-09' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_9 ,0)
-            when a.y_mon = '2019-10' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_10,0)
-            when a.y_mon = '2019-11' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_11,0)
-            when a.y_mon = '2019-12' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_12,0)
+            when a.y_mon = '2019-09' and b.province is not null then ifnull(d.md,0)
+            when a.y_mon = '2019-10' and b.province is not null then ifnull(d.md,0)
+            when a.y_mon = '2019-11' and b.province is not null then ifnull(d.md,0)
+            when a.y_mon = '2019-12' and b.province is not null then ifnull(d.md,0)
             else d.md end) - ifnull(c.md,0) as md
       ,a.dept_name as fifth_dept
   from report.expenses_mid22 a

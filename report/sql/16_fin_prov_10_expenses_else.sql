@@ -21,6 +21,8 @@ where cohr != "杭州贝生"
 and ccuscode is not null and ccuscode != "请核查"
 and dept_name in ("技术保障中心","信息中心","供应链中心","400客服部");
 
+
+
 -- 生成一份待分摊的费用明细表 并join 内部结算数据 ft_84_expenses_settlement
 -- 间接费用部门（"技术保障中心","信息中心","供应链中心","400客服部"）
 drop temporary table if exists report.fin_prov_10_tem01;
@@ -28,6 +30,7 @@ create temporary table if not exists report.fin_prov_10_tem01
 select 
     a.year_
     ,a.month_
+    ,a.y_mon
     ,a.dept_name
     ,a.md 
     ,if(a.dept_name = "信息中心",b.xxzx_md,0) as xxzx_md
@@ -47,6 +50,7 @@ from
         ,cast(right(y_mon,2)as unsigned integer) as month_
         ,dept_name
         ,sum(md) as md 
+        ,y_mon
     from report.fin_prov_08_expense_ccus 
     where cohr != "杭州贝生"
     and (ccuscode is null or ccuscode = "请核查") -- 取出没有直接到客户的费用
@@ -72,6 +76,7 @@ insert into report.fin_prov_10_tem01
 select 
     cast(left(y_mon,4) as unsigned integer) as year_
     ,cast(right(y_mon,2)as unsigned integer) as month_
+    ,y_mon
     ,dept_name
     ,sum(md) as md 
     ,0
@@ -84,6 +89,22 @@ where cohr != "杭州贝生"
 and dept_name = "博圣其他"
 group by y_mon,dept_name;
 
+-- 不到客户的总金额 减去实验员金额，19年9月以后的数据
+drop table if exists report.x_account_sy_pre;
+create temporary table report.x_account_sy_pre as
+select concat(year_,'-01') as y_mon ,sum(mon_1)  as md from edw.x_account_sy a group by year_ union
+select concat(year_,'-02') as y_mon ,sum(mon_2)  as md from edw.x_account_sy a group by year_ union
+select concat(year_,'-03') as y_mon ,sum(mon_3)  as md from edw.x_account_sy a group by year_ union
+select concat(year_,'-04') as y_mon ,sum(mon_4)  as md from edw.x_account_sy a group by year_ union
+select concat(year_,'-05') as y_mon ,sum(mon_5)  as md from edw.x_account_sy a group by year_ union
+select concat(year_,'-06') as y_mon ,sum(mon_6)  as md from edw.x_account_sy a group by year_ union
+select concat(year_,'-07') as y_mon ,sum(mon_7)  as md from edw.x_account_sy a group by year_ union
+select concat(year_,'-08') as y_mon ,sum(mon_8)  as md from edw.x_account_sy a group by year_ union
+select concat(year_,'-09') as y_mon ,sum(mon_9)  as md from edw.x_account_sy a group by year_ union
+select concat(year_,'-10') as y_mon ,sum(mon_10)  as md from edw.x_account_sy a group by year_ union
+select concat(year_,'-11') as y_mon ,sum(mon_11)  as md from edw.x_account_sy a group by year_ union
+select concat(year_,'-12') as y_mon ,sum(mon_12)  as md from edw.x_account_sy a group by year_ 
+;
 
 -- 技术保障中心费用分摊，  杭州贝生不分摊（分母不计入）
 insert into report.fin_prov_10_expense_else
@@ -96,7 +117,7 @@ select
     ,a.dept_name
     ,"bs"
     ,0
-    ,a.md_cut * ifnull(b.per_allexcepthzbs,1) -- 杭州贝生分母不计入 
+    ,(a.md_cut - ifnull(c.md,0)) * ifnull(b.per_allexcepthzbs,1) -- 杭州贝生分母不计入 
     ,0
     ,0
     ,0
@@ -104,6 +125,8 @@ select
 from report.fin_prov_10_tem01 as a 
 left join (select * from report.auxi_01_ccuscode_per where ccuscode != "hzbs") as b 
 on a.year_ = b.year_ and a.month_ = b.month_ 
+left join (select * from report.x_account_sy_pre where y_mon >='2019-09') c
+on a.y_mon = c.y_mon
 where a.dept_name = "技术保障中心";
 
 -- 除技术保障中心以外的费用分摊  杭州贝生计入  
