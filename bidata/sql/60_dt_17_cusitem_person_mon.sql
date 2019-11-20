@@ -58,7 +58,7 @@ select
     ,p_sales_sup_clinic as p_sup_second
     ,p_sales_spe_clinic as p_spe_second
     ,per_tec as per_main
-from dt_17_cusitem_person
+from bidata.dt_17_cusitem_person
 where per_tec >= 0.5;
 
 insert into bidata.dt_17_cusitem_person_mon_01
@@ -76,7 +76,7 @@ select
     ,p_sales_sup_tec as p_sup_second
     ,p_sales_spe_tec as p_spe_second
     ,1 - per_tec as per_main
-from dt_17_cusitem_person
+from bidata.dt_17_cusitem_person
 where per_tec < 0.5;
 alter table bidata.dt_17_cusitem_person_mon_01 add index index_bidata_dt_17_cusitem_person_mon_01_ddate_effect (ddate_effect) ;
 alter table bidata.dt_17_cusitem_person_mon_01 add index index_bidata_dt_17_cusitem_person_mon_01_end_dt (end_dt) ;
