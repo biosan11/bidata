@@ -2,7 +2,8 @@
 -- 加工crm工单
 truncate table edw.crm_new_work_orders;
 insert into edw.crm_new_work_orders
-select a.new_num
+select new_account_equipment
+      ,a.new_num
       ,concat(b.new_ccusabbname,a.new_issue_demand) as num_name
       ,new_finishwo
       ,b.new_area
@@ -47,6 +48,8 @@ select a.new_num
       ,case when a.new_this_repair = 'False' then '否'
             when a.new_this_repair = 'True' then '是'
             else '未知' end as this_repair
+      ,a.new_trademark
+      ,c.new_name
       ,localtimestamp() as sys_time
   from ufdata.crm_new_work_orders a
   left join edw.crm_account_equipments c
