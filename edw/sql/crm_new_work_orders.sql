@@ -51,7 +51,6 @@ select new_account_equipment
       ,a.new_trademark
       ,c.new_name
       ,c.new_prod_brand
-      ,c.new_brand
       ,localtimestamp() as sys_time
   from ufdata.crm_new_work_orders a
   left join edw.crm_account_equipments c

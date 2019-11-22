@@ -35,7 +35,9 @@ select a.new_account_equipmentid
       ,a.new_equipment_type
       ,b.lastname as owner
       ,a.new_trademark
-      ,a.new_prod_brand
+      ,case when a.new_prod_brand = '' and a.new_brand = '1' then 'PerkinElmer'
+            when a.new_prod_brand = '' and a.new_brand = '7' then 'LEICA'
+            else a.new_prod_brand end as new_prod_brand
       ,a.new_prod_id
       ,a.new_installation_date
       ,a._new_account_equipment_value
