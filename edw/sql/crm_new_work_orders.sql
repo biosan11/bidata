@@ -1,14 +1,31 @@
+-- 创建联系人的更新表
+drop table if exists edw.crm_contacts;
+create temporary table edw.crm_contacts as 
+select a._parentcustomerid_value
+      ,a.contactid
+      ,b.name
+      ,b.new_grade
+      ,c.bi_cuscode
+      ,c.bi_cusname
+  from ufdata.crm_contacts a
+  left join ufdata.crm_accounts b
+    on a._parentcustomerid_value = b.accountid
+  left join (select * from edw.dic_customer group by ccusname) c
+    on b.name = c.ccusname
+;
+
 
 -- 加工crm工单
 truncate table edw.crm_new_work_orders;
 insert into edw.crm_new_work_orders
-select a.new_num
+select new_account_equipment
+      ,a.new_num
       ,concat(b.new_ccusabbname,a.new_issue_demand) as num_name
       ,new_finishwo
       ,b.new_area
       ,b.new_province
-      ,b.name as ccusname -- 这里缺失一个联系人
-      ,b.new_grade
+      ,case when b.name is not null then b.name else j. name end as ccusname -- 这里缺失一个联系人
+      ,case when b.new_grade is not null then b.new_grade else j. new_grade end as new_grade
       ,c.bi_cinvcode
       ,c.bi_cinvname
       ,i.new_name as new_type_3
@@ -47,6 +64,9 @@ select a.new_num
       ,case when a.new_this_repair = 'False' then '否'
             when a.new_this_repair = 'True' then '是'
             else '未知' end as this_repair
+      ,a.new_trademark
+      ,c.new_name
+      ,c.new_prod_brand
       ,localtimestamp() as sys_time
   from ufdata.crm_new_work_orders a
   left join edw.crm_account_equipments c
@@ -65,6 +85,8 @@ select a.new_num
     on a.new_return_visit_user = h.ownerid
   left join ufdata.crm_new_work_types i 
     on a.new_type_3 = i.new_work_typeid
+  left join edw.crm_contacts j
+    on a.new_contact = j.contactid
 ;
 
 
