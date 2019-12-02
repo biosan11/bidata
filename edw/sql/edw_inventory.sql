@@ -130,3 +130,10 @@ set a.specification_type = c.cinvstd
    ,a.itax = c.itaxrate
    ,a.latest_cost = c.iinvncost
 ;
+-- 修改一波有问题的品牌
+update edw.map_inventory set cinvbrand = '英派康' where bi_cinvcode = 'HC01099';
+update edw.map_inventory set cinvbrand = '雪莲牌' where bi_cinvcode = 'HC01422';
+update edw.map_inventory set cinvbrand = '雅培' where bi_cinvcode = 'SJ03001';
+update edw.map_inventory set cinvbrand = '松下' where bi_cinvcode = 'YQ02464';
+
+
