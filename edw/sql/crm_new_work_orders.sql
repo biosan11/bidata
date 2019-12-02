@@ -20,6 +20,12 @@ truncate table edw.crm_new_work_orders;
 insert into edw.crm_new_work_orders
 select new_account_equipment
       ,a.new_num
+      ,case when new_source = '1' then '服务部'
+            when new_source = '2' then '400'
+            when new_source = '3' then '微信'
+            when new_source = '4' then '服务部-技术'
+            when new_source = '5' then '服务部-维修'
+            else '未知' end as new_source
       ,concat(b.new_ccusabbname,a.new_issue_demand) as num_name
       ,new_finishwo
       ,b.new_area
