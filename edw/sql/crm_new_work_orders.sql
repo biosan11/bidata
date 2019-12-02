@@ -87,6 +87,7 @@ select new_account_equipment
     on a.new_type_3 = i.new_work_typeid
   left join edw.crm_contacts j
     on a.new_contact = j.contactid
+ where a.statecode = '0'
 ;
 
 
