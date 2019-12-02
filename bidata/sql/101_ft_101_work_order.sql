@@ -3,8 +3,8 @@
 CREATE TABLE `ft_101_work_order` (
   `new_num` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '工单',
   `num_name` longtext COLLATE utf8_bin COMMENT '标题',
-  `ccusname` varchar(120) CHARACTER SET utf8 DEFAULT NULL COMMENT '客户名称',
-  `bi_ccuscode` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '客户编码',
+  `bi_cuscode` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '客户编码',
+  `bi_cusname` varchar(120) CHARACTER SET utf8 DEFAULT NULL COMMENT '客户名称',
   `new_grade` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '客户等级',
   `bi_cinvcode` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '产品编号',
   `bi_cinvname` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '产品名称',
@@ -38,7 +38,8 @@ CREATE TABLE `ft_101_work_order` (
   `new_acknowledgement` varchar(120) COLLATE utf8_bin DEFAULT NULL COMMENT '确认接单',
   `new_troubleshooting` varchar(120) COLLATE utf8_bin DEFAULT NULL COMMENT '是否疑难故障排查',
   `this_repair` varchar(2) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `sys_time` datetime DEFAULT NULL COMMENT '系统时间'
+  `sys_time` datetime DEFAULT NULL COMMENT '系统时间',
+  `new_account_equipment` varchar(255) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='crm工单';
 */
 
@@ -88,7 +89,8 @@ a.new_ifclose,
 a.new_acknowledgement,
 a.new_troubleshooting,
 a.this_repair,
-a.sys_time 
+a.sys_time ,
+a.new_account_equipment
 FROM
 	edw.crm_new_work_orders AS a
 	LEFT JOIN ( SELECT DISTINCT ccusname, bi_cuscode, bi_cusname FROM edw.dic_customer ) AS b ON a.ccusname = b.ccusname 
