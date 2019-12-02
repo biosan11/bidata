@@ -2,6 +2,7 @@
 -- 建表ft_101_work_order
 CREATE TABLE `ft_101_work_order` (
   `new_num` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '工单',
+  `new_source` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '来源',
   `num_name` longtext COLLATE utf8_bin COMMENT '标题',
   `bi_cuscode` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '客户编码',
   `bi_cusname` varchar(120) CHARACTER SET utf8 DEFAULT NULL COMMENT '客户名称',
@@ -47,6 +48,7 @@ CREATE TABLE `ft_101_work_order` (
 TRUNCATE TABLE bidata.ft_101_work_order;
 INSERT INTO bidata.ft_101_work_order SELECT
 a.new_num,
+a.new_source,
 a.num_name,
 ifnull( b.bi_cuscode, "请核查" ),
 IFNULL( b.bi_cusname, "请核查" ),
