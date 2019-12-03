@@ -47,6 +47,7 @@ select distinct a.userid
 ,a.mobilephone
 ,concat(a.workdateyear,'-',a.workdatemonth,'-',a.workdateday) as workdate -- 起始工作时间
 ,a.birthday
+,a.email
   from ufdata.ehr_employee_information a
   left join (select id,name from edw.dic_ehr where type = 'nation') b
     on a.nation = b.id
@@ -128,6 +129,7 @@ create temporary table edw.mid1_ehr_employee as
 select a.userid
 ,b.jobnumber
 ,a.name
+,a.email
 ,b.address_usual
 ,b.address_fuli
 ,b.poidempadmin

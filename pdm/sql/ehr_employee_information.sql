@@ -21,6 +21,7 @@ insert into pdm.ehr_employee
 select distinct a.userid
       ,a.jobnumber
       ,a.name
+      ,a.email
       ,a.address_usual
       ,a.address_fuli
       ,a.poidempadmin
