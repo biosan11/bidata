@@ -432,3 +432,43 @@ select a.province
 drop table if exists pdm.invoice_price_temp;
 drop table if exists pdm.invoice_price_pre;
 drop table if exists pdm.invoice_price_pre_1;
+
+-- 这里针对只出现一次且没有其他开票记录的，更新end_date为当天
+drop table if exists pdm.mid1_invoice_price_end;
+create temporary table pdm.mid1_invoice_price_end
+SELECT ccuscode,finnal_ccuscode,cinvcode,itaxunitprice 
+  FROM `invoice_order` 
+ where isum >0 and itaxunitprice > 0
+group by ccuscode,finnal_ccuscode,cinvcode,itaxunitprice
+having count(*) = 1
+;
+
+drop table if exists pdm.mid2_invoice_price_end;
+create temporary table pdm.mid2_invoice_price_end
+SELECT ccuscode,finnal_ccuscode,cinvcode 
+  FROM `invoice_order` 
+ where isum >0 and itaxunitprice > 0
+group by ccuscode,finnal_ccuscode,cinvcode
+having count(*) = 1
+;
+
+drop table if exists pdm.mid3_invoice_price_end;
+create temporary table pdm.mid3_invoice_price_end
+select a.* 
+  from pdm.mid1_invoice_price_end a
+  left join pdm.mid2_invoice_price_end b
+    on a.ccuscode = b.ccuscode
+   and a.finnal_ccuscode = b.finnal_ccuscode
+   and a.cinvcode = b.cinvcode
+ where b.ccuscode is null
+;
+
+update pdm.invoice_price a
+ inner join pdm.mid3_invoice_price_end b
+    on a.ccuscode = b.ccuscode
+   and a.finnal_ccuscode = b.finnal_ccuscode
+   and a.cinvcode = b.cinvcode
+   and round(a.itaxunitprice,2) = round(b.itaxunitprice,2)
+   set a.end_dt = a.start_dt
+;
+
