@@ -437,7 +437,7 @@ drop table if exists pdm.invoice_price_pre_1;
 drop table if exists pdm.mid1_invoice_price_end;
 create temporary table pdm.mid1_invoice_price_end
 SELECT ccuscode,finnal_ccuscode,cinvcode,itaxunitprice 
-  FROM `invoice_order` 
+  FROM pdm.invoice_order
  where isum >0 and itaxunitprice > 0
 group by ccuscode,finnal_ccuscode,cinvcode,itaxunitprice
 having count(*) = 1
@@ -446,7 +446,7 @@ having count(*) = 1
 drop table if exists pdm.mid2_invoice_price_end;
 create temporary table pdm.mid2_invoice_price_end
 SELECT ccuscode,finnal_ccuscode,cinvcode 
-  FROM `invoice_order` 
+  FROM pdm.invoice_order
  where isum >0 and itaxunitprice > 0
 group by ccuscode,finnal_ccuscode,cinvcode
 having count(*) = 1
