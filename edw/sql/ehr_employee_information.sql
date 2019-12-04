@@ -69,6 +69,7 @@ select a.userid
 ,d.fourthlevelorganization
 ,d.fifthlevelorganization
 ,d.sixthlevelorganization
+,d.seventhlevelorganization
 ,e.name as position_name
 ,f.name as jobpost_name
 ,a.oidjoblevel
@@ -146,6 +147,7 @@ select a.userid
 ,f.name as fourth_dept
 ,g.name as fifth_dept
 ,i.name as sixth_dept
+,j.name as sevent_dept
 ,b.position_name
 ,b.jobpost_name
 ,h.name as oidjoblevel
@@ -191,6 +193,8 @@ select a.userid
     on b.fifthlevelorganization = g.oid
   left join ufdata.ehr_organization i
     on b.sixthlevelorganization = i.oid
+  left join ufdata.ehr_organization j
+    on b.seventhlevelorganization = j.oid
   left join ufdata.ehr_joblevel h
     on b.oidjoblevel = h.oid
 ;
@@ -241,12 +245,105 @@ alter table edw.mid1_ehr_employee convert to character set utf8;
 -- 插入数据	
 truncate table edw.ehr_employee;
 insert into edw.ehr_employee
-select distinct * 
-  from edw.mid1_ehr_employee;
+select distinct userid
+      ,jobnumber
+      ,name
+      ,email
+      ,address_usual
+      ,address_fuli
+      ,poidempadmin
+      ,poidempreserve2
+      ,gender
+      ,major
+      ,educationlevel
+      ,mobilephone
+      ,workdate
+      ,birthday
+      ,first_dept
+      ,second_dept
+      ,third_dept
+      ,fourth_dept
+      ,fifth_dept
+      ,sixth_dept
+      ,position_name
+      ,jobpost_name
+      ,oidjoblevel
+      ,entrydate
+      ,startdate
+      ,stopdate
+      ,TransitionType
+      ,probation
+      ,employeestatus
+      ,employmenttype
+      ,probationstartdate
+      ,probationstopdate
+      ,regularizationdate
+      ,probationresult
+      ,lastworkdate
+      ,extlizhireason_107502_632202192
+      ,workyearbefore
+      ,workyearcompanybefore
+      ,start_dt
+      ,end_dt
+      ,sys_time
+  from edw.mid1_ehr_employee
+ where second_dept is not null 
+   and third_dept is not null
+;
+
+insert into edw.ehr_employee
+select distinct userid
+      ,jobnumber
+      ,name
+      ,email
+      ,address_usual
+      ,address_fuli
+      ,poidempadmin
+      ,poidempreserve2
+      ,gender
+      ,major
+      ,educationlevel
+      ,mobilephone
+      ,workdate
+      ,birthday
+      ,first_dept
+      ,concat(ifnull(second_dept,''),ifnull(third_dept,''))
+      ,fourth_dept
+      ,fifth_dept
+      ,sixth_dept
+      ,sevent_dept
+      ,position_name
+      ,jobpost_name
+      ,oidjoblevel
+      ,entrydate
+      ,startdate
+      ,stopdate
+      ,TransitionType
+      ,probation
+      ,employeestatus
+      ,employmenttype
+      ,probationstartdate
+      ,probationstopdate
+      ,regularizationdate
+      ,probationresult
+      ,lastworkdate
+      ,extlizhireason_107502_632202192
+      ,workyearbefore
+      ,workyearcompanybefore
+      ,start_dt
+      ,end_dt
+      ,sys_time
+  from edw.mid1_ehr_employee
+ where second_dept is null 
+   or third_dept is null
+;
+
+
 
 delete from edw.ehr_employee where employmenttype = '未知' and oidjoblevel is null;
 delete from edw.ehr_employee where employmenttype = '外部' and lastworkdate is null;
 delete from edw.ehr_employee where userid = '124741099';
 delete from edw.ehr_employee where userid = '120421497';
 delete from edw.ehr_employee where userid = '122762056';
+delete from edw.ehr_employee where userid = '126316306';
 
