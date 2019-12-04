@@ -69,7 +69,7 @@ select a.conclusion
     on a.collection_hospital = c.ccusname
 ;
 
-delete from edw.checklist_sy_mon where left(ddate,7) = '${y_mon}';
+delete from edw.checklist_sy_mon where y_mon = '${y_mon}';
 insert into edw.checklist_sy_mon
 select a.y_mon
       ,c.province
