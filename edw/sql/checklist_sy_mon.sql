@@ -91,13 +91,16 @@ select a.y_mon
     on a.bi_cuscode = b.ccuscode
    and a.item_code = b.item_code
   left join (select * from edw.map_customer group by bi_cuscode) c
-    on a.bi_cuscode  = c.bi_cuscode
+    on a.company_id  = c.bi_cuscode
   left join (select * from edw.map_inventory group by item_code) d
     on a.item_code  = d.item_code
 ;
 
-
-
+update edw.checklist_sy_mon set conclusion= '空值' where conclusion = '��';
+update edw.checklist_sy_mon set conclusion= '空值' where conclusion = '�ٻ�ȷ��';
+update edw.checklist_sy_mon set conclusion= '空值' where conclusion = '�ٻظ���';
+update edw.checklist_sy_mon set conclusion= '空值' where conclusion = '0';
+update edw.checklist_sy_mon set conclusion= '空值' where conclusion = 'nan';
 
 
 
