@@ -340,4 +340,22 @@ update pdm.ar_detail a
       ,a.city = b.city
  where a.finnal_cuscode = 'multi';
 
+-- 删除承兑汇票出现2笔汇款情况的一笔
+drop table if exists pdm.ar_detail_hp;
+create table if not exists pdm.ar_detail_hp
+select auto_id
+  from pdm.ar_detail
+ where cdigest like '%承兑汇票%'
+   and balance_ap > 0
+ group by matchid
+;
+update pdm.ar_detail a
+ inner join pdm.ar_detail_hp b
+    on a.auto_id = b.auto_id
+   set a.balance_ap = 0
+;
+
+
+
+
 
