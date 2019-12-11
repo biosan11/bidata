@@ -550,8 +550,8 @@ select a.db
       ,a.icoridlsid
       ,a.iRetQuantity
       ,a.itb
-      ,a.idlsid
       ,'有效'
+      ,a.idlsid
       ,a.sys_time
   from edw.mid4_dispatch_order a
   left join edw.map_inventory b
