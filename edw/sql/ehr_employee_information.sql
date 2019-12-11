@@ -63,6 +63,7 @@ select * from (
 select a.userid
 ,a.oiddepartment
 ,a.sys_date
+,d.name as dept_name
 ,d.firstlevelorganization
 ,d.secondlevelorganization
 ,d.thirdlevelorganization
@@ -141,6 +142,7 @@ select a.userid
 ,a.mobilephone
 ,a.workdate
 ,a.birthday
+,b.dept_name
 ,c.name as first_dept
 ,d.name as second_dept
 ,e.name as third_dept
@@ -259,6 +261,7 @@ select distinct userid
       ,mobilephone
       ,workdate
       ,birthday
+      ,dept_name
       ,first_dept
       ,second_dept
       ,third_dept
@@ -306,6 +309,7 @@ select distinct userid
       ,mobilephone
       ,workdate
       ,birthday
+      ,dept_name
       ,first_dept
       ,concat(ifnull(second_dept,''),ifnull(third_dept,''))
       ,fourth_dept
