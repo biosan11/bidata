@@ -245,8 +245,8 @@ alter table edw.mid1_ehr_employee convert to character set utf8;
 -- 历史数据变更
 -- update edw.ehr_employee set end_dt = '${start_dt}' where userid in (select userid from edw.mid2_ehr_employee);
 -- 插入数据	
-truncate table edw.ehr_employee;
-insert into edw.ehr_employee
+drop table if exists edw.ehr_employee_fin;
+create temporary table edw.ehr_employee_fin as
 select distinct userid
       ,jobnumber
       ,name
@@ -294,7 +294,7 @@ select distinct userid
    and third_dept is not null
 ;
 
-insert into edw.ehr_employee
+insert into edw.ehr_employee_fin
 select distinct userid
       ,jobnumber
       ,name
@@ -340,6 +340,65 @@ select distinct userid
   from edw.mid1_ehr_employee
  where second_dept is null 
    or third_dept is null
+;
+
+
+-- 增加部门清洗
+truncate table edw.ehr_employee;
+insert into edw.ehr_employee
+select a.userid
+      ,a.jobnumber
+      ,a.name
+      ,a.email
+      ,a.address_usual
+      ,a.address_fuli
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,a.birthday
+      ,a.dept_name
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,b.cdept_id_ehr
+      ,b.name_ehr
+      ,a.first_dept
+      ,b.second_dept
+      ,b.third_dept
+      ,b.fourth_dept
+      ,b.fifth_dept
+      ,b.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+      ,a.workyearbefore
+      ,a.workyearcompanybefore
+      ,a.start_dt
+      ,a.end_dt
+      ,a.sys_time
+  from edw.ehr_employee_fin a
+  left join (select * from edw.dic_deptment group by cdept_name) b
+    on CONCAT(ifnull(a.dept_name,''),ifnull(a.first_dept,''),ifnull(a.second_dept,''),ifnull(a.third_dept,''),ifnull(a.fourth_dept,''),ifnull(a.fifth_dept,''),ifnull(a.sixth_dept,''),ifnull(a.position_name,'')) = b.cdept_name
 ;
 
 
