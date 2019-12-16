@@ -10,7 +10,7 @@ select
     ,a.cohr
     ,a.dbill_date
     ,replace(a.fashengrq,'',null)
-    ,a.cpersonname
+    ,a.cd_name
     ,a.ccuscode
     ,a.name_ehr_id
     ,a.name_ehr
@@ -49,7 +49,7 @@ select
     ,a.cohr
     ,a.dbill_date
     ,null
-    ,a.cpersonname_adjust
+    ,a.cpersonname_adjust  as cd_name
     ,a.bi_cuscode
     ,a.cdept_id_ehr
     ,null
