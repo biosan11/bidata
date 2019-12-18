@@ -366,8 +366,10 @@ CREATE INDEX index_invoice_price_pre_1_finnal_ccuscode ON pdm.invoice_price_pre_
 CREATE INDEX index_invoice_price_pre_1_cinvcode ON pdm.invoice_price_pre_1(cinvcode);
 
 -- 取最后一次不为0的价格
-truncate table pdm.invoice_price;
-insert into pdm.invoice_price
+-- truncate table pdm.invoice_price;
+-- insert into pdm.invoice_price
+drop table if exists pdm.invoice_price_fin;
+create temporary table pdm.invoice_price_fin
 select a.province
       ,a.ccuscode
       ,a.ccusname
@@ -375,8 +377,8 @@ select a.province
       ,a.finnal_ccusname
       ,a.cinvcode
       ,a.cinvname
-      ,a.ddate
-      ,b.ddate
+      ,a.ddate as start_dt
+      ,b.ddate as end_dt
       ,a.itaxunitprice
       ,a.specification_type
       ,a.cinvbrand
@@ -399,7 +401,7 @@ select ccuscode,finnal_ccuscode,cinvcode,max(ddate) as ddate
  group by ccuscode,finnal_ccuscode,cinvcode
 ;
 
-update pdm.invoice_price a
+update pdm.invoice_price_fin a
  inner join pdm.invoice_price_pre_2 b
     on a.ccuscode = b.ccuscode
    and a.finnal_ccuscode = b.finnal_ccuscode
@@ -409,7 +411,7 @@ update pdm.invoice_price a
 ;
 
 -- 插入价格为0的数据
-insert into pdm.invoice_price
+insert into pdm.invoice_price_fin
 select a.province
       ,a.ccuscode
       ,a.ccusname
@@ -463,12 +465,68 @@ select a.*
  where b.ccuscode is null
 ;
 
-update pdm.invoice_price a
+update pdm.invoice_price_fin a
  inner join pdm.mid3_invoice_price_end b
     on a.ccuscode = b.ccuscode
    and a.finnal_ccuscode = b.finnal_ccuscode
    and a.cinvcode = b.cinvcode
    and round(a.itaxunitprice,2) = round(b.itaxunitprice,2)
    set a.end_dt = a.start_dt
+;
+
+-- 增加序号
+truncate table invoice_price;
+insert into invoice_price
+select @r:= case when @ccuscode=a.ccuscode and @cinvcode = a.cinvcode and @finnal_ccuscode = a.finnal_ccuscode then @r+1 else 1 end as rownum
+      ,a.province
+      ,@ccuscode:=a.ccuscode as ccuscode
+      ,a.ccusname
+      ,@finnal_ccuscode:=a.finnal_ccuscode as finnal_ccuscode
+      ,a.finnal_ccusname
+      ,@cinvcode:=a.cinvcode as cinvcode
+      ,a.cinvname
+      ,a.start_dt
+      ,a.end_dt
+      ,a.itaxunitprice
+      ,a.specification_type
+      ,a.cinvbrand
+      ,a.inum_unit_person
+      ,a.state
+      ,null
+  from (select * from pdm.invoice_price_fin where itaxunitprice <> 0 order by ccuscode,finnal_ccuscode,cinvcode,start_dt,end_dt) a
+,(select @r:=0,@ccuscode:='',@finnal_ccuscode:='',@cinvcode:='') b
+;
+
+insert into invoice_price
+select 0
+      ,a.province
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.finnal_ccuscode
+      ,a.finnal_ccusname
+      ,a.cinvcode
+      ,a.cinvname
+      ,a.start_dt
+      ,a.end_dt
+      ,a.itaxunitprice
+      ,a.specification_type
+      ,a.cinvbrand
+      ,a.inum_unit_person
+      ,a.state
+      ,null
+  from pdm.invoice_price_fin a
+ where itaxunitprice = 0
+;
+
+-- 更新金额可能存在问题的记录
+update pdm.invoice_price a
+ inner join pdm.sales_dis_out_inv b
+    on a.ccuscode = b.ccuscode_fp
+   and a.finnal_ccuscode = b.finnal_ccuscode_fp
+   and a.cinvcode = b.cinvcode_fp
+   and a.start_dt = b.ddate_fp
+   set a.status = b.err_md
+ where b.err_md <> ''
+   and a.itaxunitprice <> 0
 ;
 
