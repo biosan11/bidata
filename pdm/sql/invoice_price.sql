@@ -109,6 +109,7 @@ create table if not exists pdm.invoice_price_temp(
 
 drop table if exists pdm.invoice_price;
 create table if not exists pdm.invoice_price(
+    rownum varchar(60) DEFAULT NULL COMMENT '序号',
     province varchar(60) DEFAULT NULL COMMENT '销售省份',
     ccuscode varchar(30),
     ccusname varchar(60),
@@ -123,6 +124,7 @@ create table if not exists pdm.invoice_price(
     cinvbrand varchar(60) DEFAULT NULL COMMENT '品牌',
     inum_unit_person varchar(60),
     state varchar(20),
+    status varchar(20) COMMENT '存在的问题',
     key price_vary_ccuscode (ccuscode),
     key price_vary_cinvcode (cinvcode),
     key price_vary_finnal_ccuscode (finnal_ccuscode)
