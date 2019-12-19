@@ -45,7 +45,7 @@ def get_sqlfile():
 if __name__ == '__main__':
     # 可以在sql中切换 database
     #打开数据库连接
-    db = pymysql.connect('172.16.0.181','root','biosan','bidata')
+    db = pymysql.connect('172.16.0.181','root','biosan','pdm')
     #创建游标对象
     cursor = db.cursor()
     sql_commands=get_sqlfile()
