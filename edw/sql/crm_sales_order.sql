@@ -1,5 +1,6 @@
 
 -- crm订单第二层加工逻辑，暂时只需要知道客户和金额订单状态其他的后续增加
+drop table if exists edw.crm_sales_order;
 create table edw.crm_sales_order
 select a.new_order_date
       ,a.new_prepare_date
