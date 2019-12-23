@@ -1,8 +1,7 @@
 
--- CREATE TABLE `checklist_sy` (
+-- CREATE TABLE `checklist_sy_mon` (
 --   `province_ori` varchar(60) DEFAULT NULL COMMENT '销售省份',
 --   `person_ori` varchar(60) DEFAULT NULL COMMENT '负责人',
---   `ddate_sample` date DEFAULT NULL COMMENT '实验日期',
 --   `hospital` varchar(20) DEFAULT NULL COMMENT '实验单位',
 --   `company_id` varchar(120) DEFAULT NULL COMMENT '实验单位编号',
 --   `company_exp` varchar(120) DEFAULT NULL COMMENT '实验单位名称',
@@ -18,42 +17,40 @@
 --   `sys_time` datetime DEFAULT NULL COMMENT '数据时间戳',
 --   KEY `index_checklist_ccuscode` (`ccuscode`),
 --   KEY `index_checklist_item_code` (`item_code`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='检测量表-实验室';
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='检测量表-实验室-年月';
 
 
 
 -- 新筛数据,采用实验时间来做判断
-drop table if exists edw.checklist_sy_pre;
-create temporary table edw.checklist_sy_pre as
-select experiment_date
+drop table if exists edw.checklist_sy_mon_pre;
+create temporary table edw.checklist_sy_mon_pre as
+select LEFT ( experiment_date, 7 ) AS y_mon
       ,hospital
       ,collection_hospital
       ,conclusion
-      ,amount
+      ,sum(amount) as amount
       ,project
-      ,upload_date
-      ,concat(ifnull(hospital,''),ifnull(collection_hospital,'')) as hospital1
   from share.neo_amount_experiment_date 
- where experiment_date >= '${start_dt}'
+ where left(experiment_date,7) = '${y_mon}'
+ group by y_mon,hospital,collection_hospital,conclusion,project
 ;
 
--- alter table edw.checklist_sy_pre engine=MEMORY;  
-CREATE INDEX index_checklist_sy_pre_hospital ON edw.checklist_sy_pre(hospital);
-CREATE INDEX index_checklist_sy_pre_hospital1 ON edw.checklist_sy_pre(hospital1);
-CREATE INDEX index_checklist_sy_pre_collection ON edw.checklist_sy_pre(collection_hospital);
-CREATE INDEX index_checklist_sy_pre_project ON edw.checklist_sy_pre(project);
+-- alter table edw.checklist_sy_mon_pre engine=MEMORY;  
+CREATE INDEX index_checklist_sy_mon_pre_hospital ON edw.checklist_sy_mon_pre(hospital);
+CREATE INDEX index_checklist_sy_mon_pre_collection ON edw.checklist_sy_mon_pre(collection_hospital);
+CREATE INDEX index_checklist_sy_mon_pre_project ON edw.checklist_sy_mon_pre(project);
 
 -- 清洗采血、实验单位、项目
-drop table if exists edw.mid1_checklist_sy;
-create temporary table edw.mid1_checklist_sy as
+drop table if exists edw.mid1_checklist_sy_mon;
+create temporary table edw.mid1_checklist_sy_mon as
 select a.conclusion
-      ,a.experiment_date
+      ,y_mon
       ,a.hospital
       ,case when b.ccusname is null then '请核查' else b.bi_cuscode end as company_id
       ,case when b.ccusname is null then '请核查' else b.bi_cusname end as company_exp
       ,a.collection_hospital
-      ,case when c.ccusname is null then (case when d.ccusname is null then '请核查' else d.bi_cuscode end) else c.bi_cuscode end as bi_cuscode
-      ,case when c.ccusname is null then (case when d.ccusname is null then '请核查' else d.bi_cusname end) else c.bi_cusname end as bi_cusname
+      ,case when c.ccusname is null then '请核查' else c.bi_cuscode end as bi_cuscode
+      ,case when c.ccusname is null then '请核查' else c.bi_cusname end as bi_cusname
       ,a.amount
       ,case when a.project = 'G6PD检测' then 'XS0104'
             when a.project = 'OHP检测' then 'XS0103'
@@ -65,24 +62,21 @@ select a.conclusion
             when a.project = 'PHE检测' then 'PKU'
             when a.project = 'TSH检测' then 'TSH'
             else '串联试剂' end as item_name
-  from edw.checklist_sy_pre a
+  from edw.checklist_sy_mon_pre a
   left join (select * from edw.dic_customer group by ccusname) b
     on a.hospital = b.ccusname
   left join (select * from edw.dic_customer group by ccusname) c
     on a.collection_hospital = c.ccusname
-  left join (select * from edw.dic_customer group by ccusname) d
-    on a.hospital1 = d.ccusname
 ;
 
-delete from edw.checklist_sy where ddate >= '${start_dt}';
-insert into edw.checklist_sy
-select c.province
+delete from edw.checklist_sy_mon where y_mon = '${y_mon}';
+insert into edw.checklist_sy_mon
+select a.y_mon
+      ,c.province
       ,b.p_charge
-      ,a.experiment_date
       ,a.hospital
       ,a.company_id
       ,a.company_exp
-      ,a.experiment_date
       ,a.collection_hospital
       ,a.bi_cuscode
       ,a.bi_cusname
@@ -92,18 +86,21 @@ select c.province
       ,a.amount
       ,a.conclusion
       ,localtimestamp()
-  from edw.mid1_checklist_sy a
+  from edw.mid1_checklist_sy_mon a
   left join (select * from edw.map_cusitem_person group by ccuscode,item_code) b
     on a.bi_cuscode = b.ccuscode
    and a.item_code = b.item_code
   left join (select * from edw.map_customer group by bi_cuscode) c
-    on a.bi_cuscode  = c.bi_cuscode
+    on a.company_id  = c.bi_cuscode
   left join (select * from edw.map_inventory group by item_code) d
     on a.item_code  = d.item_code
 ;
 
-
-
+update edw.checklist_sy_mon set conclusion= '空值' where conclusion = '��';
+update edw.checklist_sy_mon set conclusion= '空值' where conclusion = '�ٻ�ȷ��';
+update edw.checklist_sy_mon set conclusion= '空值' where conclusion = '�ٻظ���';
+update edw.checklist_sy_mon set conclusion= '空值' where conclusion = '0';
+update edw.checklist_sy_mon set conclusion= '空值' where conclusion = 'nan';
 
 
 

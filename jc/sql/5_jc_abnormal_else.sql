@@ -47,6 +47,39 @@ select distinct
  where name_ehr_id is null
 ;
 
+-- 人事部门清洗监控
+insert into tracking.jc_abnormal_day
+select distinct 
+       null
+      ,'edw' as source
+      ,'ehr_employee'
+      ,null
+      ,null
+      ,null
+      ,CONCAT(ifnull(a.dept_name,''),ifnull(a.first_dept,''),ifnull(a.second_dept,''),ifnull(a.third_dept,''),ifnull(a.fourth_dept,''),ifnull(a.fifth_dept,''),ifnull(a.sixth_dept,''),ifnull(a.position_name,''))
+      ,'部门监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from edw.ehr_employee a
+ where cdept_id is null
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       null
+      ,'edw' as source
+      ,'ehr_employee_id'
+      ,null
+      ,null
+      ,null
+      ,CONCAT(ifnull(a.dept_name,''),ifnull(a.first_dept,''),ifnull(a.second_dept,''),ifnull(a.third_dept,''),ifnull(a.fourth_dept,''),ifnull(a.fifth_dept,''),ifnull(a.sixth_dept,''),ifnull(a.position_name,''))
+      ,'部门监控' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from edw.ehr_employee_id a
+ where cdept_id is null
+;
+
 -- 18年收入金额
 insert into tracking.jc_abnormal_day
 select distinct 

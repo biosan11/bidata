@@ -60,12 +60,14 @@ select * from (
 select a.userid
 ,a.oiddepartment
 ,a.sys_date
+,d.name as dept_name
 ,d.firstlevelorganization
 ,d.secondlevelorganization
 ,d.thirdlevelorganization
 ,d.fourthlevelorganization
 ,d.fifthlevelorganization
 ,d.sixthlevelorganization
+,d.seventhlevelorganization
 ,e.name as position_name
 ,f.name as jobpost_name
 ,a.oidjoblevel
@@ -134,12 +136,14 @@ select a.userid
 ,a.mobilephone
 ,a.workdate
 ,a.birthday
+,b.dept_name
 ,c.name as first_dept
 ,d.name as second_dept
 ,e.name as third_dept
 ,f.name as fourth_dept
 ,g.name as fifth_dept
 ,i.name as sixth_dept
+,j.name as sevent_dept
 ,b.position_name
 ,b.jobpost_name
 ,h.name as oidjoblevel
@@ -182,17 +186,167 @@ select a.userid
     on b.fifthlevelorganization = g.oid
   left join ufdata.ehr_organization i
     on b.sixthlevelorganization = i.oid
+  left join ufdata.ehr_organization j
+    on b.seventhlevelorganization = j.oid
   left join ufdata.ehr_joblevel h
     on b.oidjoblevel = h.oid
 ;
 
 
 -- 插入数据	
+drop table if exists edw.ehr_employee_id_fin;
+create temporary table edw.ehr_employee_id_fin as
+select distinct userid
+      ,jobnumber
+      ,name
+      ,address_usual
+      ,address_fuli
+      ,poidempadmin
+      ,poidempreserve2
+      ,gender
+      ,major
+      ,educationlevel
+      ,mobilephone
+      ,workdate
+      ,birthday
+      ,dept_name
+      ,first_dept
+      ,second_dept
+      ,third_dept
+      ,fourth_dept
+      ,fifth_dept
+      ,sixth_dept
+      ,position_name
+      ,jobpost_name
+      ,oidjoblevel
+      ,entrydate
+      ,startdate
+      ,stopdate
+      ,TransitionType
+      ,probation
+      ,employeestatus
+      ,employmenttype
+      ,probationstartdate
+      ,probationstopdate
+      ,regularizationdate
+      ,probationresult
+      ,lastworkdate
+      ,extlizhireason_107502_632202192
+      ,workyearbefore
+      ,workyearcompanybefore
+      ,localtimestamp() as sys_time 
+  from edw.mid1_ehr_employee_id
+ where second_dept is not null 
+   and third_dept is not null
+;
+
+insert into edw.ehr_employee_id_fin
+select distinct userid
+      ,jobnumber
+      ,name
+      ,address_usual
+      ,address_fuli
+      ,poidempadmin
+      ,poidempreserve2
+      ,gender
+      ,major
+      ,educationlevel
+      ,mobilephone
+      ,workdate
+      ,birthday
+      ,dept_name
+      ,first_dept
+      ,concat(ifnull(second_dept,''),ifnull(third_dept,''))
+      ,fourth_dept
+      ,fifth_dept
+      ,sixth_dept
+      ,sevent_dept
+      ,position_name
+      ,jobpost_name
+      ,oidjoblevel
+      ,entrydate
+      ,startdate
+      ,stopdate
+      ,TransitionType
+      ,probation
+      ,employeestatus
+      ,employmenttype
+      ,probationstartdate
+      ,probationstopdate
+      ,regularizationdate
+      ,probationresult
+      ,lastworkdate
+      ,extlizhireason_107502_632202192
+      ,workyearbefore
+      ,workyearcompanybefore
+      ,localtimestamp() as sys_time 
+  from edw.mid1_ehr_employee_id
+ where second_dept is null 
+   or third_dept is null
+;
+
+-- 增加部门清洗
 truncate table edw.ehr_employee_id;
 insert into edw.ehr_employee_id
-select distinct a.*
-               ,localtimestamp() as sys_time 
-  from edw.mid1_ehr_employee_id a;
+select userid
+      ,a.jobnumber
+      ,a.name
+      ,a.address_usual
+      ,a.address_fuli
+      ,a.poidempadmin
+      ,a.poidempreserve2
+      ,a.gender
+      ,a.major
+      ,a.educationlevel
+      ,a.mobilephone
+      ,a.workdate
+      ,a.birthday
+      ,a.dept_name
+      ,a.first_dept
+      ,a.second_dept
+      ,a.third_dept
+      ,a.fourth_dept
+      ,a.fifth_dept
+      ,a.sixth_dept
+      ,b.cdept_id_ehr
+      ,b.name_ehr
+      ,a.first_dept
+      ,b.second_dept
+      ,b.third_dept
+      ,b.fourth_dept
+      ,b.fifth_dept
+      ,b.sixth_dept
+      ,a.position_name
+      ,a.jobpost_name
+      ,a.oidjoblevel
+      ,a.entrydate
+      ,a.startdate
+      ,a.stopdate
+      ,a.TransitionType
+      ,a.probation
+      ,a.employeestatus
+      ,a.employmenttype
+      ,a.probationstartdate
+      ,a.probationstopdate
+      ,a.regularizationdate
+      ,a.probationresult
+      ,a.lastworkdate
+      ,a.extlizhireason_107502_632202192
+      ,a.workyearbefore
+      ,a.workyearcompanybefore
+      ,a.sys_time
+  from edw.ehr_employee_id_fin a
+  left join (select * from edw.dic_deptment group by cdept_name) b
+    on CONCAT(ifnull(a.dept_name,''),ifnull(a.first_dept,''),ifnull(a.second_dept,''),ifnull(a.third_dept,''),ifnull(a.fourth_dept,''),ifnull(a.fifth_dept,''),ifnull(a.sixth_dept,''),ifnull(a.position_name,'')) = b.cdept_name
+;
+
+
+-- 插入数据	
+-- truncate table edw.ehr_employee_id;
+-- insert into edw.ehr_employee_id
+-- select distinct a.*
+--                ,localtimestamp() as sys_time 
+--   from edw.mid1_ehr_employee_id a;
 
 
 delete from edw.ehr_employee_id where employmenttype = '未知' and oidjoblevel is null;
@@ -200,4 +354,5 @@ delete from edw.ehr_employee_id where employmenttype = '外部' and lastworkdate
 delete from edw.ehr_employee_id where userid = '124741099';
 delete from edw.ehr_employee_id where userid = '120421497';
 delete from edw.ehr_employee_id where userid = '122762056';
+delete from edw.ehr_employee_id where userid = '126316306';
 

@@ -21,11 +21,12 @@ insert into pdm.ehr_employee
 select distinct a.userid
       ,a.jobnumber
       ,a.name
+      ,a.email
       ,a.address_usual
       ,a.address_fuli
       ,a.poidempadmin
       ,a.poidempreserve2
-      ,DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(a.birthday)), '%Y')+0 AS ag
+      ,DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(a.birthday)), '%Y')+0 AS age
       ,a.gender
       ,a.major
       ,a.educationlevel
@@ -36,12 +37,14 @@ select distinct a.userid
       ,case when employeestatus = '待入职' then 0
        else CAST(( unix_timestamp( now() ) - unix_timestamp(str_to_date(entrydate, '%Y-%m-%d %H')) ) / 3600 / 24/365 AS DECIMAL ( 3, 1 ) ) end  as workyearcompanytotal
       ,a.birthday
-      ,a.first_dept
-      ,a.second_dept
-      ,a.third_dept
-      ,a.fourth_dept
-      ,a.fifth_dept
-      ,a.sixth_dept
+      ,a.cdept_id
+      ,a.cdept_name
+      ,a.cdept_lv1
+      ,a.cdept_lv2
+      ,a.cdept_lv3
+      ,a.cdept_lv4
+      ,a.cdept_lv5
+      ,a.cdept_lv6
       ,a.position_name
       ,a.jobpost_name
       ,a.oidjoblevel
@@ -64,15 +67,15 @@ select distinct a.userid
  where end_dt = '3000-12-31';
 
 -- 根据人事提供的19年离职表，来更新19年离职人员部门架构
-update pdm.ehr_employee a
- inner join edw.dic_ehr_withdrawn b
-    on a.name = b.name
-   set a.third_dept = b.third_dept
-      ,a.fourth_dept = b.fourth_dept
-      ,a.fifth_dept = b.fifth_dept
-      ,a.sixth_dept = b.sixth_dept
- where b.type = '1'
-;
+-- update pdm.ehr_employee a
+--  inner join edw.dic_ehr_withdrawn b
+--     on a.name = b.name
+--    set a.third_dept = b.third_dept
+--       ,a.fourth_dept = b.fourth_dept
+--       ,a.fifth_dept = b.fifth_dept
+--       ,a.sixth_dept = b.sixth_dept
+--  where b.type = '1'
+-- ;
 
 
 

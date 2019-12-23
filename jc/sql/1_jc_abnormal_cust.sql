@@ -460,6 +460,21 @@ select distinct
       ,'edw' as source
       ,'x_sales_bkgr' as tb_name
       ,null
+      ,'old_finnal_ccusname' as err_col
+      ,null as err_value
+      ,old_finnal_ccusname as err_col_name
+      ,'客户清洗' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from edw.x_sales_bkgr where finnal_ccuscode = '请核查'
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'excel'
+      ,'edw' as source
+      ,'x_sales_bkgr' as tb_name
+      ,null
       ,'ccusname_ori' as err_col
       ,null as err_value
       ,ccusname_ori as err_col_name

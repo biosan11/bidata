@@ -88,7 +88,8 @@ from pdm.cusitem_archives as a
 left join bidata.auxi_cusitem_ne_sc_me as b
 on a.item_code = b.item_code
 left join ufdata.x_cusitem_enddate as c
-on a.ccuscode = c.ccuscode and a.item_code = c.item_code
+-- 191216修改 join条件增加业务类型
+on a.ccuscode = c.ccuscode and a.item_code = c.item_code and a.cbustype = c.cbustype
 where left(a.ccuscode,2) = "ZD" 
 and type != "个人销售"
 and b.item_code is not null 

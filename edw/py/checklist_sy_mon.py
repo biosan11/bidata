@@ -13,17 +13,20 @@ from string import Template
 start_dt = sys.argv[1]
 
 #常量
-SQL_FILE = '/home/bidata/pdm/sql/invoice_price.sql'
-LOG_FILE = '/home/bidata/pdm/log/invoice_price.log'
+SQL_FILE = '/home/bidata/edw/sql/checklist_sy_mon.sql'
+LOG_FILE = '/home/bidata/edw/log/checklist_sy_mon.log'
 
 # 系统当前时间
 sysCurDate=time.strftime("%Y%m%d%H%M%S",time.localtime(time.time()))
 
 warnings.filterwarnings("ignore")
 
+y_mon = str(start_dt)[:7]
+
 # 参数列表
 conf_dict = {
     'start_dt':start_dt,
+    'y_mon':y_mon,
     'sysCurDate':sysCurDate
 }
 
@@ -45,7 +48,7 @@ def get_sqlfile():
 if __name__ == '__main__':
     # 可以在sql中切换 database
     #打开数据库连接
-    db = pymysql.connect('172.16.0.181','root','biosan','pdm')
+    db = pymysql.connect('172.16.0.181','root','biosan','bidata')
     #创建游标对象
     cursor = db.cursor()
     sql_commands=get_sqlfile()

@@ -9,7 +9,8 @@ CREATE TABLE `ft_101_work_order` (
   `new_grade` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '客户等级',
   `bi_cinvcode` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '产品编号',
   `bi_cinvname` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '产品名称',
-  `new_type_3` varchar(60) COLLATE utf8_bin DEFAULT NULL COMMENT '服务内容',
+  `new_type_3` varchar(60) COLLATE utf8_bin DEFAULT NULL COMMENT '工单类型编号',
+  `new_typename` varchar(60) COLLATE utf8_bin DEFAULT NULL COMMENT '工单类型',
   `new_macover` varchar(2) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '是否在保（维保状态）',
   `problem_happen_time` varchar(29) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '问题发生时间',
   `modifiedon` varchar(29) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '录单时间',
@@ -56,6 +57,7 @@ a.new_grade,
 a.bi_cinvcode,
 a.bi_cinvname,
 a.new_type_3,
+a.new_typename,
 a.new_macover,
 CASE
 		WHEN a.problem_happen_time IS NULL THEN

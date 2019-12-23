@@ -20,6 +20,12 @@ truncate table edw.crm_new_work_orders;
 insert into edw.crm_new_work_orders
 select new_account_equipment
       ,a.new_num
+      ,case when new_source = '1' then '服务部'
+            when new_source = '2' then '400'
+            when new_source = '3' then '微信'
+            when new_source = '4' then '服务部-技术'
+            when new_source = '5' then '服务部-维修'
+            else '未知' end as new_source
       ,concat(b.new_ccusabbname,a.new_issue_demand) as num_name
       ,new_finishwo
       ,b.new_area
@@ -28,7 +34,10 @@ select new_account_equipment
       ,case when b.new_grade is not null then b.new_grade else j. new_grade end as new_grade
       ,c.bi_cinvcode
       ,c.bi_cinvname
-      ,i.new_name as new_type_3
+			,case when a.new_type_3 is not null then a.new_type_3
+						else a.new_type_3_2 end as new_type_3
+			,case when a.new_type_3 is not null then i.new_name
+						else k.new_name end as new_typename
       ,date_add(left(a.modifiedon,19), interval 8 hour) as modifiedon
       ,date_add(left(a.new_problem_happen_time,19), interval 8 hour) as problem_happen_time
       ,case when a.new_macover = 'false' then '保外'
@@ -87,14 +96,7 @@ select new_account_equipment
     on a.new_type_3 = i.new_work_typeid
   left join edw.crm_contacts j
     on a.new_contact = j.contactid
+  left join ufdata.crm_new_work_types k 
+    on a.new_type_3_2 = k.new_work_typeid
  where a.statecode = '0'
 ;
-
-
-
-
-
-
-
-
-

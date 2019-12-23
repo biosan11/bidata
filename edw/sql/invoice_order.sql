@@ -111,7 +111,7 @@ select a.db
    and a.db <> 'UFDATA_889_2019'
    and a.db <> 'UFDATA_666_2018'
    and a.db <> 'UFDATA_555_2018'
-   and year(a.ddate) >= '2019'; 
+   and year(a.ddate) >= '2018'; 
 -- 针对美博特客户不在同部博圣做出调整,贝安云客户账套完全不一致
 --   and a.ccuscode not in ("001","002","003","004","005","006","007","008","009","010","011","012","013");
 
@@ -149,7 +149,7 @@ select a.db
    and left(a.db,10) = left(b.db,10)
  where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
    and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018' or a.db = 'UFDATA_666_2018')
-   and year(a.ddate) >= '2019'; 
+   and year(a.ddate) >= '2018'; 
 --   and a.ccuscode in ("001","002","003","004","005","006","007","008","009","010","011","012","013");
 
 
