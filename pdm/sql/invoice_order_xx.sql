@@ -151,9 +151,11 @@ select '17'
       ,a.ddate
       ,case when a.db = 'bk' then 'bk'
             when a.db = 'ZYJK' then 'zyjk'
+            when a.db = 'JYMT' then 'jymt'
             else 'zysy' end
       ,case when a.db = 'bk' then '贝康'
             when a.db = 'ZYJK' then '甄元健康'
+            when a.db = 'JYMT' then '杰毅麦特'
             else '甄元实验室' end
       ,null
       ,null
