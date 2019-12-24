@@ -51,6 +51,7 @@ select d.rank + 1 as diff_dt
       ,d.ccusname
       ,d.s_dt
       ,d.e_dt 
+      ,year(d.s_dt) as year_
   from (
 select c.d_num
       ,c.rank

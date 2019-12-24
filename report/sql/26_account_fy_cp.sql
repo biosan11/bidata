@@ -84,6 +84,7 @@ select d.cpersonname
       ,d.name_ehr
       ,d.s_dt
       ,d.e_dt 
+      ,year(d.s_dt) as year_
   from (
 select c.cpersonname
       ,c.d_num
@@ -116,7 +117,7 @@ update report.account_fy_cp set diff_dt = 1 where d_num = 0;
 -- 这里新增一个计算当次是当年的第几次
 drop table if exists report.account_fy_cp_pre;
 create temporary table report.account_fy_cp_pre as
-select @r:= case when @cpersonname=a.cpersonname and @ccusname = a.ccusname then @r+1 else 1 end as rownum
+select @r:= case when @cpersonname=a.cpersonname and @ccusname = a.ccusname and @year_ = a.year_ then @r+1 else 1 end as rownum
       ,@cpersonname:=a.cpersonname as cpersonname
       ,a.diff_dt
       ,a.d_num
@@ -125,20 +126,22 @@ select @r:= case when @cpersonname=a.cpersonname and @ccusname = a.ccusname then
       ,a.name_ehr
       ,a.s_dt
       ,a.e_dt
-  from (select * from report.account_fy_cp order by cpersonname,ccusname,s_dt) a,(select @r:=0,@cpersonname:='',@ccusname:='') b
+			,@year_:=a.year_ as year_
+  from (select * from report.account_fy_cp order by cpersonname,ccusname,s_dt) a,(select @r:=0,@cpersonname:='',@ccusname:='',@year_:='') b
 ;
 
 -- 这里新增一个计算医院维度当次是当年的第几次
 drop table if exists report.account_fy_ccus_pre;
 create temporary table report.account_fy_ccus_pre as
-select @r:= case when  @ccusname = a.ccusname then @r+1 else 1 end as rownum
+select @r:= case when  @ccusname = a.ccusname and @year_ = a.year_ then @r+1 else 1 end as rownum
       ,a.diff_dt
       ,a.d_num
       ,a.ccuscode
       ,@ccusname:=a.ccusname as ccusname
       ,a.s_dt
       ,a.e_dt
-  from (select * from report.account_fy_ccus order by ccusname,s_dt) a,(select @r:=0,@ccusname:='') b
+			,@year_:=a.year_ as year_
+  from (select * from report.account_fy_ccus order by ccusname,s_dt) a,(select @r:=0,@ccusname:='',@year_:='') b
 ;
 
 drop table if exists report.account_fy_mid1;
