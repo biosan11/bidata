@@ -309,6 +309,24 @@ select distinct
     on left(a.strCode,11) = concat(e.cinvccode,e.cinvcode)
  where a.bi_cinvcode = '请核查'
 ;
+-- ao报价表
+insert into tracking.jc_abnormal_day
+select distinct 
+       'oa'
+      ,'edw' as source
+      ,'oa_uf_shebeicpqd' as tb_name
+      ,null
+      ,'chanpinbh_cinvcode' as err_col
+      ,a.chanpinbh as err_value
+      ,a.chanpinmc as err_col_name
+      ,'产品清洗' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from ufdata.oa_uf_shebeicpqd a
+  left join (select * from edw.dic_inventory group by cinvcode) b
+    on a.chanpinbh = b.cinvcode
+ where b.cinvcode is null
+;
 
 
 
