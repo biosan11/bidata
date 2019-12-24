@@ -14,6 +14,7 @@ select a.chanpinmcz
       ,a.pinpai
       ,a.huohao
       ,a.guigexh
+      ,a.yongliang
   from ufdata.oa_uf_chanpinsbdz a
   left join (select * from edw.dic_inventory group by cinvcode) b
     on a.chanpinbhz = b.cinvcode
@@ -35,10 +36,11 @@ select a.id
       ,a.pinpai
       ,a.huohao
       ,a.guigexh
+      ,c.yongliang
   from ufdata.oa_uf_shebeicpqd a
   left join (select * from edw.dic_inventory group by cinvcode) b
     on a.chanpinbh = b.cinvcode
-  left join (select chanpinmcz from ufdata.oa_uf_chanpinsbdz group by chanpinmcz) c
+  left join (select chanpinmcz,yongliang from ufdata.oa_uf_chanpinsbdz group by chanpinmcz) c
     on a.id = c.chanpinmcz
  where c.chanpinmcz is not null
 ;
