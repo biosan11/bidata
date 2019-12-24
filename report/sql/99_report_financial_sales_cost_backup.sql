@@ -27,6 +27,8 @@ create table if not exists report.financial_sales_cost_backup(
     item_code_outdepot varchar(20) comment '项目编码',
     iunitcost float(13,3) comment '成本价',
     iquantity_outdepot float(13,3) comment '发货数量',
+    biaozhunjg float(13,3) comment '标准价',
+    zuidijg float(13,3) comment '最低价',
     mark_iunitcost varchar(50) comment '读取单价标记',
     key report_financial_sales_cost_matchid (matchid),
     key report_financial_sales_cost_matchid2 (matchid2),
@@ -153,6 +155,8 @@ insert into report.financial_sales_cost_backup
 select 
     a.*
     ,c.*
+    ,null
+    ,null
     ,if (b.matchid2 is null,null,"outdepot")
 from report.tem00 as a
 left join report.tem01 as b
@@ -182,6 +186,31 @@ on a.cinvcode_invoice = b.cinvcode
 set a.iunitcost = b.iunitcost ,a.mark_iunitcost = "cinvcode"
 where a.iunitcost is null 
 and a.cohr not in ("贝康","贝康个人","甄元健康","甄元实验室");
+
+-- 按照oa产品报价得出标准价和最低价
+-- 清洗得到一张临时表
+drop table if exists report.oa_uf_shebeicpqd;
+create temporary table report.oa_uf_shebeicpqd as
+select a.biaozhunjg
+      ,a.zuidijg
+      ,a.chanpinbh
+      ,a.chanpinmc
+      ,b.bi_cinvcode
+      ,b.bi_cinvname
+  from ufdata.oa_uf_shebeicpqd a
+  left join (select * from edw.dic_inventory group by cinvname) b
+    on a.chanpinmc = b.cinvname
+;
+
+alter table report.oa_uf_shebeicpqd add index index_oa_uf_shebeicpqd_bi_cinvcode ( `bi_cinvcode` );
+
+update report.financial_sales_cost_backup as a 
+left join report.oa_uf_shebeicpqd as b 
+on a.cinvcode_invoice = b.bi_cinvcode
+set a.biaozhunjg = b.biaozhunjg ,a.zuidijg = b.zuidijg
+;
+
+
 
 -- not confirm
 -- 加入没有出库数据的单价内容
