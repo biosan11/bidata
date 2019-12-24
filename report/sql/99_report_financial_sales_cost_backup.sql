@@ -198,8 +198,8 @@ select a.biaozhunjg
       ,b.bi_cinvcode
       ,b.bi_cinvname
   from ufdata.oa_uf_shebeicpqd a
-  left join (select * from edw.dic_inventory group by cinvname) b
-    on a.chanpinmc = b.cinvname
+  left join (select * from edw.dic_inventory group by cinvcode) b
+    on a.chanpinbh = b.cinvcode
 ;
 
 alter table report.oa_uf_shebeicpqd add index index_oa_uf_shebeicpqd_bi_cinvcode ( `bi_cinvcode` );
