@@ -130,6 +130,17 @@ set a.specification_type = c.cinvstd
    ,a.itax = c.itaxrate
    ,a.latest_cost = c.iinvncost
 ;
+
+-- 只更新品牌有问题的
+update edw.map_inventory a
+inner join (select * from edw.dic_inventory group by bi_cinvcode) b
+  on a.bi_cinvcode = b.bi_cinvcode
+inner join (select * from edw.inventory_pre group by cinvcode) c
+  on b.cinvcode = c.cinvcode
+set a.cinvbrand = c.cinvdefine5
+where a.cinvbrand is null
+;
+
 -- 修改一波有问题的品牌
 update edw.map_inventory set cinvbrand = '英派康' where bi_cinvcode = 'HC01099';
 update edw.map_inventory set cinvbrand = '雪莲牌' where bi_cinvcode = 'HC01422';
