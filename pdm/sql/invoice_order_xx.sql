@@ -145,6 +145,7 @@ select '17'
 delete from pdm.invoice_order where db = 'bk';
 delete from pdm.invoice_order where db = 'zyjk';
 delete from pdm.invoice_order where db = 'zysy';
+delete from pdm.invoice_order where db = 'jymt';
 insert into pdm.invoice_order
 select '17'
       ,a.auto_id
