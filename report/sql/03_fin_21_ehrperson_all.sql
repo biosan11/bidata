@@ -195,3 +195,22 @@ employeestatus in("正式","试用") and
 startdate <= date_add('2019-12-31',interval -@n month) and 
 stopdate >= date_add('2019-12-31',interval -@n month)
 group by second_dept,third_dept,fourth_dept,fifth_dept,position_main;
+
+-- 19年11月
+set @n = 1;
+insert into report.fin_21_ehrperson_all
+select 
+    12-@n as month
+    ,second_dept
+    ,third_dept
+    ,fourth_dept
+    ,fifth_dept
+    ,position_main 
+    ,count(userid) as num_person 
+from bidata.ft_71_employee_id 
+where 
+employmenttype in ("正式","兼职") and 
+employeestatus in("正式","试用") and 
+startdate <= date_add('2019-12-31',interval -@n month) and 
+stopdate >= date_add('2019-12-31',interval -@n month)
+group by second_dept,third_dept,fourth_dept,fifth_dept,position_main;
