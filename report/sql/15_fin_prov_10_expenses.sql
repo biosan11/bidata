@@ -264,14 +264,26 @@ select left(a.province,2) as province
 drop table if exists report.expenses_mid22;
 create temporary table report.expenses_mid22 as
 select distinct y_mon,left(dept_name,2) as dept_name from report.expenses_mid2 union 
-select distinct '2019-01',province from report.x_account_sy_pre where ifnull(round(mon_1 ,0),0)<> 0 union
-select distinct '2019-02',province from report.x_account_sy_pre where ifnull(round(mon_2 ,0),0)<> 0 union
-select distinct '2019-03',province from report.x_account_sy_pre where ifnull(round(mon_3 ,0),0)<> 0 union
-select distinct '2019-04',province from report.x_account_sy_pre where ifnull(round(mon_4 ,0),0)<> 0 union
-select distinct '2019-05',province from report.x_account_sy_pre where ifnull(round(mon_5 ,0),0)<> 0 union
-select distinct '2019-06',province from report.x_account_sy_pre where ifnull(round(mon_6 ,0),0)<> 0 union
-select distinct '2019-07',province from report.x_account_sy_pre where ifnull(round(mon_7 ,0),0)<> 0 union
-select distinct '2019-08',province from report.x_account_sy_pre where ifnull(round(mon_8 ,0),0)<> 0 union
+select distinct '2019-01',province from report.x_account_sy_pre where ifnull(round(mon_1 ,0),0)<> 0 and year_ = '2019' union
+select distinct '2019-02',province from report.x_account_sy_pre where ifnull(round(mon_2 ,0),0)<> 0 and year_ = '2019' union
+select distinct '2019-03',province from report.x_account_sy_pre where ifnull(round(mon_3 ,0),0)<> 0 and year_ = '2019' union
+select distinct '2019-04',province from report.x_account_sy_pre where ifnull(round(mon_4 ,0),0)<> 0 and year_ = '2019' union
+select distinct '2019-05',province from report.x_account_sy_pre where ifnull(round(mon_5 ,0),0)<> 0 and year_ = '2019' union
+select distinct '2019-06',province from report.x_account_sy_pre where ifnull(round(mon_6 ,0),0)<> 0 and year_ = '2019' union
+select distinct '2019-07',province from report.x_account_sy_pre where ifnull(round(mon_7 ,0),0)<> 0 and year_ = '2019' union
+select distinct '2019-08',province from report.x_account_sy_pre where ifnull(round(mon_8 ,0),0)<> 0 and year_ = '2019' union
+select distinct '2018-01',province from report.x_account_sy_pre where ifnull(round(mon_1 ,0),0)<> 0 and year_ = '2018' union
+select distinct '2018-02',province from report.x_account_sy_pre where ifnull(round(mon_2 ,0),0)<> 0 and year_ = '2018' union
+select distinct '2018-03',province from report.x_account_sy_pre where ifnull(round(mon_3 ,0),0)<> 0 and year_ = '2018' union
+select distinct '2018-04',province from report.x_account_sy_pre where ifnull(round(mon_4 ,0),0)<> 0 and year_ = '2018' union
+select distinct '2018-05',province from report.x_account_sy_pre where ifnull(round(mon_5 ,0),0)<> 0 and year_ = '2018' union
+select distinct '2018-06',province from report.x_account_sy_pre where ifnull(round(mon_6 ,0),0)<> 0 and year_ = '2018' union
+select distinct '2018-07',province from report.x_account_sy_pre where ifnull(round(mon_7 ,0),0)<> 0 and year_ = '2018' union
+select distinct '2018-08',province from report.x_account_sy_pre where ifnull(round(mon_8 ,0),0)<> 0 and year_ = '2018' union
+select distinct '2018-09',province from report.x_account_sy_pre where ifnull(round(mon_9 ,0),0)<> 0 and year_ = '2018' union
+select distinct '2018-10',province from report.x_account_sy_pre where ifnull(round(mon_10 ,0),0)<> 0 and year_ = '2018' union
+select distinct '2018-11',province from report.x_account_sy_pre where ifnull(round(mon_11 ,0),0)<> 0 and year_ = '2018' union
+select distinct '2018-12',province from report.x_account_sy_pre where ifnull(round(mon_12 ,0),0)<> 0 and year_ = '2018' union
 -- select distinct '2019-09',province from report.x_account_sy_pre where ifnull(round(mon_9 ,0),0)<> 0 union
 -- select distinct '2019-10',province from report.x_account_sy_pre where ifnull(round(mon_10,0),0) <> 0 union
 -- select distinct '2019-11',province from report.x_account_sy_pre where ifnull(round(mon_11,0),0) <> 0 union
@@ -283,7 +295,19 @@ select distinct y_mon,province from report.x_insure_cover_pre
 drop table if exists report.expenses_mid5;
 create temporary table report.expenses_mid5 as
 select a.y_mon
-     ,(case when a.y_mon = '2019-01' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_1 ,0)
+     ,(case when a.y_mon = '2018-01' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_1 ,0)
+            when a.y_mon = '2018-02' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_2 ,0)
+            when a.y_mon = '2018-03' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_3 ,0)
+            when a.y_mon = '2018-04' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_4 ,0)
+            when a.y_mon = '2018-05' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_5 ,0)
+            when a.y_mon = '2018-06' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_6 ,0)
+            when a.y_mon = '2018-07' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_7 ,0)
+            when a.y_mon = '2018-08' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_8 ,0)
+            when a.y_mon = '2018-09' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_9 ,0)
+            when a.y_mon = '2018-10' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_10 ,0)
+            when a.y_mon = '2018-11' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_11 ,0)
+            when a.y_mon = '2018-12' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_12 ,0)
+            when a.y_mon = '2019-01' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_1 ,0)
             when a.y_mon = '2019-02' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_2 ,0)
             when a.y_mon = '2019-03' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_3 ,0)
             when a.y_mon = '2019-04' and b.province is not null then ifnull(d.md,0) - ifnull(b.mon_4 ,0)
@@ -300,6 +324,7 @@ select a.y_mon
   from report.expenses_mid22 a
   left join report.x_account_sy_pre b
     on left(a.dept_name,2) = b.province
+   and left(a.y_mon,4) = b.year_
   left join report.x_insure_cover_pre c
     on left(a.dept_name,2) = c.province
    and a.y_mon = c.y_mon
