@@ -173,7 +173,10 @@ select a.sbvid
 ;
 
 -- 删除上游已经删除的数据
-delete from pdm.invoice_order where concat(db,sbvid) in (select concat(db,sbvid) from edw.invoice_order where state = '无效') ;
+drop table if exists pdm.invoice_order_wx;
+create temporary table pdm.invoice_order_wx as select concat(db,sbvid) as db from edw.invoice_order where state = '无效';
+CREATE INDEX index_invoice_order_wx_db ON pdm.invoice_order_wx(db);
+delete from pdm.invoice_order where concat(db,sbvid) in (select db from pdm.invoice_order_wx) ;
 
 -- 这里新增更新部门
 update pdm.invoice_order s

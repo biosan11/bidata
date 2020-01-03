@@ -167,7 +167,10 @@ select a.id
 
 
 -- 删除上游已经删除的数据
-delete from pdm.outdepot_order where concat(db,id) in (select concat(db,id) from edw.outdepot_order where state = '无效') ;
+drop table if exists pdm.outdepot_order_wx;
+create temporary table pdm.outdepot_order_wx as select concat(db,id) as db from edw.outdepot_order where state = '无效';
+CREATE INDEX index_outdepot_order_wx_db ON pdm.outdepot_order_wx(db);
+delete from pdm.outdepot_order where concat(db,id) in (select db from pdm.outdepot_order_wx) ;
 
 -- 这里新增更新部门
 update pdm.outdepot_order s
