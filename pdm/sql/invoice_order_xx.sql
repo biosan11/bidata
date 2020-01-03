@@ -146,6 +146,7 @@ delete from pdm.invoice_order where db = 'bk';
 delete from pdm.invoice_order where db = 'zyjk';
 delete from pdm.invoice_order where db = 'zysy';
 delete from pdm.invoice_order where db = 'jymt';
+delete from pdm.invoice_order where db = 'xj';
 insert into pdm.invoice_order
 select '17'
       ,a.auto_id
@@ -153,10 +154,12 @@ select '17'
       ,case when a.db = 'bk' then 'bk'
             when a.db = 'ZYJK' then 'zyjk'
             when a.db = 'JYMT' then 'jymt'
+            when a.db = 'XJ' then 'xj'
             else 'zysy' end
       ,case when a.db = 'bk' then '贝康'
             when a.db = 'ZYJK' then '甄元健康'
             when a.db = 'JYMT' then '杰毅麦特'
+            when a.db = 'XJ' then '现金'
             else '甄元实验室' end
       ,null
       ,null
