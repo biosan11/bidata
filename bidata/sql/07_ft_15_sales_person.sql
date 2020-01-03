@@ -162,8 +162,10 @@ select
 from bidata.sales_person_tem01 as a
 left join bidata.dt_17_cusitem_person as b
 on a.ccuscode = b.ccuscode and a.item_code = b.item_code and a.cbustype = b.cbustype
-and replace(a.ddate,left(a.ddate,4),2019) >= b.ddate_effect and replace(a.ddate,left(a.ddate,4),2019) <= b.end_dt;
--- and month(a.ddate) >= month(b.ddate_effect) and month(a.ddate) < month(b.end_dt);
+and replace(a.ddate,left(a.ddate,4),2019) >= b.ddate_effect and replace(a.ddate,left(a.ddate,4),2019) <= b.end_dt
+-- and month(a.ddate) >= month(b.ddate_effect) and month(a.ddate) < month(b.end_dt)
+left join edw.map_customer as c 
+on a.ccuscode = c.bi_cuscode;
 
 -- 更新 ft_15_sales_person 中 equipment,screen_class 字段 
 update bidata.ft_15_sales_person as a 
