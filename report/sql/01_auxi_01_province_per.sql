@@ -98,6 +98,7 @@ select
     ,a.month_
     ,a.province_
     ,a.sales_region 
+    ,a.sales_dept
     ,a.isum as isum_province
     ,b.isum as isum_salesregion
     ,round(a.isum/b.isum,6) as per_salesregion
