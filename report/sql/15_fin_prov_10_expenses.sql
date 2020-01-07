@@ -272,10 +272,6 @@ select distinct '2019-05',province from report.x_account_sy_pre where ifnull(rou
 select distinct '2019-06',province from report.x_account_sy_pre where ifnull(round(mon_6 ,0),0)<> 0 and year_ = '2019' union
 select distinct '2019-07',province from report.x_account_sy_pre where ifnull(round(mon_7 ,0),0)<> 0 and year_ = '2019' union
 select distinct '2019-08',province from report.x_account_sy_pre where ifnull(round(mon_8 ,0),0)<> 0 and year_ = '2019' union
-select distinct '2019-09',province from report.x_account_sy_pre where ifnull(round(mon_9 ,0),0)<> 0 and year_ = '2019' union
-select distinct '2019-10',province from report.x_account_sy_pre where ifnull(round(mon_10 ,0),0)<> 0 and year_ = '2019' union
-select distinct '2019-11',province from report.x_account_sy_pre where ifnull(round(mon_11 ,0),0)<> 0 and year_ = '2019' union
-select distinct '2019-12',province from report.x_account_sy_pre where ifnull(round(mon_12 ,0),0)<> 0 and year_ = '2019' union
 select distinct '2018-01',province from report.x_account_sy_pre where ifnull(round(mon_1 ,0),0)<> 0 and year_ = '2018' union
 select distinct '2018-02',province from report.x_account_sy_pre where ifnull(round(mon_2 ,0),0)<> 0 and year_ = '2018' union
 select distinct '2018-03',province from report.x_account_sy_pre where ifnull(round(mon_3 ,0),0)<> 0 and year_ = '2018' union
