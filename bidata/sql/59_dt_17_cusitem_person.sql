@@ -58,13 +58,13 @@ select
             then 0.2
         when a.cbustype != "ldt" and b.screen_class = "筛查" 
             then 1 
-        when a.cbustype != "ldt" and b.screen_class != "筛查" and a.p_sales_sup_tec is null and a.p_sales_spe_tec is null 
+        when a.cbustype != "ldt" and (b.screen_class != "筛查" or b.screen_class is null) and a.p_sales_sup_tec is null and a.p_sales_spe_tec is null 
             then 0 
-        when a.cbustype != "ldt" and b.screen_class != "筛查" and a.p_sales_sup_clinic is null and a.p_sales_spe_clinic is null
+        when a.cbustype != "ldt" and (b.screen_class != "筛查" or b.screen_class is null) and a.p_sales_sup_clinic is null and a.p_sales_spe_clinic is null
             then 1 
-        when a.cbustype != "ldt" and b.screen_class != "筛查" and b.equipment = "是"
+        when a.cbustype != "ldt" and (b.screen_class != "筛查" or b.screen_class is null) and b.equipment = "是"
             then 0.8
-        when a.cbustype != "ldt" and b.screen_class != "筛查" and b.equipment = "否"
+        when a.cbustype != "ldt" and (b.screen_class != "筛查" or b.screen_class is null) and b.equipment = "否"
             then 0.2
         else 0.5 end as per_tec 
 from edw.map_cusitem_person as a 

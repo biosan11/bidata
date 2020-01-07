@@ -125,10 +125,26 @@ insert into bidata.ft_15_sales_person
 select
     b.uniqueid
     ,b.p_charge
-    ,b.p_sales_sup_tec
-    ,b.p_sales_spe_tec
-    ,b.p_sales_sup_clinic
-    ,b.p_sales_spe_clinic
+    ,case 
+        when b.p_sales_sup_tec = "曾守鑫" then concat(b.p_sales_sup_tec,'-',c.province)
+        when b.p_sales_sup_tec = "陈阳春" then concat(b.p_sales_sup_tec,'-',c.province)
+        else b.p_sales_sup_tec
+        end as p_sales_sup_tec
+    ,case 
+        when b.p_sales_spe_tec = "曾守鑫" then concat(b.p_sales_spe_tec,'-',c.province)
+        when b.p_sales_spe_tec = "陈阳春" then concat(b.p_sales_spe_tec,'-',c.province)
+        else b.p_sales_spe_tec
+        end as p_sales_spe_tec
+    ,case 
+        when b.p_sales_sup_clinic = "曾守鑫" then concat(b.p_sales_sup_clinic,'-',c.province)
+        when b.p_sales_sup_clinic = "陈阳春" then concat(b.p_sales_sup_clinic,'-',c.province)
+        else b.p_sales_sup_clinic
+        end as p_sales_sup_clinic
+    ,case 
+        when b.p_sales_spe_clinic = "曾守鑫" then concat(b.p_sales_spe_clinic,'-',c.province)
+        when b.p_sales_spe_clinic = "陈阳春" then concat(b.p_sales_spe_clinic,'-',c.province)
+        else b.p_sales_spe_clinic
+        end as p_sales_spe_clinic
     ,b.per_tec
     ,1-b.per_tec as per_clinic
     ,a.ddate
@@ -146,8 +162,10 @@ select
 from bidata.sales_person_tem01 as a
 left join bidata.dt_17_cusitem_person as b
 on a.ccuscode = b.ccuscode and a.item_code = b.item_code and a.cbustype = b.cbustype
-and replace(a.ddate,left(a.ddate,4),2019) >= b.ddate_effect and replace(a.ddate,left(a.ddate,4),2019) <= b.end_dt;
--- and month(a.ddate) >= month(b.ddate_effect) and month(a.ddate) < month(b.end_dt);
+and replace(a.ddate,left(a.ddate,4),2019) >= b.ddate_effect and replace(a.ddate,left(a.ddate,4),2019) <= b.end_dt
+-- and month(a.ddate) >= month(b.ddate_effect) and month(a.ddate) < month(b.end_dt)
+left join edw.map_customer as c 
+on a.ccuscode = c.bi_cuscode;
 
 -- 更新 ft_15_sales_person 中 equipment,screen_class 字段 
 update bidata.ft_15_sales_person as a 
