@@ -61,3 +61,11 @@ update edw.cm_contract
   where strcode = 'JC01JC0100001'
 ;
 
+-- 最终客户到不了的采用客户清洗
+update edw.cm_contract as a 
+left join (select * from edw.dic_customer group by ccusname) as b 
+on a.ccusname = b.ccusname
+set a.bi_cuscode = b.bi_cuscode ,a.bi_cusname = b.bi_cusname
+where a.bi_cuscode = '请核查'
+;
+

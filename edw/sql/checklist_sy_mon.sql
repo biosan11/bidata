@@ -88,7 +88,7 @@ select a.y_mon
       ,localtimestamp()
   from edw.mid1_checklist_sy_mon a
   left join (select * from edw.map_cusitem_person group by ccuscode,item_code) b
-    on a.bi_cuscode = b.ccuscode
+    on a.company_id = b.ccuscode
    and a.item_code = b.item_code
   left join (select * from edw.map_customer group by bi_cuscode) c
     on a.company_id  = c.bi_cuscode
