@@ -24,40 +24,76 @@ truncate table bidata.ft_84_expenses_settlement;
 -- 将实验员费用导入（实验员人员成本）
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,1,mon_1,0,0,0,0,0 
-from edw.x_account_sy where mon_1 is not null;
+from edw.x_account_sy where mon_1 is not null and year_ = '2019';
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,2,mon_2,0,0,0,0,0 
-from edw.x_account_sy where mon_2 is not null;
+from edw.x_account_sy where mon_2 is not null and year_ = '2019';
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,3,mon_3,0,0,0,0,0 
-from edw.x_account_sy where mon_3 is not null;
+from edw.x_account_sy where mon_3 is not null and year_ = '2019';
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,4,mon_4,0,0,0,0,0 
-from edw.x_account_sy where mon_4 is not null;
+from edw.x_account_sy where mon_4 is not null and year_ = '2019';
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,5,mon_5,0,0,0,0,0 
-from edw.x_account_sy where mon_5 is not null;
+from edw.x_account_sy where mon_5 is not null and year_ = '2019';
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,6,mon_6,0,0,0,0,0 
-from edw.x_account_sy where mon_6 is not null;
+from edw.x_account_sy where mon_6 is not null and year_ = '2019';
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,7,mon_7,0,0,0,0,0 
-from edw.x_account_sy where mon_7 is not null;
+from edw.x_account_sy where mon_7 is not null and year_ = '2019';
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,8,mon_8,0,0,0,0,0 
-from edw.x_account_sy where mon_8 is not null;
+from edw.x_account_sy where mon_8 is not null and year_ = '2019';
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,9,mon_9,0,0,0,0,0 
-from edw.x_account_sy where mon_9 is not null;
+from edw.x_account_sy where mon_9 is not null and year_ = '2019';
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,10,mon_10,0,0,0,0,0 
-from edw.x_account_sy where mon_10 is not null;
+from edw.x_account_sy where mon_10 is not null and year_ = '2019';
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,11,mon_11,0,0,0,0,0 
-from edw.x_account_sy where mon_11 is not null;
+from edw.x_account_sy where mon_11 is not null and year_ = '2019';
 insert into bidata.ft_84_expenses_settlement
 select bi_cuscode,2019,12,mon_12,0,0,0,0,0 
-from edw.x_account_sy where mon_12 is not null;
+from edw.x_account_sy where mon_12 is not null and year_ = '2019';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,1,mon_1,0,0,0,0,0 
+from edw.x_account_sy where mon_1 is not null and year_ = '2018';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,2,mon_2,0,0,0,0,0 
+from edw.x_account_sy where mon_2 is not null and year_ = '2018';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,3,mon_3,0,0,0,0,0 
+from edw.x_account_sy where mon_3 is not null and year_ = '2018';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,4,mon_4,0,0,0,0,0 
+from edw.x_account_sy where mon_4 is not null and year_ = '2018';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,5,mon_5,0,0,0,0,0 
+from edw.x_account_sy where mon_5 is not null and year_ = '2018';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,6,mon_6,0,0,0,0,0 
+from edw.x_account_sy where mon_6 is not null and year_ = '2018';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,7,mon_7,0,0,0,0,0 
+from edw.x_account_sy where mon_7 is not null and year_ = '2018';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,8,mon_8,0,0,0,0,0 
+from edw.x_account_sy where mon_8 is not null and year_ = '2018';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,9,mon_9,0,0,0,0,0 
+from edw.x_account_sy where mon_9 is not null and year_ = '2018';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,10,mon_10,0,0,0,0,0 
+from edw.x_account_sy where mon_10 is not null and year_ = '2018';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,11,mon_11,0,0,0,0,0 
+from edw.x_account_sy where mon_11 is not null and year_ = '2018';
+insert into bidata.ft_84_expenses_settlement
+select bi_cuscode,2018,12,mon_12,0,0,0,0,0 
+from edw.x_account_sy where mon_12 is not null and year_ = '2018';
 
 -- 保险成本
 drop temporary table if exists bidata.x_insure_cover_pre;
