@@ -162,7 +162,7 @@ select a.db
 ;
 
 -- 未知情况，针对奥博特财务推测操作人员问题，手动删除这部分数据
-delete from edw.accvouch_u8_pre where ibook = '0' and csign = '记';
+-- delete from edw.accvouch_u8_pre where ibook = '0' and csign = '记';
 
 
 
