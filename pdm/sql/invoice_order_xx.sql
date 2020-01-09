@@ -176,7 +176,8 @@ select '17'
       ,a.true_ccusname as ccusname
       ,b.finnal_cuscode
       ,b.finnal_ccusname
-      ,'LDT'
+--      ,'LDT'
+      ,a.business_class
       ,'销售'
       ,a.bi_cinvcode
       ,a.bi_cinvname
