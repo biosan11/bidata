@@ -25,6 +25,12 @@ create table `dt_17_cusitem_person`(
     key bidata_dt_17_cusitem_person_cbustype (cbustype)
 ) engine=innodb default charset=utf8 comment='bi客户项目负责人档案';
 */
+-- 先把edw.map_cusitem_person 人员为空的 改成null 否则影响比例问题
+update edw.map_cusitem_person set p_sales_sup_tec = null where p_sales_sup_tec = "";
+update edw.map_cusitem_person set p_sales_spe_tec = null where p_sales_spe_tec = "";
+update edw.map_cusitem_person set p_sales_sup_clinic = null where p_sales_sup_clinic = "";
+update edw.map_cusitem_person set p_sales_spe_clinic = null where p_sales_spe_clinic = "";
+
 -- 来自edw.map_cusitem_person  并做相应处理  添加2:8比例
 truncate table bidata.dt_17_cusitem_person;
 insert into bidata.dt_17_cusitem_person
