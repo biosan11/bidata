@@ -56,9 +56,9 @@ select
         else a.p_sales_spe_clinic 
         end as p_sales_spe_clinic
     ,case 
-        when a.cbustype = "ldt" and a.p_sales_sup_tec is null and a.p_sales_spe_tec is null 
+        when a.p_sales_sup_tec is null and a.p_sales_spe_tec is null 
             then 0 
-        when a.cbustype = "ldt" and a.p_sales_sup_clinic is null and a.p_sales_spe_clinic is null
+        when a.p_sales_sup_clinic is null and a.p_sales_spe_clinic is null
             then 1 
         when a.cbustype = "ldt" 
             then 0.2
