@@ -38,9 +38,7 @@ select finnal_ccuscode as ccuscode from bidata.ft_11_sales group by finnal_ccusc
 -- 1.3 取ft_12_sales_budget去重客户
 insert into bidata.bi_customer_pre
 select true_ccuscode from bidata.ft_12_sales_budget group by true_ccuscode;
--- 更新bi客户档案 191017 
--- 1.3.2 取ft_12_sales_budget_all_190807 去重客户 这张表以后会删 ,已经核实数据,直接取 ZD4304015
-insert into bidata.bi_customer_pre values("ZD4304015");
+
 
 -- 1.4 取ft_13_sales_budget_new去重客户
 insert into bidata.bi_customer_pre
