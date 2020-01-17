@@ -59,7 +59,7 @@ select
 from edw.x_sales_budget_19
 where isum_budget != 0 or inum_person != 0 or isum_budget_pro != 0;
 
--- ft_12_sales_budget 取20年预算部分字段
+-- ft_12_sales_budget 取20年预算部分字段，乘以成功率
 insert into bidata.ft_12_sales_budget
 select 
    if(cohr= "博圣体系","博圣",cohr)
@@ -69,9 +69,9 @@ select
 	,plan_class
 	,null
 	,ddate
-    ,round(inum_person,3)
+    ,round(inum_person*plan_success_rate,3)
 	,round(iunitcost,3)
-	,round((isum_budget/1000),3) as isum_budget
+	,round((isum_budget*plan_success_rate/1000),3) as isum_budget
     ,0 as isum_budget_pro
     ,0
 from edw.x_sales_budget_20
