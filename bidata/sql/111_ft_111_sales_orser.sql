@@ -24,8 +24,15 @@ select
   `cbustype`,
   `cinvcode`,
   `item_code`,
+<<<<<<< HEAD
   round((ifnull(itaxunitprice,0)/1000),3),
   `iquantity`,
   round((ifnull(itax,0)/1000),3),
   round((ifnull(isum,0)/1000),3)
+=======
+  `itaxunitprice`,
+  `iquantity`,
+  `itax`,
+  `isum`
+>>>>>>> 190ec6795aca1fb3be4b5a8a1f6c5610412a232a
 from pdm.sales_order;
