@@ -134,6 +134,8 @@ select a.cdlcode
       ,case when a.itb = '1' then '退补'
           else '正常' end
       ,a.idlsid
+      ,a.isettlenum
+      ,a.isettlequantity
       ,localtimestamp()
   from pdm.dispatch_order_pre a
   left join edw.map_customer b
