@@ -321,6 +321,7 @@ select a.db
       ,b.idlsid
       ,b.isettlenum
       ,b.isettlequantity
+      ,b.cdefine23
       ,localtimestamp() as sys_time
   from edw.mid2_dispatch_order a
   left join (select * from ufdata.dispatchlists where dkeepdate >= '2018-01-01' or dkeepdate is null) b
@@ -402,6 +403,7 @@ select a.db
       ,a.idlsid
       ,a.isettlenum
       ,a.isettlequantity
+      ,a.cdefine23
       ,a.sys_time
  from edw.mid3_dispatch_order a
   left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
@@ -480,6 +482,7 @@ select a.db
       ,a.idlsid
       ,a.isettlenum
       ,a.isettlequantity
+      ,a.cdefine23
       ,a.sys_time
  from edw.mid3_dispatch_order a
   left join dic_inventory b
@@ -560,6 +563,7 @@ select a.db
       ,a.idlsid
       ,a.isettlenum
       ,a.isettlequantity
+      ,a.cdefine23
       ,a.sys_time
   from edw.mid4_dispatch_order a
   left join edw.map_inventory b
