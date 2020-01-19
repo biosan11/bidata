@@ -1,5 +1,5 @@
 -- 2_ft_11_sales
-/*
+/* test
 -- 建表 bidata.ft_11_sales
 use bidata;
 drop table if exists ft_11_sales;
