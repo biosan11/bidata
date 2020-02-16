@@ -128,7 +128,7 @@ set a.specification_type = c.cinvstd
    ,a.product = c.cinvccode
    ,a.cinvbrand = c.cinvdefine5
    ,a.itax = c.itaxrate
-   ,a.latest_cost = c.iinvncost
+--   ,a.latest_cost = c.iinvncost
 ;
 
 -- 只更新品牌有问题的
