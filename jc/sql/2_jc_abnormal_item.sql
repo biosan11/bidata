@@ -213,7 +213,31 @@ select distinct 'excel'
 ;
 
 
-
+insert into tracking.jc_abnormal_day
+select distinct 'edw'
+      ,'edw' as source
+      ,'map_inventory' as tb_name
+      ,null
+      ,'item_code' as err_col_id
+      ,c.item_code as err_value
+      ,c.level_three as err_value2
+      ,'项目属性重复' as type
+      ,2 as leve
+      ,CURDATE( ) as date
+FROM
+  edw.map_inventory c
+  INNER JOIN (
+  SELECT
+    item_code 
+  FROM
+    ( SELECT DISTINCT item_code, level_three, level_two, level_one, screen_class, 425_item, item_key_2019 FROM edw.map_inventory ) a 
+  GROUP BY
+    item_code 
+  HAVING
+    COUNT( item_code ) > 1 
+  ) b ON c.item_code = b.item_code;
+	
+	
 
 
 
