@@ -230,7 +230,7 @@ FROM
   SELECT
     item_code 
   FROM
-    ( SELECT DISTINCT item_code, level_three, level_two, level_one, screen_class, 425_item, item_key_2019 FROM edw.map_inventory ) a 
+    ( SELECT DISTINCT item_code, level_three, level_two, level_one, screen_class, 425_item, item_key_2019,equipment FROM edw.map_inventory ) a 
   GROUP BY
     item_code 
   HAVING
