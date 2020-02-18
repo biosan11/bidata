@@ -147,4 +147,10 @@ update edw.map_inventory set cinvbrand = '雪莲牌' where bi_cinvcode = 'HC0142
 update edw.map_inventory set cinvbrand = '雅培' where bi_cinvcode = 'SJ03001';
 update edw.map_inventory set cinvbrand = '松下' where bi_cinvcode = 'YQ02464';
 
-
+-- 这里每天全量覆盖现有的项目档案的情况,每日一运行保持一致
+truncate table edw.map_item;
+insert into edw.map_item
+select DISTINCT
+item_code, level_three, level_two, level_one, equipment,screen_class, 425_item, item_key_2019
+  from edw.map_inventory
+;
