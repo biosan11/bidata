@@ -41,7 +41,7 @@ create table `ft_51_ar` (
 -- 生成账期临时表
 drop temporary table if exists bidata.ft_51_ar_tem;
 create temporary table if not exists bidata.ft_51_ar_tem
-select a.true_ccuscode,a.class,ifnull(aperiod,365) as aperiod
+select a.true_ccuscode,a.class,ifnull(aperiod,90) as aperiod
 from 
 (select true_ccuscode,class,ddate,aperiod from edw.x_ar_plan 
 order by true_ccuscode,class,ddate desc,aperiod
@@ -150,11 +150,11 @@ case
 ,a.ccovouchid
 -- 以下2019-9-30修改  来源表edw.x_ar_plan 中 aperiod 字段 出现空白 （不是null） 代码运行出错 修改代码如下
 ,case 
-    when b.aperiod = "" then 365
-    when (b.aperiod REGEXP '[^0-9.]')=1 then 365 
+    when b.aperiod = "" then 90
+    when (b.aperiod REGEXP '[^0-9.]')=1 then 90
     else b.aperiod
  end as aperiod
--- ,ifnull(if((b.aperiod REGEXP '[^0-9.]')=1,365,b.aperiod),365) as aperiod
+-- ,ifnull(if((b.aperiod REGEXP '[^0-9.]')=1,90,b.aperiod),90) as aperiod
 ,if(b.true_ccuscode is null,0,1) as mark_aperiod
 ,a.mark as mark_cinvcode
 ,case 
