@@ -57,7 +57,7 @@ select
     ,c.ddate
     ,c.cpersonname
     ,c.areadirector
-    ,ifnull(c.aperiod,365) as aperiod
+    ,ifnull(c.aperiod,90) as aperiod
     ,c.aperiod_special
     ,ifnull(c.mark_aperiod,"未知") as mark_aperiod
 from bidata.cusar_tem00 as a 
