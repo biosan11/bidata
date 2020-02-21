@@ -417,4 +417,23 @@ select distinct
    and LENGTH(code_lv2) <> '8'
 ;
 
-
+-- 增加对产品品牌的监控，只要U8存在的我们这里不存在则异常
+insert into tracking.jc_abnormal_day
+select distinct
+       'edw'
+      ,'edw'
+      ,'map_inventory'
+      ,null
+      ,'cinvbrand'
+      ,cinvbrand
+      ,null
+      ,'产品品牌'
+      ,2
+      ,CURDATE( ) as date
+  from edw.map_inventory a
+  left join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
+  on a.bi_cinvcode = b.bi_cinvcode
+  left join (select * from ufdata.inventory where cinvdefine5 is not null group by cinvcode) c
+  on b.cinvcode = c.cinvcode
+ where a.cinvbrand is null and c.cinvdefine5 is not null
+;
