@@ -120,14 +120,59 @@ select a.db
 update edw.map_inventory a
 inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
   on a.bi_cinvcode = b.bi_cinvcode
-inner join (select * from edw.inventory_pre where cinvdefine5 is not null group by cinvcode) c
+inner join (select * from edw.inventory_pre where cinvstd is not null group by cinvcode) c
   on b.cinvcode = c.cinvcode
 set a.specification_type = c.cinvstd
-   ,a.start_date = c.dsdate
-   ,a.end_date = c.dedate
-   ,a.product = c.cinvccode
+;
+
+-- 根据erp的客户档案来修改我们，map_inventory部分字段
+update edw.map_inventory a
+inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
+  on a.bi_cinvcode = b.bi_cinvcode
+inner join (select * from edw.inventory_pre where dsdate is not null group by cinvcode) c
+  on b.cinvcode = c.cinvcode
+set a.start_date = c.dsdate
+--   ,a.latest_cost = c.iinvncost
+;
+-- 开始结束时间同步
+update edw.map_inventory a
+inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
+  on a.bi_cinvcode = b.bi_cinvcode
+inner join (select * from edw.inventory_pre where dedate is not null group by cinvcode) c
+  on b.cinvcode = c.cinvcode
+set a.end_date = c.dedate
+--   ,a.product = c.cinvccode
 --   ,a.cinvbrand = c.cinvdefine5
-   ,a.itax = c.itaxrate
+--   ,a.itax = c.itaxrate
+--   ,a.latest_cost = c.iinvncost
+;
+
+update edw.map_inventory a
+inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
+  on a.bi_cinvcode = b.bi_cinvcode
+inner join (select * from edw.inventory_pre where cinvccode is not null group by cinvcode) c
+  on b.cinvcode = c.cinvcode
+set a.product = c.cinvccode
+--   ,a.cinvbrand = c.cinvdefine5
+--   ,a.itax = c.itaxrate
+--   ,a.latest_cost = c.iinvncost
+;
+-- 单价同步
+update edw.map_inventory a
+inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
+  on a.bi_cinvcode = b.bi_cinvcode
+inner join (select * from edw.inventory_pre where itaxrate is not null group by cinvcode) c
+  on b.cinvcode = c.cinvcode
+set a.itax = c.itaxrate
+--   ,a.latest_cost = c.iinvncost
+;
+-- U8名称同步
+update edw.map_inventory a
+inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
+  on a.bi_cinvcode = b.bi_cinvcode
+inner join (select * from edw.inventory_pre where cinvname is not null group by cinvcode) c
+  on b.cinvcode = c.cinvcode
+set a.u8_name = c.cinvname
 --   ,a.latest_cost = c.iinvncost
 ;
 
