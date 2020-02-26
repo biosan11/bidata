@@ -12,6 +12,7 @@
 ------------------------------------------------------------------------------------------
 --版本控制：版本号  提交人   提交日期   提交内容
 --         V1.0     jiangsh  2018-11-12   开发上线
+--         V1.1     jiangsh  2020-02-26   增加字段,jj需求
 --调用方法　sh /home/edw/sh/jsh_test.sh invoice_order
 ------------------------------------开始处理逻辑------------------------------------------
 --订单edw层加工逻辑
@@ -65,7 +66,6 @@
 -- 全量更新
 use edw;
 
-truncate table edw.ar_detail;
 
 -- 新增处理R0对应的产品为空的情况
 drop table if exists edw.ap_vouch;
@@ -79,9 +79,10 @@ select a.clink
   from ufdata.ap_vouch a
   left join (select * from ufdata.ap_vouchs where citemcode is not null group by clink) b
     on a.clink = b.clink
-  left join (select * from edw.dic_inventory group by left(db,10),cinvcode) c
+--  left join (select * from edw.dic_inventory group by left(db,10),cinvcode) c
+  left join (select * from edw.dic_inventory group by cinvcode) c  -- v1.1
     on b.citemcode = c.cinvcode
-   and left(b.db,10) = left(c.db,10)
+--   and left(b.db,10) = left(c.db,10)
   where b.clink is not null
 ;
 
@@ -240,7 +241,9 @@ update edw.ar_detail_pre a
 ;
 
 -- 最后在关联发票去ar_class字段
-insert into edw.ar_detail
+
+drop table if exists edw.ar_detail_pre2;
+create temporary table edw.ar_detail_pre2 as
 select a.db
       ,a.Auto_ID
       ,a.iPeriod
@@ -269,7 +272,7 @@ select a.db
        when a.cDigest like "%检测%" then "检测"
        when a.cDigest like "%仪器%" then "设备"
        when a.cDigest like "%设备%" then "设备"
-       else "试剂" end
+       else "其他" end as ar_class
       ,a.iBVid
       ,a.cCode
       ,a.csign
@@ -301,7 +304,7 @@ select a.db
 	        end as invoice_amount
 	    ,d.specification_type
       ,a.mark
-      ,case when a.item_code = '11111111111' then null else a.item_code end 
+      ,case when a.item_code = '11111111111' then null else a.item_code end as item_code
       ,localtimestamp() as sys_time
   from edw.ar_detail_pre a
   left join (select * from edw.dic_inventory group by cinvcode) c
@@ -312,6 +315,58 @@ select a.db
     on a.cvouchid = e.csbvcode
    and left(a.db,10) = left(e.db,10)
 ;
+
+
+truncate table edw.ar_detail;
+insert into edw.ar_detail
+select db
+      ,Auto_ID
+      ,iPeriod
+      ,cVouchType
+      ,cVouchSType
+      ,cVouchID
+      ,dVouchDate
+      ,dRegDate
+      ,cDwCode
+      ,true_ccuscode
+      ,true_ccusname
+      ,cinvcode
+      ,true_cinvcode
+      ,true_cinvname
+      ,case when ar_class = "其他" then "试剂" else ar_class end
+      ,ar_class as ar_class_type
+      ,iBVid
+      ,cCode
+      ,csign
+      ,isignseq
+      ,ino_id
+      ,cDigest
+      ,iDAmount
+      ,iCAmount
+      ,iDAmount_s
+      ,iCAmount_s
+      ,cOrderNo
+      ,cSSCode
+      ,cProcStyle
+      ,cCancelNo
+      ,cPZid
+      ,bPrePay
+      ,iFlag
+      ,cCoVouchType
+      ,cCoVouchID
+      ,cDefine2
+      ,cDefine8
+      ,cDefine10
+      ,iVouchAmount
+      ,iVouchAmount_s
+      ,invoice_amount
+      ,specification_type
+      ,mark
+      ,item_code
+      ,sys_time
+  from edw.ar_detail_pre2
+;
+
 
 -- 去除末尾的“-”
 -- update edw.ar_detail

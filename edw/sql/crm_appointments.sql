@@ -29,9 +29,9 @@ select a.subject
       ,b.title
       ,c.name as ccusname
       ,d.name as dept_name
-      ,a.actualstart
+      ,date_add(left(a.actualstart,19), interval 8 hour) as actualstart
       ,a.actualdurationminutes
-      ,a.actualend
+      ,date_add(left(a.actualend,19), interval 8 hour) as actualend
       ,a.new_purpose
       ,a.description
       ,a.new_num
