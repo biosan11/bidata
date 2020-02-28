@@ -541,6 +541,324 @@ select null
 ;
 
 
+-- crm筛查诊断数据修改
+-- 20年的数据插入12次,这里是所有的自建的数据
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-01-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-01-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_january
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_january > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-02-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-02-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_february
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_february > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-03-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-03-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_march
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_march > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-04-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-04-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_april
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_april > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-05-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-05-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_may
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_may > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-06-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-06-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_june
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_june > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-07-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-07-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_july
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_july > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-08-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-08-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_august
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_august > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-09-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-09-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_september
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_september > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-10-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-10-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_october
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_october > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-11-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-11-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_november
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_november > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+insert into pdm.checklist
+select null
+      ,'crm'
+      ,a.new_province
+      ,a.lastname
+      ,'2020-12-01'
+      ,null
+      ,a.bi_cusname
+      ,'2020-12-01'
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,null
+      ,null
+      ,a.item_code
+      ,a.item_name
+      ,'产品类'
+      ,a.new_december
+      ,0
+      ,'否'
+      ,null
+      ,localtimestamp()
+   from edw.crm_sale_screenings a
+ where a.new_december > 0
+   and year_ = '2020'
+   and a.hzfs = '自建'
+;
+
+
 -- insert into pdm.checklist
 -- select a.id
 --       ,null

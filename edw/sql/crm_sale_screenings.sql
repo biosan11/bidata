@@ -6,7 +6,10 @@ select d.new_area
       ,d.new_city
       ,d.new_county
       ,b.lastname
-      ,2019 as year_
+      ,case when new_years = 0 then 2019 
+            when new_years = 1 then 2020
+            else 3000 end as year_
+--      ,2019 as year_
       ,case when new_fangshi = 0 then '自建' else '外送' end as hzfs
       ,d.new_num
       ,d.name
