@@ -83,7 +83,7 @@ CREATE TEMPORARY TABLE pdm.mid1_cuspro_archives AS
  UNION
 ( SELECT type,finnal_ccuscode as ccuscode,finnal_ccusname as ccusname, item_code, cinvcode,cinvname FROM pdm.outdepot_order_temp WHERE isum > 0)
 UNION
-( SELECT 'ZD' as type,bi_cuscode AS ccuscode,bi_cusname as ccusname, item_code, bi_cinvcode AS cinvcode,bi_cinvname as cinvname FROM edw.crm_account_equipments where statecode  = '可用' GROUP BY bi_cuscode, item_code, bi_cinvcode )
+( SELECT 'ZD' as type,bi_cuscode AS ccuscode,bi_cusname as ccusname, item_code, bi_cinvcode AS cinvcode,bi_cinvname as cinvname FROM edw.crm_account_equipments where statecode  = 0 GROUP BY bi_cuscode, item_code, bi_cinvcode )
 union
 ( SELECT 'ZD' as type,ccuscode AS ccuscode,ccusname as ccusname, item_code, cinvcode AS cinvcode,cinvname as cinvname FROM edw.x_sales_budget_19 where plan_complete_dt_recount is not null GROUP BY ccuscode, cinvcode, item_code )
 ;
