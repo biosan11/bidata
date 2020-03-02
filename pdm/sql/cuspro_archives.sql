@@ -372,7 +372,7 @@ select a.ccuscode
   from pdm.mid8_cuspro_archives a
   left join (select bi_cinvcode,cinvbrand from edw.map_inventory group by bi_cinvcode)  b
     on a.cinvcode = b.bi_cinvcode
-  left join edw.map_item c
+  left join (select * from edw.map_item group by item_code) c
     on a.item_code = c.item_code
   left join pdm.invoice_order_temp1 d
     on a.ccuscode = d.ccuscode
