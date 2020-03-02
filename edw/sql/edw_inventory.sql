@@ -196,6 +196,6 @@ update edw.map_inventory set cinvbrand = '松下' where bi_cinvcode = 'YQ02464';
 truncate table edw.map_item;
 insert into edw.map_item
 select DISTINCT
-item_code, level_three, level_two, level_one, equipment,screen_class, 425_item, item_key_2019
+item_code, level_three, level_two, level_one, equipment,screen_class, '', item_key_2019
   from edw.map_inventory
 ;
