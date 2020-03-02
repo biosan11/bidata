@@ -1,6 +1,8 @@
 
-truncate table edw.x_account_sy;
-insert into edw.x_account_sy
+-- truncate table edw.x_account_sy;
+-- insert into edw.x_account_sy
+drop table if exists edw.x_account_sy_pre;
+create temporary table edw.x_account_sy_pre as
 select a.ccusname
       ,case when b.ccusname is null then '请核查' else b.bi_cuscode end as bi_cuscode
       ,case when b.ccusname is null then '请核查' else b.bi_cusname end as bi_cusname
@@ -27,4 +29,138 @@ select a.ccusname
  group by b.bi_cuscode,a.year_
 ;
 
+truncate table edw.x_account_sy;
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-01') as y_mon
+      ,mon_1
+  from edw.x_account_sy_pre
+;
 
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-02') as y_mon
+      ,mon_2
+  from edw.x_account_sy_pre
+;
+
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-03') as y_mon
+      ,mon_3
+  from edw.x_account_sy_pre
+;
+
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-04') as y_mon
+      ,mon_4
+  from edw.x_account_sy_pre
+;
+
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-05') as y_mon
+      ,mon_5
+  from edw.x_account_sy_pre
+;
+
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-06') as y_mon
+      ,mon_6
+  from edw.x_account_sy_pre
+;
+
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-07') as y_mon
+      ,mon_7
+  from edw.x_account_sy_pre
+;
+
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-08') as y_mon
+      ,mon_8
+  from edw.x_account_sy_pre
+;
+
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-09') as y_mon
+      ,mon_9
+  from edw.x_account_sy_pre
+;
+
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-10') as y_mon
+      ,mon_10
+  from edw.x_account_sy_pre
+;
+
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-11') as y_mon
+      ,mon_11
+  from edw.x_account_sy_pre
+;
+
+insert into edw.x_account_sy
+select ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,sales_region
+      ,province
+      ,concat(year_,'-12') as y_mon
+      ,mon_12
+  from edw.x_account_sy_pre
+;
+
+-- 删除费用是0的客户月份
+delete from edw.x_account_sy where isum = 0;
