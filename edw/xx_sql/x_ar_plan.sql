@@ -21,12 +21,13 @@ a.auto_id
 ,a.aperiod as aperiod_ori 
 ,case 
     when a.aperiod = "" then 90
+    when a.aperiod is null then 90
     when (a.aperiod REGEXP '[^0-9.]')=1 then 90
     else a.aperiod
     end as aperiod
 ,case 
     when a.aperiod = "" then "否"
-    when a.aperiod = null then "否"
+    when a.aperiod is null then "否"
     when (a.aperiod REGEXP '[^0-9.]')=1 then "否"
     else "是"
  end as mark_aperiod
@@ -38,3 +39,8 @@ from ufdata.x_ar_plan as a
 left join 
 (select ccusname,bi_cuscode,bi_cusname from edw.dic_customer group by  ccusname) as b
 on a.ccusname = b.ccusname;
+
+
+
+
+
