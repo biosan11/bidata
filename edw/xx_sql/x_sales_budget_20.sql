@@ -44,8 +44,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2001 as inum_person
-      ,isum_budget_2001 as isum_budget
+      ,ifnull(inum_person_2001,0) as inum_person
+      ,ifnull(isum_budget_2001,0) as isum_budget
+      ,ifnull(inum_person_2001,0) * plan_success_rate
+      ,ifnull(isum_budget_2001,0) * plan_success_rate
       ,'2020-01-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
@@ -80,8 +82,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2002 as inum_person
-      ,isum_budget_2002 as isum_budget
+      ,ifnull(inum_person_2002,0) as inum_person
+      ,ifnull(isum_budget_2002,0) as isum_budget
+      ,ifnull(inum_person_2002,0) * plan_success_rate
+      ,ifnull(isum_budget_2002,0) * plan_success_rate
       ,'2020-02-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
@@ -116,8 +120,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2003 as inum_person
-      ,isum_budget_2003 as isum_budget
+      ,ifnull(inum_person_2003,0) as inum_person
+      ,ifnull(isum_budget_2003,0) as isum_budget
+      ,ifnull(inum_person_2003,0) * plan_success_rate
+      ,ifnull(isum_budget_2003,0) * plan_success_rate
       ,'2020-03-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
@@ -152,8 +158,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2004 as inum_person
-      ,isum_budget_2004 as isum_budget
+      ,ifnull(inum_person_2004,0) as inum_person
+      ,ifnull(isum_budget_2004,0) as isum_budget
+      ,ifnull(inum_person_2004,0) * plan_success_rate
+      ,ifnull(isum_budget_2004,0) * plan_success_rate
       ,'2020-04-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
@@ -188,8 +196,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2005 as inum_person
-      ,isum_budget_2005 as isum_budget
+      ,ifnull(inum_person_2005,0) as inum_person
+      ,ifnull(isum_budget_2005,0) as isum_budget
+      ,ifnull(inum_person_2005,0) * plan_success_rate
+      ,ifnull(isum_budget_2005,0) * plan_success_rate
       ,'2020-05-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
@@ -224,8 +234,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2006 as inum_person
-      ,isum_budget_2006 as isum_budget
+      ,ifnull(inum_person_2006,0) as inum_person
+      ,ifnull(isum_budget_2006,0) as isum_budget
+      ,ifnull(inum_person_2006,0) * plan_success_rate
+      ,ifnull(isum_budget_2006,0) * plan_success_rate
       ,'2020-06-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
@@ -260,8 +272,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2007 as inum_person
-      ,isum_budget_2007 as isum_budget
+      ,ifnull(inum_person_2007,0) as inum_person
+      ,ifnull(isum_budget_2007,0) as isum_budget
+      ,ifnull(inum_person_2007,0) * plan_success_rate
+      ,ifnull(isum_budget_2007,0) * plan_success_rate
       ,'2020-07-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
@@ -296,8 +310,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2008 as inum_person
-      ,isum_budget_2008 as isum_budget
+      ,ifnull(inum_person_2008,0) as inum_person
+      ,ifnull(isum_budget_2008,0) as isum_budget
+      ,ifnull(inum_person_2008,0) * plan_success_rate
+      ,ifnull(isum_budget_2008,0) * plan_success_rate
       ,'2020-08-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
@@ -332,8 +348,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2009 as inum_person
-      ,isum_budget_2009 as isum_budget
+      ,ifnull(inum_person_2009,0) as inum_person
+      ,ifnull(isum_budget_2009,0) as isum_budget
+      ,ifnull(inum_person_2009,0) * plan_success_rate
+      ,ifnull(isum_budget_2009,0) * plan_success_rate
       ,'2020-09-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
@@ -368,8 +386,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2010 as inum_person
-      ,isum_budget_2010 as isum_budget
+      ,ifnull(inum_person_2010,0) as inum_person
+      ,ifnull(isum_budget_2010,0) as isum_budget
+      ,ifnull(inum_person_2010,0) * plan_success_rate
+      ,ifnull(isum_budget_2010,0) * plan_success_rate
       ,'2020-10-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
@@ -404,8 +424,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2011 as inum_person
-      ,isum_budget_2011 as isum_budget
+      ,ifnull(inum_person_2011,0) as inum_person
+      ,ifnull(isum_budget_2011,0) as isum_budget
+      ,ifnull(inum_person_2011,0) * plan_success_rate
+      ,ifnull(isum_budget_2011,0) * plan_success_rate
       ,'2020-11-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
@@ -440,8 +462,10 @@ select autoid
       ,plan_complete_dt
       ,plan_success_rate
       ,itaxrate
-      ,inum_person_2012 as inum_person
-      ,isum_budget_2012 as isum_budget
+      ,ifnull(inum_person_2012,0) as inum_person
+      ,ifnull(isum_budget_2012,0) as isum_budget
+      ,ifnull(inum_person_2012,0) * plan_success_rate
+      ,ifnull(isum_budget_2012,0) * plan_success_rate
       ,'2020-12-01' as ddate
       ,own_product
   from ufdata.x_sales_budget_20_pre
