@@ -84,6 +84,8 @@ select
     ,a.ccuscode
     ,ifnull(b.bi_cusname,"请核查") as bi_cusname
     ,a.ar_class
+    ,ifnull(b.sales_dept,"其他") as sales_dept
+    ,ifnull(b.sales_region_new,"其他") as sales_region_new
     ,ifnull(b.sales_region,"其他") as sales_region
     ,ifnull(b.province,"其他") as province
     ,ifnull(b.city,"其他") as city
