@@ -1,3 +1,21 @@
+------------------------------------程序头部----------------------------------------------
+--功能：19年设备折旧表
+------------------------------------------------------------------------------------------
+--程序名称：x_eq_depreciation_19.sql
+--目标模型：x_eq_depreciation_19
+--源    表：ufdata.x_eq_depreciation_19
+-----------------------------------------------------------------------------------------
+--加载周期：日增
+------------------------------------------------------------------------------------------
+--作者：jiangsh
+--开发日期：2020-02-26
+------------------------------------------------------------------------------------------
+--版本控制：版本号  提交人   提交日期   提交内容
+--         V1.0     jiangsh  2019-10-26   开发上线
+--         V1.0     jiangsh  2020-03-05   修改数值存放形式，行列转化
+--调用方法　python /home/bidata/report/python/x_eq_depreciation_19.py
+------------------------------------开始处理逻辑------------------------------------------
+
 
 -- 设备折旧19
 
@@ -52,8 +70,9 @@ update edw.x_eq_depreciation_19_pre a
  where a.cinvcode = '请核查';
 
 
-truncate table edw.x_eq_depreciation_19;
-insert into edw.x_eq_depreciation_19
+
+drop table if exists edw.x_eq_depreciation_19_pre2;
+create temporary table edw.x_eq_depreciation_19_pre2 as
 select a.cohr
       ,a.year_belong
       ,a.vouchid
@@ -95,6 +114,373 @@ select a.cohr
   left join edw.map_inventory d
     on c.bi_cinvcode = d.bi_cinvcode
 ;
+
+-- 根据bi需求，增加最终客户和月份转置
+truncate table edw.x_eq_depreciation_19;
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_1
+      ,'2019-01-01'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_2
+      ,'2019-01-02'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_3
+      ,'2019-01-03'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_4
+      ,'2019-01-04'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_5
+      ,'2019-01-05'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_6
+      ,'2019-01-06'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_7
+      ,'2019-07-01'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_8
+      ,'2019-08-01'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_9
+      ,'2019-09-01'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_10
+      ,'2019-10-01'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_11
+      ,'2019-11-01'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+insert into edw.x_eq_depreciation_19
+select cohr
+      ,year_belong
+      ,vouchid
+      ,ddate_belong
+      ,vouchnum
+      ,province
+      ,sales_region
+      ,ccusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,bi_cuscode
+      ,bi_cusname
+      ,eq_name
+      ,cinvcode
+      ,cinvname
+      ,item_code
+      ,level_three
+      ,level_two
+      ,level_one
+      ,isum
+      ,iquantity
+      ,amount_depre_mon
+      ,comment
+      ,amount_depre_12
+      ,'2019-12-01'
+  from edw.x_eq_depreciation_19_pre2
+;
+
+
+-- 将amount_depre中所有空值 替换成0  
+update edw.x_eq_depreciation_19 set amount_depre = 0 where amount_depre is null ;
+
+-- 191011更新 新增一列 将DL开头代理商 通过map档案一对一的处理成终端客户 
+update edw.x_eq_depreciation_19 as a 
+left join edw.map_customer as b 
+on a.finnal_cuscode = b.bi_cuscode 
+set a.finnal_cuscode = b.finnal_cuscode
+   ,a.finnal_cusname = b.finnal_ccusname
+where left(a.finnal_cuscode,2) = "DL";
+-- 处理的结果 如果是multi 则返回原客户编码
+update edw.x_eq_depreciation_19 set finnal_cuscode = bi_cuscode,finnal_cusname = bi_cusname where finnal_cuscode = "multi";
+
+-- 删除amount_depre是0的数据
+delete from edw.x_eq_depreciation_19 where amount_depre = '0';
 
 
 
