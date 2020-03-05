@@ -65,8 +65,8 @@ insert into bidata.bi_customer_pre
 select bi_cuscode from edw.map_customer where screen_mechanism = "是";
 
 -- 1.9 发货未开票客户（非最终客户）
-insert into bidata.bi_customer_pre
-select true_ccuscode from bidata.ft_22_outdepot_uninvoice group by true_ccuscode;
+-- insert into bidata.bi_customer_pre
+-- select true_ccuscode from bidata.ft_22_outdepot_uninvoice group by true_ccuscode;
 
 -- 2.0 客户项目占有数据
 insert into bidata.bi_customer_pre
@@ -92,8 +92,8 @@ update bidata.bi_customer_pre
 set ccuscode = replace(replace(ccuscode,char(13),""),char(10),"");
 
 -- 2.5 保险等内部结算 
-insert into bidata.bi_customer_pre
-select ccuscode from bidata.ft_84_expenses_settlement group by ccuscode;
+-- insert into bidata.bi_customer_pre
+-- select ccuscode from bidata.ft_84_expenses_settlement group by ccuscode;
 
 -- 2.6 费用数据
 insert into bidata.bi_customer_pre
