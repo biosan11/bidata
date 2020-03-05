@@ -60,20 +60,21 @@ from edw.x_sales_budget_19
 where isum_budget != 0 or inum_person != 0 or isum_budget_pro != 0;
 
 -- ft_12_sales_budget 取20年预算部分字段，乘以成功率
+-- 200303修改, 乘成功率在edw层就已经处理了, BI层不需要再乘
 insert into bidata.ft_12_sales_budget
 select 
-   if(cohr= "博圣体系","博圣",cohr)
+  	 if(cohr= "博圣体系","博圣",cohr)
 	,ifnull(bi_cuscode,"unknowncus")
 	,ifnull(item_code,"其他")
 	,ifnull(cbustype,"产品类")
 	,plan_class
 	,null
 	,ddate
-    ,round(inum_person*plan_success_rate,3)
-	,round(iunitcost,3)
-	,round((isum_budget*plan_success_rate/1000),3) as isum_budget
-    ,0 as isum_budget_pro
-    ,0
+	,round(inum_person,4)
+	,round(iunitcost,4)
+	,round((isum_budget/1000),4) as isum_budget
+	,0 as isum_budget_pro
+	,0
 from edw.x_sales_budget_20
 where isum_budget != 0 or inum_person != 0;
 

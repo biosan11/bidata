@@ -43,6 +43,40 @@ where ar_class in ("启代医疗服务","健康检测")
 group by true_ccuscode,ar_class;
 
 
+-- 建临时表 并排序
+drop temporary table if exists bidata.dt_16_person_ar_tem;
+create temporary table if not exists bidata.dt_16_person_ar_tem
+select 
+    true_ccuscode as ccuscode 
+    ,true_ccusname as ccusname
+    ,class 
+    ,ddate 
+    ,if(cpersonname = "空",null,cpersonname) as cpersonname
+    ,if(areadirector = "空",null,areadirector) as areadirector
+    ,aperiod_ori
+    ,aperiod
+    ,mark_aperiod
+from edw.x_ar_plan
+order by true_ccuscode,class,ddate desc;
+
+drop temporary table if exists bidata.dt_16_person_ar_tem_2;
+create temporary table if not exists bidata.dt_16_person_ar_tem_2
+select 
+    concat(ccuscode,class) as ccuscode_class
+    ,ccuscode
+    ,ccusname
+    ,class 
+    ,ddate 
+    ,cpersonname 
+    ,areadirector 
+    ,aperiod_ori
+    ,aperiod
+    ,mark_aperiod
+from bidata.dt_16_person_ar_tem
+group by ccuscode,class;
+
+
+
 truncate table bidata.dt_12_customer_arclass;
 insert into bidata.dt_12_customer_arclass
 select 
@@ -50,6 +84,8 @@ select
     ,a.ccuscode
     ,ifnull(b.bi_cusname,"请核查") as bi_cusname
     ,a.ar_class
+    ,ifnull(b.sales_dept,"其他") as sales_dept
+    ,ifnull(b.sales_region_new,"其他") as sales_region_new
     ,ifnull(b.sales_region,"其他") as sales_region
     ,ifnull(b.province,"其他") as province
     ,ifnull(b.city,"其他") as city
@@ -57,13 +93,13 @@ select
     ,c.ddate
     ,c.cpersonname
     ,c.areadirector
-    ,ifnull(c.aperiod,90) as aperiod
-    ,c.aperiod_special
-    ,ifnull(c.mark_aperiod,"未知") as mark_aperiod
+    ,ifnull(c.aperiod,90)
+    ,c.aperiod_ori
+    ,ifnull(c.mark_aperiod,"未知")
 from bidata.cusar_tem00 as a 
 left join edw.map_customer as b 
 on a.ccuscode = b.bi_cuscode
-left join bidata.dt_16_person_ar as c 
+left join bidata.dt_16_person_ar_tem_2 as c 
 on a.ccuscode_class = c.ccuscode_class;
 
 alter table bidata.dt_12_customer_arclass comment = 'bi应收模块客户+应收类型维度表';

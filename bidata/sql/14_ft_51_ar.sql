@@ -38,16 +38,6 @@ create table `ft_51_ar` (
 ) engine=innodb default charset=utf8 comment '应收回款明细表';
 */
 
--- 生成账期临时表
-drop temporary table if exists bidata.ft_51_ar_tem;
-create temporary table if not exists bidata.ft_51_ar_tem
-select a.true_ccuscode,a.class,ifnull(aperiod,90) as aperiod
-from 
-(select true_ccuscode,class,ddate,aperiod from edw.x_ar_plan 
-order by true_ccuscode,class,ddate desc,aperiod
-) as a
-group by a.true_ccuscode,a.class;
-
 -- 新增临时表 concat（db,cvouchid)
 drop temporary table if exists bidata.ar_tem01;
 create temporary table if not exists bidata.ar_tem01
@@ -148,14 +138,17 @@ case
 ,a.ccancelno
 ,a.ccovouchtype
 ,a.ccovouchid
--- 以下2019-9-30修改  来源表edw.x_ar_plan 中 aperiod 字段 出现空白 （不是null） 代码运行出错 修改代码如下
-,case 
-    when b.aperiod = "" then 90
-    when (b.aperiod REGEXP '[^0-9.]')=1 then 90
-    else b.aperiod
- end as aperiod
--- ,ifnull(if((b.aperiod REGEXP '[^0-9.]')=1,90,b.aperiod),90) as aperiod
-,if(b.true_ccuscode is null,0,1) as mark_aperiod
+-- 以下2020-3-3修改  直接关联bidata.dt_12_customer_arclass 获取账期数据
+,b.aperiod 
+,b.mark_aperiod
+--  -- 以下2019-9-30修改  来源表edw.x_ar_plan 中 aperiod 字段 出现空白 （不是null） 代码运行出错 修改代码如下
+--  ,case 
+--      when b.aperiod = "" then 90
+--      when (b.aperiod REGEXP '[^0-9.]')=1 then 90
+--      else b.aperiod
+--   end as aperiod
+--  -- ,ifnull(if((b.aperiod REGEXP '[^0-9.]')=1,90,b.aperiod),90) as aperiod
+--  ,if(b.true_ccuscode is null,0,1) as mark_aperiod
 ,a.mark as mark_cinvcode
 ,case 
 	when a.item_code is null
@@ -168,17 +161,18 @@ case
 ,a.invoice_amount
 ,specification_type
 from bidata.ar_tem01 as a 
-left join bidata.ft_51_ar_tem as b
-on a.true_ccuscode = b.true_ccuscode and a.ar_class = b.class 
+left join bidata.dt_12_customer_arclass as b
+on a.true_ccuscode = b.ccuscode and a.ar_class = b.ar_class 
 left join bidata.ar_tem03 as d
 on a.matchid2 = d.matchid2
 order by a.db,a.cdwcode,a.dvouchdate,a.ccovouchid;
 
 -- 处理 回款 未开票 调整部分 分不清ar_class 默认为“试剂”
-update 
-bidata.ft_51_ar
-set ar_class = "试剂" 
-where ar_ap = "ap" and ccovouchtype in ("48","49");
+-- 以下20200303修改 先注释掉 不能理解这部分的作用
+-- update 
+-- bidata.ft_51_ar
+-- set ar_class = "试剂" 
+-- where ar_ap = "ap" and ccovouchtype in ("48","49");
 
 -- cprocstyle = "bz" 的 取dregdate = dvouchdate2
 
