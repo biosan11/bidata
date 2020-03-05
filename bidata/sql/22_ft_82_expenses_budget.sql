@@ -37,20 +37,20 @@ create table ft_82_expenses_budget_x(
  
  
 -- 导入OA预算数据
-truncate table bidata.ft_82_expenses_budget_oa;
-insert into bidata.ft_82_expenses_budget_oa
-select 
-    budgetinfoid
-    ,name_ehr_id
-    ,name_ehr
-    ,person
-    ,name
-    ,u8kemubm
-    ,cdlx
-    ,budgetperiodslist as ddate
-    ,round(budgetaccount,4) as amount_budget
-from pdm.oa_budget_19
-;
+-- truncate table bidata.ft_82_expenses_budget_oa;
+-- insert into bidata.ft_82_expenses_budget_oa
+-- select 
+--     budgetinfoid
+--     ,name_ehr_id
+--     ,name_ehr
+--     ,person
+--     ,name
+--     ,u8kemubm
+--     ,cdlx
+--     ,budgetperiodslist as ddate
+--     ,round(budgetaccount,4) as amount_budget
+-- from pdm.oa_budget_19
+-- ;
 
 -- 导入线下预算数据
 truncate table bidata.ft_82_expenses_budget_x;
