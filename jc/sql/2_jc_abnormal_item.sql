@@ -212,7 +212,7 @@ select distinct 'excel'
    and bi_cinvcode <> '请核查' 
 ;
 
-
+-- 修改425项目问题，重复去除
 insert into tracking.jc_abnormal_day
 select distinct 'edw'
       ,'edw' as source
@@ -230,7 +230,7 @@ FROM
   SELECT
     item_code 
   FROM
-    ( SELECT DISTINCT item_code, level_three, level_two, level_one, screen_class, 425_item, item_key_2019,equipment FROM edw.map_inventory ) a 
+    ( SELECT DISTINCT item_code, level_three, level_two, level_one, screen_class, item_key_2019,equipment FROM edw.map_inventory ) a 
   GROUP BY
     item_code 
   HAVING
