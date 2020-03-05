@@ -7,6 +7,7 @@ create table `ft_12_sales_budget` (
     `cohr` varchar(30) not null comment '公司',
     `true_ccuscode` varchar(30) not null comment '正确客户编码',
     `true_item_code` varchar(60) not null comment '项目编码',
+	`cinvcode` varchar(30) DEFAULT NULL COMMENT '产品编号',
     `business_class` varchar(20) default null comment '业务类型 ldt 产品 服务',
     `plan_class` varchar(20) default null comment '计划类型 占点 上量 投放',
     `key_project` varchar(20) comment '是否重点项目',
@@ -28,6 +29,7 @@ select
    if(cohr= "博圣体系","博圣",cohr)
   ,ifnull(true_ccuscode,"unknowncus")
   ,ifnull(true_item_code,"其他")
+  ,null
   ,ifnull(business_class,"产品类")
   ,plan_class
   ,key_project
@@ -47,6 +49,7 @@ select
    if(cohr= "博圣体系","博圣",cohr)
 	,ifnull(bi_cuscode,"unknowncus")
 	,ifnull(item_code,"其他")
+	,cinvcode
 	,ifnull(cbustype,"产品类")
 	,plan_class
 	,key_project
@@ -60,21 +63,21 @@ from edw.x_sales_budget_19
 where isum_budget != 0 or inum_person != 0 or isum_budget_pro != 0;
 
 -- ft_12_sales_budget 取20年预算部分字段，乘以成功率
--- 200303修改, 乘成功率在edw层就已经处理了, BI层不需要再乘
 insert into bidata.ft_12_sales_budget
 select 
-  	 if(cohr= "博圣体系","博圣",cohr)
+   if(cohr= "博圣体系","博圣",cohr)
 	,ifnull(bi_cuscode,"unknowncus")
 	,ifnull(item_code,"其他")
+	,bi_cinvcode
 	,ifnull(cbustype,"产品类")
 	,plan_class
 	,null
 	,ddate
-	,round(inum_person,4)
-	,round(iunitcost,4)
-	,round((isum_budget/1000),4) as isum_budget
-	,0 as isum_budget_pro
-	,0
+    ,round(inum_person*plan_success_rate,3)
+	,round(iunitcost,3)
+	,round((isum_budget*plan_success_rate/1000),3) as isum_budget
+    ,0 as isum_budget_pro
+    ,0
 from edw.x_sales_budget_20
 where isum_budget != 0 or inum_person != 0;
 
