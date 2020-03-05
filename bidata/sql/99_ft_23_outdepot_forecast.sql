@@ -586,7 +586,7 @@ a.*
 ,if(
 	(round(a.next_inum_person_forecast/c.inum_unit_person,0) * c.inum_unit_person) = 0,
 	1,
-	round(a.next_inum_person_forecast/c.inum_unit_person,0) * c.inum_unit_person) as next_inum_person_forecast_2
+	round(a.next_inum_person_forecast/ifnull(c.inum_unit_person,1),0) * ifnull(c.inum_unit_person,1)) as next_inum_person_forecast_2
 from bidata.outfor_tem14 as a
 left join bidata.outfor_tem15 as b
 on a.ccuscode = b.ccuscode and a.item_code = b.item_code
@@ -619,7 +619,8 @@ ccuscode
 ,next_iquantity_forecast
 ,"1"
 from bidata.outfor_tem16
-where next_consign_dt_forecast is not null;
+where next_consign_dt_forecast is not null
+  and next_inum_person_forecast_2 >= 0;
 
 -- 第2次迭代
 call bidata.bi_outdepot_forecast_pro();
@@ -634,7 +635,8 @@ ccuscode
 ,next_iquantity_forecast
 ,"2"
 from bidata.outfor_tem16
-where next_consign_dt_forecast is not null;
+where next_consign_dt_forecast is not null
+  and next_inum_person_forecast_2 >= 0;
 
 -- 第3次迭代
 call bidata.bi_outdepot_forecast_pro();
@@ -649,4 +651,5 @@ ccuscode
 ,next_iquantity_forecast
 ,"3"
 from bidata.outfor_tem16
-where next_consign_dt_forecast is not null;
+where next_consign_dt_forecast is not null
+  and next_inum_person_forecast_2 >= 0;
