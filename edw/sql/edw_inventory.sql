@@ -199,3 +199,7 @@ select DISTINCT
 item_code, level_three, level_two, level_one, equipment,screen_class, '', item_key_2019
   from edw.map_inventory
 ;
+
+-- 增加一条其他选项，方便bi调用时处理报错
+insert into edw.map_item (item_code,level_three,level_two,level_one,equipment) 
+values("其他","其他","其他","其他","否");
