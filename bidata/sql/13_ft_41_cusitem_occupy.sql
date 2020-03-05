@@ -85,7 +85,8 @@ select
 		end as occupy_class
 	,a.cinvbrand
 from pdm.cusitem_archives as a
-left join bidata.auxi_cusitem_ne_sc_me as b
+-- left join bidata.auxi_cusitem_ne_sc_me as b
+left join edw.map_item as b
 on a.item_code = b.item_code
 left join ufdata.x_cusitem_enddate as c
 -- 191216修改 join条件增加业务类型
