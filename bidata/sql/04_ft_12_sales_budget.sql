@@ -73,9 +73,9 @@ select
 	,plan_class
 	,null
 	,ddate
-    ,round(inum_person*plan_success_rate,3)
+    ,round(inum_person,3)
 	,round(iunitcost,3)
-	,round((isum_budget*plan_success_rate/1000),3) as isum_budget
+	,round((isum_budget/1000),3) as isum_budget
     ,0 as isum_budget_pro
     ,0
 from edw.x_sales_budget_20
