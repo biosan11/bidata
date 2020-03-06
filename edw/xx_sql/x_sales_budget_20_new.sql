@@ -27,8 +27,8 @@ select a.ddate
       ,a.inum_person_new
       ,a.isum_budget_new
   from ufdata.x_sales_budget_20_new a
-  left join (select * from edw.dic_customer group by ccuscode) b
-    on a.ccuscode = b.ccuscode
+  left join (select * from edw.dic_customer group by ccusname) b
+    on a.ccusname = b.ccusname
   left join (select * from edw.dic_inventory group by cinvcode) c
     on a.cinvcode = c.cinvcode
   left join (select * from edw.map_inventory group by bi_cinvcode) d
