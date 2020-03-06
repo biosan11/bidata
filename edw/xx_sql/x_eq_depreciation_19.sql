@@ -171,7 +171,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_2
-      ,'2019-01-02'
+      ,'2019-02-01'
   from edw.x_eq_depreciation_19_pre2
 ;
 
@@ -200,7 +200,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_3
-      ,'2019-01-03'
+      ,'2019-03-01'
   from edw.x_eq_depreciation_19_pre2
 ;
 
@@ -229,7 +229,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_4
-      ,'2019-01-04'
+      ,'2019-04-01'
   from edw.x_eq_depreciation_19_pre2
 ;
 
@@ -258,7 +258,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_5
-      ,'2019-01-05'
+      ,'2019-05-01'
   from edw.x_eq_depreciation_19_pre2
 ;
 
@@ -287,7 +287,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_6
-      ,'2019-01-06'
+      ,'2019-06-01'
   from edw.x_eq_depreciation_19_pre2
 ;
 
