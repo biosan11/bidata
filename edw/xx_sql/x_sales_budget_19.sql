@@ -1,13 +1,65 @@
 
 truncate table edw.x_sales_budget_19;
 
+drop table if exists ufdata.x_sales_budget_19_pre;
 create temporary table ufdata.x_sales_budget_19_pre as
-select a.*
+select a.autoid
+      ,a.cohr
+      ,a.uniqueid
+      ,a.type
+      ,a.sales_region
+      ,a.province
+      ,a.city
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.screen_class
+      ,a.cbustype
+      ,a.equipment
+      ,a.level_one
+      ,a.level_two
+      ,a.item_code
+      ,a.level_three
+      ,c.bi_cinvcode as cinvcode
+      ,c.bi_cinvname as cinvname
+      ,a.plan_class
+      ,a.key_project
+      ,a.plan_complete_dt
+      ,a.plan_success_rate
+      ,a.iunitcost
+      ,a.inum_person_1901
+      ,a.inum_person_1902
+      ,a.inum_person_1903
+      ,a.inum_person_1904
+      ,a.inum_person_1905
+      ,a.inum_person_1906
+      ,a.inum_person_1907
+      ,a.inum_person_1908
+      ,a.inum_person_1909
+      ,a.inum_person_1910
+      ,a.inum_person_1911
+      ,a.inum_person_1912
+      ,a.inum_person_addup_19
+      ,a.isum_budget_addup_19
+      ,a.isum_budget_1901
+      ,a.isum_budget_1902
+      ,a.isum_budget_1903
+      ,a.isum_budget_1904
+      ,a.isum_budget_1905
+      ,a.isum_budget_1906
+      ,a.isum_budget_1907
+      ,a.isum_budget_1908
+      ,a.isum_budget_1909
+      ,a.isum_budget_1910
+      ,a.isum_budget_1911
+      ,a.isum_budget_1912
+      ,a.comment
       ,case when b.ccusname is not null then b.bi_cuscode else '请核查'end as bi_cuscode
       ,case when b.ccusname is not null then b.bi_cusname else '请核查'end as bi_cusname
   from ufdata.x_sales_budget_19 a
   left join (select * from edw.dic_customer group by ccusname) b
     on a.ccusname = b.ccusname
+  left join (select * from edw.dic_inventory group by cinvcode) c
+    on a.cinvcode = c.cinvcode
 ;
 
 -- 1901
@@ -444,6 +496,13 @@ group by uniqueid
 on a.uniqueid = b.uniqueid
 set a.plan_complete_dt_recount = b.plan_complete_dt_recount;
 
+-- 更新第一层数据，没有进行清洗数据存在问题
+update ufdata.x_sales_budget_19_proportion a
+ inner join (select * from edw.dic_inventory group by cinvcode) c
+    on a.cinvcode = c.cinvcode
+   set a.cinvcode = c.bi_cinvcode
+;
+
 
 insert into edw.x_sales_budget_19
 select null
@@ -478,8 +537,5 @@ select null
       ,isum_budget
   from ufdata.x_sales_budget_19_proportion
 ;
-
-
-
 
 
