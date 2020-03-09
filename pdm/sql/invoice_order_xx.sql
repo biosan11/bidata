@@ -50,7 +50,7 @@ select a.sbvid
       ,a.true_finnal_ccuscode
       ,a.true_finnal_ccusname
       ,a.cbustype
-      ,a.sales_region
+      ,case when a.cdefine22 = '1' then '其他' else ifnull(a.cdefine22,'其他') end
       ,a.bi_cinvcode
       ,a.bi_cinvname
       ,a.item_code
