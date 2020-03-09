@@ -9,7 +9,7 @@ select a.year_
       ,a.specification_type
       ,a.cost_price
   from ufdata.x_cinvcode_cost a
-  left join (select * from edw.dic_inventory group by cinvname) b
-    on a.cinvname = b.cinvname
+  left join (select * from edw.dic_inventory group by cinvcode) b
+    on a.cinvcode = b.cinvcode
 ;
 
