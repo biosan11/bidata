@@ -4,7 +4,7 @@ truncate table edw.x_sales_budget_20_new;
 insert into edw.x_sales_budget_20_new
 select a.ddate
       ,a.cohr
-      ,a.sales_region
+      ,a.sales_dept
       ,a.areadirector
       ,a.cverifier
       ,a.province
