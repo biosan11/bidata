@@ -10,6 +10,8 @@ select a.source
       ,c.bi_cinvname as cinvname_main
       ,d.item_code
       ,d.level_three as item_name
+      ,a.level_two_cx
+      ,a.level_two
   from ufdata.x_cinv_relation a
   left join (select * from edw.dic_inventory group by cinvcode) b
     on a.cinvcode_child = b.cinvcode
