@@ -36,7 +36,7 @@ select a.id
       ,a.pinpai
       ,a.huohao
       ,a.guigexh
-      ,c.yongliang
+      ,'1'
   from ufdata.oa_uf_shebeicpqd a
   left join (select * from edw.dic_inventory group by cinvcode) b
     on a.chanpinbh = b.cinvcode
