@@ -88,7 +88,7 @@ select a.cdlcode
       ,case when a.db = 'UFDATA_111_2018' then '博圣' 
             when a.db = 'UFDATA_118_2018' then '卓恩'
             when a.db = 'UFDATA_123_2018' then '恩允'
-            when a.db = 'UFDATA_168_2018' then '贝生'
+            when a.db = 'UFDATA_168_2018' then '杭州贝生'
             when a.db = 'UFDATA_169_2018' then '云鼎'
             when a.db = 'UFDATA_222_2018' then '宝莱'
             when a.db = 'UFDATA_333_2018' then '宁波贝生'
