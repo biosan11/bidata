@@ -28,12 +28,17 @@ select a.finnal_ccuscode as ccuscode
       ,a.city
       ,a.ccusname
       ,a.cbustype
+      ,a.cinvcode
   from pdm.invoice_order a
  where year(a.ddate) = '2019'
 --   and a.isum <> 0
    and finnal_ccuscode <> 'multi'
    and left(finnal_ccuscode,2) <> 'GR'
 ;
+
+CREATE INDEX index_invoice_order_pre_cinvcode ON report.invoice_order_pre(cinvcode);
+CREATE INDEX index_invoice_order_pre_ccuscode ON report.invoice_order_pre(ccuscode);
+
 
 drop table if exists report.x_cinv_relation_pre;
 create  table report.x_cinv_relation_pre as 
@@ -42,13 +47,14 @@ select distinct a.cinvcode_main
       ,a.cinvcode_child as cinvcode
       ,a.cinvname_child as cinvname
       ,1 as key_num
+      ,level_two_cx
   from edw.x_cinv_relation a
- where level_two_cx = '主试剂'
+-- where level_two_cx = '主试剂'
 ;
 
 -- 创建合集，这里是项目合集
-drop table if exists report.mid0_ccus_03_item_effect_19;
-create  table report.mid0_ccus_03_item_effect_19 as
+drop table if exists report.mid00_ccus_03_item_effect_19;
+create  table report.mid00_ccus_03_item_effect_19 as
 select a.ccuscode
       ,b.cinvcode_main as cinvcode
       ,b.cinvname_main as cinvname
@@ -56,17 +62,19 @@ select a.ccuscode
       ,a.city
       ,a.ccusname
       ,a.cbustype
-      ,sum(isum) as isum
-      ,sum(invoice_amount) as invoice_amount
-  from report.invoice_order_pre a
-  left join report.x_cinv_relation_pre b
+  from (select * from report.invoice_order_pre group by ccuscode) a
+  left join (select * from report.x_cinv_relation_pre group by cinvcode_main) b
     on a.key_num = b.key_num
- group by ccuscode,cinvcode_main
+-- where level_two_cx = '主试剂'
+-- group by ccuscode
 ;
 
+CREATE INDEX index_mid00_ccus_03_item_effect_19_cinvcode ON report.mid00_ccus_03_item_effect_19(cinvcode);
+CREATE INDEX index_mid00_ccus_03_item_effect_19_ccuscode ON report.mid00_ccus_03_item_effect_19(ccuscode);
+
 -- 这里是主试剂合集
-drop table if exists report.mid00_ccus_03_item_effect_19;
-create  table report.mid00_ccus_03_item_effect_19 as
+drop table if exists report.mid0_ccus_03_item_effect_19;
+create  table report.mid0_ccus_03_item_effect_19 as
 select a.ccuscode
       ,b.cinvcode
       ,b.cinvname
@@ -76,61 +84,107 @@ select a.ccuscode
       ,a.city
       ,a.ccusname
       ,a.cbustype
-      ,sum(isum) as isum
-      ,sum(invoice_amount) as invoice_amount
   from report.invoice_order_pre a
   left join report.x_cinv_relation_pre b
     on a.key_num = b.key_num
+ where level_two_cx = '主试剂'
  group by ccuscode,cinvcode
+;
+
+CREATE INDEX index_mid0_ccus_03_item_effect_19_cinvcode ON report.mid0_ccus_03_item_effect_19(cinvcode);
+CREATE INDEX index_mid0_ccus_03_item_effect_19_ccuscode ON report.mid0_ccus_03_item_effect_19(ccuscode);
+
+-- 主试剂对应的收入汇总
+drop table if exists report.mid1_ccus_03_item_effect_19;
+create  table report.mid1_ccus_03_item_effect_19 as
+select a.ccuscode
+      ,a.cinvcode
+      ,a.cinvname
+      ,a.cinvcode_main
+      ,a.cinvname_main
+      ,a.province
+      ,a.city
+      ,a.ccusname
+      ,a.cbustype
+      ,sum(isum) as isum
+      ,sum(invoice_amount) as invoice_amount
+  from report.mid0_ccus_03_item_effect_19 a
+  left join report.invoice_order_pre b
+    on a.cinvcode = b.cinvcode
+   and a.ccuscode = b.ccuscode
+ group by a.cinvcode,a.ccuscode
+;
+
+CREATE INDEX index_mid1_ccus_03_item_effect_19_cinvcode ON report.mid1_ccus_03_item_effect_19(cinvcode);
+CREATE INDEX index_mid1_ccus_03_item_effect_19_ccuscode ON report.mid1_ccus_03_item_effect_19(ccuscode);
+
+
+-- 这里是辅助试剂合集
+drop table if exists report.mid2_ccus_03_item_effect_19;
+create  table report.mid2_ccus_03_item_effect_19 as
+select distinct a.ccuscode
+      ,b.cinvcode
+      ,b.cinvname
+      ,b.cinvcode_main
+      ,b.cinvname_main
+      ,a.province
+      ,a.city
+      ,a.ccusname
+      ,a.cbustype
+  from report.invoice_order_pre a
+  left join report.x_cinv_relation_pre b
+    on a.cinvcode = b.cinvcode
+ where level_two_cx = '辅助试剂耗材'
+   and b.cinvcode is not null
 ;
 
 
 
 -- 辅助试剂对应开票的所有记录,这里辅助耗材试剂重复计算了
-drop table if exists report.mid1_ccus_03_item_effect_19;
-create  table report.mid1_ccus_03_item_effect_19 as
-select a.finnal_ccuscode as ccuscode
-      ,a.finnal_ccusname as ccusname
-      ,a.cinvcode
-      ,a.cinvname
-      ,a.item_code
-      ,a.citemname as item_name
-      ,a.province
-      ,a.city
-      ,a.cbustype
-      ,sum(a.isum) as isum
-      ,sum(a.isum - a.itax) as invoice_amount
-      ,b.cinvcode_main
-      ,b.cinvname_main
-      ,b.level_two_cx
-  from pdm.invoice_order a
-  left join (select * from edw.x_cinv_relation group by cinvcode_child,cinvcode_main) b
-    on a.cinvcode = b.cinvcode_child
- where year(a.ddate) = '2019'
-   and b.cinvcode_child is not null
---   and a.isum <> 0
- group by finnal_ccuscode,cinvcode,cinvcode_main
-;
+-- drop table if exists report.mid1_ccus_03_item_effect_19;
+-- create  table report.mid1_ccus_03_item_effect_19 as
+-- select a.finnal_ccuscode as ccuscode
+--       ,a.finnal_ccusname as ccusname
+--       ,a.cinvcode
+--       ,a.cinvname
+--       ,a.item_code
+--       ,a.citemname as item_name
+--       ,a.province
+--       ,a.city
+--       ,a.cbustype
+--       ,sum(a.isum) as isum
+--       ,sum(a.isum - a.itax) as invoice_amount
+--       ,b.cinvcode_main
+--       ,b.cinvname_main
+--       ,b.level_two_cx
+--   from pdm.invoice_order a
+--   left join (select * from edw.x_cinv_relation group by cinvcode_child,cinvcode_main) b
+--     on a.cinvcode = b.cinvcode_child
+--  where year(a.ddate) = '2019'
+--    and b.cinvcode_child is not null
+-- --   and a.isum <> 0
+--  group by finnal_ccuscode,cinvcode,cinvcode_main
+-- ;
 
 -- 主试剂合计，汇总,主试剂默认是1对1的情况
-drop table if exists report.mid2_ccus_03_item_effect_19;
-create  table report.mid2_ccus_03_item_effect_19 as
-select a.province
-      ,a.city
-      ,ccuscode
-      ,ccusname
-      ,a.cbustype
-      ,a.cinvcode
-      ,a.cinvname
-      ,a.cinvcode_main
-      ,a.cinvname_main
-      ,level_two_cx
-      ,sum(isum) as isum
-      ,sum(invoice_amount) as invoice_amount
-  from report.mid1_ccus_03_item_effect_19 a
- where level_two_cx = '主试剂'
- group by cinvcode_main,ccuscode
-;
+-- drop table if exists report.mid2_ccus_03_item_effect_19;
+-- create  table report.mid2_ccus_03_item_effect_19 as
+-- select a.province
+--       ,a.city
+--       ,ccuscode
+--       ,ccusname
+--       ,a.cbustype
+--       ,a.cinvcode
+--       ,a.cinvname
+--       ,a.cinvcode_main
+--       ,a.cinvname_main
+--       ,level_two_cx
+--       ,sum(isum) as isum
+--       ,sum(invoice_amount) as invoice_amount
+--   from report.mid1_ccus_03_item_effect_19 a
+--  where level_two_cx = '主试剂'
+--  group by cinvcode_main,ccuscode
+-- ;
 
 -- 辅助试剂分配的试剂大于1的情况下进行拆分,辅助试剂耗材
 -- 这里计算辅助试剂各个客户的汇总
@@ -144,14 +198,13 @@ select a.province
       ,a.cinvcode
       ,a.cinvname
       ,a.cinvcode_main
-      ,b.isum
-      ,b.invoice_amount
-  from report.mid1_ccus_03_item_effect_19 a
-  left join report.mid0_ccus_03_item_effect_19 b
+      ,case when ifnull(b.isum_1,0.01) = 0 then 0.01 else ifnull(b.isum_1,0.01) end as isum
+      ,case when ifnull(b.invoice_amount_1,0.01) = 0 then 0.01 else ifnull(b.invoice_amount_1,0.01) end as invoice_amount
+  from report.mid2_ccus_03_item_effect_19 a
+  left join (select *,sum(isum) as isum_1,sum(invoice_amount) as invoice_amount_1 from report.mid1_ccus_03_item_effect_19 group by cinvcode_main,ccuscode) b
     on a.ccuscode = b.ccuscode
-   and a.cinvcode_main = b.cinvcode
- where a.level_two_cx = '辅助试剂耗材'
-  and b.ccuscode is not null
+   and a.cinvcode_main = b.cinvcode_main
+-- where b.ccuscode is not null
 ;
 
 -- 相关的主试剂汇总
@@ -181,8 +234,8 @@ select a.province
       ,a.cinvcode
       ,a.cinvname
       ,a.cinvcode_main
-      ,a.isum / b.isum as bl
-      ,a.invoice_amount / b.invoice_amount as bl_amount
+      ,ifnull(a.isum / b.isum,1) as bl
+      ,ifnull(a.invoice_amount / b.invoice_amount,1) as bl_amount
   from report.mid3_ccus_03_item_effect_19 a
   left join report.mid4_ccus_03_item_effect_19 b
     on a.cinvcode = b.cinvcode
@@ -221,18 +274,18 @@ select a.province
       ,a.ccuscode
       ,a.ccusname
       ,a.cbustype
-      ,a.cinvcode
-      ,a.cinvname
-      ,ifnull(b.isum,0) as isum_main
+      ,a.cinvcode_main as cinvcode
+      ,a.cinvname_main as cinvname
+      ,ifnull(a.isum_1,0) as isum_main
       ,ifnull(c.isum,0) as isum_child
-      ,ifnull(b.invoice_amount,0) as invoice_amount_main
+      ,ifnull(a.invoice_amount_1,0) as invoice_amount_main
       ,ifnull(c.invoice_amount,0) as invoice_amount_child
-  from report.mid0_ccus_03_item_effect_19 a
-  left join report.mid2_ccus_03_item_effect_19 b
-    on a.cinvcode = b.cinvcode_main
-   and a.ccuscode = b.ccuscode
+  from (select *,sum(isum) as isum_1,sum(invoice_amount) as invoice_amount_1 from report.mid1_ccus_03_item_effect_19 group by cinvcode_main,ccuscode) a
+--  left join report.mid2_ccus_03_item_effect_19 b
+--    on a.cinvcode = b.cinvcode_main
+--   and a.ccuscode = b.ccuscode
   left join report.mid6_ccus_03_item_effect_19 c
-    on a.cinvcode = c.cinvcode_main
+    on a.cinvcode_main = c.cinvcode_main
    and a.ccuscode = c.ccuscode
 ;
 
@@ -243,7 +296,7 @@ create  table report.mid8_ccus_03_item_effect_19 as
 select a.ccuscode
       ,a.cinvcode_main as cinvcode
       ,sum(b.cost) as isum
-  from report.mid00_ccus_03_item_effect_19 a
+  from report.mid1_ccus_03_item_effect_19 a
   left join report.fin_11_sales_cost_base b
     on a.ccuscode = b.ccuscode
    and a.cinvcode = b.cinvcode
@@ -258,27 +311,38 @@ create  table report.mid9_ccus_03_item_effect_19 as
 select b.ccuscode
       ,b.cinvcode
       ,b.cinvcode_main
-      ,sum(a.cost * b.bl) as isum
+      ,case when sum(a.cost * b.bl) = 0 then sum(a.cost) else sum(a.cost * b.bl) end as isum
+      ,sum(a.cost) as cost
   from report.fin_11_sales_cost_base a
   left join report.mid5_ccus_03_item_effect_19 b
     on a.cinvcode = b.cinvcode
    and a.ccuscode = b.ccuscode
  where year(a.ddate) = '2019'
-   and b.cinvcode is not null
+--   and b.cinvcode is not null
    and a.cost <> 0
  group by a.ccuscode,cinvcode_main
 ;
--- 成本主辅合并到一起
+
 drop table if exists report.mid10_ccus_03_item_effect_19;
 create  table report.mid10_ccus_03_item_effect_19 as
+select cinvcode,ccuscode from report.mid8_ccus_03_item_effect_19 union
+select cinvcode_main,ccuscode from report.mid9_ccus_03_item_effect_19
+;
+
+-- 成本主辅合并到一起
+drop table if exists report.mid11_ccus_03_item_effect_19;
+create  table report.mid11_ccus_03_item_effect_19 as
 select a.ccuscode
       ,a.cinvcode
-      ,a.isum as isum_main
-      ,b.isum as isum_child
-  from report.mid8_ccus_03_item_effect_19 a
-  left join report.mid9_ccus_03_item_effect_19 b
-    on a.cinvcode = b.cinvcode_main
+      ,b.isum as isum_main
+      ,c.isum as isum_child
+  from report.mid10_ccus_03_item_effect_19 a
+  left join report.mid8_ccus_03_item_effect_19 b
+    on a.cinvcode = b.cinvcode
    and a.ccuscode = b.ccuscode
+  left join report.mid9_ccus_03_item_effect_19 c
+    on a.cinvcode = c.cinvcode_main
+   and a.ccuscode = c.ccuscode
 ;
 
 -- 实验员成本计算
@@ -296,17 +360,17 @@ select a.province
       ,a.cbustype
       ,a.cinvcode
       ,a.cinvname
-      ,ifnull(a.isum_main,0) as isum_main
-      ,ifnull(a.isum_child,0) as isum_child
-      ,ifnull(a.invoice_amount_main,0) asinvoice_amount_main
-      ,ifnull(a.invoice_amount_child,0) as invoice_amount_child
+      ,ifnull(e.isum_main,0) as isum_main
+      ,ifnull(e.isum_child,0) as isum_child
+      ,ifnull(e.invoice_amount_main,0) asinvoice_amount_main
+      ,ifnull(e.invoice_amount_child,0) as invoice_amount_child
       ,ifnull(b.isum_main,0) as iunitcost_main
       ,ifnull(b.isum_child,0) as iunitcost_child
       ,ifnull(c.amount_19,0) as amount_19
       ,0 as sy_md
       ,d.install_dt
-  from report.mid7_ccus_03_item_effect_19 a
-  left join report.mid10_ccus_03_item_effect_19 b
+  from report.mid00_ccus_03_item_effect_19 a
+  left join report.mid11_ccus_03_item_effect_19 b
     on a.cinvcode = b.cinvcode
    and a.ccuscode = b.ccuscode
   left join (select bi_cuscode,bi_cinvcode,sum(amount_19) as amount_19 from edw.x_eq_depreciation_19_relation group by bi_cuscode,bi_cinvcode) c
@@ -315,17 +379,20 @@ select a.province
   left join (select * from pdm.cuspro_archives group by ccuscode,cinvcode) d
     on a.ccuscode = d.ccuscode
    and a.cinvcode = d.cinvcode
+  left join report.mid7_ccus_03_item_effect_19 e
+    on a.ccuscode = e.ccuscode
+   and a.cinvcode = e.cinvcode
 ;
 
 -- 删除所有数值为0的数据
 delete from report.ccus_03_item_effect_19 
- where isum_main = 0 
-   and isum_child = 0
-   and asinvoice_amount_main = 0
-   and invoice_amount_child = 0
-   and iunitcost_main = 0
-   and iunitcost_child = 0
-   and amount_19 = 0
-   and sy_md = 0
+ where isum_main < 0.1 
+   and isum_child < 0.1 
+   and asinvoice_amount_main < 0.1 
+   and invoice_amount_child < 0.1 
+   and iunitcost_main < 0.1 
+   and iunitcost_child < 0.1 
+   and amount_19 < 0.1 
+   and sy_md < 0.1 
    and install_dt is null
 ;
