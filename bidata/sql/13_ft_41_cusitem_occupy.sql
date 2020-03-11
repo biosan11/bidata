@@ -54,7 +54,11 @@ select
 	,a.item_code
 	,a.citemname as item_name
 	,b.equipment as equipment
-	,b.screen_class as screen_class
+	,case when b.screen_class = '筛查' and level_one = '新生儿' then '新筛'
+	      when b.screen_class = '诊断' and level_one = '新生儿' then '新诊'
+	      when b.screen_class = '筛查' and level_one = '产前' then '产筛'
+	      when b.screen_class = '诊断' and level_one = '产前' then '产诊'
+	      else '其他' end as screen_class
 	,a.cbustype
 	,a.competitor
 	,min(a.plan_start_dt) as plan_start_dt
