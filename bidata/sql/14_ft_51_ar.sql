@@ -109,7 +109,10 @@ case
     when a.db = 'UFDATA_666_2018' then '启代'
     when a.db = 'UFDATA_889_2018' then '美博特'
     when a.db = 'UFDATA_889_2019' then '美博特'
-    else '其他'
+    -- 200311修改, 新增贝安云账套
+    when a.db = 'UFDATA_555_2018' then '贝安云'
+    when a.db = 'UFDATA_555_2019' then '贝安云'
+    else '请核查'
     end as cohr
 ,a.db
 ,a.cvouchtype
