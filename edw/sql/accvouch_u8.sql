@@ -113,7 +113,7 @@ select a.db
   left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
     on a.ccus_id = e.ccuscode
  where a.iflag is null
-   and a.db <> 'UFDATA_007_2019'
+   and a.db <> 'UFDATA_170_2020'
 ;
 
 insert into edw.accvouch_u8_pre
@@ -158,7 +158,7 @@ select a.db
   left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
     on a.ccus_id = e.ccuscode
  where a.iflag is null
-   and a.db = 'UFDATA_007_2019'
+   and a.db = 'UFDATA_170_2020'
 ;
 
 -- 未知情况，针对奥博特财务推测操作人员问题，手动删除这部分数据
@@ -201,7 +201,7 @@ select a.db
     on SUBSTRING(a.ccode,1,6) = b.ccode
   left join (select bi_cuscode,sales_region,province from edw.map_customer group by bi_cuscode) c
     on a.bi_cuscode = c.bi_cuscode
- where a.db <> 'UFDATA_007_2019';
+ where a.db <> 'UFDATA_170_2020';
 
 insert into edw.accvouch_u8
 select a.db
@@ -237,7 +237,7 @@ select a.db
     on SUBSTRING(a.ccode,1,8) = b.ccode
   left join (select bi_cuscode,sales_region,province from edw.map_customer group by bi_cuscode) c
     on a.bi_cuscode = c.bi_cuscode
- where a.db = 'UFDATA_007_2019';
+ where a.db = 'UFDATA_170_2020';
 
 
 -- 调整一笔启代因为做账出现问题的数据

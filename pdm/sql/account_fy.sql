@@ -6,7 +6,7 @@ select distinct ccode,ccode_name
    and iyear = "2019" union
 select distinct ccode,ccode_name
   from ufdata.code
- where db = 'UFDATA_007_2019'
+ where db = 'UFDATA_170_2020'
    and iyear = "2019"
 ;
 
@@ -76,7 +76,7 @@ select i_id
             when a.db = 'UFDATA_889_2018' then '美博特'
             when a.db = 'UFDATA_889_2019' then '美博特'
             when a.db = 'UFDATA_555_2018' then '贝安云'
-            when a.db = 'UFDATA_007_2019' then '甄元'
+            when a.db = 'UFDATA_170_2020' then '甄元'
             end as cohr
       ,dbill_date
       ,a.cdept_id
@@ -180,8 +180,8 @@ select a.i_id
       ,a.ccode_name
       ,a.ccode_lv2
       ,a.ccode_name_lv2
---      ,case when a.db <> 'UFDATA_007_2019' and (LENGTH(a.ccode) = 8 or LENGTH(a.ccode) = 10) then b.ccode else a.ccode end as ccode_lv2
---      ,case when a.db <> 'UFDATA_007_2019' and (LENGTH(a.ccode) = 8 or LENGTH(a.ccode) = 10) then b.ccode_name else a.ccode_name end as ccode_name_lv2
+--      ,case when a.db <> 'UFDATA_170_2020' and (LENGTH(a.ccode) = 8 or LENGTH(a.ccode) = 10) then b.ccode else a.ccode end as ccode_lv2
+--      ,case when a.db <> 'UFDATA_170_2020' and (LENGTH(a.ccode) = 8 or LENGTH(a.ccode) = 10) then b.ccode_name else a.ccode_name end as ccode_name_lv2
       ,a.md
       ,a.u8_liuchengbh
       ,null
@@ -223,7 +223,7 @@ select f.i_id
             when f.db = 'UFDATA_889_2018' then '美博特'
             when f.db = 'UFDATA_889_2019' then '美博特'
             when f.db = 'UFDATA_555_2018' then '贝安云'
-            when f.db = 'UFDATA_007_2019' then '甄元'
+            when f.db = 'UFDATA_170_2020' then '甄元'
             end as cohr
       ,f.dbill_date
       ,a.fashengrq
