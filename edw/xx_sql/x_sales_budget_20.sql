@@ -3,7 +3,57 @@ truncate table edw.x_sales_budget_20;
 
 drop table if exists ufdata.x_sales_budget_20_pre;
 create temporary table ufdata.x_sales_budget_20_pre as
-select a.*
+select a.autoid
+      ,a.cohr
+      ,e.sales_region
+      ,a.areadirector
+      ,a.cverifier
+      ,e.province
+      ,e.city
+      ,a.ccuscode
+      ,a.ccusname
+      ,d.screen_class
+      ,d.level_one
+      ,d.level_two
+      ,d.item_code
+      ,d.level_two as item_name
+      ,a.cinvcode
+      ,a.cinvname
+      ,d.business_class as cbustype
+      ,d.equipment
+      ,d.cinvbrand
+      ,a.plan_class
+      ,a.iunitcost
+      ,a.plan_complete_dt
+      ,a.plan_success_rate
+      ,a.inum_person_2001
+      ,a.inum_person_2002
+      ,a.inum_person_2003
+      ,a.inum_person_2004
+      ,a.inum_person_2005
+      ,a.inum_person_2006
+      ,a.inum_person_2007
+      ,a.inum_person_2008
+      ,a.inum_person_2009
+      ,a.inum_person_2010
+      ,a.inum_person_2011
+      ,a.inum_person_2012
+      ,a.inum_person_addup_20
+      ,a.isum_budget_2001
+      ,a.isum_budget_2002
+      ,a.isum_budget_2003
+      ,a.isum_budget_2004
+      ,a.isum_budget_2005
+      ,a.isum_budget_2006
+      ,a.isum_budget_2007
+      ,a.isum_budget_2008
+      ,a.isum_budget_2009
+      ,a.isum_budget_2010
+      ,a.isum_budget_2011
+      ,a.isum_budget_2012
+      ,a.isum_budget_addup_20
+      ,a.itaxrate
+      ,a.own_product
       ,case when b.ccusname is not null then b.bi_cuscode else '请核查'end as bi_cuscode
       ,case when b.ccusname is not null then b.bi_cusname else '请核查'end as bi_cusname
       ,case when c.cinvcode is not null then c.bi_cinvcode else '请核查'end as bi_cinvcode
@@ -13,6 +63,10 @@ select a.*
     on a.ccusname = b.ccusname
   left join (select * from edw.dic_inventory group by cinvcode) c
     on a.cinvcode = c.cinvcode
+  left join (select * from edw.map_inventory) d
+    on c.bi_cinvcode = d.bi_cinvcode
+  left join (select * from edw.map_customer) e
+    on b.bi_cuscode = e.bi_cuscode
 ;
 
 insert into edw.x_sales_budget_20
