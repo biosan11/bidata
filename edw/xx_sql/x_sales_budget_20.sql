@@ -16,7 +16,7 @@ select a.autoid
       ,d.level_one
       ,d.level_two
       ,d.item_code
-      ,d.level_two as item_name
+      ,d.level_three as item_name
       ,a.cinvcode
       ,a.cinvname
       ,d.business_class as cbustype
