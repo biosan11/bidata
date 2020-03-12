@@ -105,6 +105,12 @@ select ccuscode from bidata.ft_61_dispatch group by ccuscode;
 insert into bidata.bi_customer_pre
 select finnal_ccuscode from bidata.ft_61_dispatch group by finnal_ccuscode;
 
+-- 2.8 sales_order订单数据
+insert into bidata.bi_customer_pre
+select ccuscode from bidata.ft_111_sales_order group by ccuscode;
+insert into bidata.bi_customer_pre
+select finnal_ccuscode from bidata.ft_111_sales_order group by finnal_ccuscode;
+
 -- 1.* 生成bi_customer
 truncate table bidata.dt_12_customer;
 insert into bidata.dt_12_customer
