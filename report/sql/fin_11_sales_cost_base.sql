@@ -92,10 +92,10 @@ select
     ,a.tbquantity
     ,a.itb
     ,case 
-        when a.db = "UFDATA_889_2018" then a.iquantity
-        when a.itb = "退补" then a.tbquantity
-        when a.itb = "1" then a.tbquantity 
-        else a.iquantity 
+        when a.db = "UFDATA_889_2018" then ifnull(a.iquantity,0)
+        when a.itb = "退补" then ifnull(a.tbquantity,0)
+        when a.itb = "1" then ifnull(a.tbquantity,0) 
+        else ifnull(a.iquantity,0) 
         end as iquantity_adjust
     ,case 
         when a.sales_type = "固定资产" then "固定资产_线上"
@@ -111,10 +111,10 @@ select
     ,case 
         when a.sales_type = "固定资产" then 0
 --        when a.cloumn in (select cloumn from report.x_eq_launch) then 0
-        when a.db = "UFDATA_889_2018" then a.iquantity * ifnull(d.cost_price,0)
-        when a.itb = "退补" then a.tbquantity * ifnull(d.cost_price,0)
-        when a.itb = "1" then a.tbquantity * ifnull(d.cost_price,0)
-        else a.iquantity * ifnull(d.cost_price,0)
+        when a.db = "UFDATA_889_2018" then ifnull(a.iquantity,0) * ifnull(d.cost_price,0)
+        when a.itb = "退补" then ifnull(a.tbquantity,0) * ifnull(d.cost_price,0)
+        when a.itb = "1" then ifnull(a.tbquantity,0) * ifnull(d.cost_price,0)
+        else ifnull(a.iquantity,0) * ifnull(d.cost_price,0)
     end as cost
   from report.invoice_order as a 
   left join edw.map_inventory as c
