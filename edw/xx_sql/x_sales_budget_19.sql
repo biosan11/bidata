@@ -7,18 +7,18 @@ select a.autoid
       ,a.cohr
       ,a.uniqueid
       ,a.type
-      ,a.sales_region
-      ,a.province
-      ,a.city
+      ,e.sales_region
+      ,e.province
+      ,e.city
       ,a.ccuscode
       ,a.ccusname
-      ,a.screen_class
-      ,a.cbustype
-      ,a.equipment
-      ,a.level_one
-      ,a.level_two
-      ,a.item_code
-      ,a.level_three
+      ,d.screen_class
+      ,d.business_class as cbustype
+      ,d.equipment
+      ,d.level_one
+      ,d.level_two
+      ,d.item_code
+      ,d.level_three
       ,c.bi_cinvcode as cinvcode
       ,c.bi_cinvname as cinvname
       ,a.plan_class
@@ -60,6 +60,10 @@ select a.autoid
     on a.ccusname = b.ccusname
   left join (select * from edw.dic_inventory group by cinvcode) c
     on a.cinvcode = c.cinvcode
+  left join (select * from edw.map_inventory) d
+    on c.bi_cinvcode = d.bi_cinvcode
+  left join (select * from edw.map_customer) e
+    on b.bi_cuscode = e.bi_cuscode
 ;
 
 -- 1901
