@@ -111,6 +111,7 @@ select a.db
    and a.db <> 'UFDATA_889_2019'
    and a.db <> 'UFDATA_666_2018'
    and a.db <> 'UFDATA_555_2018'
+   and a.db <> 'UFDATA_170_2020'
    and year(a.ddate) >= '2018'; 
 -- 针对美博特客户不在同部博圣做出调整,贝安云客户账套完全不一致
 --   and a.ccuscode not in ("001","002","003","004","005","006","007","008","009","010","011","012","013");
@@ -148,7 +149,7 @@ select a.db
     on a.ccuscode = b.ccuscode
    and left(a.db,10) = left(b.db,10)
  where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
-   and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018' or a.db = 'UFDATA_666_2018')
+   and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018' or a.db = 'UFDATA_666_2018' or a.db = 'UFDATA_170_2020')
    and year(a.ddate) >= '2018'; 
 --   and a.ccuscode in ("001","002","003","004","005","006","007","008","009","010","011","012","013");
 
@@ -354,7 +355,7 @@ select a.db
   from edw.mid3_invoice_order a
   left join (select cinvcode,db,bi_cinvcode,bi_cinvname from edw.dic_inventory group by cinvcode) b
     on a.cinvcode = b.cinvcode
- where a.db not in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
+ where a.db not in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_170_2020','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
 ;
 
 insert into edw.mid4_invoice_order
@@ -417,7 +418,7 @@ select a.db
   left join edw.dic_inventory b
     on left(a.db,10) = left(b.db,10)
    and a.cinvcode = b.cinvcode
- where a.db in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
+ where a.db in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_170_2020','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
 ;
 
 --清洗项目编码
