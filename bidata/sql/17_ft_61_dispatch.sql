@@ -59,8 +59,7 @@ select
     ,foutquantity
     ,itb
 from pdm.dispatch_order
-where item_code != "jk0101"
-and (isum != 0 or itax != 0);
+where item_code != "jk0101";
 
 update bidata.ft_61_dispatch
 set finnal_ccuscode = ccuscode 
