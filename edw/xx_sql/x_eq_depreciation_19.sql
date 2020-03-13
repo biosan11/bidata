@@ -484,3 +484,4 @@ delete from edw.x_eq_depreciation_19 where amount_depre = '0';
 
 
 
+
