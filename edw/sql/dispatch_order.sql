@@ -12,6 +12,7 @@
 ------------------------------------------------------------------------------------------
 --版本控制：版本号  提交人   提交日期   提交内容
 --         V1.0     jiangsh  2018-11-12   开发上线
+--         V1.0     jiangsh  2020-03-13   增加预计开票时间
 --调用方法　python /home/edw/python/dispatch_order.python 2018-11-12 2018-11-12
 ------------------------------------开始处理逻辑------------------------------------------
 --订单edw层加工逻辑
@@ -322,6 +323,7 @@ select a.db
       ,b.isettlenum
       ,b.isettlequantity
       ,b.cdefine23
+      ,b.cdefine36
       ,localtimestamp() as sys_time
   from edw.mid2_dispatch_order a
   left join (select * from ufdata.dispatchlists where dkeepdate >= '2018-01-01' or dkeepdate is null) b
@@ -404,6 +406,7 @@ select a.db
       ,a.isettlenum
       ,a.isettlequantity
       ,a.cdefine23
+      ,a.cdefine36
       ,a.sys_time
  from edw.mid3_dispatch_order a
   left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
@@ -483,6 +486,7 @@ select a.db
       ,a.isettlenum
       ,a.isettlequantity
       ,a.cdefine23
+      ,a.cdefine36
       ,a.sys_time
  from edw.mid3_dispatch_order a
   left join dic_inventory b
@@ -564,6 +568,7 @@ select a.db
       ,a.isettlenum
       ,a.isettlequantity
       ,a.cdefine23
+      ,a.cdefine36
       ,a.sys_time
   from edw.mid4_dispatch_order a
   left join edw.map_inventory b
