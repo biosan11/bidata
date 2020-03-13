@@ -341,26 +341,28 @@ select distinct
       ,'产品编码变动' as type
       ,1 as leve
       ,CURDATE( ) as date
-  from (select distinct 'bi_cinvcode' as cloumn,  'dt_14_inventory' as tab_name ,bi_cinvcode as cinvcode from bidata.dt_14_inventory where bi_cinvcode not in('老产品','请核查',null) union
-        select distinct 'bi_cinvcode' as cloumn,  'ft_101_work_order' as tab_name ,bi_cinvcode as cinvcode from bidata.ft_101_work_order where bi_cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_111_sales_order' as tab_name ,cinvcode as cinvcode from bidata.ft_111_sales_order where cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_11_sales' as tab_name ,cinvcode as cinvcode from bidata.ft_11_sales where cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_121_marketprice' as tab_name ,cinvcode as cinvcode from bidata.ft_121_marketprice where cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_12_sales_budget' as tab_name ,cinvcode as cinvcode from bidata.ft_12_sales_budget where cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_13_sales_budget_new' as tab_name ,cinvcode as cinvcode from bidata.ft_13_sales_budget_new where cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_14_sales_hzbs' as tab_name ,cinvcode as cinvcode from bidata.ft_14_sales_hzbs where cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_21_outdepot' as tab_name ,cinvcode as cinvcode from bidata.ft_21_outdepot where cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_23_outdepot_forecast' as tab_name ,cinvcode as cinvcode from bidata.ft_23_outdepot_forecast where cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_25_outdepot_hzbs' as tab_name ,cinvcode as cinvcode from bidata.ft_25_outdepot_hzbs where cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_26_outdepot_yj' as tab_name ,cinvcode as cinvcode from bidata.ft_26_outdepot_yj where cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_31_checklist' as tab_name ,cinvcode as cinvcode from bidata.ft_31_checklist where cinvcode not in('老产品','请核查',null) union
-        select distinct 'true_cinvcode' as cloumn,'ft_51_ar' as tab_name ,true_cinvcode as cinvcode from bidata.ft_51_ar where true_cinvcode not in('老产品','请核查',null) union
-        select distinct 'true_cinvcode' as cloumn,'ft_51_ar_detail' as tab_name ,true_cinvcode as cinvcode from bidata.ft_51_ar_detail where true_cinvcode not in('老产品','请核查',null) union
-        select distinct 'cinvcode' as cloumn,     'ft_61_dispatch' as tab_name ,cinvcode as cinvcode from bidata.ft_61_dispatch where cinvcode not in('老产品','请核查',null)
+  from (select distinct 'bi_cinvcode' as cloumn,  'dt_14_inventory' as tab_name ,bi_cinvcode as cinvcode from bidata.dt_14_inventory where bi_cinvcode not in('老产品','请核查') union
+        select distinct 'bi_cinvcode' as cloumn,  'ft_101_work_order' as tab_name ,bi_cinvcode as cinvcode from bidata.ft_101_work_order where bi_cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_111_sales_order' as tab_name ,cinvcode as cinvcode from bidata.ft_111_sales_order where cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_11_sales' as tab_name ,cinvcode as cinvcode from bidata.ft_11_sales where cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_121_marketprice' as tab_name ,cinvcode as cinvcode from bidata.ft_121_marketprice where cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_12_sales_budget' as tab_name ,cinvcode as cinvcode from bidata.ft_12_sales_budget where cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_13_sales_budget_new' as tab_name ,cinvcode as cinvcode from bidata.ft_13_sales_budget_new where cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_14_sales_hzbs' as tab_name ,cinvcode as cinvcode from bidata.ft_14_sales_hzbs where cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_21_outdepot' as tab_name ,cinvcode as cinvcode from bidata.ft_21_outdepot where cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_23_outdepot_forecast' as tab_name ,cinvcode as cinvcode from bidata.ft_23_outdepot_forecast where cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_25_outdepot_hzbs' as tab_name ,cinvcode as cinvcode from bidata.ft_25_outdepot_hzbs where cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_26_outdepot_yj' as tab_name ,cinvcode as cinvcode from bidata.ft_26_outdepot_yj where cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_31_checklist' as tab_name ,cinvcode as cinvcode from bidata.ft_31_checklist where cinvcode not in('老产品','请核查') union
+        select distinct 'true_cinvcode' as cloumn,'ft_51_ar' as tab_name ,true_cinvcode as cinvcode from bidata.ft_51_ar where true_cinvcode not in('老产品','请核查') union
+        select distinct 'true_cinvcode' as cloumn,'ft_51_ar_detail' as tab_name ,true_cinvcode as cinvcode from bidata.ft_51_ar_detail where true_cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_61_dispatch' as tab_name ,cinvcode as cinvcode from bidata.ft_61_dispatch where cinvcode not in('老产品','请核查') union
+        select distinct 'cinvcode' as cloumn,     'ft_111_sales_order' as tab_name ,cinvcode as cinvcode from bidata.ft_111_sales_order where cinvcode not in('老产品','请核查')
        ) a
-  left join (select * from edw.dic_inventory group by cinvcode) b
-    on a.cinvcode = b.cinvcode
+  left join (select * from edw.dic_inventory group by bi_cinvcode) b
+    on a.cinvcode = b.bi_cinvcode
  where b.cinvcode is null
+   and a.cinvcode is not null
 ;
 
 
