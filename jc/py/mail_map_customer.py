@@ -119,7 +119,7 @@ if __name__ == '__main__':
     email_dict = {
     # 手动填写，确保信息无误
         "user": "jiangsunhui@biosan.cn",
-        "to": "zhangaihua@biosan.cn", # 多个邮箱以','隔开；
+        "to": "zhangaihua@biosan.cn,jiangsunhui@biosan.cn", # 多个邮箱以','隔开；
 #        "to": "wangtao@biosan.cn,jiangsunhui@biosan.cn,pengli@biosan.cn,jinjing@biosan.cn", # 多个邮箱以','隔开；
         "server": "smtp.exmail.qq.com",
         'port': 465,    # values值必须int类型
