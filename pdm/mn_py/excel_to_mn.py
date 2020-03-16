@@ -1,112 +1,160 @@
-#!/usr/bin/python
-# coding=utf-8
-# Author: jsh
 
-import pymysql, xlwt,xlrd
-import openpyxl
-import time
-import smtplib
-from email.mime.multipart import MIMEMultipart
+# -*- coding: utf-8 -*-
+# Author: hkey
+from email.header import Header
 from email.mime.text import MIMEText
-from email.header import  make_header
+from email.mime.multipart import MIMEMultipart
+# from email.utils import parseaddr, formataddr
+from email import encoders
+from email.mime.base import MIMEBase
+import smtplib, os
+import pymysql, xlwt
 
-list_in = ['单据日期','公司简称','销售发票号','销售订单号','仓库编码','仓库名称','部门编码','部门名称','业务员编码','销售区域','销售省份','销售城市','客户类型','客户编码','客户名称','最终客户正确编码','最终客户名称','业务类型','产品销售类型-销售、赠送、配套、其他','存货编码','存货名称','项目编码','原币含税单价','销量(盒)','原币价税合计','项目名称','品牌','销售类型编码','规格型号','退补标志','退补数量']
-list_out = ['公司简称','出库单号','单据日期','仓库编码','仓库名称','部门编码','部门名称','业务员编码','销售区域','销售省份','销售城市','客户类型','客户编码','客户名称','最终客户正确编码','最终客户名称','业务类型','产品销售类型-销售、赠送、配套、其他','存货编码','存货名称','数量','人份数','项目编码','项目名称','品牌','销售类型编码']
+class CreateExcel(object):
+    '''查询数据库并生成Excel文档'''
+    def __init__(self, mysql_info):
+        self.mysql_info = mysql_info
+        self.conn = pymysql.connect(host = self.mysql_info['host'], port = self.mysql_info['port'],
+                               user = self.mysql_info['user'], passwd = self.mysql_info['passwd'],
+                               db = self.mysql_info['db'], charset='utf8')
+        self.cursor = self.conn.cursor()
+    def getUserData(self, sql):
+        # 查询数据库
+        self.cursor.execute(sql)
+        table_desc = self.cursor.description
+        result = self.cursor.fetchall()
+        if not result:
+            print('没数据。')
+            # 返回查询数据、表字段
+        print('数据库查询完毕'.center(30, '#'))
+        return result, table_desc
 
-#联接到数据库，并封装循环使用，db是数据库名字
-def getCon():
-    conn = pymysql.connect(host='172.16.0.181', user='root', password='biosan', db='bidata', charset='utf8')
-    return conn.cursor()
+    def writeToExcel(self, data,data1, filename):
+        # 生成Excel文档
+        # 注意：生成Excel是一列一列写入的。
+        result, fileds = data
+        wbk = xlwt.Workbook(encoding='utf-8')
+        # 创建一个表格
+        sheet1 = wbk.add_sheet('开票数据', cell_overwrite_ok=True)
+        for filed in range(len(fileds)):
+            # Excel插入第一行字段信息
+            sheet1.write(0, filed, fileds[filed][0]) # (行，列，数据)
 
-def in_sql():
-    cur = getCon()
-    sql  = 'select * from pdm.invoice_order_mn'
-    cur.execute(sql)
-    all = cur.fetchall()
-    return all
+        for row in range(1, len(result)+1):
+            # 将数据从第二行开始写入
+            for col in range(0, len(fileds)):
+                sheet1.write(row, col, result[row-1][col]) #(行, 列, 数据第一行的第一列)
 
-def out_sql():
-    cur = getCon()
-    sql  = 'select * from pdm.outdepot_order_mn'
-    cur.execute(sql)
-    all = cur.fetchall()
-    return all
+        result, fileds = data1
+        sheet2 = wbk.add_sheet('发货数据', cell_overwrite_ok=True)
+        for filed in range(len(fileds)):
+            # Excel插入第一行字段信息
+            sheet2.write(0, filed, fileds[filed][0]) # (行，列，数据)
 
-def w_excel(res,res2):
-    book = openpyxl.Workbook() #新建一个excel
-    sheet = book.create_sheet('shouru') #新建一个sheet页
-    #写表头
-    i = 1
-    for header in list_in:
-        sheet.cell(1,i,header)
-        i+=1
-    #写入数据
-    for row in range(0,len(res)):
-        for col in range(0,len(res[row])):
-            sheet.cell(row+2,col+1,res[row][col])
-        row+=1
-    col+=1
+        for row in range(1, len(result)+1):
+            # 将数据从第二行开始写入
+            for col in range(0, len(fileds)):
+                sheet2.write(row, col, result[row-1][col]) #(行, 列, 数据第一行的第一列)
 
-    sheet1 = book.create_sheet('fahuo') #新建一个sheet页
-    #写表头
-    j = 1
-    for header in list_out:
-        sheet1.cell(1,j,header)
-        j+=1
-    #写入数据
-    for row in range(0,len(res2)):
-        for col in range(0,len(res2[row])):
-            sheet1.cell(row+2,col+1,res2[row][col])
-        row+=1
-    col+=1
-    book.save('fhsr'+time.strftime("%Y%m%d", time.localtime())+'.xlsx')
-    print("导出成功！")
+        wbk.save(filename)
+    def close(self):
+        # 关闭游标和数据库连接
+        self.cursor.close()
+        self.conn.close()
+        print('关闭数据库连接'.center(30, '#'))
+class SendMail(object):
+    '''将Excel作为附件发送邮件'''
+    def __init__(self, email_info):
+        self.email_info = email_info
+        # 使用SMTP_SSL连接端口为465
+        self.smtp = smtplib.SMTP_SSL(self.email_info['server'], self.email_info['port'])
+        # 创建两个变量
+        self._attachements = []
+        self._from = ''
+    def login(self):
+        # 通过邮箱名和smtp授权码登录到邮箱
+        self._from = self.email_info['user']
+        self.smtp.login(self.email_info['user'], self.email_info['password'])
+    # def _format_addr(self, s):
+    #     name, addr = parseaddr(s)
+    #     return formataddr((Header(name, 'utf-8').encode(), addr))
 
-def sed_email():
-    # 发件人
-    smtpserver = 'smtp.exmail.qq.com'
-    username = 'jiangsunhui@biosan.cn'
-    password='JSW19941123aa'
-    sender='jiangsunhui@biosan.cn'
-    # 收件人
-    receiver = ['jiangsunhui@biosan.cn','张梅妮<zhangmeini@biosan.cn>','彭丽<pengli@biosan.cn>',' 李秦秦<liqinqin@biosan.cn>','wangshaojie@biosan.cn','丁明君<dingmingjun@biosan.cn>,']
-    # ,'张梅妮<zhangmeini@biosan.cn>','彭丽<pengli@biosan.cn>',' 李秦秦<liqinqin@biosan.cn>'
-    # 抄送
-    cc = ['jiangsunhui@biosan.cn']
+    def add_attachment(self):
+        # 添加附件内容
+        # 注意：添加附件内容是通过读取文件的方式加入
+        file_path = self.email_info['file_path']
+        with open(file_path, 'rb') as file:
+            filename = os.path.split(file_path)[1]
+            mime = MIMEBase('application', 'octet-stream', filename=filename)
+            mime.add_header('Content-Disposition', 'attachment', filename=('gbk', '', filename))
+            mime.add_header('Content-ID', '<0>')
+            mime.add_header('X-Attachment-Id', '0')
+            mime.set_payload(file.read())
+            encoders.encode_base64(mime)
+            # 添加到列表，可以有多个附件内容
+            self._attachements.append(mime)
 
-    msg = MIMEMultipart('发货收入bi数据')
-    subject = '发货收入bi数据'
-    msg['Subject'] = subject
-    msg['From'] = 'jiangsunhui@biosan.cn'
-    msg['To'] = ";".join(receiver)
-    msg['Co'] = ";".join(cc)
-    # 设置编码
-    # msg['Accept-Language']='zh-CN'
-    # msg['Accept-Charset']='ISO-8859-1,utf-8'
+    def sendMail(self):
+        # 发送邮件，可以实现群发
+        msg = MIMEMultipart()
+        contents = MIMEText(self.email_info['content'], 'plain', 'utf-8')
+        msg['From'] = self.email_info['user']
+        msg['To'] = self.email_info['to']
+        msg['Subject'] = self.email_info['subject']
 
-    # 构造附件
-    file_name = time.strftime("%Y%m%d", time.localtime())+'.xlsx'
-    file = r'/home/bidata/pdm/mn_py/fhsr'+time.strftime("%Y%m%d", time.localtime())+'.xlsx'
-    sendfile=open(file,'rb').read()
-    text_att = MIMEText(sendfile,'base64','utf-8')
-    text_att["Content-Type"] = 'application/octet-stream'
-    #另一种实现方式
-    text_att.add_header('Content-Disposition', 'attachment', filename=('fhsr'+file_name))
-    msg.attach(text_att)
+        for att in self._attachements:
+            # 从列表中提交附件，附件可以有多个
+            msg.attach(att)
+        msg.attach(contents)
+        try:
+            self.smtp.sendmail(self._from, self.email_info['to'].split(','), msg.as_string())
+            print('邮件发送成功，请注意查收'.center(30, '#'))
+        except Exception as e:
+            print('Error:', e)
 
-    #发送邮件
-    smtp = smtplib.SMTP()
-    smtp.connect('smtp.exmail.qq.com')
-    #我们用set_debuglevel(1)就可以打印出和SMTP服务器交互的所有信息。
-    #smtp.set_debuglevel(1)
-    smtp.login(username, password)
-    smtp.sendmail(sender, receiver, msg.as_string())
-    smtp.quit()
+    def close(self):
+        # 退出smtp服务
+        self.smtp.quit()
+        print('logout'.center(30, '#'))
+
 
 if __name__ == '__main__':
-    data1 = in_sql()
-    data2 = out_sql()
-    w_excel(data1,data2)
-    sed_email()
-
+    # 数据库连接信息
+    mysql_dict = {
+        'host': '172.16.0.181',
+        'port': 3306,
+        'user': 'root',
+        'passwd': 'biosan',
+        'db': 'edw'
+    }
+    # 邮件登录及内容信息
+    email_dict = {
+    # 手动填写，确保信息无误
+        "user": "jiangsunhui@biosan.cn",
+        # "to": "jiangsunhui@biosan.cn", # 多个邮箱以','隔开；
+       "to": ['jiangsunhui@biosan.cn','张梅妮<zhangmeini@biosan.cn>','彭丽<pengli@biosan.cn>','wangshaojie@biosan.cn','丁明君<dingmingjun@biosan.cn>,'], # 多个邮箱以','隔开；
+        "server": "smtp.exmail.qq.com",
+        'port': 465,    # values值必须int类型
+        "username": "jiangsunhui@biosan.cn",
+        "password": "JSW19941123aa",
+        "subject": "开票发货数据",
+        "content": 'Enclosed please find',
+        'file_path': 'map_customer.xls'
+    }
+    sql = 'select * from pdm.invoice_order_mn;'
+    sql1 = 'select * from pdm.outdepot_order_mn;'
+    create_excel = CreateExcel(mysql_dict)
+    # conn = pymysql.Connect('172.16.0.181','root','biosan','ufdata', charset='utf8')
+    # cursor = conn.cursor()
+    # conn.commit()
+    #    print sql7
+    sql_res = create_excel.getUserData(sql)
+    sql_res1 = create_excel.getUserData(sql1)
+    create_excel.writeToExcel(sql_res,sql_res1,email_dict['file_path'])
+    create_excel.close()
+    sendmail = SendMail(email_dict)
+    sendmail.login()
+    sendmail.add_attachment()
+    sendmail.sendMail()
+    sendmail.close()
 
