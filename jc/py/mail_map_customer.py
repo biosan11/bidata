@@ -129,7 +129,7 @@ if __name__ == '__main__':
         "content": 'FYI',
         'file_path': 'map_customer.xls'
     }
-    sql = 'select bi_cuscode,bi_cusname,finnal_cuscode,finnal_ccusname,type,sales_region,province,city from edw.map_customer where sales_region in ("销售三区","销售七区");  '
+    sql = 'select bi_cuscode,bi_cusname,finnal_cuscode,finnal_ccusname,type,sales_region,province,city from edw.map_customer where sales_region in ("销售三区","销售七区","销售五区");  '
     create_excel = CreateExcel(mysql_dict)
     conn = pymysql.Connect('172.16.0.181','root','biosan','ufdata', charset='utf8')
     cursor = conn.cursor()
