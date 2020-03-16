@@ -9,6 +9,8 @@ from email import encoders
 from email.mime.base import MIMEBase
 import smtplib, os
 import pymysql, xlwt
+import openpyxl
+import time
 
 class CreateExcel(object):
     '''查询数据库并生成Excel文档'''
@@ -33,28 +35,29 @@ class CreateExcel(object):
         # 生成Excel文档
         # 注意：生成Excel是一列一列写入的。
         result, fileds = data
-        wbk = xlwt.Workbook(encoding='utf-8')
+        # wbk = xlwt.Workbook(encoding='utf-8')
+        wbk = openpyxl.Workbook()
         # 创建一个表格
-        sheet1 = wbk.add_sheet('开票数据', cell_overwrite_ok=True)
-        for filed in range(len(fileds)):
+        sheet1 = wbk.create_sheet('开票数据')
+        for filed in range(1,len(fileds)+1):
             # Excel插入第一行字段信息
-            sheet1.write(0, filed, fileds[filed][0]) # (行，列，数据)
+            sheet1.cell(1, filed, fileds[filed-1][0]) # (行，列，数据)
 
-        for row in range(1, len(result)+1):
+        for row in range(2, len(result)+2):
             # 将数据从第二行开始写入
-            for col in range(0, len(fileds)):
-                sheet1.write(row, col, result[row-1][col]) #(行, 列, 数据第一行的第一列)
+            for col in range(1, len(fileds)+1):
+                sheet1.cell(row, col, result[row-2][col-1]) #(行, 列, 数据第一行的第一列)
 
         result, fileds = data1
-        sheet2 = wbk.add_sheet('发货数据', cell_overwrite_ok=True)
-        for filed in range(len(fileds)):
+        sheet2 = wbk.create_sheet('发货数据')
+        for filed in range(1,len(fileds)+1):
             # Excel插入第一行字段信息
-            sheet2.write(0, filed, fileds[filed][0]) # (行，列，数据)
+            sheet2.cell(1, filed, fileds[filed-1][0]) # (行，列，数据)
 
-        for row in range(1, len(result)+1):
+        for row in range(2, len(result)+2):
             # 将数据从第二行开始写入
-            for col in range(0, len(fileds)):
-                sheet2.write(row, col, result[row-1][col]) #(行, 列, 数据第一行的第一列)
+            for col in range(1, len(fileds)+1):
+                sheet2.cell(row, col, result[row-2][col-1]) #(行, 列, 数据第一行的第一列)
 
         wbk.save(filename)
     def close(self):
@@ -132,14 +135,14 @@ if __name__ == '__main__':
     # 手动填写，确保信息无误
         "user": "jiangsunhui@biosan.cn",
         # "to": "jiangsunhui@biosan.cn", # 多个邮箱以','隔开；
-       "to": ['jiangsunhui@biosan.cn','张梅妮<zhangmeini@biosan.cn>','彭丽<pengli@biosan.cn>','wangshaojie@biosan.cn','丁明君<dingmingjun@biosan.cn>,'], # 多个邮箱以','隔开；
+       "to": "jiangsunhui@biosan.cn,张梅妮<zhangmeini@biosan.cn>,彭丽<pengli@biosan.cn>,wangshaojie@biosan.cn,丁明君<dingmingjun@biosan.cn>", # 多个邮箱以','隔开；
         "server": "smtp.exmail.qq.com",
         'port': 465,    # values值必须int类型
         "username": "jiangsunhui@biosan.cn",
         "password": "JSW19941123aa",
-        "subject": "开票发货数据",
-        "content": 'Enclosed please find',
-        'file_path': 'map_customer.xls'
+        "subject": "发货收入bi数据",
+        "content": '您好，这是本周的数据，请查收！！！',
+        'file_path': '发货开票_'+ time.strftime("%Y%m%d", time.localtime()) +'.xlsx'
     }
     sql = 'select * from pdm.invoice_order_mn;'
     sql1 = 'select * from pdm.outdepot_order_mn;'
