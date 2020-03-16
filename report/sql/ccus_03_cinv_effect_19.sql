@@ -18,7 +18,7 @@
 -- 项目级别的计算已经生成了，只需要按照主试剂拆分下去即可
 -- 先获取主试剂的各个项目的比例，已经19年的销售额
 drop table if exists report.x_cinv_relation_pre;
-create table report.x_cinv_relation_pre as 
+create temporary table report.x_cinv_relation_pre as 
 select distinct a.cinvcode_main
       ,a.cinvname_main
       ,a.cinvcode_child as cinvcode
@@ -31,7 +31,7 @@ select distinct a.cinvcode_main
 
 -- 获取2019年所又主试剂的发货人份数
 drop table if exists report.outdepot_order_pre;
-create table report.outdepot_order_pre as 
+create temporary table report.outdepot_order_pre as 
 select a.finnal_ccuscode as ccuscode
       ,a.finnal_ccusname as ccusname
       ,sum(a.inum_person) as inum_person
@@ -49,7 +49,7 @@ select a.finnal_ccuscode as ccuscode
 
 -- 获取2019年所有主试剂的检测量
 drop table if exists report.checklist_pre;
-create table report.checklist_pre as
+create temporary table report.checklist_pre as
 select ccuscode,cinvcode,sum(inum_person) as inum_person
   from pdm.checklist
  where year(ddate) = '2019'
@@ -58,7 +58,7 @@ select ccuscode,cinvcode,sum(inum_person) as inum_person
 
 
 drop table if exists report.invoice_order_pre;
-create table report.invoice_order_pre as 
+create temporary table report.invoice_order_pre as 
 select a.ccuscode as ccuscode
       ,1 as key_num
       ,a.cost as cost
@@ -82,7 +82,7 @@ select a.ccuscode as ccuscode
 
 -- 获取19年所有客户的主试剂合集
 drop table if exists report.mid1_ccus_03_cinv_effect_19;
-create table report.mid1_ccus_03_cinv_effect_19 as
+create temporary table report.mid1_ccus_03_cinv_effect_19 as
 select ccuscode
       ,ccusname
       ,a.cinvcode
@@ -104,7 +104,7 @@ select ccuscode
 
 -- 按照客户项目聚合
 drop table if exists report.mid2_ccus_03_cinv_effect_19;
-create table report.mid2_ccus_03_cinv_effect_19 as
+create temporary table report.mid2_ccus_03_cinv_effect_19 as
 select ccuscode
       ,sum(cost) as cost
       ,a.cinvcode_main
@@ -114,7 +114,7 @@ select ccuscode
 
 -- 各个客户主试剂在同一个项目之间的占比
 drop table if exists report.mid3_ccus_03_cinv_effect_19;
-create table report.mid3_ccus_03_cinv_effect_19 as
+create temporary table report.mid3_ccus_03_cinv_effect_19 as
 select a.ccuscode
       ,a.ccusname
       ,a.cinvcode
@@ -135,15 +135,17 @@ select a.ccuscode
 
 -- 获取19年所有的客户、项目、主试剂的合集
 drop table if exists report.mid4_ccus_03_cinv_effect_19;
-create table report.mid4_ccus_03_cinv_effect_19 as
+create temporary table report.mid4_ccus_03_cinv_effect_19 as
 select a.province
       ,a.city
+      ,'终端客户' as type
       ,a.ccuscode
       ,a.ccusname
       ,a.cbustype
       ,b.cinvcode
       ,a.cinvcode as cinvcode_main
       ,b.cinvname
+      ,0 as itaxunitprice
       ,0 as isum_main
       ,a.isum_child * bl as isum_child
       ,0 as invoice_amount_main
@@ -193,11 +195,62 @@ update report.mid4_ccus_03_cinv_effect_19 a
  where a.iunitcost_child is null
 ;
 
--- 计算所有的利润
-drop table if exists report.mid5_ccus_03_cinv_effect_19;
-create table report.mid5_ccus_03_cinv_effect_19 as
+-- 插入jc开头检测量的数据
+insert into report.mid4_ccus_03_cinv_effect_19
 select a.province
       ,a.city
+      ,'终端客户'
+      ,a.ccuscode
+      ,a.ccusname
+      ,'LDT'
+      ,a.cinvcode
+      ,null
+      ,a.cinvname
+      ,0
+      ,a.isum1
+      ,0
+      ,a.invoice_amount1
+      ,0
+      ,a.cost1
+      ,0
+      ,0
+      ,0
+      ,c.inum_unit_person
+      ,a.iquantity1 * c.inum_unit_person as inum_person_inv
+      ,b.inum_person as inum_person_out
+      ,b.ddate
+      ,b.inum_person_mon
+      ,0
+      ,'1900-01-01'
+  from (select *
+              ,sum(isum) as isum1
+              ,sum(invoice_amount) as invoice_amount1
+              ,sum(iquantity) as iquantity1
+              , sum(cost) as cost1
+          from report.invoice_order_pre where left(cinvcode,2) = 'JC' group by ccuscode,cinvcode) a
+  left join report.outdepot_order_pre b
+    on a.ccuscode = b.ccuscode
+   and a.cinvcode = b.cinvcode
+  left join (select * from edw.map_inventory group by bi_cinvcode) c
+    on a.cinvcode = c.bi_cinvcode
+;
+
+-- 更新最后一次开票金额，以及最终客户对应的客户的性质
+update report.mid4_ccus_03_cinv_effect_19 a
+ inner join (select * from pdm.invoice_price where state = '最后一次价格') b
+    on a.ccuscode = b.finnal_ccuscode
+   and a.cinvcode = b.cinvcode
+   set a.type = (case when left(b.ccuscode,2) = 'DL' then '代理商' when left(b.ccuscode,2) = 'ZD' then '终端客户' when left(b.ccuscode,2) = 'GR' then '个人客户' else '其他' end )
+      ,a.itaxunitprice = b.itaxunitprice
+;
+
+
+-- 计算所有的利润
+drop table if exists report.mid5_ccus_03_cinv_effect_19;
+create temporary table report.mid5_ccus_03_cinv_effect_19 as
+select a.province
+      ,a.city
+      ,a.type
       ,a.ccuscode
       ,a.ccusname
       ,a.cbustype
@@ -206,6 +259,7 @@ select a.province
       ,a.cinvname
       ,a.ddate
       ,a.install_dt
+      ,a.itaxunitprice
       ,a.isum_main
       ,a.isum_child
       ,a.invoice_amount_main
@@ -213,6 +267,7 @@ select a.province
       ,a.iunitcost_main
       ,a.iunitcost_child
       ,a.amount_19
+      ,a.sy_md
       ,a.inum_unit_person
       ,a.inum_person_inv
       ,a.inum_person_out
@@ -227,7 +282,7 @@ select a.province
 
 -- 计算公司平均利润单价
 drop table if exists report.mid6_ccus_03_cinv_effect_19;
-create table report.mid6_ccus_03_cinv_effect_19 as
+create temporary table report.mid6_ccus_03_cinv_effect_19 as
 select cinvcode
       ,avg(profit_price) as profit_price
   from report.mid5_ccus_03_cinv_effect_19
@@ -236,7 +291,7 @@ select cinvcode
 
 -- 计算省份平均利润单价
 drop table if exists report.mid7_ccus_03_cinv_effect_19;
-create table report.mid7_ccus_03_cinv_effect_19 as
+create temporary table report.mid7_ccus_03_cinv_effect_19 as
 select cinvcode,province
       ,avg(profit_price) as profit_price
   from report.mid5_ccus_03_cinv_effect_19
