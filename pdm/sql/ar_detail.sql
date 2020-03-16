@@ -154,7 +154,7 @@ select
         else null 
     end as mark_
     ,case 
-        when a.ar_ap = "ar" and a.cprocstyle2 = "ar" and a.ccovouchtype2 = "ar" then c.idamount_-c.icamount_ 
+        when a.ar_ap = "ar" and a.cprocstyle2 in("ar","BZ") and a.ccovouchtype2 = "ar" then c.idamount_-c.icamount_ 
         else 0 
     end as balance_ar
     ,case 
