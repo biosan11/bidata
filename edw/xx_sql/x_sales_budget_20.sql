@@ -5,7 +5,7 @@ drop table if exists ufdata.x_sales_budget_20_pre;
 create temporary table ufdata.x_sales_budget_20_pre as
 select a.autoid
       ,a.cohr
-      ,e.sales_region
+      ,e.sales_dept
       ,a.areadirector
       ,a.cverifier
       ,e.province
@@ -72,7 +72,7 @@ select a.autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
@@ -110,7 +110,7 @@ select autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
@@ -148,7 +148,7 @@ select autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
@@ -186,7 +186,7 @@ select autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
@@ -224,7 +224,7 @@ select autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
@@ -262,7 +262,7 @@ select autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
@@ -300,7 +300,7 @@ select autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
@@ -338,7 +338,7 @@ select autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
@@ -376,7 +376,7 @@ select autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
@@ -414,7 +414,7 @@ select autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
@@ -452,7 +452,7 @@ select autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
@@ -490,7 +490,7 @@ select autoid
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
-      ,sales_region
+      ,sales_dept
       ,areadirector
       ,cverifier
       ,province
