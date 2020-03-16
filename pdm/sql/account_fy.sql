@@ -155,10 +155,10 @@ select a.i_id
       ,a.cpersonname
       ,case when a.kehumc is not null and e.ccusname is null then '请核查'
             when a.kehumc is not null and e.ccusname is not null then e.bi_cuscode
-            else '' end
+            else null end
       ,case when a.kehumc is not null and e.ccusname is null then '请核查'
             when a.kehumc is not null and e.ccusname is not null then e.bi_cusname
-            else '' end
+            else null end
       ,a.kehumc
       ,a.province
       ,a.cdepname
