@@ -1,9 +1,7 @@
 -- 19年折旧对应的主辅关系的整理表
 truncate table edw.x_eq_depreciation_19_relation;
 insert into edw.x_eq_depreciation_19_relation
-select a.year_belong
-      ,a.ddate_belong
-      ,a.ccusname
+select a.ccusname
       ,case when b.ccusname is null then '请核查' else b.bi_cuscode end as bi_cuscode
       ,case when b.ccusname is null then '请核查' else b.bi_cusname end as bi_cusname
       ,a.eq_name
