@@ -12,6 +12,7 @@
 ------------------------------------------------------------------------------------------
 --版本控制：版本号  提交人   提交日期   提交内容
 --         V1.0     jiangsh  2018-11-12   开发上线
+--         V1.0     jiangsh  2020-03-17   增加开票对应相关信息
 --调用方法　python /home/edw/python/dispatch_order.python 2018-11-12 2018-11-12
 ------------------------------------开始处理逻辑------------------------------------------
 --订单edw层加工逻辑
@@ -136,6 +137,11 @@ select a.cdlcode
       ,a.idlsid
       ,a.isettlenum
       ,a.isettlequantity
+      ,plan_dt
+      ,cdefine23
+      ,case when round(iquantity,0) = round(isettlequantity,0) then '已开票'
+            when round(isettlequantity,0) = 0 then '未开票'
+            else '开了一点' end as type 
       ,localtimestamp()
   from pdm.dispatch_order_pre a
   left join edw.map_customer b
