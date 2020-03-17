@@ -17,13 +17,13 @@ def get_date():
                 user='root',
                 passwd='biosan',
                 db='edw')#链接本地数据库
-    sql = "select ccusname,ddate,sum(inum_person) as inum_person from jsh.checklist_tsh group by ccusname,ddate order by ccusname,ddate"#sql语句
+    sql = "select ccusname,ddate,sum(inum_person) as inum_person from report.checklist_tsh group by ccusname,ddate order by ccusname,ddate"#sql语句
     data = pd.read_sql(sql,conn)#获取数据
     return data
 # print(data)
 
 def ins_date(df):
-    engine = create_engine('mysql+pymysql://root:biosan@172.16.0.181:3306/jsh')
+    engine = create_engine('mysql+pymysql://root:biosan@172.16.0.181:3306/report')
     df.to_sql('checklist_tsh_yc', engine, if_exists='append',index= False)
     print("插入成功")
 
