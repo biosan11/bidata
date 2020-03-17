@@ -7,8 +7,6 @@ import pymysql
 import datetime
 from sqlalchemy import create_engine
 from dateutil.relativedelta import relativedelta
-import matplotlib.pyplot as plt
-from statsmodels.tsa.api import Holt
 from pandas.core.frame import DataFrame
 from statsmodels.tsa.api import ExponentialSmoothing
 import os
