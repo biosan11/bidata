@@ -71,6 +71,8 @@ select a.sbvid
       ,a.isosid
       ,a.idlsid
       ,a.isaleoutid
+      ,null
+      ,null
       ,localtimestamp()
   from edw.x_invoice_order_18 a
   left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.invoice_order_item group by bi_cinvcode) b
@@ -121,6 +123,8 @@ select '17'
       ,round(ifnull(a.isum,0),2)
       ,c.level_three
       ,e.cinvbrand
+      ,null
+      ,null
       ,null
       ,null
       ,null
@@ -201,6 +205,8 @@ select '17'
       ,null
       ,null
       ,null
+      ,null
+      ,null
       ,localtimestamp()
   from edw.x_sales_bk a
   left join edw.map_customer b
@@ -264,6 +270,8 @@ select '17'
       ,null
       ,null
       ,null
+      ,null
+      ,cverifier
       ,localtimestamp()
   from edw.x_sales_history a
   left join (select bi_cuscode,bi_cusname,sales_region,province,city,type from edw.map_customer group by bi_cusname) b
@@ -282,4 +290,16 @@ select '17'
 delete from pdm.invoice_order where ccuscode = 'DL1101002' and cinvcode = 'QT00004';
 delete from pdm.invoice_order where left(ccuscode,2) = 'GL';
 
+-- 按照王涛提供的客户项目负责人跟新18年以后的数据
+update pdm.invoice_order a
+ inner join edw.x_cusitem_person b
+    on a.finnal_ccuscode = b.bi_cuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+   set a.areadirector = b.areadirector
+      ,a.cverifier = b.cverifier
+ where a.ddate >= '2018-01-01'
+   and a.ddate >= b.start_dt
+   and a.ddate  < b.end_dt
+;
 
