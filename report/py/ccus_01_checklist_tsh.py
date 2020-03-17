@@ -214,7 +214,7 @@ def date_forecast(date):
 
 if __name__ == '__main__':
     # 先建立表，生成预测之前的数据
-    os.system("/home/bidata/report/sql/ccus_01_checklist_tsh_01.sql")
+    os.system("sh /home/bidata/report/sql/user.sh ccus_01_checklist_tsh_01.sql")
     # 开始预测
     date_all = get_date()
     # df按照-ccusname-来切片
@@ -241,4 +241,4 @@ if __name__ == '__main__':
             # plt.show()
 
     # 生成最终表
-    os.system("/home/bidata/report/sql/ccus_01_checklist_tsh_02.sql")
+    os.system("sh /home/bidata/report/sql/user.sh ccus_01_checklist_tsh_02.sql")
