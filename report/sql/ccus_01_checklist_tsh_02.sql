@@ -81,5 +81,5 @@ select a.ccusname
 ;
 
 -- 删除多余的表
-drop table if exists report.checklist_tsh;
-drop table if exists report.checklist_tsh_yc;
+-- drop table if exists report.checklist_tsh;
+-- drop table if exists report.checklist_tsh_yc;
