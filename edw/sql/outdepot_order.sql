@@ -299,6 +299,9 @@ select a.db
       ,b.cname as citemname
       ,b.citemcname as citem_cname
       ,b.fsettleqty
+      ,b.inquantity
+      ,b.cdefine23
+      ,b.cdefine36
       ,localtimestamp() as sys_time
   from edw.mid2_outdepot_order a
   left join (select * from ufdata.rdrecords32 where dbkeepdate>= '2018-01-01' or dbkeepdate is null) b
@@ -366,6 +369,9 @@ select a.db
       ,a.citemname
       ,a.citem_cname
       ,a.fsettleqty
+      ,a.inquantity
+      ,a.cdefine23
+      ,a.cdefine36
       ,a.sys_time
   from edw.mid3_outdepot_order a
   left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
@@ -431,6 +437,9 @@ select a.db
       ,a.citemname
       ,a.citem_cname
       ,a.fsettleqty
+      ,a.inquantity
+      ,a.cdefine23
+      ,a.cdefine36
       ,a.sys_time
   from edw.mid3_outdepot_order a
   left join (select * from dic_inventory group by left(db,10),cinvcode) b
@@ -498,6 +507,9 @@ select a.db
       ,a.citemname
       ,a.citem_cname
       ,a.fsettleqty
+      ,a.inquantity
+      ,a.cdefine23
+      ,a.cdefine36
       ,'有效'
       ,a.sys_time
   from edw.mid4_outdepot_order a
