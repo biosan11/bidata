@@ -161,6 +161,7 @@ select a.province
       ,d.inum_person_mon
       ,e.inum_person as inum_person_jc
       ,a.install_dt
+      ,a.profit_margin as profit_margin_item
   from report.ccus_03_item_effect_19 a
   left join report.mid3_ccus_03_cinv_effect_19 b
     on a.ccuscode = b.ccuscode
@@ -222,6 +223,7 @@ select a.province
       ,b.inum_person_mon
       ,0
       ,'1900-01-01'
+      ,0
   from (select *
               ,sum(isum) as isum1
               ,sum(invoice_amount) as invoice_amount1
@@ -277,6 +279,7 @@ select a.province
       ,a.invoice_amount_main - a.iunitcost_main + invoice_amount_child - iunitcost_child - amount_19 - sy_md as profit
       ,(a.invoice_amount_main - a.iunitcost_main + invoice_amount_child - iunitcost_child - amount_19 - sy_md) / inum_person_inv as profit_price
       ,(a.invoice_amount_main - a.iunitcost_main + invoice_amount_child - iunitcost_child - amount_19 - sy_md) / (invoice_amount_main + invoice_amount_child) as profit_margin
+      ,a.profit_margin_item
   from report.mid4_ccus_03_cinv_effect_19 a
 ;
 
@@ -298,16 +301,106 @@ select cinvcode,province
  group by cinvcode,province
 ;
 
+-- 计算20年预计发货人份数
+drop table if exists report.mid9_ccus_03_cinv_effect_19;
+create temporary table report.mid9_ccus_03_cinv_effect_19 as
+select bi_cuscode,bi_cinvcode
+      ,sum(ifnull(inum_person,0)) as inum_person
+  from edw.x_sales_budget_20
+ where ifnull(inum_person,0) <> 0
+ group by bi_cuscode,bi_cinvcode
+;
+
+
 -- 插入数据
 truncate table report.ccus_03_cinv_effect_19;
 insert into report.ccus_03_cinv_effect_19
-select a.*
+select a.province
+      ,a.city
+      ,a.type
+      ,null
+      ,null
+      ,a.ccuscode
+      ,a.ccusname
+      ,a.cbustype
+      ,a.cinvcode
+      ,a.cinvcode_main
+      ,a.cinvname
+      ,a.ddate
+      ,a.install_dt
+      ,a.itaxunitprice
+      ,a.isum_main
+      ,a.isum_child
+      ,a.invoice_amount_main
+      ,a.invoice_amount_child
+      ,a.iunitcost_main
+      ,a.iunitcost_child
+      ,a.amount_19
+      ,a.sy_md
+      ,a.inum_unit_person
+      ,a.inum_person_inv
+      ,a.inum_person_out
+      ,a.inum_person_mon
+      ,a.inum_person_jc
+      ,a.price_true
+      ,a.profit
+      ,a.profit_price
+      ,a.profit_margin
+      ,a.profit_margin_item
       ,b.profit_price as profit_price_cohr
       ,c.profit_price as profit_price_pro
+      ,d.inum_person as inum_person_pro
   from report.mid5_ccus_03_cinv_effect_19 a
   left join report.mid6_ccus_03_cinv_effect_19 b
     on a.cinvcode = b.cinvcode
   left join report.mid7_ccus_03_cinv_effect_19 c
     on a.cinvcode = c.cinvcode
    and a.province = c.province
+  left join report.mid9_ccus_03_cinv_effect_19 d
+    on a.cinvcode = d.bi_cinvcode
+   and a.ccuscode = d.bi_cuscode
 ;
+
+update report.ccus_03_cinv_effect_19 a
+ inner join (select * from pdm.invoice_price where state = '最后一次价格') b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.cinvcode = b.cinvcode
+   set a.ccuscode = b.ccuscode
+      ,a.ccusname = b.ccusname
+;
+
+update report.ccus_03_cinv_effect_19 set ccuscode = finnal_ccuscode,ccusname = finnal_ccusname where ccuscode is null;
+
+-- 更新最终客户对应的客户情况
+-- drop table if exists report.mid8_ccus_03_cinv_effect_19;
+-- create temporary table report.mid8_ccus_03_cinv_effect_19 as
+-- select a.ccuscode
+--       ,a.ccusname
+--       ,a.finnal_ccuscode
+--       ,a.finnal_ccusname
+--       ,a.cinvcode
+--       ,b.cinvcode_main
+--   from pdm.invoice_order a
+--   left join (select * from report.x_cinv_relation_pre group by cinvcode,cinvcode_main) b
+--     on a.cinvcode = b.cinvcode
+--  where year(ddate) = '2019'
+--    and a.finnal_ccuscode <> 'multi'
+--    and left(a.finnal_ccuscode,2) <> 'GR'
+--    and b.cinvcode_main is not null
+--  group by ccuscode,finnal_ccuscode,b.cinvcode
+-- ;
+-- 
+-- update report.ccus_03_cinv_effect_19 a
+--  inner join report.mid8_ccus_03_cinv_effect_19 b
+--     on a.cinvcode = b.cinvcode_main
+--    and a.finnal_ccuscode = b.finnal_ccuscode
+--    set a.ccuscode = b.ccuscode
+--       ,a.ccusname = b.ccusname
+-- ;
+-- 
+-- update report.ccus_03_cinv_effect_19 set ccuscode = finnal_ccuscode,ccusname = finnal_ccusname where ccuscode is null;
+-- 
+
+
+
+

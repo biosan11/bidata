@@ -20,7 +20,7 @@
 -- 先给出合集，开篇关联主辅表主产品
 -- 思路变更，所有用户拉出一个主试剂合集出来
 drop table if exists report.invoice_order_pre;
-create  table report.invoice_order_pre as 
+create temporary table report.invoice_order_pre as 
 select a.ccuscode as ccuscode
       ,1 as key_num
       ,a.isum as isum
@@ -45,7 +45,7 @@ CREATE INDEX index_invoice_order_pre_cinvcode ON report.invoice_order_pre(cinvco
 CREATE INDEX index_invoice_order_pre_ccuscode ON report.invoice_order_pre(ccuscode);
 
 drop table if exists report.x_cinv_relation_pre;
-create  table report.x_cinv_relation_pre as 
+create temporary table report.x_cinv_relation_pre as 
 select distinct a.cinvcode_main
       ,a.cinvname_main
       ,a.cinvcode_child as cinvcode
@@ -58,7 +58,7 @@ select distinct a.cinvcode_main
 
 -- 创建合集，这里是项目合集
 drop table if exists report.mid00_ccus_03_item_effect_19;
-create  table report.mid00_ccus_03_item_effect_19 as
+create temporary table report.mid00_ccus_03_item_effect_19 as
 select a.ccuscode
       ,b.cinvcode_main as cinvcode
       ,b.cinvname_main as cinvname
@@ -78,7 +78,7 @@ CREATE INDEX index_mid00_ccus_03_item_effect_19_ccuscode ON report.mid00_ccus_03
 
 -- 这里是主试剂合集
 drop table if exists report.mid0_ccus_03_item_effect_19;
-create  table report.mid0_ccus_03_item_effect_19 as
+create temporary table report.mid0_ccus_03_item_effect_19 as
 select a.ccuscode
       ,b.cinvcode
       ,b.cinvname
@@ -100,7 +100,7 @@ CREATE INDEX index_mid0_ccus_03_item_effect_19_ccuscode ON report.mid0_ccus_03_i
 
 -- 主试剂对应的收入汇总
 drop table if exists report.mid1_ccus_03_item_effect_19;
-create  table report.mid1_ccus_03_item_effect_19 as
+create temporary table report.mid1_ccus_03_item_effect_19 as
  select a.ccuscode
        ,a.cinvcode
        ,a.cinvname
@@ -125,7 +125,7 @@ CREATE INDEX index_mid1_ccus_03_item_effect_19_ccuscode ON report.mid1_ccus_03_i
 
 -- 这里是辅助试剂合集
 drop table if exists report.mid2_ccus_03_item_effect_19;
-create  table report.mid2_ccus_03_item_effect_19 as
+create temporary table report.mid2_ccus_03_item_effect_19 as
 select distinct a.ccuscode
       ,b.cinvcode
       ,b.cinvname
@@ -147,7 +147,7 @@ CREATE INDEX index_mid2_ccus_03_item_effect_19_ccuscode ON report.mid2_ccus_03_i
 -- 辅助试剂分配的试剂大于1的情况下进行拆分,辅助试剂耗材
 -- 这里计算辅助试剂各个客户的汇总
 drop table if exists report.mid3_ccus_03_item_effect_19;
-create  table report.mid3_ccus_03_item_effect_19 as
+create temporary table report.mid3_ccus_03_item_effect_19 as
 select a.province
       ,a.city
       ,a.ccuscode
@@ -168,7 +168,7 @@ select a.province
 
 -- 主试剂成本,下面移动上来的
 drop table if exists report.mid8_ccus_03_item_effect_19;
-create  table report.mid8_ccus_03_item_effect_19 as
+create temporary table report.mid8_ccus_03_item_effect_19 as
 select a.ccuscode
       ,a.cinvcode_main as cinvcode
       ,sum(b.cost) as isum
@@ -184,7 +184,7 @@ select a.ccuscode
 
 -- 删除没有主试剂成本的数据
 drop table if exists report.mid31_ccus_03_item_effect_19;
-create  table report.mid31_ccus_03_item_effect_19 as
+create temporary table report.mid31_ccus_03_item_effect_19 as
 select a.*
   from report.mid3_ccus_03_item_effect_19 a
   left join (select * from report.mid8_ccus_03_item_effect_19 where isum <> 0) b
@@ -195,7 +195,7 @@ select a.*
 
 -- 相关的主试剂汇总
 drop table if exists report.mid4_ccus_03_item_effect_19;
-create  table report.mid4_ccus_03_item_effect_19 as
+create temporary table report.mid4_ccus_03_item_effect_19 as
 select a.province
       ,a.city
       ,a.ccuscode
@@ -218,7 +218,7 @@ CREATE INDEX index_mid4_ccus_03_item_effect_19_ccuscode ON report.mid4_ccus_03_i
 
 -- 计算每家客户辅助试剂比例
 drop table if exists report.mid5_ccus_03_item_effect_19;
-create  table report.mid5_ccus_03_item_effect_19 as
+create temporary table report.mid5_ccus_03_item_effect_19 as
 select a.province
       ,a.city
       ,a.ccuscode
@@ -241,7 +241,7 @@ CREATE INDEX index_mid5_ccus_03_item_effect_19_ccuscode ON report.mid5_ccus_03_i
 
 -- 得到19年所有辅助试剂已经分配完的金额
 drop table if exists report.mid6_ccus_03_item_effect_19;
-create  table report.mid6_ccus_03_item_effect_19 as
+create temporary table report.mid6_ccus_03_item_effect_19 as
 select b.province
       ,b.city
       ,b.ccuscode
@@ -266,7 +266,7 @@ select b.province
 
 -- 主辅试剂合并到一起
 drop table if exists report.mid7_ccus_03_item_effect_19;
-create  table report.mid7_ccus_03_item_effect_19 as
+create temporary table report.mid7_ccus_03_item_effect_19 as
 select a.province
       ,a.city
       ,a.ccuscode
@@ -291,7 +291,7 @@ select a.province
 
 -- 辅助试剂成本
 drop table if exists report.mid9_ccus_03_item_effect_19;
-create  table report.mid9_ccus_03_item_effect_19 as
+create temporary table report.mid9_ccus_03_item_effect_19 as
 select b.ccuscode
       ,b.cinvcode
       ,b.cinvcode_main
@@ -310,14 +310,14 @@ select b.ccuscode
 ;
 
 drop table if exists report.mid10_ccus_03_item_effect_19;
-create  table report.mid10_ccus_03_item_effect_19 as
+create temporary table report.mid10_ccus_03_item_effect_19 as
 select cinvcode,ccuscode from report.mid8_ccus_03_item_effect_19 union
 select cinvcode_main,ccuscode from report.mid9_ccus_03_item_effect_19
 ;
 
 -- 成本主辅合并到一起
 drop table if exists report.mid11_ccus_03_item_effect_19;
-create  table report.mid11_ccus_03_item_effect_19 as
+create temporary table report.mid11_ccus_03_item_effect_19 as
 select a.ccuscode
       ,a.cinvcode
       ,b.isum as isum_main
@@ -338,6 +338,8 @@ truncate table report.ccus_03_item_effect_19;
 insert into report.ccus_03_item_effect_19
 select a.province
       ,a.city
+      ,null
+      ,null
       ,a.ccuscode
       ,a.ccusname
       ,a.cbustype
@@ -384,20 +386,20 @@ delete from report.ccus_03_item_effect_19
 
 -- 实验员成本计算，由于只给到项目和客户，需要在处理完之后在处理
 drop table if exists report.mid12_ccus_03_item_effect_19;
-create  table report.mid12_ccus_03_item_effect_19 as
-select a.ccuscode
+create temporary table report.mid12_ccus_03_item_effect_19 as
+select a.finnal_ccuscode as ccuscode
       ,a.cinvcode
       ,a.iunitcost_main
   from report.ccus_03_item_effect_19 a
   left join edw.x_ccus_invoice b
-    on a.ccuscode = b.bi_cuscode
+    on a.finnal_ccuscode = b.bi_cuscode
    and a.cinvcode = b.bi_cinvcode
  where b.bi_cinvcode is not null
    and a.iunitcost_main <> 0
 ;
 -- 项目客户聚合
 drop table if exists report.mid13_ccus_03_item_effect_19;
-create  table report.mid13_ccus_03_item_effect_19 as
+create temporary table report.mid13_ccus_03_item_effect_19 as
 select a.ccuscode
       ,a.cinvcode
       ,sum(a.iunitcost_main) as iunitcost_main
@@ -406,7 +408,7 @@ select a.ccuscode
 ;
 
 drop table if exists report.mid14_ccus_03_item_effect_19;
-create table report.mid14_ccus_03_item_effect_19 as
+create temporary table report.mid14_ccus_03_item_effect_19 as
 select a.ccuscode
       ,a.cinvcode
       ,(mon_1+mon_2+mon_3+mon_4+mon_5+mon_6+mon_7+mon_8+mon_9+mon_10+mon_11+mon_12) * a.iunitcost_main / b.iunitcost_main as sy_md
@@ -421,7 +423,7 @@ select a.ccuscode
 update report.ccus_03_item_effect_19 a
  inner join report.mid14_ccus_03_item_effect_19 b
     on a.cinvcode = b.cinvcode
-   and a.ccuscode = b.ccuscode
+   and a.finnal_ccuscode = b.ccuscode
    set a.sy_md = ifnull(b.sy_md,0)
 ;
 
@@ -438,5 +440,43 @@ update report.ccus_03_item_effect_19 set profit = (invoice_amount_main + invoice
 
 -- 更新项目利润率
 update report.ccus_03_item_effect_19 set profit_margin = profit / (invoice_amount_main + invoice_amount_child);
+
+-- 更新最终客户对应的客户情况
+update report.ccus_03_item_effect_19 a
+ inner join (select * from pdm.invoice_price where state = '最后一次价格') b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.cinvcode = b.cinvcode
+   set a.ccuscode = b.ccuscode
+      ,a.ccusname = b.ccusname
+;
+
+update report.ccus_03_item_effect_19 set ccuscode = finnal_ccuscode,ccusname = finnal_ccusname where ccuscode is null;
+
+--  drop table if exists report.mid15_ccus_03_item_effect_19;
+--  create temporary table report.mid15_ccus_03_item_effect_19 as
+--  select a.ccuscode
+--        ,a.ccusname
+--        ,a.finnal_ccuscode
+--        ,a.finnal_ccusname
+--        ,a.cinvcode
+--        ,b.cinvcode_main
+--    from pdm.invoice_order a
+--    left join (select * from report.x_cinv_relation_pre group by cinvcode,cinvcode_main) b
+--      on a.cinvcode = b.cinvcode
+--   where year(ddate) = '2019'
+--     and a.finnal_ccuscode <> 'multi'
+--     and left(a.finnal_ccuscode,2) <> 'GR'
+--     and b.cinvcode_main is not null
+--   group by ccuscode,finnal_ccuscode,b.cinvcode
+--  ;
+--  
+--  update report.ccus_03_item_effect_19 a
+--   inner join report.mid15_ccus_03_item_effect_19 b
+--      on a.cinvcode = b.cinvcode_main
+--     and a.finnal_ccuscode = b.finnal_ccuscode
+--     set a.ccuscode = b.ccuscode
+--        ,a.ccusname = b.ccusname
+--  ;
+--  
 
 
