@@ -19,7 +19,7 @@
 -- create table if not exists pdm.ar_detail(
 --     autoid int comment '自增编码',
 --     mark_ varchar(20) comment '筛选标签',
---     if_0 varchar(20) comment '是否平账',
+--     if_0 decimal(18,4) comment '是否平账',
 --     balance_ar_2 decimal(18,4) comment '单据应收金额',
 --     balance_ap_2 decimal(18,4) comment '单据回款金额',
 --     matchid varchar(60) comment '组合匹配id',
@@ -304,9 +304,9 @@ select
     a.autoid
     ,a.mark_
     ,a.hc
-    ,a.if_0
-    ,a.balance_ar_2
-    ,a.balance_ap_2
+    ,round(a.if_0,4)
+    ,round(a.balance_ar_2,4)
+    ,round(a.balance_ap_2,4)
     ,a.matchid
     ,a.cprocstyle2
     ,a.ccovouchtype2
