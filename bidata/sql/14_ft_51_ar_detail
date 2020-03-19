@@ -17,6 +17,7 @@
 -- use bidata;
 -- drop table if exists bidata.ft_51_ar_detail;
 -- create table if not exists bidata.ft_51_ar_detail(
+--     ccuscode_class varchar(60) comment '客户应收类型组合',
 --     autoid int comment '自增编码',
 --     mark_ varchar(20) comment '筛选标签',
 --     if_0 varchar(20) comment '是否平账',
@@ -38,6 +39,7 @@
 --     icamount_s decimal(18,4) comment '回款数量',
 --     date_ar date comment '应收单据日期',
 --     date_ap date comment '回款单据日期',
+--     cprocstyle varchar(20) comment '处理方式',
 --     aperiod smallint comment '账期',
 --     mark_aperiod varchar(20) comment '是否常规账期',
 --     key bidata_ft_51_ar_detail_autoid (autoid),
@@ -51,7 +53,8 @@
 truncate table bidata.ft_51_ar_detail;
 insert into bidata.ft_51_ar_detail
 select 
-    autoid 
+    concat(ccuscode,ar_class) as ccuscode_class
+    ,autoid 
     ,mark_ 
     ,if_0 
     ,ar_ap 
@@ -70,8 +73,9 @@ select
     ,icamount 
     ,idamount_s 
     ,idamount_s 
-    ,date_ar date 
-    ,date_ap date 
+    ,date_ar 
+    ,date_ap  
+    ,cprocstyle
     ,aperiod 
     ,mark_aperiod 
 from pdm.ar_detail;
