@@ -202,6 +202,18 @@ where ccovouchtype in ("26","27","r0")
 group by db,cdwcode,ccovouchid;
 alter table pdm.ft_51_ar_test_tem02 add index index_ft_51_ar_test_tem02_matchid (matchid);
 
+-- 提取生成红冲等数据
+drop temporary table if exists pdm.ft_51_ar_test_tem03;
+create temporary table if not exists pdm.ft_51_ar_test_tem03
+select 
+    concat(db,cdwcode,ccovouchid) as matchid
+    ,"hc" as hc
+from ar_detail_tem00 
+where ar_ap = "ar" and cprocstyle2 = "9n" -- 这些是红冲的单据, 找到ccovouchid 打上红冲标签
+group by db,cdwcode,ccovouchid;
+alter table pdm.ft_51_ar_test_tem03 add index index_ft_51_ar_test_tem03_matchid (matchid);
+
+
 -- 加工出来几个金额, 用于筛选 并且增加自增序号
 set @rownum = 0;
 drop temporary table if exists pdm.ar_detail_tem01;
@@ -223,6 +235,7 @@ select
     --     when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and a.idamount != 0 then b.icamount_ap 
     --     else 0 
     -- end as balance_ap_1
+    ,d.hc
     ,ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0)-ifnull(b.icamount_ap,0) as if_0
     ,ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0) as balance_ar_2
     ,ifnull(b.icamount_ap,0) as balance_ap_2
@@ -260,7 +273,10 @@ from pdm.ar_detail_tem00 as a
 left join pdm.ft_51_ar_test_tem01 as b 
 on a.matchid = b.matchid
 left join pdm.ft_51_ar_test_tem02 as c
-on a.matchid = c.matchid;
+on a.matchid = c.matchid
+left join pdm.ft_51_ar_test_tem03 as d 
+on a.matchid = d.matchid;
+
 alter table pdm.ar_detail_tem01 add index index_ar_detail_tem01_db (db);
 alter table pdm.ar_detail_tem01 add index index_ar_detail_tem01_cvouchid (cvouchid);
 alter table pdm.ar_detail_tem01 add index index_ar_detail_tem01_matchid (matchid);
@@ -278,12 +294,14 @@ group by cvouchid,db;
 alter table pdm.ft_51_ar_test_pre1 add index index_ft_51_ar_test_pre_cvouchid (cvouchid);
 alter table pdm.ft_51_ar_test_pre1 add index index_ft_51_ar_test_pre_db (db);
 
+
 -- 导入pdm层ar_detail表
 truncate table pdm.ar_detail;
 insert into pdm.ar_detail
 select 
     a.autoid
     ,a.mark_
+    ,a.hc
     ,a.if_0
     ,a.balance_ar_2
     ,a.balance_ap_2
