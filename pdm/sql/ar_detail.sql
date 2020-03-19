@@ -127,6 +127,7 @@ select
         when a.db = 'UFDATA_666_2018' then '启代'
         when a.db = 'UFDATA_889_2018' then '美博特'
         when a.db = 'UFDATA_889_2019' then '美博特'
+        when a.db = 'UFDATA_555_2018' then '贝安云'
         else '其他'
         end as cohr
     ,a.db
@@ -143,6 +144,8 @@ select
     ,a.cdigest
     ,round(a.idamount/1000,4) as idamount
     ,round(a.icamount/1000,4) as icamount
+    ,a.idamount_s
+    ,a.icamount_s
     ,a.cprocstyle
     ,a.ccancelno
     ,a.ccovouchtype
@@ -206,9 +209,9 @@ create temporary table if not exists pdm.ar_detail_tem01
 select 
     @rownum := @rownum +1 as autoid
     ,case 
-        when (ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0)-ifnull(b.icamount_ap,0)) != 0 then "qu_buping"  -- 回款未核销完
         when a.ar_ap = "ar" then "qu_ar" -- 应收ar部分
         when a.ar_ap = "ap" and a.ccovouchtype2 = "ar" then "qu_ap" -- 应收回款已经勾稽
+        when (ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0)-ifnull(b.icamount_ap,0)) != 0 then "qu_buping"  -- 回款未核销完
         when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and b.icamount_ap != 0 and a.idamount != 0 then "qu" -- ??
         else null 
     end as mark_
@@ -242,6 +245,8 @@ select
     ,a.cdigest
     ,a.idamount
     ,a.icamount
+    ,a.idamount_s
+    ,a.icamount_s
     ,a.cprocstyle
     ,a.ccancelno
     ,a.ccovouchtype
@@ -305,6 +310,8 @@ select
     ,a.cdigest
     ,a.idamount
     ,a.icamount
+    ,a.idamount_s
+    ,a.icamount_s
     ,case when a.ar_ap = 'ar' then a.dvouchdate else null end as date_ar
     ,case when a.ar_ap = 'ap' then b.dvouchdate else null end as date_ap
     ,a.cprocstyle
