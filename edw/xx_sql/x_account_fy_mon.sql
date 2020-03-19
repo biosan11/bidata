@@ -37,6 +37,7 @@ select a.y_mon
       ,a.cdept_id
       ,a.status
       ,a.state2
+      ,oadykm_xdm
   from ufdata.x_account_fy_mon a
   left join (select * from edw.dic_customer group by ccusname) b
     on a.kehumc = b.ccusname

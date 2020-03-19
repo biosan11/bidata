@@ -188,6 +188,7 @@ select a.i_id
       ,'u8独有'
       ,a.cdept_id
       ,'取'
+      ,null
   from pdm.account_fy_pre3 a
 --  left join (select * from edw.code group by ccode,ccode_name) b
 --    on left(a.ccode,6) = b.ccode
@@ -257,6 +258,7 @@ select f.i_id
       ,case when f.liuchengbh is null then '未知情况' else '共有' end
       ,case when b.liuchengbh is not null then b.cdept_id     else f.cdept_id      end
       ,'取'
+      ,a.u8dykm
   from pdm.accvouch_oa_pre a
   left join (select * from pdm.accvouch_u8_pre group by liuchengbh,md) b
     on a.liuchengbh = b.liuchengbh
@@ -313,7 +315,7 @@ select a.i_id
       ,a.cd_name
       ,a.voucher_id
       ,a.fylx
-      ,null
+      ,kemu_u8
       ,a.kemu
       ,a.code
       ,a.code_name
@@ -325,6 +327,7 @@ select a.i_id
       ,a.state
       ,a.cdept_id
       ,a.status
+      ,a.oadykm_xdm
   from edw.x_account_fy_mon a
   left join pdm.account_fy_mon_del1 b
     on a.dbill_date = b.dbill_date
@@ -432,6 +435,7 @@ select null
       ,'u8独有'
       ,null
       ,'取'
+      ,null
   from edw.x_account_fy a
   left join (select * from edw.dic_deptment group by cdept_id_ehr) b
     on a.cdept_id_ehr = b.cdept_id_ehr
