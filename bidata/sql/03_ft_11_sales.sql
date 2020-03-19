@@ -46,6 +46,8 @@ select
 	,round((ifnull(itaxunitprice,0)/1000),3) as itaxunitprice
 	,round((ifnull(itax,0)/1000),3) as itax
 	,round((ifnull(isum,0)/1000),3) as isum
+	,areadirector
+	,cverifier
 	,sys_time
 from pdm.invoice_order
 where item_code != "jk0101"
