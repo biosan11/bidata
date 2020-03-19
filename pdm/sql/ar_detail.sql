@@ -143,6 +143,8 @@ select
     ,a.cdigest
     ,round(a.idamount/1000,4) as idamount
     ,round(a.icamount/1000,4) as icamount
+    ,a.idamount_s
+    ,a.icamount_s
     ,a.cprocstyle
     ,a.ccancelno
     ,a.ccovouchtype
@@ -242,6 +244,8 @@ select
     ,a.cdigest
     ,a.idamount
     ,a.icamount
+    ,a.idamount_s
+    ,a.icamount_s
     ,a.cprocstyle
     ,a.ccancelno
     ,a.ccovouchtype
@@ -305,6 +309,8 @@ select
     ,a.cdigest
     ,a.idamount
     ,a.icamount
+    ,a.idamount_s
+    ,a.icamount_s
     ,case when a.ar_ap = 'ar' then a.dvouchdate else null end as date_ar
     ,case when a.ar_ap = 'ap' then b.dvouchdate else null end as date_ap
     ,a.cprocstyle
