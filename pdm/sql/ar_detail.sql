@@ -328,10 +328,10 @@ select
     ,a.true_cinvcode as cinvcode
     ,a.ar_class
     ,a.cdigest
-    ,a.idamount
-    ,a.icamount
-    ,a.idamount_s
-    ,a.icamount_s
+    ,round(a.idamount,4)
+    ,round(a.icamount,4)
+    ,round(a.idamount_s,4)
+    ,round(a.icamount_s,4)
     ,case when a.ar_ap = 'ar' then a.dvouchdate else null end as date_ar
     ,case when a.ar_ap = 'ap' then b.dvouchdate else null end as date_ap
     ,a.cprocstyle
