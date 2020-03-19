@@ -208,9 +208,9 @@ create temporary table if not exists pdm.ar_detail_tem01
 select 
     @rownum := @rownum +1 as autoid
     ,case 
-        when (ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0)-ifnull(b.icamount_ap,0)) != 0 then "qu_buping"  -- 回款未核销完
         when a.ar_ap = "ar" then "qu_ar" -- 应收ar部分
         when a.ar_ap = "ap" and a.ccovouchtype2 = "ar" then "qu_ap" -- 应收回款已经勾稽
+        when (ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0)-ifnull(b.icamount_ap,0)) != 0 then "qu_buping"  -- 回款未核销完
         when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and b.icamount_ap != 0 and a.idamount != 0 then "qu" -- ??
         else null 
     end as mark_
