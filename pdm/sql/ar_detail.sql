@@ -95,8 +95,6 @@ drop temporary table if exists pdm.ar_detail_tem00;
 create temporary table if not exists pdm.ar_detail_tem00
 select
     concat(a.db,a.cdwcode,a.ccovouchid) as matchid
-    ,null as c_id 
-    ,null as state
     ,case -- 处理cprocstyle2 
         when cprocstyle in ("26","27","r0") then "ar"
         when cprocstyle in ("48","49") then "ap"
@@ -208,7 +206,7 @@ create temporary table if not exists pdm.ft_51_ar_test_tem03
 select 
     concat(db,cdwcode,ccovouchid) as matchid
     ,"hc" as hc
-from ar_detail_tem00 
+from pdm.ar_detail_tem00 
 where ar_ap = "ar" and cprocstyle2 = "9n" -- 这些是红冲的单据, 找到ccovouchid 打上红冲标签
 group by db,cdwcode,ccovouchid;
 alter table pdm.ft_51_ar_test_tem03 add index index_ft_51_ar_test_tem03_matchid (matchid);
@@ -235,7 +233,11 @@ select
     --     when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and a.idamount != 0 then b.icamount_ap 
     --     else 0 
     -- end as balance_ap_1
-    ,d.hc
+    ,case 
+        when ccovouchtype = "ro" then null
+        when d.hc is not null and (ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0)-ifnull(b.icamount_ap,0)) != 0 then "hc_buping"
+        else d.hc 
+        end as hc
     ,ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0)-ifnull(b.icamount_ap,0) as if_0
     ,ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0) as balance_ar_2
     ,ifnull(b.icamount_ap,0) as balance_ap_2
@@ -338,8 +340,8 @@ select
     ,a.ccovouchid
     ,a.aperiod
     ,a.mark_aperiod
-    ,a.invoice_amount
-    ,a.iVouchAmount_s 
+    ,round(a.invoice_amount,4)
+    ,round(a.iVouchAmount_s,4) 
   from pdm.ar_detail_tem01 a
   left join pdm.ft_51_ar_test_pre1 b
     on a.cvouchid = b.cvouchid
