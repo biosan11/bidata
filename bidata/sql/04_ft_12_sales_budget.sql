@@ -39,6 +39,8 @@ select
   ,round((isum_budget/1000),3) as isum_budget
   ,0
   ,0
+  ,null
+  ,null
 from edw.x_sales_budget_18
 where isum_budget != 0 or inum_budget != 0;
 
@@ -59,6 +61,8 @@ select
 	,round((isum_budget/1000),3) as isum_budget
     ,round(isum_budget_pro,3) as isum_budget_pro
     ,0
+	,null
+	,null
 from edw.x_sales_budget_19
 where isum_budget != 0 or inum_person != 0 or isum_budget_pro != 0;
 
@@ -78,6 +82,8 @@ select
 	,round((isum_budget/1000),3) as isum_budget
     ,0 as isum_budget_pro
     ,0
+	,areadirector
+	,cverifier
 from edw.x_sales_budget_20
 where isum_budget != 0 or inum_person != 0;
 
