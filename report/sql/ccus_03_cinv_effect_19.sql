@@ -154,6 +154,7 @@ select a.province
       ,a.iunitcost_child * bl as iunitcost_child
       ,a.amount_19 * bl as amount_19
       ,a.sy_md * bl as sy_md
+      ,a.insure_md * bl as insure_md
       ,c.inum_unit_person
       ,b.iquantity * c.inum_unit_person as inum_person_inv
       ,d.inum_person as inum_person_out
@@ -216,6 +217,7 @@ select a.province
       ,0
       ,0
       ,0
+      ,0
       ,c.inum_unit_person
       ,a.iquantity1 * c.inum_unit_person as inum_person_inv
       ,b.inum_person as inum_person_out
@@ -270,15 +272,16 @@ select a.province
       ,a.iunitcost_child
       ,a.amount_19
       ,a.sy_md
+      ,a.insure_md
       ,a.inum_unit_person
       ,a.inum_person_inv
       ,a.inum_person_out
       ,a.inum_person_mon
       ,a.inum_person_jc
       ,a.isum_main / a.inum_person_inv as price_true
-      ,a.invoice_amount_main - a.iunitcost_main + invoice_amount_child - iunitcost_child - amount_19 - sy_md as profit
-      ,(a.invoice_amount_main - a.iunitcost_main + invoice_amount_child - iunitcost_child - amount_19 - sy_md) / inum_person_inv as profit_price
-      ,(a.invoice_amount_main - a.iunitcost_main + invoice_amount_child - iunitcost_child - amount_19 - sy_md) / (invoice_amount_main + invoice_amount_child) as profit_margin
+      ,a.invoice_amount_main - a.iunitcost_main + invoice_amount_child - iunitcost_child - amount_19 - insure_md as profit
+      ,(a.invoice_amount_main - a.iunitcost_main + invoice_amount_child - iunitcost_child - amount_19 - insure_md) / inum_person_inv as profit_price
+      ,(a.invoice_amount_main - a.iunitcost_main + invoice_amount_child - iunitcost_child - amount_19 - insure_md) / (invoice_amount_main + invoice_amount_child) as profit_margin
       ,a.profit_margin_item
   from report.mid4_ccus_03_cinv_effect_19 a
 ;
@@ -337,6 +340,7 @@ select a.province
       ,a.iunitcost_child
       ,a.amount_19
       ,a.sy_md
+      ,a.insure_md
       ,a.inum_unit_person
       ,a.inum_person_inv
       ,a.inum_person_out

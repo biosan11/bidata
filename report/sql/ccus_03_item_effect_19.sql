@@ -331,6 +331,91 @@ select a.ccuscode
    and a.ccuscode = c.ccuscode
 ;
 
+-- 这里计算保险的相关费用
+-- 主试剂相关的拆分
+drop table if exists report.mid1_x_insure_cover;
+create temporary table report.mid1_x_insure_cover as
+select a.bi_cinvcode as cinvcode
+      ,a.bi_cuscode as cuscode
+      ,b.cinvcode_main
+      ,c.cinvcode_child
+  from edw.x_insure_cover a
+  left join (select * from edw.x_cinv_relation group by cinvcode_child,cinvcode_main) b
+    on a.bi_cinvcode = b.cinvcode_child
+  left join (select * from edw.x_cinv_relation where level_two_cx = '主试剂' group by cinvcode_child,cinvcode_main) c
+    on b.cinvcode_main = c.cinvcode_main
+ where year(a.ddate) = '2019'
+ group by a.bi_cinvcode,a.bi_cuscode,cinvcode_main,c.cinvcode_child
+;
+
+drop table if exists report.mid2_x_insure_cover;
+create temporary table report.mid2_x_insure_cover as
+select a.* 
+      ,sum(ifnull(b.cost,0.00001)) as cost
+  from report.mid1_x_insure_cover a
+  left join report.invoice_order_pre b
+    on a.cinvcode_child = b.cinvcode
+   and a.cuscode = b.ccuscode
+ group by cuscode,cinvcode_child,cinvcode_main,a.cinvcode
+;
+
+-- 聚合
+drop table if exists report.mid3_x_insure_cover;
+create temporary table report.mid3_x_insure_cover as
+select cinvcode
+      ,cuscode
+      ,cinvcode_main
+      ,cinvcode_child
+      ,sum(cost) as cost
+  from report.mid2_x_insure_cover
+ group by cinvcode,cuscode
+;
+-- 计算占比
+drop table if exists report.mid4_x_insure_cover;
+create temporary table report.mid4_x_insure_cover as
+select a.cinvcode
+      ,a.cuscode
+      ,a.cinvcode_main
+      ,a.cost / b.cost as cost_bl
+  from report.mid2_x_insure_cover a
+  left join report.mid3_x_insure_cover b
+    on a.cinvcode = b.cinvcode
+   and a.cuscode = b.cuscode
+;
+
+-- 生成最后的表
+-- drop table if exists report.mid5_x_insure_cover;
+-- create temporary table report.mid5_x_insure_cover as
+-- select a.bi_cinvcode as cinvcode
+--       ,a.bi_cuscode as cuscode
+--       ,b.cinvcode_main
+--       ,sum(sales) * b.cost_bl as isum
+--   from edw.x_insure_cover a
+--   left join report.mid4_x_insure_cover b
+--     on a.bi_cinvcode = b.cinvcode
+--    and a.bi_cuscode = b.cuscode
+--  where year(a.ddate) = '2019'
+--  group by a.bi_cinvcode,a.bi_cuscode
+--  order by a.bi_cinvcode,a.bi_cuscode
+-- ;
+drop table if exists report.mid5_x_insure_cover;
+create temporary table report.mid5_x_insure_cover as
+select b.cinvcode
+      ,b.cuscode
+      ,c.cinvcode_main
+      ,b.isum * c.cost_bl as isum
+  from (select a.bi_cinvcode as cinvcode
+              ,a.bi_cuscode as cuscode
+              ,sum(sales) as isum
+          from edw.x_insure_cover a
+         where year(a.ddate) = '2019'
+         group by a.bi_cinvcode,a.bi_cuscode
+         order by a.bi_cinvcode,a.bi_cuscode
+         ) b
+  left join report.mid4_x_insure_cover c
+    on b.cinvcode = c.cinvcode
+   and b.cuscode = c.cuscode
+;
 
 
 -- 数据汇总
@@ -353,6 +438,7 @@ select a.province
       ,ifnull(b.isum_child,0) as iunitcost_child
       ,ifnull(c.amount_19,0) as amount_19
       ,0 as sy_md
+      ,ifnull(f.isum,0) as insure_md
       ,d.install_dt
       ,0
       ,0
@@ -369,6 +455,9 @@ select a.province
   left join report.mid7_ccus_03_item_effect_19 e
     on a.ccuscode = e.ccuscode
    and a.cinvcode = e.cinvcode
+  left join report.mid5_x_insure_cover f
+    on a.ccuscode = f.cuscode
+   and a.cinvcode = f.cinvcode_main
 ;
 
 -- 删除所有数值为0的数据
@@ -381,6 +470,7 @@ delete from report.ccus_03_item_effect_19
    and iunitcost_child < 0.1 
    and amount_19 < 0.1 
    and sy_md < 0.1 
+   and insure_md < 0.1 
 --   and install_dt is null
 ;
 
@@ -415,7 +505,7 @@ select a.ccuscode
   from report.mid12_ccus_03_item_effect_19 a
   left join report.mid13_ccus_03_item_effect_19 b
     on a.ccuscode = b.ccuscode
-   and a.cinvcode = b.cinvcode
+--   and a.cinvcode = b.cinvcode
   left join (select * from edw.x_account_sy where year_ = '2019') c
     on a.ccuscode = c.bi_cuscode
 ;
@@ -435,17 +525,16 @@ update report.ccus_03_item_effect_19 a
    set a.cbustype = b.business_class
 ;
 
--- 更新项目利润
-update report.ccus_03_item_effect_19 set profit = (invoice_amount_main + invoice_amount_child - iunitcost_main - iunitcost_child -amount_19 - sy_md);
+-- 更新项目利润,这里的实验员改成保险的费用
+update report.ccus_03_item_effect_19 set profit = (invoice_amount_main + invoice_amount_child - iunitcost_main - iunitcost_child -amount_19 - insure_md);
 
 -- 更新项目利润率
 update report.ccus_03_item_effect_19 set profit_margin = profit / (invoice_amount_main + invoice_amount_child);
 
 -- 更新最终客户对应的客户情况
 update report.ccus_03_item_effect_19 a
- inner join (select * from pdm.invoice_price where state = '最后一次价格') b
+ inner join (select * from pdm.invoice_price where state = '最后一次价格' and left(ccuscode,2) = 'DL' group by finnal_ccuscode) b
     on a.finnal_ccuscode = b.finnal_ccuscode
-   and a.cinvcode = b.cinvcode
    set a.ccuscode = b.ccuscode
       ,a.ccusname = b.ccusname
 ;
