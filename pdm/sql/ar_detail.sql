@@ -19,7 +19,7 @@
 -- create table if not exists pdm.ar_detail(
 --     autoid int comment '自增编码',
 --     mark_ varchar(20) comment '筛选标签',
---     if_0 varchar(20) comment '是否平账',
+--     if_0 decimal(18,4) comment '是否平账',
 --     balance_ar_2 decimal(18,4) comment '单据应收金额',
 --     balance_ap_2 decimal(18,4) comment '单据回款金额',
 --     matchid varchar(60) comment '组合匹配id',
@@ -95,8 +95,6 @@ drop temporary table if exists pdm.ar_detail_tem00;
 create temporary table if not exists pdm.ar_detail_tem00
 select
     concat(a.db,a.cdwcode,a.ccovouchid) as matchid
-    ,null as c_id 
-    ,null as state
     ,case -- 处理cprocstyle2 
         when cprocstyle in ("26","27","r0") then "ar"
         when cprocstyle in ("48","49") then "ap"
@@ -208,7 +206,7 @@ create temporary table if not exists pdm.ft_51_ar_test_tem03
 select 
     concat(db,cdwcode,ccovouchid) as matchid
     ,"hc" as hc
-from ar_detail_tem00 
+from pdm.ar_detail_tem00 
 where ar_ap = "ar" and cprocstyle2 = "9n" -- 这些是红冲的单据, 找到ccovouchid 打上红冲标签
 group by db,cdwcode,ccovouchid;
 alter table pdm.ft_51_ar_test_tem03 add index index_ft_51_ar_test_tem03_matchid (matchid);
@@ -235,7 +233,11 @@ select
     --     when a.ar_ap = "ap" and a.cprocstyle2 = "ap" and a.ccovouchtype2 = "ap" and a.idamount != 0 then b.icamount_ap 
     --     else 0 
     -- end as balance_ap_1
-    ,d.hc
+    ,case 
+        when ccovouchtype = "ro" then null
+        when d.hc is not null and (ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0)-ifnull(b.icamount_ap,0)) != 0 then "hc_buping"
+        else d.hc 
+        end as hc
     ,ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0)-ifnull(b.icamount_ap,0) as if_0
     ,ifnull(c.idamount_all,0)-ifnull(c.icamount_all,0) as balance_ar_2
     ,ifnull(b.icamount_ap,0) as balance_ap_2
@@ -302,9 +304,9 @@ select
     a.autoid
     ,a.mark_
     ,a.hc
-    ,a.if_0
-    ,a.balance_ar_2
-    ,a.balance_ap_2
+    ,round(a.if_0,4)
+    ,round(a.balance_ar_2,4)
+    ,round(a.balance_ap_2,4)
     ,a.matchid
     ,a.cprocstyle2
     ,a.ccovouchtype2
@@ -326,10 +328,10 @@ select
     ,a.true_cinvcode as cinvcode
     ,a.ar_class
     ,a.cdigest
-    ,a.idamount
-    ,a.icamount
-    ,a.idamount_s
-    ,a.icamount_s
+    ,round(a.idamount,4)
+    ,round(a.icamount,4)
+    ,round(a.idamount_s,4)
+    ,round(a.icamount_s,4)
     ,case when a.ar_ap = 'ar' then a.dvouchdate else null end as date_ar
     ,case when a.ar_ap = 'ap' then b.dvouchdate else null end as date_ap
     ,a.cprocstyle
@@ -338,8 +340,8 @@ select
     ,a.ccovouchid
     ,a.aperiod
     ,a.mark_aperiod
-    ,a.invoice_amount
-    ,a.iVouchAmount_s 
+    ,round(a.invoice_amount,4)
+    ,round(a.iVouchAmount_s,4) 
   from pdm.ar_detail_tem01 a
   left join pdm.ft_51_ar_test_pre1 b
     on a.cvouchid = b.cvouchid
