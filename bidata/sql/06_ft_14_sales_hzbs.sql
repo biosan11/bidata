@@ -79,6 +79,8 @@ select
     ,round((a.itaxunitprice/1000),2) as itaxunitprice
     ,round((a.itax/1000),3) as itax
     ,round((a.isum/1000),3) as isum
+	,null
+	,null
     ,a.sys_time
 from edw.invoice_order as a
 left join (select specification_type,bi_cinvcode,item_code,business_class,cinvbrand from edw.map_inventory group by bi_cinvcode) e
@@ -107,12 +109,7 @@ select
     ,round((itaxunitprice/1000),2) as itaxunitprice
     ,round((itax/1000),3) as itax
     ,round((isum/1000),3) as isum
+	,null
+	,null
     ,null
 from ufdata.x_sales_hzbs;
-
-
-
-
-
-
-
