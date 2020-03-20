@@ -406,7 +406,7 @@ select b.cinvcode
       ,b.isum * c.cost_bl as isum
   from (select a.bi_cinvcode as cinvcode
               ,a.bi_cuscode as cuscode
-              ,sum(sales) as isum
+              ,sum(act_num*iunitcost) as isum -- 这里改成成本
           from edw.x_insure_cover a
          where year(a.ddate) = '2019'
          group by a.bi_cinvcode,a.bi_cuscode
