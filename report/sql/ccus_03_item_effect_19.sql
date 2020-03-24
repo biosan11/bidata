@@ -533,7 +533,7 @@ update report.ccus_03_item_effect_19 set profit_margin = profit / (invoice_amoun
 
 -- 更新最终客户对应的客户情况
 update report.ccus_03_item_effect_19 a
- inner join (select * from pdm.invoice_price where state = '最后一次价格' and left(ccuscode,2) = 'DL' group by finnal_ccuscode) b
+inner join (select * from pdm.invoice_price where state = '最后一次价格' and left(ccuscode,2) = 'DL' and end_dt >= '2019-01-01' group by finnal_ccuscode) b
     on a.finnal_ccuscode = b.finnal_ccuscode
    set a.ccuscode = b.ccuscode
       ,a.ccusname = b.ccusname

@@ -139,8 +139,8 @@ create temporary table report.mid4_ccus_03_cinv_effect_19 as
 select a.province
       ,a.city
       ,'终端客户' as type
-      ,a.ccuscode
-      ,a.ccusname
+      ,a.finnal_ccuscode as ccuscode
+      ,a.finnal_ccusname as ccusname
       ,a.cbustype
       ,b.cinvcode
       ,a.cinvcode as cinvcode_main
@@ -165,7 +165,7 @@ select a.province
       ,a.profit_margin as profit_margin_item
   from report.ccus_03_item_effect_19 a
   left join report.mid3_ccus_03_cinv_effect_19 b
-    on a.ccuscode = b.ccuscode
+    on a.finnal_ccuscode = b.ccuscode
    and a.cinvcode = b.cinvcode_main
   left join (select * from edw.map_inventory group by bi_cinvcode) c
     on b.cinvcode = c.bi_cinvcode
@@ -176,7 +176,7 @@ select a.province
     on b.ccuscode = e.ccuscode
    and b.cinvcode = e.cinvcode
  where b.ccuscode is not null
- order by a.ccuscode,b.cinvcode
+ order by a.finnal_ccuscode,b.cinvcode
 ;
 
 -- 这里更新主试剂的金额，含税不含税
@@ -224,8 +224,8 @@ select a.province
       ,b.ddate
       ,b.inum_person_mon
       ,0
-      ,'1900-01-01'
-      ,0
+      ,null
+      ,(a.invoice_amount1 - a.cost1) / a.invoice_amount1
   from (select *
               ,sum(isum) as isum1
               ,sum(invoice_amount) as invoice_amount1
@@ -245,7 +245,7 @@ update report.mid4_ccus_03_cinv_effect_19 a
     on a.ccuscode = b.finnal_ccuscode
    and a.cinvcode = b.cinvcode
    set a.type = (case when left(b.ccuscode,2) = 'DL' then '代理商' when left(b.ccuscode,2) = 'ZD' then '终端客户' when left(b.ccuscode,2) = 'GR' then '个人客户' else '其他' end )
-      ,a.itaxunitprice = b.itaxunitprice
+      ,a.itaxunitprice = b.itaxunitprice / b.inum_unit_person
 ;
 
 
@@ -366,7 +366,7 @@ select a.province
 ;
 
 update report.ccus_03_cinv_effect_19 a
- inner join (select * from pdm.invoice_price where state = '最后一次价格') b
+inner join (select * from pdm.invoice_price where state = '最后一次价格' and left(ccuscode,2) = 'DL' and end_dt >= '2019-01-01' group by finnal_ccuscode) b
     on a.finnal_ccuscode = b.finnal_ccuscode
    and a.cinvcode = b.cinvcode
    set a.ccuscode = b.ccuscode
@@ -374,6 +374,18 @@ update report.ccus_03_cinv_effect_19 a
 ;
 
 update report.ccus_03_cinv_effect_19 set ccuscode = finnal_ccuscode,ccusname = finnal_ccusname where ccuscode is null;
+
+update report.ccus_03_cinv_effect_19 b set b.type = (case when left(b.ccuscode,2) = 'DL' then '代理商' when left(b.ccuscode,2) = 'ZD' then '终端客户' when left(b.ccuscode,2) = 'GR' then '个人客户' else '其他' end );
+
+-- 更新前置项目表的客户
+update report.ccus_03_item_effect_19 a
+inner join report.ccus_03_cinv_effect_19 b
+    on a.finnal_ccuscode = b.finnal_ccuscode
+   and a.cinvcode = b.cinvcode_main
+   set a.ccuscode = b.ccuscode
+      ,a.ccusname = b.ccusname
+;
+
 
 -- 更新最终客户对应的客户情况
 -- drop table if exists report.mid8_ccus_03_cinv_effect_19;
