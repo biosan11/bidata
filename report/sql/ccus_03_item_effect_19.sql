@@ -403,7 +403,7 @@ create temporary table report.mid5_x_insure_cover as
 select b.cinvcode
       ,b.cuscode
       ,c.cinvcode_main
-      ,b.isum * c.cost_bl as isum
+      ,sum(b.isum * c.cost_bl) as isum
   from (select a.bi_cinvcode as cinvcode
               ,a.bi_cuscode as cuscode
               ,sum(act_num*iunitcost) as isum -- 这里改成成本
@@ -415,6 +415,7 @@ select b.cinvcode
   left join report.mid4_x_insure_cover c
     on b.cinvcode = c.cinvcode
    and b.cuscode = c.cuscode
+ group by b.cuscode,c.cinvcode_main
 ;
 
 
@@ -518,6 +519,79 @@ update report.ccus_03_item_effect_19 a
 ;
 
 
+-- 定义的LDT、服务类项目
+drop table if exists report.mid15_ccus_03_item_effect_19;
+create temporary table report.mid15_ccus_03_item_effect_19 as
+select bi_cinvcode,bi_cinvname,business_class,'qt_ldt甄元' cinvcode from edw.map_inventory where business_class='ldt' and cinvbrand='甄元' union
+select bi_cinvcode,bi_cinvname,business_class,'qt_ldt贝康' cinvcode from edw.map_inventory where business_class='ldt' and cinvbrand='贝康' union 
+select bi_cinvcode,bi_cinvname,business_class,'qt_ldt其它' cinvcode from edw.map_inventory where business_class='ldt' and cinvbrand<>'贝康' and cinvbrand<>'甄元' union
+select bi_cinvcode,bi_cinvname,business_class,'qt_物流服务' cinvcode from edw.map_inventory where business_class='服务类' and level_two='标本配送' union
+select bi_cinvcode,bi_cinvname,business_class,'qt_维保服务' cinvcode from edw.map_inventory where business_class='服务类' and level_two='维保服务' union
+select bi_cinvcode,bi_cinvname,business_class,'qt_软件服务' cinvcode from edw.map_inventory where business_class='服务类' and level_two='信息化b端' union
+select bi_cinvcode,bi_cinvname,business_class,'qt_其它服务' cinvcode from edw.map_inventory where business_class='服务类' and level_two<>'信息化b端' and level_two<>'维保服务' and level_two<>'标本配送'
+;
+
+-- 插入其他数据
+insert into report.ccus_03_item_effect_19
+select a.province
+      ,a.city
+      ,null
+      ,null
+      ,a.ccuscode
+      ,a.ccusname
+      ,b.business_class
+      ,case when b.cinvcode is null then 'qt_其他' else b.cinvcode end
+      ,case when b.cinvcode is null then 'qt_其他' else b.cinvcode end
+      ,ifnull(sum(a.isum),0) as isum_main
+      ,0
+      ,ifnull(sum(a.invoice_amount),0) as invoice_amount_main
+      ,0
+      ,ifnull(sum(a.cost),0) as iunitcost_main
+      ,0
+      ,0
+      ,0
+      ,0
+      ,0
+      ,0
+      ,0
+  from report.invoice_order_pre a
+  left join report.mid15_ccus_03_item_effect_19 b
+    on a.cinvcode = b.bi_cinvcode
+  left join (select * from edw.x_cinv_relation group by cinvcode_child) c
+    on a.cinvcode = c.cinvcode_child
+ where c.cinvcode_child is null
+ group by (case when b.cinvcode is null then 'qt_其他' else b.cinvcode end),a.ccuscode
+;
+
+insert into report.ccus_03_item_effect_19
+select a.province
+      ,a.city
+      ,null
+      ,null
+      ,a.ccuscode
+      ,a.ccusname
+      ,'产品类'
+      ,'YQ设备销售'
+      ,'YQ设备销售'
+      ,ifnull(sum(a.isum),0) as isum_main
+      ,0
+      ,ifnull(sum(a.invoice_amount),0) as invoice_amount_main
+      ,0
+      ,ifnull(sum(a.cost),0) as iunitcost_main
+      ,0
+      ,0
+      ,0
+      ,0
+      ,0
+      ,0
+      ,0
+  from report.invoice_order_pre a
+ where left(a.cinvcode,2) = 'YQ'
+ group by a.ccuscode
+;
+
+
+
 -- 更新产品类型
 update report.ccus_03_item_effect_19 a
  inner join (select * from edw.map_inventory group by bi_cinvcode) b
@@ -529,7 +603,7 @@ update report.ccus_03_item_effect_19 a
 update report.ccus_03_item_effect_19 set profit = (invoice_amount_main + invoice_amount_child - iunitcost_main - iunitcost_child -amount_19 - insure_md);
 
 -- 更新项目利润率
-update report.ccus_03_item_effect_19 set profit_margin = profit / (invoice_amount_main + invoice_amount_child);
+update report.ccus_03_item_effect_19 set profit_margin = ifnull(profit / (ifnull(invoice_amount_main,0) + ifnull(invoice_amount_child,0)),0);
 
 -- 更新最终客户对应的客户情况
 update report.ccus_03_item_effect_19 a
@@ -541,31 +615,6 @@ inner join (select * from pdm.invoice_price where state = '最后一次价格' a
 
 update report.ccus_03_item_effect_19 set ccuscode = finnal_ccuscode,ccusname = finnal_ccusname where ccuscode is null;
 
---  drop table if exists report.mid15_ccus_03_item_effect_19;
---  create temporary table report.mid15_ccus_03_item_effect_19 as
---  select a.ccuscode
---        ,a.ccusname
---        ,a.finnal_ccuscode
---        ,a.finnal_ccusname
---        ,a.cinvcode
---        ,b.cinvcode_main
---    from pdm.invoice_order a
---    left join (select * from report.x_cinv_relation_pre group by cinvcode,cinvcode_main) b
---      on a.cinvcode = b.cinvcode
---   where year(ddate) = '2019'
---     and a.finnal_ccuscode <> 'multi'
---     and left(a.finnal_ccuscode,2) <> 'GR'
---     and b.cinvcode_main is not null
---   group by ccuscode,finnal_ccuscode,b.cinvcode
---  ;
---  
---  update report.ccus_03_item_effect_19 a
---   inner join report.mid15_ccus_03_item_effect_19 b
---      on a.cinvcode = b.cinvcode_main
---     and a.finnal_ccuscode = b.finnal_ccuscode
---     set a.ccuscode = b.ccuscode
---        ,a.ccusname = b.ccusname
---  ;
---  
+
 
 

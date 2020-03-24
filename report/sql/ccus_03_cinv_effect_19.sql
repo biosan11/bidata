@@ -176,6 +176,8 @@ select a.province
     on b.ccuscode = e.ccuscode
    and b.cinvcode = e.cinvcode
  where b.ccuscode is not null
+   and left(a.cinvname,2) <> 'qt'
+   and left(a.cinvname,2) <> 'YQ'
  order by a.finnal_ccuscode,b.cinvcode
 ;
 
