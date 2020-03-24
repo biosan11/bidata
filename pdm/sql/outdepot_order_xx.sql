@@ -259,6 +259,17 @@ select null
    and a.competitor = '否'
 ;
 
-
+-- 按照王涛提供的客户项目负责人跟新18年以后的数据
+update pdm.outdepot_order a
+ inner join edw.x_cusitem_person b
+    on a.finnal_ccuscode = b.bi_cuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+   set a.areadirector = b.areadirector
+      ,a.cverifier = b.cverifier
+ where a.ddate >= '2018-01-01'
+   and a.ddate >= b.start_dt
+   and a.ddate  < b.end_dt
+;
 
 

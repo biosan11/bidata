@@ -149,6 +149,8 @@ select a.id
       ,a.fsettleqty
       ,a.iorderdid
       ,a.idlsid
+      ,null
+      ,null
       ,localtimestamp()
   from pdm.outdepot_order_pre a
   left join edw.map_customer b
