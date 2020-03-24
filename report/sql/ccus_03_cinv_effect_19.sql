@@ -366,7 +366,7 @@ select a.province
 ;
 
 update report.ccus_03_cinv_effect_19 a
-inner join (select * from pdm.invoice_price where state = '最后一次价格' and left(ccuscode,2) = 'DL' and end_dt >= '2019-01-01' group by finnal_ccuscode) b
+inner join (select * from pdm.invoice_price where state = '最后一次价格' and left(ccuscode,2) = 'DL' and end_dt >= '2019-01-01' group by finnal_ccuscode,cinvcode) b
     on a.finnal_ccuscode = b.finnal_ccuscode
    and a.cinvcode = b.cinvcode
    set a.ccuscode = b.ccuscode
