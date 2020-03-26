@@ -931,9 +931,30 @@ select distinct
  where b.bi_cuscode is null
 ;
 
+-- 萧山医院的外送如果在U8有录账了，要监测出来，即停止一览表的收入统计
+  `ccusname` LIKE '%浙江萧山医院%' 
+  AND `db` LIKE 'UFDATA%' 
+  AND `ccustype` = 'LDT' 
+  AND `ddate` >= '2020-01-01' 
 
-
-
+insert into tracking.jc_abnormal_day
+select distinct 
+       db
+      ,'pdm' as source
+      ,'invoice_order' as tb_name
+      ,ddate
+      ,'ccuscode' as err_col
+      ,ccuscode as err_value
+      ,ccusname as err_col_name
+      ,'客户监控' as type
+      ,2 as leve
+      ,CURDATE( ) as date
+  from pdm.invoice_order a
+ where  ccusname LIKE '%浙江萧山医院%' 
+  AND db LIKE 'UFDATA%' 
+  AND ccustype = 'LDT' 
+  AND ddate >= '2020-01-01'  
+;
 
 
 
