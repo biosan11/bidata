@@ -203,3 +203,18 @@ item_code, level_three, level_two, level_one, equipment,screen_class, '', item_k
 -- 增加一条其他选项，方便bi调用时处理报错
 insert into edw.map_item (item_code,level_three,level_two,level_one,equipment) 
 values("其他","其他","其他","其他","否");
+
+-- 20年新品药品
+update edw.map_inventory set cinv_key_2020 = '服务_软件' where level_two='信息化B端' and (cinvbrand='博圣' or cinvbrand='贝安云');
+update edw.map_inventory set cinv_key_2020 = '服务_物流' where level_two='标本配送';
+update edw.map_inventory set cinv_key_2020 = '自有产品_宝荣' where cinvbrand='宝荣';
+update edw.map_inventory set cinv_key_2020 = '甄元LDT' where business_class='LDT' and  cinvbrand='甄元';
+update edw.map_inventory set cinv_key_2020 = '贝康LDT' where business_class='LDT' and  cinvbrand='贝康';
+update edw.map_inventory set cinv_key_2020 = '串联试剂' where level_three='串联试剂';
+update edw.map_inventory set cinv_key_2020 = '早孕' where level_three='Free hCGβ（早）' or level_three='PAPP-A';
+update edw.map_inventory set cinv_key_2020 = '致善耳聋' where level_three='耳聋基因' and  cinvbrand='厦门致善';
+update edw.map_inventory set cinv_key_2020 = '杰毅麦特NIPT' where level_three='NIPT' and  cinvbrand='杰毅麦特';
+update edw.map_inventory set cinv_key_2020 = '芯片_自建' where level_three='CMA' and business_class='产品类';
+update edw.map_inventory set cinv_key_2020 = '东方海洋VD' where level_three='维生素D' and  cinvbrand='东方海洋';
+
+
