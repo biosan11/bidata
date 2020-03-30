@@ -437,3 +437,73 @@ select distinct
   on b.cinvcode = c.cinvcode
  where a.cinvbrand is null and c.cinvdefine5 is not null
 ;
+
+-- 档案出现一个编号多个名字
+insert into tracking.jc_abnormal_day
+select distinct 
+       'edw'
+      ,'edw' as source
+      ,'dic_customer' as tb_name
+      ,null
+      ,'bi_cuscode' as err_col
+      ,a.bi_cuscode as err_value
+      ,a.bi_cusname as err_col_name
+      ,'档案重复' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from (select * from edw.dic_customer group by bi_cuscode,bi_cusname) a
+ group by bi_cuscode
+having count(*) > 1
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'edw'
+      ,'edw' as source
+      ,'dic_inventory' as tb_name
+      ,null
+      ,'bi_cinvcode' as err_col
+      ,a.bi_cinvcode as err_value
+      ,a.bi_cinvname as err_col_name
+      ,'档案重复' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from (select * from edw.dic_inventory group by bi_cinvcode,bi_cinvname) a
+ group by bi_cinvcode
+having count(*) > 1
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'edw'
+      ,'edw' as source
+      ,'map_inventory' as tb_name
+      ,null
+      ,'bi_cinvcode' as err_col
+      ,a.bi_cinvcode as err_value
+      ,a.bi_cinvname as err_col_name
+      ,'档案重复' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from (select * from edw.map_inventory group by bi_cinvcode,bi_cinvname) a
+ group by bi_cinvcode
+having count(*) > 1
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'edw'
+      ,'edw' as source
+      ,'map_customer' as tb_name
+      ,null
+      ,'bi_cuscode' as err_col
+      ,a.bi_cuscode as err_value
+      ,a.bi_cusname as err_col_name
+      ,'档案重复' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from (select * from edw.map_customer group by bi_cuscode,bi_cusname) a
+ group by bi_cuscode
+having count(*) > 1
+;
+

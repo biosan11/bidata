@@ -107,52 +107,6 @@ select distinct
  group by cinvcode 
 ;
 
--- 线下表的产品清洗
--- crm线上导出的装机档案，停用
--- insert into tracking.jc_abnormal_day
--- select distinct 
---        'excel'
---       ,'edw' as source
---       ,'x_cuspro_archives' as tb_name
---       ,null
---       ,'cinvcode' as err_col
---       ,cinvcode as err_value
---       ,cinvname as err_col_name
---       ,'产品清洗' as type
---       ,1 as leve
---       ,CURDATE( ) as date
---   from edw.x_cuspro_archives where bi_cinvcode = '请核查'
--- ;
-
--- insert into tracking.jc_abnormal_day
--- select distinct 
---        'excel'
---       ,'edw' as source
---       ,'x_eq_depreciation_18' as tb_name
---       ,null
---       ,'eq_name' as err_col
---       ,null as err_value
---       ,eq_name as err_col_name
---       ,'产品清洗' as type
---       ,1 as leve
---       ,CURDATE( ) as date
---   from edw.x_eq_depreciation_18 where cinvcode = '请核查'
--- ;
--- 
--- insert into tracking.jc_abnormal_day
--- select distinct 
---        'excel'
---       ,'edw' as source
---       ,'x_eq_depreciation_19' as tb_name
---       ,null
---       ,'eq_name' as err_col
---       ,null as err_value
---       ,eq_name as err_col_name
---       ,'产品清洗' as type
---       ,1 as leve
---       ,CURDATE( ) as date
---   from edw.x_eq_depreciation_19 where cinvcode = '请核查'
--- ;
 
 insert into tracking.jc_abnormal_day
 select distinct 
@@ -355,7 +309,6 @@ select distinct
         select distinct 'cinvcode' as cloumn,     'ft_26_outdepot_yj' as tab_name ,cinvcode as cinvcode from bidata.ft_26_outdepot_yj where cinvcode not in('老产品','请核查') union
         select distinct 'cinvcode' as cloumn,     'ft_31_checklist' as tab_name ,cinvcode as cinvcode from bidata.ft_31_checklist where cinvcode not in('老产品','请核查') union
         select distinct 'true_cinvcode' as cloumn,'ft_51_ar' as tab_name ,true_cinvcode as cinvcode from bidata.ft_51_ar where true_cinvcode not in('老产品','请核查') union
-        select distinct 'true_cinvcode' as cloumn,'ft_51_ar_detail' as tab_name ,true_cinvcode as cinvcode from bidata.ft_51_ar_detail where true_cinvcode not in('老产品','请核查') union
         select distinct 'cinvcode' as cloumn,     'ft_61_dispatch' as tab_name ,cinvcode as cinvcode from bidata.ft_61_dispatch where cinvcode not in('老产品','请核查') union
         select distinct 'cinvcode' as cloumn,     'ft_111_sales_order' as tab_name ,cinvcode as cinvcode from bidata.ft_111_sales_order where cinvcode not in('老产品','请核查')
        ) a
