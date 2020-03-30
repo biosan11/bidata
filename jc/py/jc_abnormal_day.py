@@ -7,15 +7,27 @@ import commands
 import pymysql
 import time
 
+# def sqldir(path):
+#     sqlpath_list = []
+#     for file in os.listdir(path):
+#         file_path = os.path.join(path,file)
+#         if os.path.isfile(file_path):
+#             if os.path.splitext(file_path)[1] == ".sql":
+#                 sqlpath_list.append(file_path)
+#     #sqlpath_list.sort(key=lambda x:int(x[len(path):len(path)+x[len(path):].find("_")]))
+#     return sqlpath_list
+
 def sqldir(path):
     sqlpath_list = []
-    for file in os.listdir(path):
-        file_path = os.path.join(path,file)
-        if os.path.isfile(file_path):
-            if os.path.splitext(file_path)[1] == ".sql":
-                sqlpath_list.append(file_path)
+    sqlpath_list.append(path+"1_jc_abnormal_cust.sql")
+    sqlpath_list.append(path+"2_jc_abnormal_item.sql")
+    sqlpath_list.append(path+"3_jc_abnormal_num.sql")
+    sqlpath_list.append(path+"4_jc_abnormal_pro.sql")
+    sqlpath_list.append(path+"5_jc_abnormal_else.sql")
     #sqlpath_list.sort(key=lambda x:int(x[len(path):len(path)+x[len(path):].find("_")]))
     return sqlpath_list
+
+
 
 def run_sql(path):
     today = datetime.datetime.today()
