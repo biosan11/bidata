@@ -52,7 +52,7 @@ def run_edwpy(t_name):
     curson.execute("truncate table edw.%s"%(t_name))
     os.system("python /home/bidata/edw/py/%s.py 1900-01-01"%(t_name))
     curson = conn.cursor()
-    curson.execute("insert into edw.%s select * from edw18.%s_edw where state = '无效'"%(t_name,t_name))
+    # curson.execute("insert into edw.%s select * from edw18.%s_edw where state = '无效'"%(t_name,t_name))
     conn.commit()
     # 时间推到7天前
     curson.execute("update edw.%s set sys_time = '%s'"%(t_name,threeDayAgo))
