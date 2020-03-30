@@ -13,7 +13,7 @@
 
 -- u8相关模型
 -- truncate table tracking.jc_abnormal_day;
--- insert into tracking.jc_abnormal_day
+insert into tracking.jc_abnormal_day
 select distinct 'UFDATA_111'
       ,'edw' as source
       ,'ar_detail' as tb_name

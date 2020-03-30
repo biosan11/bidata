@@ -933,10 +933,10 @@ select distinct
 ;
 
 -- 萧山医院的外送如果在U8有录账了，要监测出来，即停止一览表的收入统计
-  `ccusname` LIKE '%浙江萧山医院%' 
-  AND `db` LIKE 'UFDATA%' 
-  AND `ccustype` = 'LDT' 
-  AND `ddate` >= '2020-01-01' 
+--  `ccusname` LIKE '%浙江萧山医院%' 
+--  AND `db` LIKE 'UFDATA%' 
+--  AND `ccustype` = 'LDT' 
+--  AND `ddate` >= '2020-01-01' 
 
 insert into tracking.jc_abnormal_day
 select distinct 
