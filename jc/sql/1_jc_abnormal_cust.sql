@@ -877,23 +877,24 @@ select distinct
  where b.bi_cuscode is null
 ;
 
-insert into tracking.jc_abnormal_day
-select distinct 
-       'erp'
-      ,'bidata' as source
-      ,'ft_51_ar_detail' as tb_name
-      ,null
-      ,'true_ccuscode' as err_col
-      ,null as err_value
-      ,true_ccuscode as err_col_name
-      ,'客户监控' as type
-      ,1 as leve
-      ,CURDATE( ) as date
-  from bidata.ft_51_ar_detail a
-  left join bidata.dt_12_customer b
-    on a.true_ccuscode  = b.bi_cuscode
- where b.bi_cuscode is null
-;
+-- 暂时不监控，脚本还在修改
+-- insert into tracking.jc_abnormal_day
+-- select distinct 
+--        'erp'
+--       ,'bidata' as source
+--       ,'ft_51_ar_detail' as tb_name
+--       ,null
+--       ,'true_ccuscode' as err_col
+--       ,null as err_value
+--       ,true_ccuscode as err_col_name
+--       ,'客户监控' as type
+--       ,1 as leve
+--       ,CURDATE( ) as date
+--   from bidata.ft_51_ar_detail a
+--   left join bidata.dt_12_customer b
+--     on a.true_ccuscode  = b.bi_cuscode
+--  where b.bi_cuscode is null
+-- ;
 
 insert into tracking.jc_abnormal_day
 select distinct 
