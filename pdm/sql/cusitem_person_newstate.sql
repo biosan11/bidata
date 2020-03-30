@@ -1,8 +1,8 @@
 ----------------------------------程序头部----------------------------------------------
 --功能：项目对应的成效分析
 ------------------------------------------------------------------------------------------
---程序名称：ccus_04_item_nccus.sql
---目标模型：ccus_04_item_nccus
+--程序名称：cusitem_person_newstate.sql
+--目标模型：cusitem_person_newstate
 --源    表：pdm.invoice_order,edw.x_sales_budget_20,edw.x_cinv_relation
 -----------------------------------------------------------------------------------------
 --加载周期：日增
@@ -24,8 +24,8 @@
 
 -- 字段：省份、地市、客户(终端客户ZD)、是否杭州贝生、20年最早日期、20年计划最早日期、医院负责人、主管、产品、产品类型、完成节点(正常开票、异常开票(无正常开票无装机)、正常装机)(这里都是20年装机)，
 -- 创建一张收入19年的老客户临时表
-drop table if exists report.mid1_ccus_04_item_nccus;
-create temporary table report.mid1_ccus_04_item_nccus as
+drop table if exists pdm.mid1_cusitem_person_newstate;
+create temporary table pdm.mid1_cusitem_person_newstate as
 select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as cohr1
       ,finnal_ccuscode as cuscode
       ,finnal_ccusname as cusname
@@ -37,8 +37,8 @@ select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as
 ;
 
 -- 这里处理20年所有的客户项目，客户是终端客户
-drop table if exists report.mid2_ccus_04_item_nccus;
-create temporary table report.mid2_ccus_04_item_nccus as
+drop table if exists pdm.mid2_cusitem_person_newstate;
+create temporary table pdm.mid2_cusitem_person_newstate as
 select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as cohr1
       ,min(ddate) as ddate
       ,province
@@ -59,13 +59,13 @@ select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as
 ;
 
 -- 跟新杰毅NIPT、东方海洋VD
-update report.mid2_ccus_04_item_nccus set item_code = 'TEMP2020_1' where cinvcode = 'TEMP2020_1';
-update report.mid2_ccus_04_item_nccus set item_code = 'SJ02030' where cinvcode = 'SJ02030';
+update pdm.mid2_cusitem_person_newstate set item_code = 'TEMP2020_1' where cinvcode = 'TEMP2020_1';
+update pdm.mid2_cusitem_person_newstate set item_code = 'SJ02030' where cinvcode = 'SJ02030';
 
 
 -- 创建20年计划客户项目最早计划时间,计划最早时间用有计划销售额,这里到项目
-drop table if exists report.mid3_ccus_04_item_nccus;
-create temporary table report.mid3_ccus_04_item_nccus as
+drop table if exists pdm.mid3_cusitem_person_newstate;
+create temporary table pdm.mid3_cusitem_person_newstate as
 select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as cohr1
       ,min(ddate) as ddate
       ,province
@@ -86,8 +86,8 @@ select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as
 ;
 
 -- 创建20年计划客户项目最早计划时间,计划最早时间用有计划销售额,这里到产品
-drop table if exists report.mid31_ccus_04_item_nccus;
-create temporary table report.mid31_ccus_04_item_nccus as
+drop table if exists pdm.mid31_cusitem_person_newstate;
+create temporary table pdm.mid31_cusitem_person_newstate as
 select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as cohr1
       ,min(ddate) as ddate
       ,province
@@ -108,13 +108,13 @@ select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as
 ;
 
 -- 跟新杰毅NIPT、东方海洋VD
-update report.mid31_ccus_04_item_nccus set item_code = 'TEMP2020_1' where cinvcode = 'TEMP2020_1';
-update report.mid31_ccus_04_item_nccus set item_code = 'SJ02030' where cinvcode = 'SJ02030';
+update pdm.mid31_cusitem_person_newstate set item_code = 'TEMP2020_1' where cinvcode = 'TEMP2020_1';
+update pdm.mid31_cusitem_person_newstate set item_code = 'SJ02030' where cinvcode = 'SJ02030';
 
 
 -- 插入最终数据
-truncate table report.ccus_04_item_nccus;
-insert into report.ccus_04_item_nccus
+truncate table pdm.cusitem_person_newstate;
+insert into pdm.cusitem_person_newstate
 select a.cohr1 as cohr
       ,a.ddate
       ,a.province
@@ -136,11 +136,11 @@ select a.cohr1 as cohr
       ,'异常开票' as type
       ,'新客户' as status
       ,null
-  from report.mid2_ccus_04_item_nccus a
-  left join report.mid1_ccus_04_item_nccus b
+  from pdm.mid2_cusitem_person_newstate a
+  left join pdm.mid1_cusitem_person_newstate b
     on a.cohr1 = b.cohr1
    and a.cuscode = b.cuscode
-  left join report.mid3_ccus_04_item_nccus c
+  left join pdm.mid3_cusitem_person_newstate c
     on a.cohr1 = c.cohr1
    and a.cuscode = c.cuscode
    and a.item_code = c.item_code
@@ -150,8 +150,8 @@ select a.cohr1 as cohr
 ;
 
 -- 取20年存在收入的开票记录
-drop table if exists report.mid4_ccus_04_item_nccus;
-create temporary table report.mid4_ccus_04_item_nccus as
+drop table if exists pdm.mid4_cusitem_person_newstate;
+create temporary table pdm.mid4_cusitem_person_newstate as
 select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as cohr1
       ,min(ddate) as ddate
       ,province
@@ -170,8 +170,8 @@ select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as
  group by cohr1,finnal_ccuscode,cinvcode
 ;
 
-update report.ccus_04_item_nccus a
- inner join report.mid4_ccus_04_item_nccus b
+update pdm.cusitem_person_newstate a
+ inner join pdm.mid4_cusitem_person_newstate b
     on a.cohr = b.cohr1
    and a.cuscode = b.cuscode
    and a.cinvcode = b.cinvcode
@@ -179,7 +179,7 @@ update report.ccus_04_item_nccus a
 ;
 
 -- 取20年装机档案存在的客户
-update report.ccus_04_item_nccus a
+update pdm.cusitem_person_newstate a
  inner join (select * from edw.crm_account_equipments where year(new_installation_date) = '2020' group by bi_cuscode) b
     on a.cuscode = b.bi_cuscode
    set a.type = '正常装机'
@@ -188,10 +188,10 @@ update report.ccus_04_item_nccus a
 ;
 
 -- 20年杭州贝生装机档案
-update report.ccus_04_item_nccus a set type = '正常装机' where cuscode = 'ZD4103004' and cohr = '杭州贝生';
+update pdm.cusitem_person_newstate a set type = '正常装机' where cuscode = 'ZD4103004' and cohr = '杭州贝生';
 
 -- 插入计划数据
-insert into report.ccus_04_item_nccus
+insert into pdm.cusitem_person_newstate
 select a.cohr1 as cohr
       ,a.ddate
       ,a.province
@@ -213,11 +213,11 @@ select a.cohr1 as cohr
       ,'只有计划' as type
       ,'新客户' as status
       ,null
-  from report.mid31_ccus_04_item_nccus a
-  left join report.mid1_ccus_04_item_nccus b
+  from pdm.mid31_cusitem_person_newstate a
+  left join pdm.mid1_cusitem_person_newstate b
     on a.cohr1 = b.cohr1
    and a.cuscode = b.cuscode
-  left join (select * from report.ccus_04_item_nccus group by cohr,cuscode,item_code) c
+  left join (select * from pdm.cusitem_person_newstate group by cohr,cuscode,item_code) c
     on a.cohr1 = c.cohr
    and a.cuscode = c.cuscode
    and a.item_code = c.item_code
@@ -230,8 +230,8 @@ select a.cohr1 as cohr
 -- 2.0
 -- 这里把老客户新项目放在一张表
 -- 项目维度增加两个新项目的自由情况的产品编号，最后还原
-drop table if exists report.mid5_ccus_04_item_nccus;
-create table report.mid5_ccus_04_item_nccus as
+drop table if exists pdm.mid5_cusitem_person_newstate;
+create table pdm.mid5_cusitem_person_newstate as
 select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as cohr1
       ,finnal_ccuscode as cuscode
       ,finnal_ccusname as cusname
@@ -243,7 +243,7 @@ select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as
  group by cohr1,finnal_ccuscode,(case when cinvcode in ('SJ02030','TEMP2020_1') then cinvcode else item_code end)
 ;
 
-insert into report.mid5_ccus_04_item_nccus
+insert into pdm.mid5_cusitem_person_newstate
 select cohr1
       ,cuscode
       ,cusname
@@ -254,20 +254,20 @@ select cohr1
             when item_code = 'XS0301' then 'XS0201'
             when item_code = 'XS0201' then 'XS0301'
        end as item_code
-  from report.mid5_ccus_04_item_nccus
+  from pdm.mid5_cusitem_person_newstate
  where item_code in ("CQ0704", "CQ0705","XS0501", "XS0909","XS0301", "XS0201")
 ;
 
-drop table if exists report.mid51_ccus_04_item_nccus;
-create table report.mid51_ccus_04_item_nccus as
+drop table if exists pdm.mid51_cusitem_person_newstate;
+create table pdm.mid51_cusitem_person_newstate as
 select distinct *
-  from report.mid5_ccus_04_item_nccus
+  from pdm.mid5_cusitem_person_newstate
 ;
 
-drop table if exists report.mid5_ccus_04_item_nccus;
+drop table if exists pdm.mid5_cusitem_person_newstate;
 
-drop table if exists report.mid6_ccus_04_item_nccus;
-create table report.mid6_ccus_04_item_nccus as
+drop table if exists pdm.mid6_cusitem_person_newstate;
+create table pdm.mid6_cusitem_person_newstate as
 select a.cohr1 as cohr
       ,a.ddate
       ,a.province
@@ -287,12 +287,12 @@ select a.cohr1 as cohr
       ,c.cverifier as cverifier_plan
       ,c.areadirector as areadirector_plan
       ,'异常开票' as type
-  from report.mid2_ccus_04_item_nccus a
-  left join report.mid51_ccus_04_item_nccus b
+  from pdm.mid2_cusitem_person_newstate a
+  left join pdm.mid51_cusitem_person_newstate b
     on a.cohr1 = b.cohr1
    and a.cuscode = b.cuscode
    and a.item_code = b.item_code
-  left join report.mid3_ccus_04_item_nccus c
+  left join pdm.mid3_cusitem_person_newstate c
     on a.cohr1 = c.cohr1
    and a.cuscode = c.cuscode
    and a.cinvcode = c.cinvcode
@@ -301,8 +301,8 @@ select a.cohr1 as cohr
  where b.cuscode is null
 ;
 
-update report.mid6_ccus_04_item_nccus a
- inner join report.mid4_ccus_04_item_nccus b
+update pdm.mid6_cusitem_person_newstate a
+ inner join pdm.mid4_cusitem_person_newstate b
     on a.cohr = b.cohr1
    and a.cuscode = b.cuscode
    and a.cinvcode = b.cinvcode
@@ -311,7 +311,7 @@ update report.mid6_ccus_04_item_nccus a
 
 
 -- 插入计划数据
-insert into report.mid6_ccus_04_item_nccus
+insert into pdm.mid6_cusitem_person_newstate
 select a.cohr1 as cohr
       ,a.ddate
       ,a.province
@@ -331,12 +331,12 @@ select a.cohr1 as cohr
       ,a.cverifier as cverifier_plan
       ,a.areadirector as areadirector_plan
       ,'只有计划' as type
-  from report.mid31_ccus_04_item_nccus a
-  left join report.mid51_ccus_04_item_nccus b
+  from pdm.mid31_cusitem_person_newstate a
+  left join pdm.mid51_cusitem_person_newstate b
     on a.cohr1 = b.cohr1
    and a.cuscode = b.cuscode
    and a.item_code = b.item_code
-  left join (select * from report.mid6_ccus_04_item_nccus group by cohr,cuscode,item_code) c
+  left join (select * from pdm.mid6_cusitem_person_newstate group by cohr,cuscode,item_code) c
     on a.cohr1 = c.cohr
    and a.cuscode = c.cuscode
    and a.cinvcode = c.cinvcode
@@ -347,19 +347,19 @@ select a.cohr1 as cohr
 ;
 
 -- 插入到一张表里面
-insert into report.ccus_04_item_nccus
+insert into pdm.cusitem_person_newstate
 select a.*
       ,'老客户'
       ,null
-  from report.mid6_ccus_04_item_nccus a
-  left join report.ccus_04_item_nccus b
+  from pdm.mid6_cusitem_person_newstate a
+  left join pdm.cusitem_person_newstate b
     on a.cohr = b.cohr
    and a.cuscode = b.cuscode
  where b.cuscode is null
 ;
 
 -- 更新20年新项目
-update report.ccus_04_item_nccus set new_item = CASE
+update pdm.cusitem_person_newstate set new_item = CASE
 	WHEN
 		cinvcode = "SJ02030" THEN
 			"杰毅NIPT" 
@@ -378,14 +378,14 @@ update report.ccus_04_item_nccus set new_item = CASE
 			"串联试剂(含设备)"  end
 ;
 
-drop table if exists report.mid6_ccus_04_item_nccus;
+drop table if exists pdm.mid6_cusitem_person_newstate;
 
-update report.ccus_04_item_nccus
+update pdm.cusitem_person_newstate
    set item_code = 'CQ0101'
  where cinvcode = 'SJ02030'
 ;
 
-update report.ccus_04_item_nccus
+update pdm.cusitem_person_newstate
    set item_code = 'CQ0615'
  where cinvcode = 'TEMP2020_1'
 ;
