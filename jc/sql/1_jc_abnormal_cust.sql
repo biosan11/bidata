@@ -512,7 +512,7 @@ select distinct
       ,'客户清洗' as type
       ,1 as leve
       ,CURDATE( ) as date
-  from edw.yj_outdepot where bi_cuscode = '请核查'
+  from edw.yj_outdepot where bi_cuscode = '请核查' and ccusname is not null
 ;
 
 -- oa营销会议记录

@@ -212,7 +212,7 @@ select distinct
       ,'产品清洗' as type
       ,1 as leve
       ,CURDATE( ) as date
-  from edw.yj_outdepot where bi_cinvcode = '请核查'
+  from edw.yj_outdepot where bi_cinvcode = '请核查' and sproductcode is not null
 ;
 
 insert into tracking.jc_abnormal_day
