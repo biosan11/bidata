@@ -15,7 +15,7 @@
 
 -- 数据量的监控
 
--- 1、第一层是使用sys_time来判断
+-- 1、第一层是使用sys_time来判断，数据时间不是当天
 insert into tracking.jc_abnormal_day
 select distinct 
        'ufdata'
@@ -81,6 +81,24 @@ select sys_time,'oa_meet_market_conference' as tb_name from ufdata.oa_meet_marke
 select sys_time,'oa_meet_market_salon' as tb_name from ufdata.oa_meet_market_salon where left(sys_time,10) <>CURDATE( ) or sys_time is null
 ) a;
 
+-- 无数据
+insert into tracking.jc_abnormal_day
+select distinct 
+       'ufdata'
+      ,'ufdata' as source
+      ,table_name
+      ,CURDATE( )
+      ,null
+      ,null
+      ,null
+      ,'数量监控' as type
+      ,3 as leve
+      ,CURDATE( ) as date
+  from information_schema.tables
+ where table_schema = 'ufdata'
+   and avg_row_length = 0
+;
+
 
 -- 2、第一层和第二层监控
 -- 2.1、全量的通过时间戳来进行判断
@@ -117,6 +135,25 @@ select sys_time,'oa_meet_market_inspection' as tb_name from edw.oa_meet_market_i
 select sys_time,'oa_meet_market_conference' as tb_name from edw.oa_meet_market_conference where left(sys_time,10) <>CURDATE( ) or sys_time is null union
 select sys_time,'oa_meet_market_salon' as tb_name from edw.oa_meet_market_salon where left(sys_time,10) <>CURDATE( ) or sys_time is null
 ) a;
+
+
+-- 无数据
+insert into tracking.jc_abnormal_day
+select distinct 
+       'edw'
+      ,'edw' as source
+      ,table_name
+      ,CURDATE( )
+      ,null
+      ,null
+      ,null
+      ,'数量监控' as type
+      ,3 as leve
+      ,CURDATE( ) as date
+  from information_schema.tables
+ where table_schema = 'edw'
+   and avg_row_length = 0
+;
 
 -- 线下数据监控
 insert into tracking.jc_abnormal_day
@@ -206,7 +243,23 @@ select distinct
 WHERE a.num > 0;
 
 -- 3、第二层和第三层监控
-
+-- 无数据
+insert into tracking.jc_abnormal_day
+select distinct 
+       'edw'
+      ,'edw' as source
+      ,table_name
+      ,CURDATE( )
+      ,null
+      ,null
+      ,null
+      ,'数量监控' as type
+      ,3 as leve
+      ,CURDATE( ) as date
+  from information_schema.tables
+ where table_schema = 'pdm'
+   and avg_row_length = 0
+;
 
 
 
