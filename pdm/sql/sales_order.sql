@@ -169,5 +169,8 @@ update pdm.sales_order s
    and s.cdepcode is not null
 ;
 
+-- 删除上游已经删除的数据
+delete from pdm.sales_order where concat(db,csocode) in (select concat(db,csocode) from edw.sales_order where state = '无效') ;
+
 
 
