@@ -55,15 +55,17 @@
 --   key index_sales_order_db  (`db`)
 --) engine=innodb default charset=utf8 COMMENT '销售订单表';
 
-
+-- 改为全量更新
+truncate table pdm.sales_order;
 create temporary table pdm.sales_order_pre as 
 select a.*
       ,b.type as ccustype
   from edw.sales_order a
   left join edw.map_customer b
     on a.true_ccuscode = b.bi_cuscode
- where left(a.sys_time,10) >= '${start_dt}'
-  and year(ddate)>=2018;
+ where left(a.sys_time,10) >= '2018-01-01'
+  and year(ddate)>=2018
+  and state = '无效';
 
 -- 根据发票表和发货表获取到仓库编码
 -- create temporary table pdm.mid_sales_order as 
@@ -170,7 +172,7 @@ update pdm.sales_order s
 ;
 
 -- 删除上游已经删除的数据
-delete from pdm.sales_order where concat(db,csocode) in (select concat(db,csocode) from edw.sales_order where state = '无效') ;
+-- delete from pdm.sales_order where concat(db,csocode) in (select concat(db,csocode) from edw.sales_order where state = '无效') ;
 
 
 
