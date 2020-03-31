@@ -13,6 +13,7 @@
 --版本控制：版本号  提交人   提交日期   提交内容
 --         V1.0     jiangsh  2018-11-12   开发上线
 --调用方法　python /home/edw/python/outdepot_order.python 2018-11-12 2018-11-12
+--         V1.0     jiangsh  2020-03-30   修改销售出库类型，转为中文
 ------------------------------------开始处理逻辑------------------------------------------
 --订单edw层加工逻辑
 --outdepot_order建表语句
@@ -101,7 +102,15 @@ select a.db
       ,a.dnmaketime as dcreatesystime
       ,a.dnmodifytime as dmodifysystime
       ,a.cdepcode
-      ,a.cstcode
+      ,case when a.cstcode = '01' then '其他销售'
+            when a.cstcode = '02' then '终端销售'
+            when a.cstcode = '02' then '关联销售'
+            when a.cstcode = '02' then '暂估销售'
+            when a.cstcode = '02' then '代理销售'
+            when a.cstcode = '02' then '服务销售'
+            when a.cstcode = '02' then '配件销售'
+            when a.cstcode = '02' then '检测项目销售'
+            else '未知销售' end  as cstcode
       ,a.cpersoncode
       ,a.cwhcode
       ,a.ccode
@@ -142,7 +151,15 @@ select a.db
       ,a.dnmaketime as dcreatesystime
       ,a.dnmodifytime as dmodifysystime
       ,a.cdepcode
-      ,a.cstcode
+      ,case when a.cstcode = '01' then '其他销售'
+            when a.cstcode = '02' then '终端销售'
+            when a.cstcode = '02' then '关联销售'
+            when a.cstcode = '02' then '暂估销售'
+            when a.cstcode = '02' then '代理销售'
+            when a.cstcode = '02' then '服务销售'
+            when a.cstcode = '02' then '配件销售'
+            when a.cstcode = '02' then '检测项目销售'
+            else '未知销售' end  as cstcode
       ,a.cpersoncode
       ,a.cwhcode
       ,a.ccode
