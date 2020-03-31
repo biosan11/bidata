@@ -65,7 +65,7 @@ select a.*
     on a.true_ccuscode = b.bi_cuscode
  where left(a.sys_time,10) >= '2018-01-01'
   and year(ddate)>=2018
-  and state = '无效';
+  and state <> '无效';
 
 -- 根据发票表和发货表获取到仓库编码
 -- create temporary table pdm.mid_sales_order as 
