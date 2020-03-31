@@ -8,6 +8,7 @@ select a.autoid
       ,e.sales_dept
       ,a.areadirector
       ,a.cverifier
+      ,e.sales_region_new
       ,e.province
       ,e.city
       ,a.ccuscode
@@ -75,6 +76,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
@@ -113,6 +115,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
@@ -151,6 +154,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
@@ -189,6 +193,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
@@ -227,6 +232,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
@@ -265,6 +271,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
@@ -303,6 +310,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
@@ -341,6 +349,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
@@ -379,6 +388,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
@@ -417,6 +427,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
@@ -455,6 +466,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
@@ -493,6 +505,7 @@ select autoid
       ,sales_dept
       ,areadirector
       ,cverifier
+      ,sales_region_new
       ,province
       ,city
       ,ccuscode
