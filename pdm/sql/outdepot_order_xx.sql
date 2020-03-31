@@ -72,12 +72,12 @@ select a.id
       ,b.cinvbrand
       ,case when a.cstcode = '01' then '其他销售'
             when a.cstcode = '02' then '终端销售'
-            when a.cstcode = '02' then '关联销售'
-            when a.cstcode = '02' then '暂估销售'
-            when a.cstcode = '02' then '代理销售'
-            when a.cstcode = '02' then '服务销售'
-            when a.cstcode = '02' then '配件销售'
-            when a.cstcode = '02' then '检测项目销售'
+            when a.cstcode = '03' then '关联销售'
+            when a.cstcode = '04' then '暂估销售'
+            when a.cstcode = '05' then '代理销售'
+            when a.cstcode = '06' then '服务销售'
+            when a.cstcode = '07' then '配件销售'
+            when a.cstcode = '08' then '检测项目销售'
             else '未知销售' end  as cstcode
       ,a.fsettleqty
       ,a.iorderdid
