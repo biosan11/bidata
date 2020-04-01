@@ -166,4 +166,17 @@ update pdm.dispatch_order s
    and s.cdepcode is not null
 ;
 
+-- 按照王涛提供的客户项目负责人跟新18年以后的数据
+update pdm.dispatch_order a
+ inner join pdm.cusitem_person b
+    on a.finnal_ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+   set a.areadirector = b.areadirector
+      ,a.cverifier = b.cverifier
+ where a.ddate >= b.start_dt
+   and a.ddate  < b.end_dt
+;
+
+
 

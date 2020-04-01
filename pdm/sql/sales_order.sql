@@ -174,5 +174,17 @@ update pdm.sales_order s
 -- 删除上游已经删除的数据
 -- delete from pdm.sales_order where concat(db,csocode) in (select concat(db,csocode) from edw.sales_order where state = '无效') ;
 
+-- 按照王涛提供的客户项目负责人跟新18年以后的数据
+update pdm.sales_order a
+ inner join pdm.cusitem_person b
+    on a.finnal_ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+   set a.areadirector = b.areadirector
+      ,a.cverifier = b.cverifier
+ where a.ddate >= b.start_dt
+   and a.ddate  < b.end_dt
+;
+
 
 

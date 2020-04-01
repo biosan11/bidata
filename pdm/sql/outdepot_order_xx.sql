@@ -269,8 +269,8 @@ select null
 
 -- 按照王涛提供的客户项目负责人跟新18年以后的数据
 update pdm.outdepot_order a
- inner join edw.x_cusitem_person b
-    on a.finnal_ccuscode = b.bi_cuscode
+ inner join pdm.cusitem_person b
+    on a.finnal_ccuscode = b.ccuscode
    and a.item_code = b.item_code
    and a.cbustype = b.cbustype
    set a.areadirector = b.areadirector
