@@ -20,7 +20,7 @@ CREATE TABLE `ft_13_sales_budget_new` (
   KEY `edw_x_sales_budget_index_true_item_code` (`true_item_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='BI预算收入表（调整后）';
  */
- 
+ truncate table bidata.ft_13_sales_budget_new;
 insert into bidata.ft_13_sales_budget_new
 select 
    cohr
