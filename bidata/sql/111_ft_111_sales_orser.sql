@@ -12,6 +12,8 @@ CREATE TABLE `ft_111_sales_order` (
   `iquantity` decimal(30,4) DEFAULT NULL COMMENT '数量',
   `itax` decimal(19,4) DEFAULT NULL COMMENT '原币税额',
   `isum` decimal(19,4) DEFAULT NULL COMMENT '原币价税合计',
+  `areadirector` varchar(60) DEFAULT NULL COMMENT '区域主管',
+  `cverifier` varchar(60) DEFAULT NULL COMMENT '销售',
   KEY `index_ft_111_sales_order_csocode` (`csocode`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='BI销售订单表';
 */
@@ -29,5 +31,7 @@ select
   round((ifnull(itaxunitprice,0)/1000),3),
   `iquantity`,
   round((ifnull(itax,0)/1000),3),
-  round((ifnull(isum,0)/1000),3)
+  round((ifnull(isum,0)/1000),3),
+	areadirector,
+	cverifier
 from pdm.sales_order;
