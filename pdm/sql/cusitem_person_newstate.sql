@@ -379,6 +379,7 @@ update pdm.cusitem_person_newstate set new_item = CASE
 ;
 
 drop table if exists pdm.mid6_cusitem_person_newstate;
+drop table if exists pdm.mid51_cusitem_person_newstate;
 
 update pdm.cusitem_person_newstate
    set item_code = 'CQ0101'
