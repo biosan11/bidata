@@ -38,7 +38,7 @@ select
     ,null as iquantity_budget
     ,round(inum_person_new,2) as inum_budget 
     ,round(isum_budget_new/inum_person_new,2) as price 
-    ,round((isum_budget_new/1000),2) as isum_budget as isum_budget
+    ,round((isum_budget_new/1000),2) as isum_budget 
 from edw.x_sales_budget_20_new as a 
 left join pdm.cusitem_person as b 
 on a.ccuscode = b.ccuscode and a.item_code = b.item_code and a.cbustype = b.cbustype 
