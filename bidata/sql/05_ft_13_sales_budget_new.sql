@@ -20,22 +20,26 @@ CREATE TABLE `ft_13_sales_budget_new` (
   KEY `edw_x_sales_budget_index_true_item_code` (`true_item_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='BI预算收入表（调整后）';
  */
- truncate table bidata.ft_13_sales_budget_new;
+
+truncate table bidata.ft_13_sales_budget_new;
 insert into bidata.ft_13_sales_budget_new
 select 
-   cohr
-    ,areadirector
-		,cverifier
-	,ifnull(ccuscode,"unknowncus")
-	,ifnull(item_code,"其他")
-	,cinvcode
-	,ifnull(cbustype,"产品类")
-	,null
-	,null
-    ,1
-	,ddate
-    ,null
-	,round(inum_person_new,2)
-	,round(isum_budget_new/inum_person_new,2)
-	,round((isum_budget_new/1000),2) as isum_budget
-from pdm.x_sales_budget_20_new;
+    a.cohr
+    ,b.areadirector
+    ,b.cverifier
+    ,ifnull(a.ccuscode,"unknowncus")
+    ,ifnull(a.item_code,"其他")
+    ,a.cinvcode
+    ,ifnull(a.cbustype,"产品类")
+    ,null as plan_class
+    ,null as key_project
+    ,1 as plan_cuccess_rate
+    ,a.ddate
+    ,null as iquantity_budget
+    ,round(inum_person_new,2) as inum_budget 
+    ,round(isum_budget_new/inum_person_new,2) as price 
+    ,round((isum_budget_new/1000),2) as isum_budget 
+from edw.x_sales_budget_20_new as a 
+left join pdm.cusitem_person as b 
+on a.ccuscode = b.ccuscode and a.item_code = b.item_code and a.cbustype = b.cbustype 
+and a.ddate >= b.start_dt and a.ddate <= b.end_dt;
