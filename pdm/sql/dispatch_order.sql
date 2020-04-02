@@ -142,6 +142,8 @@ select a.cdlcode
       ,case when round(iquantity,0) = round(isettlequantity,0) then '已开票'
             when round(isettlequantity,0) = 0 then '未开票'
             else '开了一点' end as type 
+      ,null
+      ,null
       ,localtimestamp()
   from pdm.dispatch_order_pre a
   left join edw.map_customer b

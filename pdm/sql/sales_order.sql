@@ -151,6 +151,8 @@ select a.csocode
       ,e.cinvbrand
       ,a.cstcode
       ,a.isosid
+      ,null
+      ,null
       ,localtimestamp()
   from pdm.sales_order_pre a
   left join edw.map_customer b
