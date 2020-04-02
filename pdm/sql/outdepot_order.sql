@@ -187,6 +187,14 @@ update pdm.outdepot_order s
 delete from pdm.outdepot_order where left(ccuscode,2) = 'GL';
 delete from pdm.outdepot_order where left(cinvcode,2) = 'JC';
 
+-- 更新最终客户是multi改为客户
+update pdm.outdepot_order
+   set finnal_ccuscode = ccuscode
+      ,finnal_ccusname = ccusname
+ where finnal_ccusname = 'multi'
+;
+
+
 -- 按照王涛提供的客户项目负责人跟新18年以后的数据
 update pdm.outdepot_order a
  inner join pdm.cusitem_person b

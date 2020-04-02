@@ -298,6 +298,14 @@ select '17'
 delete from pdm.invoice_order where ccuscode = 'DL1101002' and cinvcode = 'QT00004';
 delete from pdm.invoice_order where left(ccuscode,2) = 'GL';
 
+
+-- 更新最终客户是multi改为客户
+update pdm.invoice_order
+   set finnal_ccuscode = ccuscode
+      ,finnal_ccusname = ccusname
+ where finnal_ccusname = 'multi'
+;
+
 -- 按照王涛提供的客户项目负责人跟新18年以后的数据
 update pdm.invoice_order a
  inner join pdm.cusitem_person b

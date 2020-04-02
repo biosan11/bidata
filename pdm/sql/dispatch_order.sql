@@ -168,6 +168,13 @@ update pdm.dispatch_order s
    and s.cdepcode is not null
 ;
 
+-- 更新最终客户是multi改为客户
+update pdm.dispatch_order
+   set finnal_ccuscode = ccuscode
+      ,finnal_ccusname = ccusname
+ where finnal_ccusname = 'multi'
+;
+
 -- 按照王涛提供的客户项目负责人跟新18年以后的数据
 update pdm.dispatch_order a
  inner join pdm.cusitem_person b
