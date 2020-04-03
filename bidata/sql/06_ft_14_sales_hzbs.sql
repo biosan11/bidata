@@ -57,7 +57,26 @@ create table `ft_14_sales_hzbs`(
 truncate table bidata.ft_14_sales_hzbs;
 -- 导入线上数据
 insert into bidata.ft_14_sales_hzbs
-select * from bidata.ft_11_sales
+select 
+sbvid,
+ddate,
+cohr,
+cwhcode,
+cdepcode,
+ccuscode,
+finnal_ccuscode,
+cbustype,
+cinvcode,
+item_code,
+plan_type,
+key_points,
+itaxunitprice,
+itax,
+isum,
+areadirector,
+cverifier,
+sys_time
+from bidata.ft_11_sales
 where cohr = "杭州贝生";
 
 
