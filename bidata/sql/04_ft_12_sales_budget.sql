@@ -96,6 +96,6 @@ where business_class in("产品类","租赁类","服务类");
 
 update bidata.ft_12_sales_budget 
 set isum_budget_notax = round(isum_budget-(isum_budget*0.06),4)
-where business_class in = "ldt";
+where business_class = "ldt";
 
 
