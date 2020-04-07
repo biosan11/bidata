@@ -89,20 +89,13 @@ where isum_budget != 0 or inum_person != 0;
 
 
 -- 更改加工不含税金额
+-- 200407修改, 修改税率与不含税金额计算公式
 update bidata.ft_12_sales_budget 
-set isum_budget_notax = round(isum_budget/1.16,3) 
-where business_class = "产品类";
+set isum_budget_notax = round(isum_budget-(isum_budget*0.13),4)
+where business_class in("产品类","租赁类","服务类");
 
 update bidata.ft_12_sales_budget 
-set isum_budget_notax = round(isum_budget/1.06,3) 
-where business_class = "ldt";
+set isum_budget_notax = round(isum_budget-(isum_budget*0.06),4)
+where business_class in = "ldt";
 
-update bidata.ft_12_sales_budget
-set isum_budget_notax = round(isum_budget/1.16,3) 
-where business_class = "服务类" 
-and true_item_code in ("FW0401","FW0504");
 
-update bidata.ft_12_sales_budget
-set isum_budget_notax = round(isum_budget/1.06,3) 
-where business_class = "服务类" 
-and true_item_code not in ("FW0401","FW0504");
