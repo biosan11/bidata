@@ -124,6 +124,7 @@ select a.db
       ,a.cdefine3
       ,a.bReturnFlag
       ,a.bsaleoutcreatebill
+      ,a.cmemo
   from ufdata.dispatchlist a
   left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
     on a.ccuscode = b.ccuscode
@@ -174,6 +175,7 @@ select a.db
       ,a.cdefine3
       ,a.bReturnFlag
       ,a.bsaleoutcreatebill
+      ,a.cmemo
   from ufdata.dispatchlist a
   left join edw.dic_customer b
     on a.ccuscode = b.ccuscode
@@ -220,6 +222,7 @@ select a.db
       ,a.cdefine3
       ,a.bReturnFlag
       ,a.bsaleoutcreatebill
+      ,a.cmemo
   from edw.dispatch_order_pre a
   left join edw.map_customer b
     on a.true_ccuscode = b.bi_cuscode
@@ -258,6 +261,7 @@ select a.db
       ,a.cdefine3
       ,a.bReturnFlag
       ,a.bsaleoutcreatebill
+      ,a.cmemo
   from edw.mid1_dispatch_order a
   left join (select bi_cuscode,bi_cusname from edw.dic_customer group by bi_cusname) c
     on a.true_finnal_ccusname2 = c.bi_cusname
@@ -341,6 +345,7 @@ select a.db
       ,b.isettlequantity
       ,b.cdefine23
       ,b.cdefine36
+      ,a.cmemo
       ,localtimestamp() as sys_time
   from edw.mid2_dispatch_order a
   left join (select * from ufdata.dispatchlists where dkeepdate >= '2018-01-01' or dkeepdate is null) b
@@ -424,6 +429,7 @@ select a.db
       ,a.isettlequantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cmemo
       ,a.sys_time
  from edw.mid3_dispatch_order a
   left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
@@ -504,6 +510,7 @@ select a.db
       ,a.isettlequantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cmemo
       ,a.sys_time
  from edw.mid3_dispatch_order a
   left join dic_inventory b
@@ -586,6 +593,7 @@ select a.db
       ,a.isettlequantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cmemo
       ,a.sys_time
   from edw.mid4_dispatch_order a
   left join edw.map_inventory b

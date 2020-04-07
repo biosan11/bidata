@@ -120,6 +120,7 @@ select a.db
       ,a.cordercode
       ,a.cbillcode
       ,a.cdefine3
+      ,a.cmemo
   from ufdata.rdrecord32 a
   left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
     on a.ccuscode = b.ccuscode
@@ -169,6 +170,7 @@ select a.db
       ,a.cordercode
       ,a.cbillcode
       ,a.cdefine3
+      ,a.cmemo
   from ufdata.rdrecord32 a
   left join edw.dic_customer b
     on a.ccuscode = b.ccuscode
@@ -214,6 +216,7 @@ select a.db
       ,a.cordercode
       ,a.cbillcode
       ,a.cdefine3
+      ,a.cmemo
   from edw.outdepot_order_pre a
   left join edw.map_customer b
     on a.true_ccuscode = b.bi_cuscode
@@ -249,6 +252,7 @@ select a.db
       ,a.cordercode
       ,a.cbillcode
       ,a.cdefine3
+      ,a.cmemo
   from edw.mid1_outdepot_order a
   left join (select bi_cuscode,bi_cusname from edw.dic_customer group by bi_cusname) c
     on a.true_finnal_ccusname2 = c.bi_cusname
@@ -319,6 +323,7 @@ select a.db
       ,b.inquantity
       ,b.cdefine23
       ,b.cdefine36
+      ,a.cmemo
       ,localtimestamp() as sys_time
   from edw.mid2_outdepot_order a
   left join (select * from ufdata.rdrecords32 where dbkeepdate>= '2018-01-01' or dbkeepdate is null) b
@@ -389,6 +394,7 @@ select a.db
       ,a.inquantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cmemo
       ,a.sys_time
   from edw.mid3_outdepot_order a
   left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
@@ -457,6 +463,7 @@ select a.db
       ,a.inquantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cmemo
       ,a.sys_time
   from edw.mid3_outdepot_order a
   left join (select * from dic_inventory group by left(db,10),cinvcode) b
@@ -527,6 +534,7 @@ select a.db
       ,a.inquantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cmemo
       ,'有效'
       ,a.sys_time
   from edw.mid4_outdepot_order a
