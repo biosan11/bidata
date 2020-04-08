@@ -39,7 +39,8 @@ where dbill_date >= '2019-01-01'
   and left(ccode,2) in ('51','53','64','66')
   and cdept_id is not null
   and md <> 0
-  and iperiod <> 0 -- 回冲的数据不加载进来
+  and iperiod <> 0
+  and  iperiod <= 12 -- 回冲的数据不加载进来
 ;
 
 -- 创建一张中间oa凭证表
