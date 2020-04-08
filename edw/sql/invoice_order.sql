@@ -113,6 +113,7 @@ select a.db
       ,a.cdefine2
       ,a.cdefine3
       ,a.breturnflag
+      ,a.cmemo
   from ufdata.salebillvouch a
   left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
     on a.ccuscode = b.ccuscode
@@ -161,6 +162,7 @@ select a.db
       ,a.cdefine2
       ,a.cdefine3
       ,a.bReturnFlag
+      ,a.cmemo
   from ufdata.salebillvouch a
   left join edw.dic_customer b
     on a.ccuscode = b.ccuscode
@@ -205,6 +207,7 @@ select a.db
       ,a.cdefine2
       ,a.cdefine3
       ,a.bReturnFlag
+      ,a.cmemo
   from edw.invoice_order_pre a
   left join edw.map_customer b
     on a.true_ccuscode = b.bi_cuscode
@@ -240,6 +243,7 @@ select a.db
       ,a.cdefine2
       ,a.cdefine3
       ,a.bReturnFlag
+      ,a.cmemo
   from edw.mid1_invoice_order a
   left join (select bi_cuscode,bi_cusname from edw.dic_customer group by bi_cusname) c
     on a.true_finnal_ccusname2 = c.bi_cusname
@@ -304,6 +308,9 @@ select a.db
       ,b.itb
       ,a.bReturnFlag
       ,b.tbquantity
+      ,b.cdefine23
+      ,b.cdefine36
+      ,a.cmemo
       ,localtimestamp() as sys_time
   from edw.mid2_invoice_order a
   left join (select * from ufdata.salebillvouchs where dkeepdate>= '2018-01-01' or dkeepdate is null) b
@@ -369,6 +376,9 @@ select a.db
       ,a.itb
       ,a.bReturnFlag
       ,a.tbquantity
+      ,a.cdefine23
+      ,a.cdefine36
+      ,a.cmemo
   from edw.mid3_invoice_order a
   left join (select cinvcode,db,bi_cinvcode,bi_cinvname from edw.dic_inventory group by cinvcode) b
     on a.cinvcode = b.cinvcode
@@ -431,6 +441,9 @@ select a.db
       ,a.itb
       ,a.bReturnFlag
       ,a.tbquantity
+      ,a.cdefine23
+      ,a.cdefine36
+      ,a.cmemo
   from edw.mid3_invoice_order a
   left join edw.dic_inventory b
     on left(a.db,10) = left(b.db,10)
@@ -496,6 +509,9 @@ select distinct a.db
       ,a.bReturnFlag
       ,'有效'
       ,a.tbquantity
+      ,a.cdefine23
+      ,a.cdefine36
+      ,a.cmemo
       ,a.sys_time
   from edw.mid4_invoice_order a
   left join edw.map_inventory b
