@@ -192,7 +192,7 @@ update pdm.sales_order a
    set a.areadirector = b.areadirector
       ,a.cverifier = b.cverifier
  where a.ddate >= b.start_dt
-   and a.ddate  < b.end_dt
+   and a.ddate <= b.end_dt
 ;
 
 

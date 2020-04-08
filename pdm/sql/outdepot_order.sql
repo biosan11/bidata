@@ -205,5 +205,5 @@ update pdm.outdepot_order a
       ,a.cverifier = b.cverifier
  where a.ddate >= '2018-01-01'
    and a.ddate >= b.start_dt
-   and a.ddate  < b.end_dt
+   and a.ddate <= b.end_dt
 ;
