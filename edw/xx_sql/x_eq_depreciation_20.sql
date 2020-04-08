@@ -142,7 +142,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_1
-      ,'2019-01-01'
+      ,'2020-01-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 
@@ -171,7 +171,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_2
-      ,'2019-02-01'
+      ,'2020-02-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 
@@ -200,7 +200,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_3
-      ,'2019-03-01'
+      ,'2020-03-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 
@@ -229,7 +229,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_4
-      ,'2019-04-01'
+      ,'2020-04-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 
@@ -258,7 +258,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_5
-      ,'2019-05-01'
+      ,'2020-05-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 
@@ -287,7 +287,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_6
-      ,'2019-06-01'
+      ,'2020-06-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 
@@ -316,7 +316,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_7
-      ,'2019-07-01'
+      ,'2020-07-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 
@@ -345,7 +345,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_8
-      ,'2019-08-01'
+      ,'2020-08-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 
@@ -374,7 +374,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_9
-      ,'2019-09-01'
+      ,'2020-09-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 
@@ -403,7 +403,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_10
-      ,'2019-10-01'
+      ,'2020-10-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 
@@ -432,7 +432,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_11
-      ,'2019-11-01'
+      ,'2020-11-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 
@@ -461,7 +461,7 @@ select cohr
       ,amount_depre_mon
       ,comment
       ,amount_depre_12
-      ,'2019-12-01'
+      ,'2020-12-01'
   from edw.x_eq_depreciation_20_pre2
 ;
 

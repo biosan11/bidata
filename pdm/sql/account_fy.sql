@@ -39,6 +39,7 @@ where dbill_date >= '2019-01-01'
   and left(ccode,2) in ('51','53','64','66')
   and cdept_id is not null
   and md <> 0
+  and iperiod <> 0 -- 回冲的数据不加载进来
 ;
 
 -- 创建一张中间oa凭证表
@@ -174,12 +175,12 @@ select a.i_id
       ,null
       ,a.voucher_id
       ,null
-      ,null
       ,a.u8dykm
-      ,a.ccode
-      ,a.ccode_name
-      ,a.ccode_lv2
-      ,a.ccode_name_lv2
+      ,null
+      ,null
+      ,null
+      ,null
+      ,null
 --      ,case when a.db <> 'UFDATA_170_2020' and (LENGTH(a.ccode) = 8 or LENGTH(a.ccode) = 10) then b.ccode else a.ccode end as ccode_lv2
 --      ,case when a.db <> 'UFDATA_170_2020' and (LENGTH(a.ccode) = 8 or LENGTH(a.ccode) = 10) then b.ccode_name else a.ccode_name end as ccode_name_lv2
       ,a.md
@@ -188,7 +189,6 @@ select a.i_id
       ,'u8独有'
       ,a.cdept_id
       ,'取'
-      ,null
   from pdm.account_fy_pre3 a
 --  left join (select * from edw.code group by ccode,ccode_name) b
 --    on left(a.ccode,6) = b.ccode
@@ -247,7 +247,7 @@ select f.i_id
       ,f.voucher_id
       ,a.neibuhylxmc as fylx
       ,a.u8dykm
-      ,a.oadykm
+      ,a.kmwb
       ,a.oa_ccode
       ,a.oa_ccode_name
       ,a.oa_ccode_lv2
@@ -258,7 +258,6 @@ select f.i_id
       ,case when f.liuchengbh is null then '未知情况' else '共有' end
       ,case when b.liuchengbh is not null then b.cdept_id     else f.cdept_id      end
       ,'取'
-      ,a.u8dykm
   from pdm.accvouch_oa_pre a
   left join (select * from pdm.accvouch_u8_pre group by liuchengbh,md) b
     on a.liuchengbh = b.liuchengbh
@@ -327,7 +326,6 @@ select a.i_id
       ,a.state
       ,a.cdept_id
       ,a.status
-      ,a.oadykm_xdm
   from edw.x_account_fy_mon a
   left join pdm.account_fy_mon_del1 b
     on a.dbill_date = b.dbill_date

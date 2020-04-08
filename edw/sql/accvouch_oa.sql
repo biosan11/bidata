@@ -2,6 +2,7 @@
 
 -- 去增量数据，主表合并字表
 -- 直接使用税后的金额
+drop table if exists edw.accvouch_oa_pre;
 create temporary table edw.accvouch_oa_pre as
 SELECT
   a.id,
@@ -41,6 +42,7 @@ FROM
 ;
 
 
+drop table if exists edw.oa_formtable_main_6_pre;
 create temporary table ufdata.oa_formtable_main_6_pre as
 select a.id
       ,a.kehumc
@@ -111,14 +113,13 @@ select a.id
       ,a.feiyonglx
       ,a.selectname
       ,a.u8km
-      ,g.kemumc
-      ,g.u8kemubm
-      ,a.kmwb
-      ,case when k.oa_code is null then '请核查' else k.u8_code end
-      ,case when k.oa_code is null then '请核查' else k.code end
-      ,k.code_name
-      ,k.code_lv2
-      ,k.code_lv2_name
+      ,g.kemumc -- 这里是入账科目对应之前
+      ,''
+      ,a.kmwb -- 这里是预算科目，需要处理末级和二级
+      ,''
+      ,''
+      ,''
+      ,''
       ,a.fashengrq
       ,a.pingzhengscrq
       ,a.xiangguankh
@@ -150,32 +151,82 @@ select a.id
 	left join ufdata.oa_formtable_main_112 i on a.neibuhy = i.id
 	left join (select Selectvalue,selectname from ufdata.oa_workflow_SelectItem where fieldid = 6530 group by Selectvalue) j
 	  on a.feiyonglx = j.Selectvalue 
-	left join edw.dic_code k
-	  on a.kmwb = k.oa_code
 	left join (select * from edw.dic_customer group by ccusname) l
 	  on h.kehumc = l.ccusname
 	left join (select * from ufdata.oa_workflow_requestbase group by requestid) m
 	  on a.requestid = m.requestid
 ;
+
+-- 更新对应U8的入账科目
 update edw.accvouch_oa a
  inner join edw.dic_code b
    on a.u8dykm = b.oa_code
-   set a.oadykm = b.u8_code
-      ,a.oa_ccode = b.code
+   set a.u8_ccode = b.u8_code
+-- where a.baoxiaorq >= '2019-01-01'
+;
+
+-- 删除kmwb字段中间存在的空格
+update edw.accvouch_oa set kmwb = replace(kmwb,' ','');
+
+-- 科目情况表
+drop table if exists edw.code;
+create temporary table edw.code as
+select distinct ccode,ccode_name
+  from ufdata.code
+ where (db = 'UFDATA_111_2018' or db = 'UFDATA_222_2019')
+   and iyear = "2019" union
+select distinct ccode,ccode_name
+  from ufdata.code
+ where db = 'UFDATA_170_2020'
+   and iyear = "2019"
+;
+
+insert into edw.code values('640110','人员成本');
+
+-- 计算第二层
+drop table if exists edw.code_pre;
+create temporary table edw.code_pre as
+select a.kemumc
+      ,a.u8kemubm as code_lv1
+      ,a.u8dykm as code_lv1_name
+      ,left(a.u8kemubm,6) as code_lv2
+      ,b.ccode_name as code_lv2_name
+  from (select * from ufdata.oa_uf_u8dykm group by kemumc,u8kemubm) a
+  left join edw.code b
+    on left(a.u8kemubm,6) = b.ccode
+;
+
+CREATE INDEX index_code_pre_kemumc ON edw.code_pre(kemumc);
+
+-- 预算科目对应的加工
+update edw.accvouch_oa a
+ inner join edw.code_pre b
+   on a.kmwb = b.kemumc
+   set a.oa_ccode = b.code_lv1
+      ,a.oa_ccode_name = b.code_lv1_name
+      ,a.oa_ccode_lv2 = b.code_lv2
+      ,a.oa_ccode_name_lv2 = b.code_lv2_name
+-- where a.baoxiaorq >= '2019-01-01'
+;
+
+-- 不存在的直接按照财务给的处理进去
+update edw.accvouch_oa a
+ inner join edw.dic_code b
+   on a.kmwb = b.oa_code
+   set a.oa_ccode = b.code
       ,a.oa_ccode_name = b.code_name
       ,a.oa_ccode_lv2 = b.code_lv2
       ,a.oa_ccode_name_lv2 = b.code_lv2_name
- where a.kmwb is null
-   and a.baoxiaorq >= '2019-01-01'
+ where oa_ccode = '' or oa_ccode is null
 ;
 
-update edw.accvouch_oa set oadykm = '6601试剂招标经费',oa_ccode = '660131',oa_ccode_name='试剂招标经费',oa_ccode_lv2='660131',oa_ccode_name_lv2='试剂招标经费' where kmwb = '66010032试剂招标经费';
+-- update edw.accvouch_oa set oadykm = '6601试剂招标经费',oa_ccode = '660131',oa_ccode_name='试剂招标经费',oa_ccode_lv2='660131',oa_ccode_name_lv2='试剂招标经费' where kmwb = '66010032试剂招标经费';
 
 -- drop table if exists edw.code;
 
 -- 删除几条无效数据
-delete from edw.accvouch_oa where baoxiaorq = '2019-01-15' and oadykm = '6605人员成本其他';
-delete from edw.accvouch_oa where baoxiaorq = '2018-11-27' and oadykm = '6605押金';
+-- delete from edw.accvouch_oa where baoxiaorq = '2019-01-15' and oadykm = '6605人员成本其他';
+-- delete from edw.accvouch_oa where baoxiaorq = '2018-11-27' and oadykm = '6605押金';
 
 -- 更新2个发生日期错误的数据
 update edw.accvouch_oa set fashengrq = '2019-07-08' where fashengrq = '1019-07-08';
