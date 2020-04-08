@@ -98,4 +98,14 @@ update bidata.ft_12_sales_budget
 set isum_budget_notax = round(isum_budget-(isum_budget*0.06),4)
 where business_class = "ldt";
 
+-- 20200408修改, 更新计划表中客户项目负责人
+UPDATE bidata.ft_12_sales_budget a 
+inner JOIN pdm.cusitem_person AS b 
+ON a.true_ccuscode = b.ccuscode 
+AND a.true_item_code= b.item_code 
+AND a.business_class = b.cbustype 
+AND (a.ddate BETWEEN b.start_dt AND b.end_dt)
+SET a.areadirector = b.areadirector,
+a.cverifier = b.cverifier;
+
 
