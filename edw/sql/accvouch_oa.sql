@@ -184,30 +184,30 @@ select distinct ccode,ccode_name
 insert into edw.code values('640110','人员成本');
 
 -- 计算第二层
-drop table if exists edw.code_pre;
-create temporary table edw.code_pre as
-select a.kemumc
-      ,a.u8kemubm as code_lv1
-      ,a.u8dykm as code_lv1_name
-      ,left(a.u8kemubm,6) as code_lv2
-      ,b.ccode_name as code_lv2_name
-  from (select * from ufdata.oa_uf_u8dykm group by kemumc,u8kemubm) a
-  left join edw.code b
-    on left(a.u8kemubm,6) = b.ccode
-;
-
-CREATE INDEX index_code_pre_kemumc ON edw.code_pre(kemumc);
-
--- 预算科目对应的加工
-update edw.accvouch_oa a
- inner join edw.code_pre b
-   on a.kmwb = b.kemumc
-   set a.oa_ccode = b.code_lv1
-      ,a.oa_ccode_name = b.code_lv1_name
-      ,a.oa_ccode_lv2 = b.code_lv2
-      ,a.oa_ccode_name_lv2 = b.code_lv2_name
--- where a.baoxiaorq >= '2019-01-01'
-;
+-- drop table if exists edw.code_pre;
+-- create temporary table edw.code_pre as
+-- select a.kemumc
+--       ,a.u8kemubm as code_lv1
+--       ,a.u8dykm as code_lv1_name
+--       ,left(a.u8kemubm,6) as code_lv2
+--       ,b.ccode_name as code_lv2_name
+--   from (select * from ufdata.oa_uf_u8dykm group by kemumc,u8kemubm) a
+--   left join edw.code b
+--     on left(a.u8kemubm,6) = b.ccode
+-- ;
+-- 
+-- CREATE INDEX index_code_pre_kemumc ON edw.code_pre(kemumc);
+-- 
+-- -- 预算科目对应的加工
+-- update edw.accvouch_oa a
+--  inner join edw.code_pre b
+--    on a.kmwb = b.kemumc
+--    set a.oa_ccode = b.code_lv1
+--       ,a.oa_ccode_name = b.code_lv1_name
+--       ,a.oa_ccode_lv2 = b.code_lv2
+--       ,a.oa_ccode_name_lv2 = b.code_lv2_name
+-- -- where a.baoxiaorq >= '2019-01-01'
+-- ;
 
 -- 不存在的直接按照财务给的处理进去
 update edw.accvouch_oa a
@@ -217,7 +217,7 @@ update edw.accvouch_oa a
       ,a.oa_ccode_name = b.code_name
       ,a.oa_ccode_lv2 = b.code_lv2
       ,a.oa_ccode_name_lv2 = b.code_lv2_name
- where oa_ccode = '' or oa_ccode is null
+-- where oa_ccode = '' or oa_ccode is null
 ;
 
 -- update edw.accvouch_oa set oadykm = '6601试剂招标经费',oa_ccode = '660131',oa_ccode_name='试剂招标经费',oa_ccode_lv2='660131',oa_ccode_name_lv2='试剂招标经费' where kmwb = '66010032试剂招标经费';

@@ -177,11 +177,11 @@ select a.i_id
       ,a.voucher_id
       ,null
       ,a.u8dykm
-      ,null
-      ,null
-      ,null
-      ,null
-      ,null
+      ,a.u8dykm
+      ,a.ccode
+      ,a.ccode_name
+      ,a.ccode_lv2
+      ,a.ccode_name_lv2
 --      ,case when a.db <> 'UFDATA_170_2020' and (LENGTH(a.ccode) = 8 or LENGTH(a.ccode) = 10) then b.ccode else a.ccode end as ccode_lv2
 --      ,case when a.db <> 'UFDATA_170_2020' and (LENGTH(a.ccode) = 8 or LENGTH(a.ccode) = 10) then b.ccode_name else a.ccode_name end as ccode_name_lv2
       ,a.md
@@ -247,7 +247,7 @@ select f.i_id
       ,a.cd_name
       ,f.voucher_id
       ,a.neibuhylxmc as fylx
-      ,a.u8dykm
+      ,a.u8_ccode
       ,a.kmwb
       ,a.oa_ccode
       ,a.oa_ccode_name

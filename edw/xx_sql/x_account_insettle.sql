@@ -64,12 +64,13 @@ select a.ccusname
       ,c.province
       ,a.y_mon
       ,a.type
-      ,round(a.isum,0)
+      ,sum(round(a.isum,0))
   from edw.x_account_insettle_pre1 a
   left join (select * from edw.dic_customer group by ccusname) b
     on a.ccusname = b.ccusname
   left join (select * from edw.map_customer group by bi_cuscode) c
     on b.bi_cuscode = c.bi_cuscode
+ group by b.bi_cuscode,y_mon,type
 ;
 
 
