@@ -140,8 +140,8 @@ select
     ,a.true_cinvcode
     ,a.ar_class
     ,a.cdigest
-    ,round(a.idamount/1000,4) as idamount
-    ,round(a.icamount/1000,4) as icamount
+    ,round(a.idamount,4) as idamount
+    ,round(a.icamount,4) as icamount
     ,a.idamount_s
     ,a.icamount_s
     ,a.cprocstyle
