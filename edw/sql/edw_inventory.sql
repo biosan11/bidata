@@ -192,14 +192,6 @@ update edw.map_inventory set cinvbrand = '雪莲牌' where bi_cinvcode = 'HC0142
 update edw.map_inventory set cinvbrand = '雅培' where bi_cinvcode = 'SJ03001';
 update edw.map_inventory set cinvbrand = '松下' where bi_cinvcode = 'YQ02464';
 
--- 这里每天全量覆盖现有的项目档案的情况,每日一运行保持一致
-truncate table edw.map_item;
-insert into edw.map_item
-select DISTINCT
-item_code, level_three, level_two, level_one, equipment,screen_class, '', item_key_2019
-  from edw.map_inventory
-;
-
 -- 增加一条其他选项，方便bi调用时处理报错
 insert into edw.map_item (item_code,level_three,level_two,level_one,equipment) 
 values("其他","其他","其他","其他","否");
@@ -317,4 +309,12 @@ update edw.map_inventory set cinv_own ='自有产品_甄元' where cinvbrand='�
 update edw.map_inventory set cinv_own ='自有产品_杰毅麦特' where cinvbrand='杰毅麦特';
 update edw.map_inventory set cinv_own ='自有产品_贝安云' where cinvbrand='贝安云';
 
+
+-- 这里每天全量覆盖现有的项目档案的情况,每日一运行保持一致
+truncate table edw.map_item;
+insert into edw.map_item
+select DISTINCT
+item_code, level_three, level_two, level_one, equipment,screen_class, '', item_key_2019
+  from edw.map_inventory
+;
 
