@@ -33,6 +33,7 @@ select distinct
             when left(db,10) = 'UFDATA_222' then 'UFDATA_222' 
             when left(db,10) = 'UFDATA_588' then 'UFDATA_588' 
             when left(db,10) = 'UFDATA_555' then 'UFDATA_555' 
+            when left(db,10) = 'UFDATA_170' then 'UFDATA_170'
             else 'UFDATA_111' end
       ,'edw' as source
       ,'dispatch_order' as tb_name
@@ -53,6 +54,7 @@ select distinct
             when left(db,10) = 'UFDATA_222' then 'UFDATA_222' 
             when left(db,10) = 'UFDATA_588' then 'UFDATA_588' 
             when left(db,10) = 'UFDATA_555' then 'UFDATA_555' 
+            when left(db,10) = 'UFDATA_170' then 'UFDATA_170'
             else 'UFDATA_111' end
       ,'edw' as source
       ,'invoice_order' as tb_name
@@ -73,6 +75,7 @@ select distinct
             when left(db,10) = 'UFDATA_222' then 'UFDATA_222' 
             when left(db,10) = 'UFDATA_588' then 'UFDATA_588' 
             when left(db,10) = 'UFDATA_555' then 'UFDATA_555' 
+            when left(db,10) = 'UFDATA_170' then 'UFDATA_170'
             else 'UFDATA_111' end
       ,'edw' as source
       ,'outdepot_order' as tb_name
@@ -93,6 +96,7 @@ select distinct
             when left(db,10) = 'UFDATA_222' then 'UFDATA_222' 
             when left(db,10) = 'UFDATA_588' then 'UFDATA_588' 
             when left(db,10) = 'UFDATA_555' then 'UFDATA_555' 
+            when left(db,10) = 'UFDATA_170' then 'UFDATA_170'
             else 'UFDATA_111' end
       ,'edw' as source
       ,'sales_order' as tb_name

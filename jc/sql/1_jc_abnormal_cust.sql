@@ -106,6 +106,7 @@ select distinct
        case when left(db,10) = 'UFDATA_889' then 'UFDATA_889' 
             when left(db,10) = 'UFDATA_666' then 'UFDATA_666' 
             when left(db,10) = 'UFDATA_555' then 'UFDATA_555' 
+            when left(db,10) = 'UFDATA_170' then 'UFDATA_170'
             else 'UFDATA_111' end
       ,'edw' as source
       ,'ar_detail' as tb_name
@@ -124,6 +125,7 @@ select distinct
        case when left(db,10) = 'UFDATA_889' then 'UFDATA_889' 
             when left(db,10) = 'UFDATA_666' then 'UFDATA_666' 
             when left(db,10) = 'UFDATA_555' then 'UFDATA_555' 
+            when left(db,10) = 'UFDATA_170' then 'UFDATA_170'
             else 'UFDATA_111' end
       ,'edw' as source
       ,'invoice_order' as tb_name
@@ -143,6 +145,7 @@ select distinct
        case when left(db,10) = 'UFDATA_889' then 'UFDATA_889' 
             when left(db,10) = 'UFDATA_666' then 'UFDATA_666' 
             when left(db,10) = 'UFDATA_555' then 'UFDATA_555' 
+            when left(db,10) = 'UFDATA_170' then 'UFDATA_170'
             else 'UFDATA_111' end
       ,'edw' as source
       ,'outdepot_order' as tb_name
@@ -162,6 +165,7 @@ select distinct
        case when left(db,10) = 'UFDATA_889' then 'UFDATA_889' 
             when left(db,10) = 'UFDATA_666' then 'UFDATA_666' 
             when left(db,10) = 'UFDATA_555' then 'UFDATA_555' 
+            when left(db,10) = 'UFDATA_170' then 'UFDATA_170'
             else 'UFDATA_111' end
       ,'edw' as source
       ,'sales_order' as tb_name
@@ -181,6 +185,7 @@ select distinct
        case when left(db,10) = 'UFDATA_889' then 'UFDATA_889' 
             when left(db,10) = 'UFDATA_666' then 'UFDATA_666' 
             when left(db,10) = 'UFDATA_555' then 'UFDATA_555' 
+            when left(db,10) = 'UFDATA_170' then 'UFDATA_170'
             else 'UFDATA_111' end
       ,'edw' as source
       ,'dispatch_order' as tb_name
