@@ -394,7 +394,7 @@ select distinct
       ,2
       ,CURDATE( ) as date
   from pdm.account_fy
- where db <> 'UFDATA_007_2019'
+ where db <> 'UFDATA_170_2020'
    and LENGTH(code_lv2) <> '6'
 ;
 
@@ -412,7 +412,7 @@ select distinct
       ,2
       ,CURDATE( ) as date
   from pdm.account_fy
- where db = 'UFDATA_007_2019'
+ where db = 'UFDATA_170_2020'
    and LENGTH(code_lv2) <> '6'
    and LENGTH(code_lv2) <> '8'
 ;
