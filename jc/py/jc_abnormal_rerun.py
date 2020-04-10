@@ -19,7 +19,7 @@ def get_rlist():
 # 根据相应的模型执行脚本
 def run_py():
     # 优先更新产品对应的项目档案
-    os.system("python /home/bidata/edw/py/edw_inventory.py")
+    os.system("python /home/bidata/edw/py/edw_inventory.py 2018-01-01")
 
     rest = get_rlist()
     path1 = 'python /home/bidata/edw/py/'
