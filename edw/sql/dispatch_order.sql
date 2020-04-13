@@ -640,6 +640,13 @@ update edw.dispatch_order
 ;
 
 
+-- 增加mbt对客户杰伊麦特清洗
+update edw.dispatch_order 
+set true_finnal_ccuscode = 'DL5101020' 
+, true_finnal_ccusname2 = '杭州杰毅麦特医疗器械有限公司（西南区）'
+where db = 'UFDATA_889_2019'
+  and true_finnal_ccuscode = 'DL3301005';
+
 
 
 

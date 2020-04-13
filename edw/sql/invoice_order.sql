@@ -552,6 +552,14 @@ set true_finnal_ccuscode = 'ZD5101015'
 where db = 'UFDATA_889_2018'
   and ccusname = '其他-个人检测';
 
+-- 增加mbt对客户杰伊麦特清洗
+update edw.invoice_order 
+set true_finnal_ccuscode = 'DL5101020' 
+, true_finnal_ccusname2 = '杭州杰毅麦特医疗器械有限公司（西南区）'
+where db = 'UFDATA_889_2019'
+  and true_finnal_ccuscode = 'DL3301005';
+
+
 UPDATE edw.invoice_order
 SET true_finnal_ccuscode = 'ZD3710003' 
 WHERE
