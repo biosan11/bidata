@@ -37,7 +37,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-01') as y_mon
-      ,mon_1
+      ,ifnull(mon_1,0)
   from edw.x_account_sy_pre
 ;
 
@@ -48,7 +48,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-02') as y_mon
-      ,mon_2
+      ,ifnull(mon_2,0)
   from edw.x_account_sy_pre
 ;
 
@@ -59,7 +59,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-03') as y_mon
-      ,mon_3
+      ,ifnull(mon_3,0)
   from edw.x_account_sy_pre
 ;
 
@@ -70,7 +70,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-04') as y_mon
-      ,mon_4
+      ,ifnull(mon_4,0)
   from edw.x_account_sy_pre
 ;
 
@@ -81,7 +81,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-05') as y_mon
-      ,mon_5
+      ,ifnull(mon_5,0)
   from edw.x_account_sy_pre
 ;
 
@@ -92,7 +92,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-06') as y_mon
-      ,mon_6
+      ,ifnull(mon_6,0)
   from edw.x_account_sy_pre
 ;
 
@@ -103,7 +103,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-07') as y_mon
-      ,mon_7
+      ,ifnull(mon_7,0)
   from edw.x_account_sy_pre
 ;
 
@@ -114,7 +114,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-08') as y_mon
-      ,mon_8
+      ,ifnull(mon_8,0)
   from edw.x_account_sy_pre
 ;
 
@@ -125,7 +125,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-09') as y_mon
-      ,mon_9
+      ,ifnull(mon_9,0)
   from edw.x_account_sy_pre
 ;
 
@@ -136,7 +136,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-10') as y_mon
-      ,mon_10
+      ,ifnull(mon_10,0)
   from edw.x_account_sy_pre
 ;
 
@@ -147,7 +147,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-11') as y_mon
-      ,mon_11
+      ,ifnull(mon_11,0)
   from edw.x_account_sy_pre
 ;
 
@@ -158,7 +158,7 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-12') as y_mon
-      ,mon_12
+      ,ifnull(mon_12,0)
   from edw.x_account_sy_pre
 ;
 
