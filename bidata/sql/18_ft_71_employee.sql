@@ -266,3 +266,4 @@ select
         end as sort_age
 from pdm.ehr_employee_id
 ;
+UPDATE bidata.ft_71_employee set name="杨扬2" WHERE userid="139225801";
