@@ -208,8 +208,8 @@ select a.cohr1 as cohr
       ,null
       ,null
       ,a.ddate as ddate_plan
-      ,a.cverifier as cverifier_plan
-      ,a.areadirector as areadirector_plan
+--      ,a.cverifier as cverifier_plan
+--      ,a.areadirector as areadirector_plan
       ,'只有计划' as type
       ,'新客户' as status
       ,null
@@ -284,8 +284,8 @@ select a.cohr1 as cohr
       ,a.cverifier
       ,a.areadirector
       ,c.ddate as ddate_plan
-      ,c.cverifier as cverifier_plan
-      ,c.areadirector as areadirector_plan
+--      ,c.cverifier as cverifier_plan
+--      ,c.areadirector as areadirector_plan
       ,'异常开票' as type
   from pdm.mid2_cusitem_person_newstate a
   left join pdm.mid51_cusitem_person_newstate b
@@ -328,8 +328,8 @@ select a.cohr1 as cohr
       ,null
       ,null
       ,a.ddate as ddate_plan
-      ,a.cverifier as cverifier_plan
-      ,a.areadirector as areadirector_plan
+--      ,a.cverifier as cverifier_plan
+--      ,a.areadirector as areadirector_plan
       ,'只有计划' as type
   from pdm.mid31_cusitem_person_newstate a
   left join pdm.mid51_cusitem_person_newstate b
@@ -390,4 +390,19 @@ update pdm.cusitem_person_newstate
    set item_code = 'CQ0615'
  where cinvcode = 'TEMP2020_1'
 ;
+
+-- 更新一下客户项目负责人
+update pdm.cusitem_person_newstate a
+ inner join pdm.cusitem_person b
+    on a.cuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+   set a.areadirector = b.areadirector
+      ,a.cverifier = b.cverifier
+ where a.ddate >= '2018-01-01'
+   and a.ddate >= b.start_dt
+   and a.ddate <= b.end_dt
+;
+
+
 
