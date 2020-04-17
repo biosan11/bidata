@@ -471,10 +471,77 @@ update pdm.out_inv_relation a
    set a.price = b.itaxunitprice
 ;
 
-delete from pdm.out_inv_relation where cdlcode = '0000000253';
-delete from pdm.out_inv_relation where cdlcode = '0000000567';
-delete from pdm.out_inv_relation where cdlcode = '0000000812';
-delete from pdm.out_inv_relation where cdlcode = '0000001909';
-delete from pdm.out_inv_relation where cdlcode = '0000002334';
-delete from pdm.out_inv_relation where cdlcode = '0000003153';
-delete from pdm.out_inv_relation where cdlcode = '0000003864';
+-- 删除线下确认已经开票的数据
+delete from pdm.out_inv_relation where cdlcode in(
+'0000000253'
+,'0000000567'
+,'0000000812'
+,'0000001909'
+,'0000002334'
+,'0000003153'
+,'0000003864'
+,'ZJBSFH180209017'
+,'ZJBSFH180403021'
+,'ZJBSFH180418026'
+,'ZJBSFH180502014'
+,'ZJBSFH180627060'
+,'ZJBSFH180726010'
+,'ZJBSFH181114035'
+,'ZJBSFH181220053'
+,'ZJBSFH181224027'
+,'ZJBSFH181224028'
+,'ZJBSFH181224031'
+,'ZJBSFH181229010'
+,'ZJBSFH181229011'
+,'ZJBSFH190122041'
+,'ZJBSFH190122044'
+,'ZJBSFH190122046'
+,'ZJBSFH190124046'
+,'ZJBSFH190125023'
+,'ZJBSFH190228020'
+,'ZJBSFH190228023'
+,'ZJBSXC180131163'
+,'ZJBSXC181024026'
+,'ZJBSXC181213002'
+,'ZJBSXC190911013'
+,'ZJBSXC191031064'
+,'ZJBSXC191231018'
+)
+
+-- 插入财务每月手动增加的数据
+insert into pdm.out_inv_relation
+select a.db
+      ,a.cdlcode
+      ,a.ddate
+      ,a.bi_ccuscode
+      ,a.bi_ccusname
+      ,a.bi_ccuscode
+      ,a.bi_ccusname
+      ,a.bi_cinvcode
+      ,a.bi_cinvname
+      ,a.cinvcode
+      ,a.cdefine22
+      ,a.iquantity
+      ,a.isettlequantity
+      ,a.cdefine23
+      ,ifnull(c.itaxunitprice * a.iquantity,0)
+      ,a.plan_dt
+      ,a.cstcode
+      ,a.cdepname
+      ,a.cpersonname
+      ,a.province
+      ,a.city
+      ,a.cmemo
+      ,'出库单'
+  from edw.x_out_inv_relation a
+  left join (select * from pdm.out_inv_relation group by cdlcode) b
+    on a.cdlcode = b.cdlcode
+  left join (select * from pdm.invoice_price where state = '最后一次价格' group by finnal_ccuscode,cinvcode) c
+    on a.bi_ccuscode = c.finnal_ccuscode
+   and a.bi_cinvcode = c.cinvcode
+ where b.cdlcode is null
+;
+
+
+
+
