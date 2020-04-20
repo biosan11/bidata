@@ -502,12 +502,12 @@ drop table if exists report.mid14_ccus_03_item_effect_19;
 create temporary table report.mid14_ccus_03_item_effect_19 as
 select a.ccuscode
       ,a.cinvcode
-      ,(mon_1+mon_2+mon_3+mon_4+mon_5+mon_6+mon_7+mon_8+mon_9+mon_10+mon_11+mon_12) * a.iunitcost_main / b.iunitcost_main as sy_md
+      ,c.isum * a.iunitcost_main / b.iunitcost_main as sy_md
   from report.mid12_ccus_03_item_effect_19 a
   left join report.mid13_ccus_03_item_effect_19 b
     on a.ccuscode = b.ccuscode
 --   and a.cinvcode = b.cinvcode
-  left join (select * from edw.x_account_sy where year_ = '2019') c
+  left join (select bi_cuscode,sum(isum) as isum from edw.x_account_sy where left(y_mon,4) = '2019' group by bi_cuscode)  c
     on a.ccuscode = c.bi_cuscode
 ;
 
@@ -600,7 +600,8 @@ update report.ccus_03_item_effect_19 a
 ;
 
 -- 更新项目利润,这里的实验员改成保险的费用
-update report.ccus_03_item_effect_19 set profit = (invoice_amount_main + invoice_amount_child - iunitcost_main - iunitcost_child -amount_19 - insure_md);
+update report.ccus_03_item_effect_19 set profit = (invoice_amount_main + invoice_amount_child - iunitcost_main - iunitcost_child -amount_19 - insure_md) where cinvname <> 'BGISEQ-500';
+update report.ccus_03_item_effect_19 set profit = (invoice_amount_main + invoice_amount_child - iunitcost_main - iunitcost_child -amount_19) where cinvname = 'BGISEQ-500';
 
 -- 更新项目利润率
 update report.ccus_03_item_effect_19 set profit_margin = ifnull(profit / (ifnull(invoice_amount_main,0) + ifnull(invoice_amount_child,0)),0);
@@ -614,7 +615,4 @@ inner join (select * from pdm.invoice_price where state = '最后一次价格' a
 ;
 
 update report.ccus_03_item_effect_19 set ccuscode = finnal_ccuscode,ccusname = finnal_ccusname where ccuscode is null;
-
-
-
 
