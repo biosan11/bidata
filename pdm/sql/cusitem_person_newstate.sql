@@ -131,8 +131,8 @@ select a.cohr1 as cohr
       ,a.cverifier
       ,a.areadirector
       ,c.ddate as ddate_plan
-      ,c.cverifier as cverifier_plan
-      ,c.areadirector as areadirector_plan
+--      ,c.cverifier as cverifier_plan
+--      ,c.areadirector as areadirector_plan
       ,'异常开票' as type
       ,'新客户' as status
       ,null
@@ -192,7 +192,7 @@ update pdm.cusitem_person_newstate a set type = '正常装机' where cuscode = '
 
 -- 插入计划数据
 insert into pdm.cusitem_person_newstate
-select a.cohr1 as cohr
+select a.cohr1 as cohr         
       ,a.ddate
       ,a.province
       ,a.city
@@ -208,8 +208,6 @@ select a.cohr1 as cohr
       ,null
       ,null
       ,a.ddate as ddate_plan
---      ,a.cverifier as cverifier_plan
---      ,a.areadirector as areadirector_plan
       ,'只有计划' as type
       ,'新客户' as status
       ,null
