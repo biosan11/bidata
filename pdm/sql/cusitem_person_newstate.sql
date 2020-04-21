@@ -359,7 +359,7 @@ select a.*
 -- 更新20年新项目
 update pdm.cusitem_person_newstate set new_item = CASE
 	WHEN
-		cinvcode = "SJ02030" THEN
+		cinvcode in ("SJ02030","SJ02027","SJ02029") THEN
 			"杰毅NIPT" 
 			WHEN item_code IN ( "CQ0704", "CQ0705" ) THEN
 			"CMA(含设备)" 
