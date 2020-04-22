@@ -9,13 +9,13 @@ select a.province
       ,case when a.item_name is not null and c.bi_cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
       ,case when a.item_name is not null and c.bi_cinvname is null then '请核查' else c.bi_cinvname end as bi_cinvname
       ,a.ddate
-      ,a.insure_num
-      ,a.tickling
-      ,a.collect_num
-      ,a.sales
-      ,a.act_num
-      ,a.iappids
-      ,a.iunitcost
+      ,ifnull(a.insure_num ,0)
+      ,ifnull(a.tickling   ,0)
+      ,ifnull(a.collect_num,0)
+      ,ifnull(a.sales      ,0)
+      ,ifnull(a.act_num    ,0)
+      ,ifnull(a.iappids    ,0)
+      ,ifnull(a.iunitcost  ,0)
   from ufdata.x_insure_cover a
   left join (select * from edw.dic_customer group by ccusname) b
     on a.hospital = b.ccusname
