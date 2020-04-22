@@ -272,7 +272,7 @@ select distinct
 	  on a.finnal_ccuscode = b.bi_cuscode
 	and a.finnal_ccusname = b.bi_cusname
 where b.bi_cuscode is null
-  and a.ccuscode <> '请核查'
+  and a.finnal_ccuscode <> '请核查'
 ;
 
 insert into tracking.jc_abnormal_day
@@ -292,7 +292,7 @@ select distinct
 	  on a.finnal_ccuscode = b.bi_cuscode
 	and a.finnal_ccusname = b.bi_cusname
 where b.bi_cuscode is null
-  and a.ccuscode <> '请核查'
+  and a.finnal_ccuscode <> '请核查'
 ;
 
 insert into tracking.jc_abnormal_day
@@ -312,7 +312,7 @@ select distinct
 	  on a.finnal_ccuscode = b.bi_cuscode
 	and a.finnal_ccusname = b.bi_cusname
 where b.bi_cuscode is null
-  and a.ccuscode <> '请核查'
+  and a.finnal_ccuscode <> '请核查'
 ;
 
 insert into tracking.jc_abnormal_day
@@ -332,7 +332,7 @@ select distinct
 	  on a.finnal_ccuscode = b.bi_cuscode
 	and a.finnal_ccusname = b.bi_cusname
 where b.bi_cuscode is null
-  and a.ccuscode <> '请核查'
+  and a.finnal_ccuscode <> '请核查'
 ;
 
 -- crm用户资质表更监控
