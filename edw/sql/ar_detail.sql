@@ -382,6 +382,17 @@ update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_111_2018' and tr
 update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'DL3707004' and ccovouchid = 'ZJBSSK180330004';
 update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_333_2018' and true_ccuscode = 'ZD4306002' and ccovouchid = '02214958';
 update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_333_2018' and true_ccuscode = 'ZD4306002' and ccovouchid = '02214963';
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3201002' and ccovouchid = 'ZJBSSK190122019';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'DL3207001' and ccovouchid = 'ZJBSSK191014004';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'DL3207001' and ccovouchid = 'ZJBSSK191022003';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3201007' and ccovouchid = 'ZJBSSK191211003';
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3201012' and ccovouchid = 'QCYS1800517';
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3201012' and ccovouchid = 'QCYS1800518';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3203001' and ccovouchid = 'QCYS1800776';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3212003' and ccovouchid = '06904724，4779-4780';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3212003' and ccovouchid = '01954552-4553';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3212003' and ccovouchid = '01954552-4553';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3210004' and ccovouchid = 'ZJBSSK200319001';
 
 
 -- 去除末尾的“-”
