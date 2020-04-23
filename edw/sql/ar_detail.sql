@@ -262,6 +262,7 @@ select a.db
        when a.cinvcode = "JC0100001" then "检测"  -- 科研服务
        when a.cinvcode = "05001" then "启代医疗服务" -- 启代医疗服务
        when d.level_one = "健康检测" then "健康检测"
+       when d.cinv_key_2020 = "服务_软件" then "设备"
        when left(c.bi_cinvcode,2) = "yq" then "设备"
        when left(c.bi_cinvcode,2) = "jc" then "检测"
        when a.cinvcode is not null then "试剂"
@@ -366,6 +367,21 @@ select db
       ,sys_time
   from edw.ar_detail_pre2
 ;
+
+-- 来源, 2020年4月与巧巧核对明细时, 发现ar_class分错 经过实际查验后手动调整, 暂无其他方法 存于D:\work\20年绩效考核\回款\回款明细核对记录(应收类型分错等)
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD4309002' and ccovouchid = '01954414';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD4309002' and ccovouchid = '01954676';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD4309002' and ccovouchid = '01954677';
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3705001' and ccovouchid = 'ZJBSSK181214005';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD4302002' and ccovouchid = '20797751-7753';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD4302002' and ccovouchid = '20797751-7753';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3406001' and ccovouchid = '01954472（2）';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'DL3714002' and ccovouchid = 'ZJBSSK180702004';
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3302012' and ccovouchid = '13469288';
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3302012' and ccovouchid = '13469288';
+update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'DL3707004' and ccovouchid = 'ZJBSSK180330004';
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_333_2018' and true_ccuscode = 'ZD4306002' and ccovouchid = '02214958';
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_333_2018' and true_ccuscode = 'ZD4306002' and ccovouchid = '02214963';
 
 
 -- 去除末尾的“-”
