@@ -424,7 +424,7 @@ update pdm.cusitem_person_newstate a
 ;
 
 update pdm.cusitem_person_newstate set if_mechanism_online = 'False';
-update pdm.cusitem_person_newstate set if_mechanism_online = 'True' where nsieve_mechanism = 'True' or medical_mechanism = 'True' or screen_mechanism = 'True';
+update pdm.cusitem_person_newstate set if_mechanism_online = 'True' where nsieve_mechanism = 'True' or medical_mechanism = 'True' or screen_mechanism = 'True' or nsieve_mechanism = '筹' or medical_mechanism = '筹' or screen_mechanism = '筹';
 
 -- 200424确认删除健康项目
 delete from pdm.cusitem_person_newstate where left(item_code,2) = 'jk';
