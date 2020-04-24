@@ -136,6 +136,10 @@ select a.cohr1 as cohr
       ,'异常开票' as type
       ,'新客户' as status
       ,null
+      ,null
+      ,null
+      ,null
+      ,null
   from pdm.mid2_cusitem_person_newstate a
   left join pdm.mid1_cusitem_person_newstate b
     on a.cohr1 = b.cohr1
@@ -210,6 +214,10 @@ select a.cohr1 as cohr
       ,a.ddate as ddate_plan
       ,'只有计划' as type
       ,'新客户' as status
+      ,null
+      ,null
+      ,null
+      ,null
       ,null
   from pdm.mid31_cusitem_person_newstate a
   left join pdm.mid1_cusitem_person_newstate b
@@ -349,6 +357,10 @@ insert into pdm.cusitem_person_newstate
 select a.*
       ,'老客户'
       ,null
+      ,null
+      ,null
+      ,null
+      ,null
   from pdm.mid6_cusitem_person_newstate a
   left join pdm.cusitem_person_newstate b
     on a.cohr = b.cohr
@@ -401,6 +413,18 @@ update pdm.cusitem_person_newstate a
    and a.ddate >= b.start_dt
    and a.ddate <= b.end_dt
 ;
+
+-- 新增几个客户资质字段
+update pdm.cusitem_person_newstate a
+ inner join edw.map_customer b
+    on a.cuscode = b.bi_cuscode
+   set a.nsieve_mechanism = b.nsieve_mechanism
+      ,a.medical_mechanism = b.medical_mechanism
+      ,a.screen_mechanism = b.screen_mechanism
+;
+
+update pdm.cusitem_person_newstate set if_mechanism_online = 'False';
+update pdm.cusitem_person_newstate set if_mechanism_online = 'True' where nsieve_mechanism = 'True' or medical_mechanism = 'True' or screen_mechanism = 'True';
 
 -- 200424确认删除健康项目
 delete from pdm.cusitem_person_newstate where left(item_code,2) = 'jk';
