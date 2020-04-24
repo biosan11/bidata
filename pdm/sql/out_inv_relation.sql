@@ -460,7 +460,7 @@ select a.db
     on a.cdepcode = c.cdepcode
    and a.db = c.db
   left join edw.map_customer d
-    on a.ccuscode = d.bi_cuscode
+    on a.finnal_ccuscode = d.bi_cuscode
  group by cdlcode,ddate,left(a.db,10),cinvcode
 ;
 
