@@ -402,5 +402,6 @@ update pdm.cusitem_person_newstate a
    and a.ddate <= b.end_dt
 ;
 
-
+-- 200424确认删除健康项目
+delete from pdm.cusitem_person_newstate where left(item_code,2) = 'jk';
 
