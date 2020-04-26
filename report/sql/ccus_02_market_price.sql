@@ -397,15 +397,17 @@ select a.province
 ;
 
 -- 修改存在送检地市的单价保持和
+-- 0426修改最后的送样和收样一致，采用产品维度
 update report.ccus_02_market_price a
  inner join (select *,left(ddate,7) as y_mon from edw.x_ccus_delivery where city_grade = '市级' group by y_mon,city_give,item_code) b
     on a.y_mon = b.y_mon
    and a.city = b.city_give
    and a.item_code = b.item_code
- inner join (select * from report.ccus_02_market_price group by y_mon,city,item_code) c
+ inner join (select * from report.ccus_02_market_price group by y_mon,city,cinvcode) c
     on b.y_mon = c.y_mon
    and b.city_get = c.city
    and b.item_code = c.item_code
+   and a.cinvcode = c.cinvcode
    set a.pct =c. pct
       ,a.type = '送样'
       ,a.isum = c.isum
