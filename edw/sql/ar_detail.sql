@@ -398,7 +398,11 @@ update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and tr
 update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3212003' and ccovouchid = '01954552-4553';
 update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3212003' and ccovouchid = '01954552-4553';
 update edw.ar_detail set ar_class = '设备' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3210004' and ccovouchid = 'ZJBSSK200319001';
-
+-- 200426增加
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3505006' and ccovouchid = 'ZJBSSK181216001';
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_111_2018' and true_ccuscode = 'DL3501012' and ccovouchid = 'ZJBSSK190730013';
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_111_2018' and true_ccuscode = 'ZD3509003' and ccovouchid = 'ZJBSSK190429003';
+update edw.ar_detail set ar_class = '试剂' where db = 'UFDATA_333_2018' and true_ccuscode = 'ZD3505022' and ccovouchid = '07315474';
 
 -- 去除末尾的“-”
 -- update edw.ar_detail
