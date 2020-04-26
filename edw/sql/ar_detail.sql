@@ -89,6 +89,7 @@ select a.clink
 -- 分两部分插入数据
 
 -- 1. 客户清洗条件 db ccuscode
+drop table if exists edw.ar_detail_pre;
 create temporary table edw.ar_detail_pre as
 select 
 	 a.db
@@ -104,9 +105,9 @@ select
      else b.bi_cuscode end as true_ccuscode 
 	,case when b.ccuscode is null then "请核查"
      else b.bi_cusname end as true_ccusname
-	,case when a.cVouchType = 'R0' then f.citemcode else a.cinvcode end as cinvcode
-	,case when a.cVouchType = 'R0' then f.bi_cinvcode else c.bi_cinvcode end as true_cinvcode
-	,case when a.cVouchType = 'R0' then f.bi_cinvname else c.bi_cinvname end as true_cinvname
+	,a.cinvcode as cinvcode
+	,c.bi_cinvcode as true_cinvcode
+	,c.bi_cinvname as true_cinvname
 	,a.iBVid
 	,a.cCode
 	,a.csign
@@ -139,9 +140,6 @@ on a.cDwCode = b.ccuscode
 and left(a.db,10) = left(b.db,10)
 left join (select * from edw.dic_inventory group by cinvcode) c
   on a.cinvcode = c.cinvcode
-left join edw.ap_vouch f
-  on a.db = f.db
- and a.cVouchID = f.cVouchID
 where a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018';
 -- where a.cDwCode in ("001","002","003","004","005","006","007","008","009","010","011","012","013");
 
@@ -166,9 +164,9 @@ select
      else b.bi_cuscode end as true_ccuscode 
 	,case when b.ccuscode is null then "请核查"
      else b.bi_cusname end as true_ccusname
-	,case when a.cVouchType = 'R0' then f.citemcode else a.cinvcode end
-	,case when a.cVouchType = 'R0' then f.bi_cinvcode else c.bi_cinvcode end
-	,case when a.cVouchType = 'R0' then f.bi_cinvname else c.bi_cinvname end
+	,a.cinvcode as cinvcode
+	,c.bi_cinvcode as true_cinvcode
+	,c.bi_cinvname as true_cinvname
 	,a.iBVid
 	,a.cCode
 	,a.csign
@@ -200,9 +198,6 @@ left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer 
 on a.cDwCode = b.ccuscode
 left join (select * from edw.dic_inventory group by cinvcode) c
   on a.cinvcode = c.cinvcode
-left join edw.ap_vouch f
-  on a.db = f.db
- and a.cVouchID = f.cVouchID
 where a.db <> 'UFDATA_889_2019'
   and a.db <> 'UFDATA_555_2018'; 
 -- where a.cDwCode not in ("001","002","003","004","005","006","007","008","009","010","011","012","013");
@@ -218,6 +213,16 @@ CREATE INDEX index_mid2_ar_detail_pre_db ON edw.ar_detail_pre(db);
 CREATE INDEX index_mid2_ar_detail_pre_true_cinvcode ON edw.ar_detail_pre(true_cinvcode);
 CREATE INDEX index_mid2_ar_detail_pre_cinvcode ON edw.ar_detail_pre(cinvcode);
 
+-- 新增处理R0对应的产品为空的情况
+update edw.ar_detail_pre a
+ inner join edw.ap_vouch f
+    on a.db = f.db
+   and a.cVouchID = f.cVouchID
+   set a.cinvcode = f.citemcode
+      ,a.true_cinvcode = f.bi_cinvcode
+      ,a.true_cinvname = f.bi_cinvname
+ where a.cVouchType = 'R0'
+;
 
 -- 跟新R0相关能关联到发票的数据
 update edw.ar_detail_pre a
