@@ -18,6 +18,7 @@ a.auto_id
     else b.bi_cusname end as true_ccusname
 ,a.cpersonname
 ,a.areadirector
+,a.ddate
 ,a.aperiod as aperiod_ori 
 ,case 
     when a.aperiod = "" then 90
@@ -31,8 +32,7 @@ a.auto_id
     when (a.aperiod REGEXP '[^0-9.]')=1 then "否"
     else "是"
  end as mark_aperiod
-,a.ddate
-,a.class
+,a.ar_class
 ,a.amount_plan
 ,a.amount_act
 from ufdata.x_ar_plan as a
