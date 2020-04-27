@@ -86,27 +86,27 @@ create temporary table if not exists pdm.dt_16_person_ar_tem
 select 
     true_ccuscode as ccuscode 
     ,true_ccusname as ccusname
-    ,class 
+    ,ar_class 
     ,ddate 
     ,aperiod_ori
     ,aperiod
     ,mark_aperiod
 from edw.x_ar_plan
-order by true_ccuscode,class,ddate desc;
+order by true_ccuscode,ar_class,ddate desc;
 
 drop temporary table if exists pdm.dt_16_person_ar_tem_2;
 create temporary table if not exists pdm.dt_16_person_ar_tem_2
 select 
-    concat(ccuscode,class) as ccuscode_class
+    concat(ccuscode,ar_class) as ccuscode_class
     ,ccuscode
     ,ccusname
-    ,class 
+    ,ar_class 
     ,ddate  
     ,aperiod_ori
     ,aperiod
     ,mark_aperiod
 from pdm.dt_16_person_ar_tem
-group by ccuscode,class;
+group by ccuscode,ar_class;
 
 truncate table pdm.ar_detail_aperiod;
 insert into pdm.ar_detail_aperiod
@@ -121,7 +121,7 @@ select
     ,ifnull(b.city,"其他") as city
     ,ifnull(b.type,"其他") as type
     ,c.ddate
-    ,ifnull(c.aperiod,90) as aperiod
+    ,ifnull(c.aperiod,3) as aperiod  -- 未提供账期, 默认3个月
     ,c.aperiod_ori
     ,ifnull(c.mark_aperiod,"未知") as mark_aperiod
 from pdm.cusar_tem00 as a 

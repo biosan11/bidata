@@ -18,11 +18,13 @@ a.auto_id
     else b.bi_cusname end as true_ccusname
 ,a.cpersonname
 ,a.areadirector
+,a.ddate
 ,a.aperiod as aperiod_ori 
+-- 提供账期未空, 默认3个月
 ,case 
-    when a.aperiod = "" then 90
-    when a.aperiod is null then 90
-    when (a.aperiod REGEXP '[^0-9.]')=1 then 90
+    when a.aperiod = "" then 3  
+    when a.aperiod is null then 3
+    when (a.aperiod REGEXP '[^0-9.]')=1 then 3
     else a.aperiod
     end as aperiod
 ,case 
@@ -31,8 +33,7 @@ a.auto_id
     when (a.aperiod REGEXP '[^0-9.]')=1 then "否"
     else "是"
  end as mark_aperiod
-,a.ddate
-,a.class
+,a.ar_class
 ,a.amount_plan
 ,a.amount_act
 from ufdata.x_ar_plan as a
