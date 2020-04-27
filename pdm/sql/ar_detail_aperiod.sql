@@ -121,7 +121,7 @@ select
     ,ifnull(b.city,"其他") as city
     ,ifnull(b.type,"其他") as type
     ,c.ddate
-    ,ifnull(c.aperiod,90) as aperiod
+    ,ifnull(c.aperiod,3) as aperiod  -- 未提供账期, 默认3个月
     ,c.aperiod_ori
     ,ifnull(c.mark_aperiod,"未知") as mark_aperiod
 from pdm.cusar_tem00 as a 
