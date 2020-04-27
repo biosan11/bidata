@@ -398,51 +398,51 @@ update pdm.account_fy
 ;
 
 -- 插入18年线下费用
-insert into pdm.account_fy
-select null
-      ,null
-      ,a.cohr
-      ,a.dbill_date
-      ,null
-      ,a.cpersonname_adjust
-      ,a.bi_cuscode
-      ,a.bi_cusname
-      ,a.kehumc
-      ,a.province
-      ,a.cdepname
-      ,a.cdept_id_ehr
-      ,b.name_ehr
-      ,b.second_dept
-      ,b.third_dept
-      ,b.fourth_dept
-      ,b.fifth_dept
-      ,b.sixth_dept
-      ,a.cpersonname_adjust
-      ,a.cdepname
-      ,a.cpersonname_adjust
-      ,a.voucher_id
-      ,a.code_class
-      ,null
-      ,concat(left(a.code,4),a.code_name) as kemu
-      ,a.code
-      ,a.code_name
-      ,c.ccode
-      ,c.ccode_name
-      ,a.md
-      ,a.u8_liuchengbh
-      ,null
-      ,'u8独有'
-      ,null
-      ,'取'
-  from edw.x_account_fy a
-  left join (select * from edw.dic_deptment group by cdept_id_ehr) b
-    on a.cdept_id_ehr = b.cdept_id_ehr
-  left join (select * from edw.code group by ccode) c
-    on left(a.code,6) = c.ccode
- where a.dbill_date < '2019-01-01'
-;
-
-
+-- insert into pdm.account_fy
+-- select null
+--       ,null
+--       ,a.cohr
+--       ,a.dbill_date
+--       ,null
+--       ,a.cpersonname_adjust
+--       ,a.bi_cuscode
+--       ,a.bi_cusname
+--       ,a.kehumc
+--       ,a.province
+--       ,a.cdepname
+--       ,a.cdept_id_ehr
+--       ,b.name_ehr
+--       ,b.second_dept
+--       ,b.third_dept
+--       ,b.fourth_dept
+--       ,b.fifth_dept
+--       ,b.sixth_dept
+--       ,a.cpersonname_adjust
+--       ,a.cdepname
+--       ,a.cpersonname_adjust
+--       ,a.voucher_id
+--       ,a.code_class
+--       ,null
+--       ,concat(left(a.code,4),a.code_name) as kemu
+--       ,a.code
+--       ,a.code_name
+--       ,c.ccode
+--       ,c.ccode_name
+--       ,a.md
+--       ,a.u8_liuchengbh
+--       ,null
+--       ,'u8独有'
+--       ,null
+--       ,'取'
+--   from edw.x_account_fy a
+--   left join (select * from edw.dic_deptment group by cdept_id_ehr) b
+--     on a.cdept_id_ehr = b.cdept_id_ehr
+--   left join (select * from edw.code group by ccode) c
+--     on left(a.code,6) = c.ccode
+--  where a.dbill_date < '2019-01-01'
+-- ;
+-- 
+-- 
 
 -- 删除费用为0的数据,分析需要先不删除
 -- delete from pdm.account_fy where md = 0;
