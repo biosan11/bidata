@@ -30,6 +30,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -58,6 +59,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -85,6 +87,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,fsettleqty
@@ -113,6 +116,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,fsettleqty
@@ -145,6 +149,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -173,6 +178,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,fsettleqty
@@ -204,6 +210,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,fsettleqty as isettlequantity
@@ -232,6 +239,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -262,6 +270,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,fsettleqty as isettlequantity
@@ -290,6 +299,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -319,6 +329,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,fsettleqty as isettlequantity
@@ -347,6 +358,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -377,6 +389,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -405,6 +418,7 @@ select db
       ,bi_cinvcode as cinvcode
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
+      ,null
       ,cdefine22
       ,iquantity
       ,fsettleqty
@@ -422,6 +436,8 @@ select db
    and ifnull(iquantity,0) <> 0
 ;
 
+
+
 truncate table pdm.out_inv_relation;
 insert into pdm.out_inv_relation
 select a.db
@@ -433,11 +449,14 @@ select a.db
       ,a.finnal_ccusname
       ,a.cinvcode
       ,a.cinvname
+      ,e.specification_type
       ,a.cinvcode_old
+      ,e.u8_name as cinvname_old
       ,a.cdefine22
       ,a.iquantity
       ,ifnull(a.isettlequantity,0)
       ,a.cdefine23
+      ,0
       ,0
       ,a.plan_dt
       ,a.cstcode
@@ -461,6 +480,8 @@ select a.db
    and a.db = c.db
   left join edw.map_customer d
     on a.finnal_ccuscode = d.bi_cuscode
+  left join edw.map_inventory e
+    on a.cinvcode = e.bi_cinvcode
  group by cdlcode,ddate,left(a.db,10),cinvcode
 ;
 
@@ -519,12 +540,15 @@ select a.db
       ,a.bi_ccusname
       ,a.bi_cinvcode
       ,a.bi_cinvname
+      ,e.specification_type
       ,a.cinvcode
+      ,a.cinvname
       ,a.cdefine22
       ,a.iquantity
       ,a.isettlequantity
       ,a.cdefine23
       ,ifnull(c.itaxunitprice * a.iquantity,0)
+      ,0
       ,a.plan_dt
       ,a.cstcode
       ,a.cdepname
@@ -539,9 +563,25 @@ select a.db
   left join (select * from pdm.invoice_price where state = '最后一次价格' group by finnal_ccuscode,cinvcode) c
     on a.bi_ccuscode = c.finnal_ccuscode
    and a.bi_cinvcode = c.cinvcode
+  left join edw.map_inventory e
+    on a.bi_cinvcode = e.bi_cinvcode
  where b.cdlcode is null
 ;
 
+-- oa_uf_shebeicpqd 加工oa标准价格，chanpinbh，biaozhunjg
+drop table if exists pdm.out_inv_relation_oa;
+create temporary table pdm.out_inv_relation_oa as 
+select a.chanpinbh
+      ,b.bi_cinvcode
+      ,a.biaozhunjg
+  from ufdata.oa_uf_shebeicpqd a
+  left join (select * from edw.dic_inventory group by cinvcode) b
+    on a.chanpinbh = b.cinvcode
+ where b.cinvcode is not null
+;
 
-
-
+update pdm.out_inv_relation a
+ inner join pdm.out_inv_relation_oa b
+    on a.cinvcode = b.bi_cinvcode
+   set a.bzj = b.biaozhunjg
+;
