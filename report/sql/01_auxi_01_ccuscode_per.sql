@@ -31,10 +31,10 @@ select
     ,month(ddate) as month_
     ,case 
         when cohr = "杭州贝生" then "hzbs"
-        else finnal_ccuscode
+        else ccuscode
     end as ccuscode
     ,isum 
-from bidata.ft_11_sales;
+from report.fin_11_sales_cost_base;
 alter table report.ccuscode_per_tem00 add index index_report_ccuscode_per_tem00_year (year_) ;
 alter table report.ccuscode_per_tem00 add index index_report_ccuscode_per_tem00_month (month_) ;
 alter table report.ccuscode_per_tem00 add index index_report_ccuscode_per_tem00_ccuscode (ccuscode) ;
@@ -63,6 +63,11 @@ select
         when b.province is null then a.ccuscode
         else b.sales_dept
 	end as sales_dept
+    ,case 
+        when a.ccuscode = "杭州贝生" then "hzbs"
+        when b.province is null then a.ccuscode
+        else b.sales_region_new
+	end as sales_region_new
     ,sum(a.isum) as isum 
 from report.ccuscode_per_tem00 as a 
 left join edw.map_customer as b 
@@ -104,6 +109,18 @@ select
 from report.ccuscode_per_tem01 
 group by year_,month_,sales_dept;
 
+-- 4.1、销售区域(新)总收入
+drop temporary table if exists report.ccuscode_per_tem041;
+create temporary table if not exists report.ccuscode_per_tem041
+select 
+    year_
+    ,month_
+    ,sales_region_new
+    ,sum(isum) as isum
+from report.ccuscode_per_tem01 
+group by year_,month_,sales_region_new;
+
+
 -- 5.不含杭州贝生的收入 
 drop temporary table if exists report.ccuscode_per_tem05;
 create temporary table if not exists report.ccuscode_per_tem05
@@ -138,11 +155,13 @@ select
     ,a.isum as isum_ccuscode
     ,b.isum as isum_province
     ,c.isum as isum_salesregion
+    ,g.isum as isum_salesregionnew
     ,d.isum as isum_dept
     ,e.isum as isum_allexcepthzbs 
     ,f.isum as isum_all 
     ,round(a.isum/b.isum,6) as per_province
     ,round(a.isum/c.isum,6) as per_salesregion
+    ,round(a.isum/g.isum,6) as per_salesregionnew
     ,round(a.isum/d.isum,6) as per_dept
     ,round(a.isum/e.isum,6) as per_allexcepthzbs
     ,round(a.isum/f.isum,6) as per_all
@@ -157,6 +176,8 @@ left join report.ccuscode_per_tem05 as e
 on a.year_ = e.year_ and a.month_ = e.month_
 left join report.ccuscode_per_tem06 as f
 on a.year_ = f.year_ and a.month_ = f.month_
+left join report.ccuscode_per_tem041 as g
+on a.year_ = g.year_ and a.month_ = g.month_
 ;
 
 
