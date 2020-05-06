@@ -31,7 +31,7 @@ create table if not exists bidata.ft_52_ar_plan (
 truncate table bidata.ft_52_ar_plan;
 insert into bidata.ft_52_ar_plan
 select 
-concat(true_ccuscode,class)
+concat(true_ccuscode,ar_class)
 ,auto_id
 ,company
 ,ccusname
@@ -66,7 +66,7 @@ concat(true_ccuscode,class)
     end as mark_aperiod   -- 是否常规账期标记
 */
 ,ddate
-,class
+,ar_class
 ,round(amount_plan/1000,2)
 ,round(amount_act/1000,2)
 from edw.x_ar_plan
