@@ -42,39 +42,39 @@ select
 ;
 
 -- 插入线下18年的数据
-insert into bidata.ft_81_expenses
-select 
-     null
-    ,null
-    ,a.cohr
-    ,a.dbill_date
-    ,null
-    ,a.cpersonname_adjust  as cd_name
-    ,a.bi_cuscode
-    ,a.cdept_id_ehr
-    ,null
-    ,null
-    ,a.voucher_id
-    ,a.code
-    ,a.md
-    ,case 
-        when a.fourth_dept = "产品推广部" and a.province is not null then concat(a.province,"-市场部")
-        when a.fourth_dept = "公卫资源部" and a.province is not null then concat(a.province,"-公卫部")
-        when a.fourth_dept = "销售中心" and a.province is not null then concat(a.province,"-销售中心")
-        when a.fourth_dept = "学科服务部" and a.province is not null then concat(a.province,"-学科服务部")
-        when a.fourth_dept = "营销管理部" and a.province is not null then concat(a.province,"-营销管理部")
-        when a.fourth_dept = "营销中心" and a.province is not null then concat(a.province,"-营销中心")
-        else null 
-    end as fy_share_m1
-    ,case 
-        when a.bi_cuscode is null then "n"
-        when a.bi_cuscode = "请核查" then "n"
-        -- when b.type in ("个人客户","代理商","终端客户") then "y"
-        else null 
-    end as fy_share_ifccus
-  from edw.x_account_fy a
- where a.dbill_date < '2019-01-01'
-;
+-- insert into bidata.ft_81_expenses
+-- select 
+--      null
+--     ,null
+--     ,a.cohr
+--     ,a.dbill_date
+--     ,null
+--     ,a.cpersonname_adjust  as cd_name
+--     ,a.bi_cuscode
+--     ,a.cdept_id_ehr
+--     ,null
+--     ,null
+--     ,a.voucher_id
+--     ,a.code
+--     ,a.md
+--     ,case 
+--         when a.fourth_dept = "产品推广部" and a.province is not null then concat(a.province,"-市场部")
+--         when a.fourth_dept = "公卫资源部" and a.province is not null then concat(a.province,"-公卫部")
+--         when a.fourth_dept = "销售中心" and a.province is not null then concat(a.province,"-销售中心")
+--         when a.fourth_dept = "学科服务部" and a.province is not null then concat(a.province,"-学科服务部")
+--         when a.fourth_dept = "营销管理部" and a.province is not null then concat(a.province,"-营销管理部")
+--         when a.fourth_dept = "营销中心" and a.province is not null then concat(a.province,"-营销中心")
+--         else null 
+--     end as fy_share_m1
+--     ,case 
+--         when a.bi_cuscode is null then "n"
+--         when a.bi_cuscode = "请核查" then "n"
+--         -- when b.type in ("个人客户","代理商","终端客户") then "y"
+--         else null 
+--     end as fy_share_ifccus
+--   from edw.x_account_fy a
+--  where a.dbill_date < '2019-01-01'
+-- ;
 
 update bidata.ft_81_expenses as a 
 left join edw.map_customer as b 

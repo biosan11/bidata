@@ -49,7 +49,7 @@ create temporary table if not exists bidata.dt_16_person_ar_tem
 select 
     true_ccuscode as ccuscode 
     ,true_ccusname as ccusname
-    ,class 
+    ,ar_class 
     ,ddate 
     ,if(cpersonname = "空",null,cpersonname) as cpersonname
     ,if(areadirector = "空",null,areadirector) as areadirector
@@ -57,15 +57,15 @@ select
     ,aperiod
     ,mark_aperiod
 from edw.x_ar_plan
-order by true_ccuscode,class,ddate desc;
+order by true_ccuscode,ar_class,ddate desc;
 
 drop temporary table if exists bidata.dt_16_person_ar_tem_2;
 create temporary table if not exists bidata.dt_16_person_ar_tem_2
 select 
-    concat(ccuscode,class) as ccuscode_class
+    concat(ccuscode,ar_class) as ccuscode_class
     ,ccuscode
     ,ccusname
-    ,class 
+    ,ar_class 
     ,ddate 
     ,cpersonname 
     ,areadirector 
@@ -73,7 +73,7 @@ select
     ,aperiod
     ,mark_aperiod
 from bidata.dt_16_person_ar_tem
-group by ccuscode,class;
+group by ccuscode,ar_class;
 
 
 
