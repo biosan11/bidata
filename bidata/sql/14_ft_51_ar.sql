@@ -51,30 +51,7 @@ and left(true_ccuscode,2) != "gl";
 alter table bidata.ar_tem01 add index index_ar_tem01_matchid (matchid);
 alter table bidata.ar_tem01 add index index_ar_tem01_matchid2 (matchid2);
 
-/*
--- 提取回款单据日期
-drop temporary table if exists bidata.ar_tem02;
-create temporary table if not exists bidata.ar_tem02 
-select 
-    concat(db,cvouchid,cdwcode) as matchid
-    ,dvouchdate as dvouchdate2
-from edw.ar_detail 
-where cvouchtype in("48","49") and cprocstyle in ("48","49")
-group by db,cvouchid,cdwcode;
 
-alter table bidata.ar_tem02 add index index_ar_tem02_matchid (matchid);
-
--- 提取9N单据日期
-drop temporary table if exists bidata.ar_tem03;
-create temporary table if not exists bidata.ar_tem03 
-select 
-    concat(db,ccancelno,cdwcode) as matchid2
-    ,max(dvouchdate) as dvouchdate2
-from edw.ar_detail 
-where cvouchtype in("26","27","r0") and cprocstyle ="9n"
-group by db,ccancelno,cdwcode;
-alter table bidata.ar_tem03 add index index_ar_tem03_matchid2 (matchid2);
-*/
 -- 处理日期
 drop temporary table if exists bidata.ar_tem03;
 create temporary table if not exists bidata.ar_tem03 
@@ -109,7 +86,6 @@ case
     when a.db = 'UFDATA_666_2018' then '启代'
     when a.db = 'UFDATA_889_2018' then '美博特'
     when a.db = 'UFDATA_889_2019' then '美博特'
-    -- 200311修改, 新增贝安云账套
     when a.db = 'UFDATA_555_2018' then '贝安云'
     when a.db = 'UFDATA_555_2019' then '贝安云'
     else '请核查'
@@ -118,15 +94,6 @@ case
 ,a.cvouchtype
 ,a.cvouchid
 ,a.dvouchdate
--- ,case
-    -- when cvouchtype in("48","49") 
-        -- then c.dvouchdate2
-    -- when cvouchtype in("26","27","r0") and cprocstyle ="9n"
-        -- then d.dvouchdate2
-    -- when cvouchtype in("26","27","r0") and cprocstyle !="9n"
-        -- then a.dvouchdate
-    -- else null 
-    -- end as dvouchdate2
 ,d.dvouchdate2 as dvouchdate2
 ,a.dregdate
 ,a.cdwcode
@@ -141,17 +108,8 @@ case
 ,a.ccancelno
 ,a.ccovouchtype
 ,a.ccovouchid
--- 以下2020-3-3修改  直接关联bidata.dt_12_customer_arclass 获取账期数据
 ,b.aperiod 
 ,b.mark_aperiod
---  -- 以下2019-9-30修改  来源表edw.x_ar_plan 中 aperiod 字段 出现空白 （不是null） 代码运行出错 修改代码如下
---  ,case 
---      when b.aperiod = "" then 90
---      when (b.aperiod REGEXP '[^0-9.]')=1 then 90
---      else b.aperiod
---   end as aperiod
---  -- ,ifnull(if((b.aperiod REGEXP '[^0-9.]')=1,90,b.aperiod),90) as aperiod
---  ,if(b.true_ccuscode is null,0,1) as mark_aperiod
 ,a.mark as mark_cinvcode
 ,case 
 	when a.item_code is null
@@ -169,19 +127,6 @@ on a.true_ccuscode = b.ccuscode and a.ar_class = b.ar_class
 left join bidata.ar_tem03 as d
 on a.matchid2 = d.matchid2
 order by a.db,a.cdwcode,a.dvouchdate,a.ccovouchid;
-
--- 处理 回款 未开票 调整部分 分不清ar_class 默认为“试剂”
--- 以下20200303修改 先注释掉 不能理解这部分的作用
--- update 
--- bidata.ft_51_ar
--- set ar_class = "试剂" 
--- where ar_ap = "ap" and ccovouchtype in ("48","49");
-
--- cprocstyle = "bz" 的 取dregdate = dvouchdate2
-
--- update bidata.ft_51_ar set 
--- dvouchdate2 = dregdate 
--- where cprocstyle = "bz";
 
 
 
