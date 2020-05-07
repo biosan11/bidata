@@ -9,6 +9,8 @@ select a.ccusname
       ,c.sales_region
       ,c.province
       ,a.year_
+      ,a.bonus
+      ,a.peoplenumber
       ,sum(a.mon_1) as mon_1
       ,sum(a.mon_2) as mon_2
       ,sum(a.mon_3) as mon_3
@@ -37,6 +39,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-01') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_1,0)
   from edw.x_account_sy_pre
 ;
@@ -48,6 +52,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-02') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_2,0)
   from edw.x_account_sy_pre
 ;
@@ -59,6 +65,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-03') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_3,0)
   from edw.x_account_sy_pre
 ;
@@ -70,6 +78,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-04') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_4,0)
   from edw.x_account_sy_pre
 ;
@@ -81,6 +91,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-05') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_5,0)
   from edw.x_account_sy_pre
 ;
@@ -92,6 +104,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-06') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_6,0)
   from edw.x_account_sy_pre
 ;
@@ -103,6 +117,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-07') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_7,0)
   from edw.x_account_sy_pre
 ;
@@ -114,6 +130,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-08') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_8,0)
   from edw.x_account_sy_pre
 ;
@@ -125,6 +143,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-09') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_9,0)
   from edw.x_account_sy_pre
 ;
@@ -136,6 +156,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-10') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_10,0)
   from edw.x_account_sy_pre
 ;
@@ -147,6 +169,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-11') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_11,0)
   from edw.x_account_sy_pre
 ;
@@ -158,6 +182,8 @@ select ccusname
       ,sales_region
       ,province
       ,concat(year_,'-12') as y_mon
+      ,bonus
+      ,peoplenumber
       ,ifnull(mon_12,0)
   from edw.x_account_sy_pre
 ;

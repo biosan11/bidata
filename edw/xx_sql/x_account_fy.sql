@@ -1,57 +1,41 @@
 
-create temporary table edw.dic_deptment_pre as
-select a.*
-      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
-            when a.db = 'UFDATA_118_2018' then '卓恩'
-            when a.db = 'UFDATA_123_2018' then '恩允'
-            when a.db = 'UFDATA_168_2018' then '杭州贝生'
-            when a.db = 'UFDATA_168_2019' then '杭州贝生'
-            when a.db = 'UFDATA_169_2018' then '云鼎'
-            when a.db = 'UFDATA_222_2018' then '宝荣'
-            when a.db = 'UFDATA_222_2019' then '宝荣'
-            when a.db = 'UFDATA_333_2018' then '宁波贝生'
-            when a.db = 'UFDATA_588_2018' then '奥博特'
-            when a.db = 'UFDATA_588_2019' then '奥博特'
-            when a.db = 'UFDATA_666_2018' then '启代'
-            when a.db = 'UFDATA_889_2018' then '美博特'
-            when a.db = 'UFDATA_889_2019' then '美博特'
-            when a.db = 'UFDATA_555_2018' then '贝安云'
-            end as cohr
-   from edw.dic_deptment a
-   group by third_dept,fourth_dept,fifth_dept
-;
 
 truncate table edw.x_account_fy;
 insert into edw.x_account_fy
-select 
-    a.cohr
-    ,a.y_mon
-    ,a.dbill_date
-    ,a.voucher_id
-    ,a.code
-    ,a.code_name
-    ,a.cdepname
-    ,a.cpersonname
-    ,substring_index(substring_index(a.cpersonname,"（",1),"(",1) as cpersonname_adjust
-    ,a.province
-    ,replace(trim(a.kehumc),' ','') as kehumc
-    ,a.u8_liuchengbh
-    ,a.md
-    ,a.code_type
-    ,a.code_class
-    ,a.codename_lv1
-    ,a.fifth_dept
-    ,a.fourth_dept
-    ,a.third_dept
-    ,a.dept_type
-    ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cuscode end as bi_cuscode
-    ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cusname end as bi_cusname
-    ,c.cdept_id_ehr
+select a.cohr
+      ,a.y_mon
+      ,a.voucher_id
+      ,a.dbill_date
+      ,a.code
+      ,null
+      ,null
+      ,null
+      ,null
+      ,a.cd_name
+      ,replace(trim(a.kehumc),' ','') as kehumc
+      ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cuscode end as bi_cuscode
+      ,case when b.ccusname is null and a.kehumc is not null then '请核查' else b.bi_cusname end as bi_cusname
+      ,a.province
+      ,a.city
+      ,substring_index(substring_index(a.bx_name,"（",1),"(",1) as bx_name
+      ,a.bxr_dept_name
+      ,a.u8_liuchengbh
+      ,a.md
+      ,a.cdr_dept_name
+      ,c.cdept_id_ehr
+      ,c.name_ehr
+      ,c.second_dept
+      ,c.third_dept
+      ,c.fourth_dept
+      ,c.fifth_dept
+      ,c.sixth_dept
+      ,a.kemu
+      ,a.code_class
   from ufdata.x_account_fy a
   left join (select * from edw.dic_customer group by ccusname) b
     on replace(trim(a.kehumc),' ','') = b.ccusname
-  left join (select * from edw.dic_deptment where source = 'xlsx_2' group by cdept_name) c
-    on concat(ifnull(a.dept_type,''),ifnull(a.third_dept,''),ifnull(a.fourth_dept,''),ifnull(a.fifth_dept,'')) = c.cdept_name
+  left join (select * from edw.dic_deptment_0426 cdept_name) c
+    on a.cdr_dept_name = c.cdept_name
 ;
 
 update edw.x_account_fy
@@ -61,3 +45,37 @@ update edw.x_account_fy
 update edw.x_account_fy
    set bi_cuscode = null,bi_cusname = null
 where replace(kehumc,' ','') = '';
+
+-- 处理甄元对应的科目层级混乱的现象
+update edw.x_account_fy
+   set code_old = concat(left(code_old,4),SUBSTRING(code_old,7))
+ where cohr = '甄元'
+   and SUBSTRING(code_old,5,2) = '00'
+;
+
+-- 先处理能处理的科目
+update  edw.x_account_fy a
+ inner join (select * from ufdata.code group by ccode) b
+    on a.code_old = b.ccode
+   set a.code = b.ccode
+      ,a.code_name = b.ccode_name
+ where b.ccode is not null
+;
+
+update  edw.x_account_fy a
+ inner join (select * from ufdata.code group by ccode) b
+    on left(a.code_old,6) = b.ccode
+   set a.code_lv2 = b.ccode
+      ,a.code_name_lv2 = b.ccode_name
+ where b.ccode is not null
+;
+
+update edw.x_account_fy a
+   set a.code = a.code_lv2
+      ,a.code_name = a.code_name_lv2
+ where a.code is null
+;
+
+
+
+
