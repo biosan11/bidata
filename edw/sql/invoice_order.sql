@@ -270,7 +270,8 @@ select a.db
       ,case when c.ccusname is null then "请核查"
        else c.bi_cuscode end as true_finnal_ccuscode
       ,a.true_finnal_ccusname1
-      ,a.true_finnal_ccusname2
+      ,case when c.ccusname is null then "请核查"
+       else c.bi_cusname end as true_finnal_ccusname2
       ,a.cstcode
       ,a.cmaker
       ,a.cverifier
@@ -316,7 +317,7 @@ select a.db
   left join (select * from ufdata.salebillvouchs where dkeepdate>= '2018-01-01' or dkeepdate is null) b
     on a.sbvid = b.sbvid
    and a.db = b.db
-  left join (select bi_cuscode,ccusname from edw.dic_customer group by ccusname) c
+  left join (select bi_cuscode,ccusname,bi_cusname from edw.dic_customer group by ccusname) c
     on a.true_finnal_ccusname2 = c.ccusname
 ;
 
