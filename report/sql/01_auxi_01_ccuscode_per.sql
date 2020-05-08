@@ -151,6 +151,7 @@ select
     ,a.ccuscode
     ,b.province
     ,c.sales_region
+    ,g.sales_region_new
     ,d.sales_dept
     ,a.isum as isum_ccuscode
     ,b.isum as isum_province
