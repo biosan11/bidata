@@ -29,6 +29,7 @@ SELECT
 	c.shuoming,
 	c.beizhu,
 	c.sjqy,
+	c.km,
 	CONCAT(c.shuoming,'-',ifnull(c.beizhu,'')) as new_beizhu
 FROM
 	ufdata.oa_formtable_main_183 a
@@ -42,7 +43,7 @@ FROM
 ;
 
 
-drop table if exists edw.oa_formtable_main_6_pre;
+drop table if exists ufdata.oa_formtable_main_6_pre;
 create temporary table ufdata.oa_formtable_main_6_pre as
 select a.id
       ,a.kehumc
@@ -139,6 +140,7 @@ select a.id
       ,a.shuoming
       ,a.beizhu
       ,a.new_beizhu
+      ,a.km
       ,localtimestamp()
   from edw.accvouch_oa_pre a
 	left join ufdata.oa_hrmdepartment e on a.chengdanrbm = e.id
@@ -209,6 +211,24 @@ insert into edw.code values('640110','人员成本');
 -- -- where a.baoxiaorq >= '2019-01-01'
 -- ;
 
+-- 这里处理一下kmwb是null的已归档的情况
+drop table if exists edw.mid1_accvouch_oa;
+create temporary table edw.mid1_accvouch_oa as
+select km,kmwb
+  from ufdata.oa_formtable_main_183_dt1 
+ where kmwb is not null
+   and km is not null
+ group by km
+;
+
+update edw.accvouch_oa a
+ inner join edw.mid1_accvouch_oa b
+    on a.km = b.km
+   set a.kmwb = b.kmwb
+ where a.kmwb is null
+   and a.lc_state = '归档'
+;
+
 -- 不存在的直接按照财务给的处理进去
 update edw.accvouch_oa a
  inner join edw.dic_code b
@@ -231,3 +251,5 @@ update edw.accvouch_oa a
 -- 更新2个发生日期错误的数据
 update edw.accvouch_oa set fashengrq = '2019-07-08' where fashengrq = '1019-07-08';
 update edw.accvouch_oa set fashengrq = '2019-07-30' where fashengrq = '1019-07-30';
+
+
