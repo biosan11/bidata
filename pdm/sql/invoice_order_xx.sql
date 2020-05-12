@@ -73,8 +73,10 @@ select a.sbvid
             when a.cstcode = '08' then '检测项目销售'
             else '未知销售' end  as cstcode
       ,a.specification_type
-      ,a.itb
-      ,a.breturnflag
+      ,case when a.itb = '1' then '退补'
+          else '正常' end
+      ,case when a.breturnflag = 'Y' then '是'
+          else '否' end
       ,a.tbquantity
       ,a.isosid
       ,a.idlsid
@@ -134,8 +136,8 @@ select '17'
       ,null
       ,null
       ,null
-      ,null
-      ,null
+      ,'正常'
+      ,'否'
       ,null
       ,null
       ,null
@@ -207,8 +209,8 @@ select '17'
       ,null
       ,null
       ,null
-      ,null
-      ,null
+      ,'正常'
+      ,'否'
       ,null
       ,null
       ,null
@@ -272,8 +274,8 @@ select '17'
       ,null
       ,null
       ,null
-      ,null
-      ,null
+      ,'正常'
+      ,'否'
       ,null
       ,null
       ,null
