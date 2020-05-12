@@ -104,16 +104,15 @@ select a.db
   from ufdata.gl_accvouch a
   left join (select ccode,ccode_name from edw.code group by ccode) b
     on a.ccode = b.ccode
-  left join (select * from edw.department_pre group by cdepcode,db) c
+  left join (select * from edw.department_pre group by cdepcode) c
     on a.cdept_id = c.cdepcode
-   and left(a.db,10) = left(c.db,10)
   left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
     on a.cperson_id = d.cpersoncode
    and left(a.db,10) = left(d.db,10)
   left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
     on a.ccus_id = e.ccuscode
  where a.iflag is null
-   and a.db <> 'UFDATA_170_2020'
+   and a.db <> 'UFDATA_170_2020' and  left(a.db,10) <> 'UFDATA_168'
 ;
 
 insert into edw.accvouch_u8_pre
@@ -164,6 +163,50 @@ select a.db
 -- 未知情况，针对奥博特财务推测操作人员问题，手动删除这部分数据
 -- delete from edw.accvouch_u8_pre where ibook = '0' and csign = '记';
 
+insert into edw.accvouch_u8_pre
+select a.db
+      ,a.i_id
+      ,a.iyear
+      ,a.iperiod
+      ,a.dbill_date
+      ,case when char_length(a.ino_id) = 1 then CONCAT(a.csign,'-000',a.ino_id) 
+            when char_length(a.ino_id) = 2 then CONCAT(a.csign,'-00',a.ino_id) 
+            when char_length(a.ino_id) = 3 then CONCAT(a.csign,'-0',a.ino_id) 
+            else CONCAT(a.csign,'-',a.ino_id)
+            end as voucher_id
+      ,a.ccode
+      ,b.ccode_name
+      ,a.cdept_id
+      ,c.cdepname
+      ,substring_index(substring_index(c.cdepfullname, '/', 1) , '/', -1) as cdepname_lv1
+      ,substring_index(substring_index(c.cdepfullname, '/', 2) , '/', -1) as cdepname_lv2
+      ,substring_index(substring_index(c.cdepfullname, '/', 3) , '/', -1) as cdepname_lv3
+      ,substring_index(substring_index(c.cdepfullname, '/', 4) , '/', -1) as cdepname_lv4
+      ,a.cperson_id
+      ,d.cpersonname
+      ,a.ccus_id
+      ,e.bi_cuscode
+      ,e.bi_cusname
+      ,a.cdigest
+      ,a.mc
+      ,a.md
+      ,a.ibook
+      ,a.csign
+      ,localtimestamp() as sys_time
+  from ufdata.gl_accvouch a
+  left join (select ccode,ccode_name from edw.code group by ccode) b
+    on a.ccode = b.ccode
+  left join (select * from edw.department_pre group by cdepcode,left(db,10)) c
+    on a.cdept_id = c.cdepcode
+   and left(a.db,10) = left(c.db,10)
+  left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
+    on a.cperson_id = d.cpersoncode
+   and left(a.db,10) = left(d.db,10)
+  left join (select ccuscode,bi_cuscode,bi_cusname from edw.dic_customer group by ccuscode) e
+    on a.ccus_id = e.ccuscode
+ where a.iflag is null
+   and left(a.db,10) = 'UFDATA_168'
+;
 
 
 truncate table edw.accvouch_u8;
