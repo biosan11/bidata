@@ -1,4 +1,5 @@
 -- u8科目情况表
+drop table if exists edw.code;
 create temporary table edw.code as
 select distinct ccode,ccode_name
   from ufdata.code
@@ -13,9 +14,28 @@ select distinct ccode,ccode_name
 insert into edw.code values('640110','人员成本');
 
 -- 取19年以后的科目
+drop table if exists pdm.accvouch_u8_pre;
 create temporary table pdm.accvouch_u8_pre as
 select
 db
+,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_116_2018' then '惠思'
+            when a.db = 'UFDATA_118_2018' then '卓恩'
+            when a.db = 'UFDATA_123_2018' then '恩允'
+            when a.db = 'UFDATA_168_2018' then '杭州贝生'
+            when a.db = 'UFDATA_168_2019' then '杭州贝生'
+            when a.db = 'UFDATA_169_2018' then '云鼎'
+            when a.db = 'UFDATA_222_2018' then '宝荣'
+            when a.db = 'UFDATA_222_2019' then '宝荣'
+            when a.db = 'UFDATA_333_2018' then '宁波贝生'
+            when a.db = 'UFDATA_588_2018' then '奥博特'
+            when a.db = 'UFDATA_588_2019' then '奥博特'
+            when a.db = 'UFDATA_666_2018' then '启代'
+            when a.db = 'UFDATA_889_2018' then '美博特'
+            when a.db = 'UFDATA_889_2019' then '美博特'
+            when a.db = 'UFDATA_555_2018' then '贝安云'
+            when a.db = 'UFDATA_170_2020' then '甄元'
+            end as cohr
 ,left(dbill_date,10) as dbill_date
 ,liuchengbh
 ,ccode_lv2
@@ -34,7 +54,7 @@ db
 ,i_id
 ,voucher_id
 ,sales_region
-from edw.accvouch_u8
+from edw.accvouch_u8 a
 where dbill_date >= '2019-01-01'
   and left(ccode,2) in ('51','53','64','66')
   and cdept_id is not null
@@ -51,6 +71,7 @@ where dbill_date >= '2019-01-01'
 --  group by u8dykm,kehumc,liuchengbh;
 
 -- 创建oa共有的情况表
+drop table if exists pdm.accvouch_oa_pre;
 create temporary table pdm.accvouch_oa_pre as
 select a.*
   from edw.accvouch_oa a
@@ -60,27 +81,11 @@ select a.*
    and left(a.oa_ccode,2) in ('51','53','64','66')
 ;
 
+drop table if exists pdm.account_fy_pre2;
 create temporary table pdm.account_fy_pre2 as
 select i_id
       ,a.db
-      ,case when a.db = 'UFDATA_111_2018' then '博圣' 
-            when a.db = 'UFDATA_116_2018' then '惠思'
-            when a.db = 'UFDATA_118_2018' then '卓恩'
-            when a.db = 'UFDATA_123_2018' then '恩允'
-            when a.db = 'UFDATA_168_2018' then '杭州贝生'
-            when a.db = 'UFDATA_168_2019' then '杭州贝生'
-            when a.db = 'UFDATA_169_2018' then '云鼎'
-            when a.db = 'UFDATA_222_2018' then '宝荣'
-            when a.db = 'UFDATA_222_2019' then '宝荣'
-            when a.db = 'UFDATA_333_2018' then '宁波贝生'
-            when a.db = 'UFDATA_588_2018' then '奥博特'
-            when a.db = 'UFDATA_588_2019' then '奥博特'
-            when a.db = 'UFDATA_666_2018' then '启代'
-            when a.db = 'UFDATA_889_2018' then '美博特'
-            when a.db = 'UFDATA_889_2019' then '美博特'
-            when a.db = 'UFDATA_555_2018' then '贝安云'
-            when a.db = 'UFDATA_170_2020' then '甄元'
-            end as cohr
+      ,a.cohr
       ,dbill_date
       ,a.cdept_id
       ,a.cdepname
@@ -105,6 +110,7 @@ select i_id
  where b.liuchengbh is null ;
 
 -- 这里重新匹配一下的意义在哪里
+drop table if exists pdm.account_fy_pre3;
 create temporary table pdm.account_fy_pre3 as
 select a.i_id
       ,a.db
@@ -132,19 +138,6 @@ select a.i_id
   left join (select * from edw.code group by ccode) b
     on a.ccode = b.ccode
 ;
-
-
---      ,case when a.oa_liuchengbh is null then a.ccode else a.oa_ccode end as ccode
---      ,case when a.oa_liuchengbh is null then a.ccode_name else a.oa_ccode_name end as ccode_name
-
--- update pdm.account_fy_pre3 a
---  inner join edw.accvouch_oa b
---     on a.u8_liuchengbh = b.liuchengbh
---    set a.kehumc = b.kehumc
---       ,a.state = '共有'
---  where a.state = 'u8独有';
-
-
 
 
 -- 先插入u8独有的部分
@@ -183,8 +176,6 @@ select a.i_id
       ,a.ccode_name
       ,a.ccode_lv2
       ,a.ccode_name_lv2
---      ,case when a.db <> 'UFDATA_170_2020' and (LENGTH(a.ccode) = 8 or LENGTH(a.ccode) = 10) then b.ccode else a.ccode end as ccode_lv2
---      ,case when a.db <> 'UFDATA_170_2020' and (LENGTH(a.ccode) = 8 or LENGTH(a.ccode) = 10) then b.ccode_name else a.ccode_name end as ccode_name_lv2
       ,a.md
       ,a.u8_liuchengbh
       ,null
@@ -192,8 +183,6 @@ select a.i_id
       ,a.cdept_id
       ,'取'
   from pdm.account_fy_pre3 a
---  left join (select * from edw.code group by ccode,ccode_name) b
---    on left(a.ccode,6) = b.ccode
   left join (select * from edw.dic_deptment group by cdept_id,db) c
     on a.cdept_id = c.cdept_id
    and left(a.db,10) = left(c.db,10)
@@ -211,23 +200,7 @@ CREATE INDEX index_accvouch_u8_pre_md ON pdm.accvouch_u8_pre(md);
 insert into pdm.account_fy
 select f.i_id
       ,f.db
-      ,case when f.db = 'UFDATA_111_2018' then '博圣' 
-            when f.db = 'UFDATA_118_2018' then '卓恩'
-            when f.db = 'UFDATA_123_2018' then '恩允'
-            when f.db = 'UFDATA_168_2018' then '杭州贝生'
-            when f.db = 'UFDATA_168_2019' then '杭州贝生'
-            when f.db = 'UFDATA_169_2018' then '云鼎'
-            when f.db = 'UFDATA_222_2018' then '宝荣'
-            when f.db = 'UFDATA_222_2019' then '宝荣'
-            when f.db = 'UFDATA_333_2018' then '宁波贝生'
-            when f.db = 'UFDATA_588_2018' then '奥博特'
-            when f.db = 'UFDATA_588_2019' then '奥博特'
-            when f.db = 'UFDATA_666_2018' then '启代'
-            when f.db = 'UFDATA_889_2018' then '美博特'
-            when f.db = 'UFDATA_889_2019' then '美博特'
-            when f.db = 'UFDATA_555_2018' then '贝安云'
-            when f.db = 'UFDATA_170_2020' then '甄元'
-            end as cohr
+      ,f.cohr
       ,f.dbill_date
       ,a.fashengrq
       ,a.bx_name
