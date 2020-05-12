@@ -64,6 +64,7 @@ create temporary table pdm.account_fy_pre2 as
 select i_id
       ,a.db
       ,case when a.db = 'UFDATA_111_2018' then '博圣' 
+            when a.db = 'UFDATA_116_2018' then '惠思'
             when a.db = 'UFDATA_118_2018' then '卓恩'
             when a.db = 'UFDATA_123_2018' then '恩允'
             when a.db = 'UFDATA_168_2018' then '杭州贝生'
@@ -353,20 +354,20 @@ update pdm.account_fy a
    and a.name_u8 is null
 ;
 
-update pdm.account_fy set kemu = '6602专业机构费',code='66020015',code_name='专业机构费',code_lv2='66020015',code_name_lv2 ='专业机构费' where cohr = '甄元' and kemu = '6601材料'; 
-update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '奥博特' and kemu = '6601会务招待'; 
-update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '美博特' and kemu = '6601会务招待'; 
-update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '博圣' and kemu = '6601会务招待'; 
-update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '博圣' and kemu = '6602会务招待'; 
-update pdm.account_fy set kemu = '6601人员成本',code='6601010104',code_name='交通补贴',code_lv2='660101',code_name_lv2 ='人员成本' where cohr = '博圣' and kemu = '6601交通补贴'; 
-update pdm.account_fy set kemu = '6601人员成本',code='6601010104',code_name='交通补贴',code_lv2='660101',code_name_lv2 ='人员成本' where cohr = '美博特' and kemu = '6601交通补贴'; 
-update pdm.account_fy set kemu = '6602内部会议费',code='660204',code_name='内部会议费',code_lv2='660204',code_name_lv2 ='内部会议费' where cohr = '甄元' and kemu = '6602内部会议费'; 
-update pdm.account_fy set kemu = '6602专业机构费',code='66020015',code_name='专业机构费',code_lv2='66020015',code_name_lv2 ='专业机构费' where cohr = '甄元' and kemu = '6602外部服务费'; 
-update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '恩允' and kemu = '6602印花税'; 
-update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '奥博特' and kemu = '6602印花税'; 
-update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '贝安云' and kemu = '6602印花税'; 
-update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '美博特' and kemu = '6601院内沙龙'; 
-update pdm.account_fy set kemu = '6601耗材及配件',code='660118',code_name='耗材及配件',code_lv2='660118',code_name_lv2 ='耗材及配件' where cohr = '甄元' and kemu = '6601运营费用'; 
+-- update pdm.account_fy set kemu = '6602专业机构费',code='66020015',code_name='专业机构费',code_lv2='66020015',code_name_lv2 ='专业机构费' where cohr = '甄元' and kemu = '6601材料'; 
+-- update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '奥博特' and kemu = '6601会务招待'; 
+-- update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '美博特' and kemu = '6601会务招待'; 
+-- update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '博圣' and kemu = '6601会务招待'; 
+-- update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '博圣' and kemu = '6602会务招待'; 
+-- update pdm.account_fy set kemu = '6601人员成本',code='6601010104',code_name='交通补贴',code_lv2='660101',code_name_lv2 ='人员成本' where cohr = '博圣' and kemu = '6601交通补贴'; 
+-- update pdm.account_fy set kemu = '6601人员成本',code='6601010104',code_name='交通补贴',code_lv2='660101',code_name_lv2 ='人员成本' where cohr = '美博特' and kemu = '6601交通补贴'; 
+-- update pdm.account_fy set kemu = '6602内部会议费',code='660204',code_name='内部会议费',code_lv2='660204',code_name_lv2 ='内部会议费' where cohr = '甄元' and kemu = '6602内部会议费'; 
+-- update pdm.account_fy set kemu = '6602专业机构费',code='66020015',code_name='专业机构费',code_lv2='66020015',code_name_lv2 ='专业机构费' where cohr = '甄元' and kemu = '6602外部服务费'; 
+-- update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '恩允' and kemu = '6602印花税'; 
+-- update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '奥博特' and kemu = '6602印花税'; 
+-- update pdm.account_fy set kemu = '6403印花税',code='640305',code_name='印花税',code_lv2='640305',code_name_lv2 ='印花税' where cohr = '贝安云' and kemu = '6602印花税'; 
+-- update pdm.account_fy set kemu = '6601会务费',code='660128',code_name='会务费',code_lv2='660128',code_name_lv2 ='会务费' where cohr = '美博特' and kemu = '6601院内沙龙'; 
+-- update pdm.account_fy set kemu = '6601耗材及配件',code='660118',code_name='耗材及配件',code_lv2='660118',code_name_lv2 ='耗材及配件' where cohr = '甄元' and kemu = '6601运营费用'; 
 
 -- 修正发生日期明显错误的数据
 update pdm.account_fy set fashengrq = '2019-04-23' where fashengrq = '0019-04-23' and dbill_date = '2019-10-21';
