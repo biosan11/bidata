@@ -37,6 +37,7 @@ select a.guid
       ,b.cDefine26
       ,b.dblSumRMB
       ,b.strMemo
+      ,''
       ,localtimestamp()
   from ufdata.cm_contract a
   left join ufdata.cm_contract_item b
@@ -51,7 +52,15 @@ select a.guid
     on a.strbisectionunit = f.ccuscode
   left join (select * from edw.map_inventory group by bi_cinvcode) g
     on c.bi_cinvcode = g.bi_cinvcode
+--  left join ufdata.cm_contract_b_extradefine h
+--    on a.GUID = b.GUID
  where a.strcontractkind = '销售类合同'
+;
+
+update edw.cm_contract a 
+ inner join ufdata.cm_contract_b_extradefine b
+    on a.guid = b.guid
+   set a.chdefine2 = b.chdefine2
 ;
 
 -- 更新这个傻逼特例
