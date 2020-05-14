@@ -28,10 +28,11 @@ a.auto_id
     else a.aperiod
     end as aperiod
 ,case 
-    when a.aperiod = "" then "否"
-    when a.aperiod is null then "否"
-    when (a.aperiod REGEXP '[^0-9.]')=1 then "否"
-    else "是"
+    when a.aperiod = "" then "未知"
+    when a.aperiod is null then "未知"
+    when a.aperiod = "设备" then "设备"
+    when (a.aperiod REGEXP '[^0-9.]')=1 then "特殊账期"
+    else "常规账期"
  end as mark_aperiod
 ,a.ar_class
 ,a.amount_plan
