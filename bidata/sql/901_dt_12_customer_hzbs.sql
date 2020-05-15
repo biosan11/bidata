@@ -61,6 +61,7 @@ select
 	,ifnull(b.bi_cusname,"其他")
 	,ifnull(b.type,"其他")
 	,ifnull(b.sales_region,"其他")
+	,ifnull(b.sales_region_adjust,"其他")
 	,ifnull(b.province,"其他")
 	,ifnull(b.city,"其他")
 	,ifnull(b.technical_sales,"其他")
