@@ -178,7 +178,7 @@ on a.year_ = e.year_ and a.month_ = e.month_
 left join report.ccuscode_per_tem06 as f
 on a.year_ = f.year_ and a.month_ = f.month_
 left join report.ccuscode_per_tem041 as g
-on a.year_ = g.year_ and a.month_ = g.month_
+on a.year_ = g.year_ and a.month_ = g.month_ and a.sales_region_new = g.sales_region_new
 ;
 
 

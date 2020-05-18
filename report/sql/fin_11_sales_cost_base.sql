@@ -60,7 +60,7 @@ drop table if exists report.invoice_order;
 create temporary table report.invoice_order
 select *
   from pdm.invoice_order a
- where year(a.ddate) >= 2018
+ where year(a.ddate) >= 2017
 ;
 
 CREATE INDEX index_invoice_order_cinvcode ON report.invoice_order(cinvcode);

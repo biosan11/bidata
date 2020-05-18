@@ -12,6 +12,7 @@ CREATE TABLE report.checklist_tsh (
 
 -- 插入tsh数据
 -- truncate table report.checklist_tsh;
+-- 是否竞争对手对人口预测不存在冲突
 insert into report.checklist_tsh
 select ccuscode
       ,ccusname
@@ -21,7 +22,7 @@ select ccuscode
       ,'tsh原始'
   from pdm.checklist 
  WHERE item_name = 'tsh'
-   and competitor = '否'
+--   and competitor = '否'
 ;
 
 -- 插入17α-OH-P数据到tsh中补空
@@ -33,7 +34,8 @@ SELECT a.ccuscode
       ,a.item_name
       ,'17α补充'
 FROM
-	( SELECT * FROM pdm.checklist WHERE item_name = '17α-OH-P' and competitor = '否') a
+--	( SELECT * FROM pdm.checklist WHERE item_name = '17α-OH-P' and competitor = '否') a
+	( SELECT * FROM pdm.checklist WHERE item_name = '17α-OH-P') a
 	LEFT JOIN report.checklist_tsh b 
 	ON a.ccuscode = b.ccuscode
 	and a.ddate = b.ddate

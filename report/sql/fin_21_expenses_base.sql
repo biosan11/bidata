@@ -21,6 +21,8 @@ insert into report.fin_21_expenses_base
 select a.cohr
       ,a.y_mon
       ,a.dbill_date
+      ,year(dbill_date)
+      ,month(dbill_date)
       ,a.bi_cuscode
       ,a.bi_cusname
       ,b.sales_dept
