@@ -74,7 +74,7 @@ select db
 ;
 
 truncate table edw.x_insure_indemnity ;
-insert into x_insure_indemnity 
+insert into edw.x_insure_indemnity 
 select a.db
       ,ifnull(b.policy_number       ,a.policy_number        )
       ,ifnull(b.the_insured         ,a.the_insured          )
