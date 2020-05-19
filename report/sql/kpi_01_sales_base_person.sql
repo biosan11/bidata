@@ -107,9 +107,8 @@ alter table report.bonus_base_budget add index (ddate),add index (matchid);
 -- 明细匹配人员数据(19年人员 用20年客户同期的人员)
 truncate table report.kpi_01_sales_base_person;
 insert into report.kpi_01_sales_base_person
--- 先取2020年实际数据
 select 
-    a.ddate
+     a.ddate
     ,a.cohr
     ,a.ccuscode 
     ,c.bi_cusname
@@ -146,7 +145,7 @@ and a.isum !=0 ; -- 收入是0的数据不取
 -- 取2019年实际数据
 insert into report.kpi_01_sales_base_person
 select 
-    a.ddate
+     a.ddate
     ,a.cohr
     ,a.ccuscode 
     ,c.bi_cusname
@@ -183,7 +182,7 @@ and a.isum != 0 ; -- 收入是0的数据不取
 -- 取2020年计划数据 
 insert into report.kpi_01_sales_base_person
 select 
-    a.ddate
+     a.ddate
     ,a.cohr
     ,a.ccuscode 
     ,c.bi_cusname
