@@ -107,30 +107,29 @@ alter table report.bonus_base_budget add index (ddate),add index (matchid);
 -- 明细匹配人员数据(19年人员 用20年客户同期的人员)
 truncate table report.kpi_01_sales_base_person;
 insert into report.kpi_01_sales_base_person
-select 
-     a.ddate
-    ,a.cohr
-    ,a.ccuscode 
-    ,c.bi_cusname
-    ,c.sales_dept
-    ,c.sales_region_new
-    ,c.province
-    ,a.cbustype
-    ,a.cinvcode
-    ,d.bi_cinvname
-    ,d.item_code 
-    ,d.level_three
-    ,d.level_two
-    ,d.level_one
-    ,d.equipment
-    ,d.screen_class
-    ,d.cinv_key_2020
-    ,d.cinv_own
-    ,b.areadirector
-    ,b.cverifier
-    ,'act'  as 'if_act'
-    ,a.isum 
-    ,0 as isum_budget
+select a.ddate
+      ,a.cohr
+      ,a.ccuscode 
+      ,c.bi_cusname
+      ,c.sales_dept
+      ,c.sales_region_new
+      ,c.province
+      ,a.cbustype
+      ,a.cinvcode
+      ,d.bi_cinvname
+      ,d.item_code 
+      ,d.level_three
+      ,d.level_two
+      ,d.level_one
+      ,d.equipment
+      ,d.screen_class
+      ,d.cinv_key_2020
+      ,d.cinv_own
+      ,b.areadirector
+      ,b.cverifier
+      ,'act'  as 'if_act'
+      ,a.isum 
+      ,0 as isum_budget
 from report.bonus_base as a 
 left join report.cusitem_person as b 
 on a.matchid = b.matchid
@@ -140,34 +139,34 @@ on a.ccuscode = c.bi_cuscode
 left join edw.map_inventory as d 
 on a.cinvcode = d.bi_cinvcode 
 where a.ddate >= '2020-01-01'
-and a.isum !=0 ; -- 收入是0的数据不取 
+and a.isum !=0 ; 
+-- 收入是0的数据不取 
 
 -- 取2019年实际数据
 insert into report.kpi_01_sales_base_person
-select 
-     a.ddate
-    ,a.cohr
-    ,a.ccuscode 
-    ,c.bi_cusname
-    ,c.sales_dept
-    ,c.sales_region_new
-    ,c.province
-    ,a.cbustype
-    ,a.cinvcode
-    ,d.bi_cinvname
-    ,d.item_code 
-    ,d.level_three
-    ,d.level_two
-    ,d.level_one
-    ,d.equipment
-    ,d.screen_class
-    ,d.cinv_key_2020
-    ,d.cinv_own
-    ,b.areadirector
-    ,b.cverifier
-    ,'act'  as 'if_act'
-    ,a.isum 
-    ,0 as isum_budget
+select a.ddate
+      ,a.cohr
+      ,a.ccuscode 
+      ,c.bi_cusname
+      ,c.sales_dept
+      ,c.sales_region_new
+      ,c.province
+      ,a.cbustype
+      ,a.cinvcode
+      ,d.bi_cinvname
+      ,d.item_code 
+      ,d.level_three
+      ,d.level_two
+      ,d.level_one
+      ,d.equipment
+      ,d.screen_class
+      ,d.cinv_key_2020
+      ,d.cinv_own
+      ,b.areadirector
+      ,b.cverifier
+      ,'act'  as 'if_act'
+      ,a.isum 
+      ,0 as isum_budget
 from report.bonus_base as a 
 left join report.cusitem_person as b 
 on a.matchid = b.matchid
@@ -177,34 +176,35 @@ on a.ccuscode = c.bi_cuscode
 left join edw.map_inventory as d 
 on a.cinvcode = d.bi_cinvcode 
 where a.ddate >= '2019-01-01' and a.ddate <= '2019-12-31'
-and a.isum != 0 ; -- 收入是0的数据不取 
+and a.isum != 0 
+; 
+-- 收入是0的数据不取 
 
 -- 取2020年计划数据 
 insert into report.kpi_01_sales_base_person
-select 
-     a.ddate
-    ,a.cohr
-    ,a.ccuscode 
-    ,c.bi_cusname
-    ,c.sales_dept
-    ,c.sales_region_new
-    ,c.province
-    ,a.cbustype
-    ,a.cinvcode
-    ,d.bi_cinvname
-    ,d.item_code 
-    ,d.level_three
-    ,d.level_two
-    ,d.level_one
-    ,d.equipment
-    ,d.screen_class
-    ,d.cinv_key_2020
-    ,d.cinv_own
-    ,b.areadirector
-    ,b.cverifier
-    ,'budget'  as 'if_act'
-    ,0 as isum 
-    ,a.isum_budget
+select a.ddate
+      ,a.cohr
+      ,a.ccuscode 
+      ,c.bi_cusname
+      ,c.sales_dept
+      ,c.sales_region_new
+      ,c.province
+      ,a.cbustype
+      ,a.cinvcode
+      ,d.bi_cinvname
+      ,d.item_code 
+      ,d.level_three
+      ,d.level_two
+      ,d.level_one
+      ,d.equipment
+      ,d.screen_class
+      ,d.cinv_key_2020
+      ,d.cinv_own
+      ,b.areadirector
+      ,b.cverifier
+      ,'budget'  as 'if_act'
+      ,0 as isum 
+      ,a.isum_budget
 from report.bonus_base_budget as a 
 left join report.cusitem_person as b 
 on a.matchid = b.matchid
@@ -214,7 +214,9 @@ on a.ccuscode = c.bi_cuscode
 left join edw.map_inventory as d 
 on a.cinvcode = d.bi_cinvcode 
 where a.ddate >= '2020-01-01'
-and a.isum_budget != 0; -- 计划收入是0的数据不取 
+and a.isum_budget != 0 
+;
+-- 计划收入是0的数据不取 
 
 -- 非省区客户,手动维护 
 update report.kpi_01_sales_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where ccusname = "浙江迪安深海冷链物流有限公司";
