@@ -14,29 +14,29 @@
 -- 版本控制：版本号  提交人   提交日期   提交内容
 -- 
 -- 调用方法　
-/* 建表脚本
-use report;
-drop table if exists report.kpi_02_newcus_base_person;
-create table if not exists report.kpi_02_newcus_base_person(
-    mark_1 varchar(20) comment '实际or计划标记',
-    mark_2 varchar(20) comment '新客户or新项目',
-    ddate date comment '日期',
-    cohr varchar(30) comment '公司',
-    ccuscode varchar(30) comment '客户编码',
-    ccusname varchar(255) comment '客户名称',
-    screen_class varchar(30) comment '筛诊分类',
-    sales_dept varchar(30) comment '销售部门',
-    sales_region_new varchar(30) comment '销售区域',
-    province varchar(60) comment '省份',
-    new_item varchar(60) comment '定义新项目', 
-    cverifier_ori varchar(50) comment '销售负责人_未处理',
-    areadirector_ori varchar(50) comment '区域主管_未处理',
-    cverifier_result varchar(50) comment '销售负责人_处理后',
-    areadirector_result varchar(50) comment '区域主管_处理后',
-key repot_kpi_02_newcus_person_cohr (cohr),
-key repot_kpi_02_newcus_person_ccuscode (ccuscode)
-)engine=innodb default charset=utf8 comment='2020年新客户新项目开发基础数据(到人)';
-*/
+--  建表脚本
+-- use report;
+-- drop table if exists report.kpi_02_newcus_base_person;
+-- create table if not exists report.kpi_02_newcus_base_person(
+--     mark_1 varchar(20) comment '实际or计划标记',
+--     mark_2 varchar(20) comment '新客户or新项目',
+--     ddate date comment '日期',
+--     cohr varchar(30) comment '公司',
+--     ccuscode varchar(30) comment '客户编码',
+--     ccusname varchar(255) comment '客户名称',
+--     screen_class varchar(30) comment '筛诊分类',
+--     sales_dept varchar(30) comment '销售部门',
+--     sales_region_new varchar(30) comment '销售区域',
+--     province varchar(60) comment '省份',
+--     new_item varchar(60) comment '定义新项目', 
+--     cverifier_ori varchar(50) comment '销售负责人_未处理',
+--     areadirector_ori varchar(50) comment '区域主管_未处理',
+--     cverifier_result varchar(50) comment '销售负责人_处理后',
+--     areadirector_result varchar(50) comment '区域主管_处理后',
+-- key repot_kpi_02_newcus_person_cohr (cohr),
+-- key repot_kpi_02_newcus_person_ccuscode (ccuscode)
+-- )engine=innodb default charset=utf8 comment='2020年新客户新项目开发基础数据(到人)';
+
 
 -- 对来源数据按客户 日期升序
 drop temporary table if exists report.newcus_tem00;

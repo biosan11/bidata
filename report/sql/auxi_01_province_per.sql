@@ -1,23 +1,23 @@
 -- 01_auxi_01_province_per
 
-/*
-drop table if exists report.auxi_01_province_per;
-create table if not exists report.auxi_01_province_per (
-  `year_` int(4) default null,
-  `month_` int(2) default null,
-  `province_` varchar(60) default null,
-  `sales_region` varchar(60) default null,
-  `isum_province` double(20,3) default null,
-  `isum_salesregion` double(20,3) default null,
-  `per_salesregion` double(23,6) default null,
-  `isum_dept` double(20,3) default null,
-  `per_dept` double(23,6) default null,
-  `isum_allexcepthzbs` double(20,3) default null,
-  `per_allexcepthzbs` double(23,6) default null,
-  `isum_all` double(20,3) default null,
-  `per_all` double(23,6) default null
-) engine=innodb default charset=utf8 comment '省份收入占比表，费用分摊用'
-*/
+
+-- drop table if exists report.auxi_01_province_per;
+-- create table if not exists report.auxi_01_province_per (
+--   `year_` int(4) default null,
+--   `month_` int(2) default null,
+--   `province_` varchar(60) default null,
+--   `sales_region` varchar(60) default null,
+--   `isum_province` double(20,3) default null,
+--   `isum_salesregion` double(20,3) default null,
+--   `per_salesregion` double(23,6) default null,
+--   `isum_dept` double(20,3) default null,
+--   `per_dept` double(23,6) default null,
+--   `isum_allexcepthzbs` double(20,3) default null,
+--   `per_allexcepthzbs` double(23,6) default null,
+--   `isum_all` double(20,3) default null,
+--   `per_all` double(23,6) default null
+-- ) engine=innodb default charset=utf8 comment '省份收入占比表，费用分摊用'
+
 drop temporary table if exists report.fin_prov_tem01;
 create temporary table if not exists report.fin_prov_tem01
 select 

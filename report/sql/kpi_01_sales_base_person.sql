@@ -14,39 +14,39 @@
 -- 版本控制：版本号  提交人   提交日期   提交内容
 -- 
 -- 调用方法　
-/* 建表脚本
-use report;
-drop table if exists report.kpi_01_sales_base_person;
-create table if not exists report.kpi_01_sales_base_person(
-    ddate date comment '日期',
-    cohr varchar(20) comment '公司',
-    ccuscode varchar(20) comment '客户编码',
-    ccusname varchar(90) comment '客户名称',
-    sales_dept varchar(30) comment '销售部门',
-    sales_region_new varchar(30) comment '销售区域',
-    province varchar(60) comment '省份',
-    cbustype varchar(30) comment '业务类型',
-    cinvcode varchar(30) comment '产品编码',
-    cinvname varchar(255) comment '产品名称',
-    item_code varchar(30) comment '项目编码',
-    level_three varchar(30) comment '项目明细',
-    level_two varchar(30) comment '产品组',
-    level_one varchar(30) comment '产品线',
-    equipment varchar(30) comment '是否设备',
-    screen_class varchar(30) comment '筛诊分类',
-    cinv_key_2020 varchar(30) comment '20年新品要品',
-    cinv_own varchar(30) comment '自有产品',
-    areadirector varchar(30) comment '主管',
-    cverifier varchar(30) comment '销售',
-    if_act varchar(30) comment '是否实际',
-    isum decimal(18,4) comment '实际销售额',
-    isum_budget decimal (18,4) comment '计划销售额',
-key repot_kpi_01_sales_base_person_cohr (cohr),
-key repot_kpi_01_sales_base_person_ccuscode (ccuscode),
-key repot_kpi_01_sales_base_person_cinvcode (cinvcode),
-key repot_kpi_01_sales_base_person_item_code (item_code)
-)engine=innodb default charset=utf8 comment='2019,2020年实际计划收入匹配人员数据';
-*/
+--  建表脚本
+-- use report;
+-- drop table if exists report.kpi_01_sales_base_person;
+-- create table if not exists report.kpi_01_sales_base_person(
+--     ddate date comment '日期',
+--     cohr varchar(20) comment '公司',
+--     ccuscode varchar(20) comment '客户编码',
+--     ccusname varchar(90) comment '客户名称',
+--     sales_dept varchar(30) comment '销售部门',
+--     sales_region_new varchar(30) comment '销售区域',
+--     province varchar(60) comment '省份',
+--     cbustype varchar(30) comment '业务类型',
+--     cinvcode varchar(30) comment '产品编码',
+--     cinvname varchar(255) comment '产品名称',
+--     item_code varchar(30) comment '项目编码',
+--     level_three varchar(30) comment '项目明细',
+--     level_two varchar(30) comment '产品组',
+--     level_one varchar(30) comment '产品线',
+--     equipment varchar(30) comment '是否设备',
+--     screen_class varchar(30) comment '筛诊分类',
+--     cinv_key_2020 varchar(30) comment '20年新品要品',
+--     cinv_own varchar(30) comment '自有产品',
+--     areadirector varchar(30) comment '主管',
+--     cverifier varchar(30) comment '销售',
+--     if_act varchar(30) comment '是否实际',
+--     isum decimal(18,4) comment '实际销售额',
+--     isum_budget decimal (18,4) comment '计划销售额',
+-- key repot_kpi_01_sales_base_person_cohr (cohr),
+-- key repot_kpi_01_sales_base_person_ccuscode (ccuscode),
+-- key repot_kpi_01_sales_base_person_cinvcode (cinvcode),
+-- key repot_kpi_01_sales_base_person_item_code (item_code)
+-- )engine=innodb default charset=utf8 comment='2019,2020年实际计划收入匹配人员数据';
+
 
 -- 获取2020年的客户项目负责人数据 
 drop temporary table if exists report.cusitem_person;

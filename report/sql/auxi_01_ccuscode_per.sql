@@ -1,27 +1,25 @@
 -- 01_auxi_01_ccuscode_per
 
-/*
-drop table if exists report.auxi_01_ccuscode_per;
-create table if not exists report.auxi_01_ccuscode_per (
-  `year_` int(4) default null,
-  `month_` int(2) default null,
-  `ccuscode` varchar(60) default null,
-  `province` varchar(60) default null,
-  `sales_region` varchar(60) default null,
-  `sales_dept` varchar(60) default null,
-  `isum_ccuscode` float(14,6) default null,
-  `isum_province` float(14,6) default null,
-  `isum_salesregion` float(14,6) default null,
-  `isum_dept` float(14,6) default null,
-  `isum_allexcepthzbs` float(14,6) default null,
-  `isum_all` float(14,6) default null,
-  `per_province` float(14,6) default null,
-  `per_salesregion` float(14,6) default null,
-  `per_dept` float(14,6) default null,
-  `per_allexcepthzbs` float(14,6) default null,
-  `per_all` float(14,6) default null
-) engine=innodb default charset=utf8 comment '客户收入占比表，费用分摊用';
-*/
+-- drop table if exists report.auxi_01_ccuscode_per;
+-- create table if not exists report.auxi_01_ccuscode_per (
+--   `year_` int(4) default null,
+--   `month_` int(2) default null,
+--   `ccuscode` varchar(60) default null,
+--   `province` varchar(60) default null,
+--   `sales_region` varchar(60) default null,
+--   `sales_dept` varchar(60) default null,
+--   `isum_ccuscode` float(14,6) default null,
+--   `isum_province` float(14,6) default null,
+--   `isum_salesregion` float(14,6) default null,
+--   `isum_dept` float(14,6) default null,
+--   `isum_allexcepthzbs` float(14,6) default null,
+--   `isum_all` float(14,6) default null,
+--   `per_province` float(14,6) default null,
+--   `per_salesregion` float(14,6) default null,
+--   `per_dept` float(14,6) default null,
+--   `per_allexcepthzbs` float(14,6) default null,
+--   `per_all` float(14,6) default null
+-- ) engine=innodb default charset=utf8 comment '客户收入占比表，费用分摊用';
 
 -- 先生成一份基础数据，根据是否杭州贝生，年、月、最终客户编码聚合
 drop temporary table if exists report.ccuscode_per_tem00;

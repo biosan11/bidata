@@ -13,33 +13,33 @@
 -- ----------------------------------------------------------------------------------------
 -- 版本控制：版本号  提交人   提交日期   提交内容
 -- 调用方法：
-/* 建表脚本
-drop table if exists report.fin_12_sales_budget_base;
-create table if not exists report.fin_12_sales_budget_base(
-    ddate date comment '日期',
-    cohr varchar(20) comment '公司',
-    ccuscode varchar(20) comment '客户编码',
-    ccusname varchar(90) comment '客户名称',
-    sales_dept varchar(30) comment '销售部门',
-    sales_region_new varchar(30) comment '销售区域',
-    province varchar(60) comment '省份',
-    cbustype varchar(30) comment '业务类型',
-    cinvcode varchar(30) comment '产品编码',
-    cinvname varchar(255) comment '产品名称',
-    item_code varchar(30) comment '项目编码',
-    level_three varchar(30) comment '项目明细',
-    level_two varchar(30) comment '产品组',
-    level_one varchar(30) comment '产品线',
-    equipment varchar(30) comment '是否设备',
-    screen_class varchar(30) comment '筛诊分类',
-    inum_person decimal(18,4) comment '计划发货人份数',
-    isum_budget decimal(18,4) comment '计划含税销售额',
-    isum_budget_notax decimal(18,4) comment '计划不含税销售额',
-key report_fin_12_sales_budget_base_cohr(cohr),
-key report_fin_12_sales_budget_base_ccuscode(ccuscode),
-key report_fin_12_sales_budget_base_cinvcode(cinvcode)
-)engine=innodb default charset=utf8 comment='report层计划表明细';
-*/
+--  建表脚本
+-- drop table if exists report.fin_12_sales_budget_base;
+-- create table if not exists report.fin_12_sales_budget_base(
+--     ddate date comment '日期',
+--     cohr varchar(20) comment '公司',
+--     ccuscode varchar(20) comment '客户编码',
+--     ccusname varchar(90) comment '客户名称',
+--     sales_dept varchar(30) comment '销售部门',
+--     sales_region_new varchar(30) comment '销售区域',
+--     province varchar(60) comment '省份',
+--     cbustype varchar(30) comment '业务类型',
+--     cinvcode varchar(30) comment '产品编码',
+--     cinvname varchar(255) comment '产品名称',
+--     item_code varchar(30) comment '项目编码',
+--     level_three varchar(30) comment '项目明细',
+--     level_two varchar(30) comment '产品组',
+--     level_one varchar(30) comment '产品线',
+--     equipment varchar(30) comment '是否设备',
+--     screen_class varchar(30) comment '筛诊分类',
+--     inum_person decimal(18,4) comment '计划发货人份数',
+--     isum_budget decimal(18,4) comment '计划含税销售额',
+--     isum_budget_notax decimal(18,4) comment '计划不含税销售额',
+-- key report_fin_12_sales_budget_base_cohr(cohr),
+-- key report_fin_12_sales_budget_base_ccuscode(ccuscode),
+-- key report_fin_12_sales_budget_base_cinvcode(cinvcode)
+-- )engine=innodb default charset=utf8 comment='report层计划表明细';
+-- 
 
 truncate table report.fin_12_sales_budget_base;
 -- 导入2019年计划表明细 

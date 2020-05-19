@@ -14,34 +14,34 @@
 -- 版本控制：版本号  提交人   提交日期   提交内容
 -- 
 -- 调用方法　
-/* 建表脚本
-use report;
-drop table if exists report.fin_31_account_base;
-create table if not exists report.fin_31_account_base(
-    db varchar(30) comment '来源数据库',
-    cdwcode varchar(30) comment'原始客户编码',
-    ddate date comment '日期',
-    cohr varchar(30) comment '公司',
-    ccuscode varchar(30) comment '客户编码',
-    ccusname varchar(255) comment '客户名称',
-    sales_dept varchar(30) comment '销售部门',
-    sales_region_new varchar(30) comment '销售区域',
-    province varchar(60) comment '省份',
-    ar_class varchar(30) comment '应收类型',
-    balance_opening decimal(18,4) comment '期初余额',
-    idamount_month decimal(18,4) comment '本月新增应收' ,
-    icamount_month decimal(18,4) comment '本月回款',
-    balance_closing decimal(18,4) comment '期末余额',
-    fr_history decimal(18,4) comment '历史应回款未回',
-    fr_add_month decimal(18,4) comment '本月新增应回款',
-    fr_month decimal(18,4) comment '本月应回款',
-key repot_fin_31_account_base_db (db),
-key repot_fin_31_account_base_cohr (cohr),
-key repot_fin_31_account_base_cdwcode (cdwcode),
-key repot_fin_31_account_base_ccuscode (ccuscode),
-key repot_fin_31_account_base_ar_class (ar_class)
-)engine=innodb default charset=utf8 comment='2019年以后客户应收类型期初期末余额基础表';
-*/
+--  建表脚本
+-- use report;
+-- drop table if exists report.fin_31_account_base;
+-- create table if not exists report.fin_31_account_base(
+--     db varchar(30) comment '来源数据库',
+--     cdwcode varchar(30) comment'原始客户编码',
+--     ddate date comment '日期',
+--     cohr varchar(30) comment '公司',
+--     ccuscode varchar(30) comment '客户编码',
+--     ccusname varchar(255) comment '客户名称',
+--     sales_dept varchar(30) comment '销售部门',
+--     sales_region_new varchar(30) comment '销售区域',
+--     province varchar(60) comment '省份',
+--     ar_class varchar(30) comment '应收类型',
+--     balance_opening decimal(18,4) comment '期初余额',
+--     idamount_month decimal(18,4) comment '本月新增应收' ,
+--     icamount_month decimal(18,4) comment '本月回款',
+--     balance_closing decimal(18,4) comment '期末余额',
+--     fr_history decimal(18,4) comment '历史应回款未回',
+--     fr_add_month decimal(18,4) comment '本月新增应回款',
+--     fr_month decimal(18,4) comment '本月应回款',
+-- key repot_fin_31_account_base_db (db),
+-- key repot_fin_31_account_base_cohr (cohr),
+-- key repot_fin_31_account_base_cdwcode (cdwcode),
+-- key repot_fin_31_account_base_ccuscode (ccuscode),
+-- key repot_fin_31_account_base_ar_class (ar_class)
+-- )engine=innodb default charset=utf8 comment='2019年以后客户应收类型期初期末余额基础表';
+-- 
 
 use report;
 drop procedure if exists report.fin_31_account_base_pro;
