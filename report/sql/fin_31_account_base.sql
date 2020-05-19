@@ -12,7 +12,7 @@
 -- 开发日期：
 -- ----------------------------------------------------------------------------------------
 -- 版本控制：版本号  提交人   提交日期   提交内容
--- 
+ 
 -- 调用方法　
 --  建表脚本
 -- use report;
@@ -41,7 +41,7 @@
 -- key repot_fin_31_account_base_ccuscode (ccuscode),
 -- key repot_fin_31_account_base_ar_class (ar_class)
 -- )engine=innodb default charset=utf8 comment='2019年以后客户应收类型期初期末余额基础表';
--- 
+
 
 use report;
 drop procedure if exists report.fin_31_account_base_pro;
