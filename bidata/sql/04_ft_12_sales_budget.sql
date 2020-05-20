@@ -91,11 +91,11 @@ where isum_budget != 0 or inum_person != 0;
 -- 更改加工不含税金额
 -- 200407修改, 修改税率与不含税金额计算公式
 update bidata.ft_12_sales_budget 
-set isum_budget_notax = round(isum_budget-(isum_budget*0.13),4)
+set isum_budget_notax = round(isum_budget/(1+0.13),4)
 where business_class in("产品类","租赁类","服务类");
 
 update bidata.ft_12_sales_budget 
-set isum_budget_notax = round(isum_budget-(isum_budget*0.06),4)
+set isum_budget_notax = round(isum_budget/(1+0.06),4)
 where business_class = "ldt";
 
 -- 20200408修改, 更新计划表中客户项目负责人
