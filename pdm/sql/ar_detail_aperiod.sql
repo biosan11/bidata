@@ -130,5 +130,8 @@ on a.ccuscode = b.bi_cuscode
 left join pdm.dt_16_person_ar_tem_2 as c 
 on a.ccuscode_class = c.ccuscode_class;
 
-
+-- 200520 增加逻辑 对于 mark_aperiod 是 未知的 客户, 终端客户 账期3个月  代理商和个人客户 账期0
+update pdm.ar_detail_aperiod 
+set aperiod = 0 
+where mark_aperiod = "未知" and left(ccuscode,2) != 'ZD';
 
