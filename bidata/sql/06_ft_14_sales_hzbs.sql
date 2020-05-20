@@ -118,10 +118,10 @@ select
     ,cohr
     ,null
     ,null
-    ,ifnull(ccuscode,"unknowncus")
-    ,finnal_ccuscode
+    ,ifnull(bi_cuscode,"unknowncus")
+    ,true_finnal_ccuscode
     ,ifnull(cbustype,"产品类")
-    ,cinvcode
+    ,bi_cinvcode
     ,ifnull(item_code,"其他")
     ,null
     ,null
@@ -131,4 +131,4 @@ select
 	,null
 	,null
     ,null
-from ufdata.x_sales_hzbs;
+from edw.x_sales_hzbs;

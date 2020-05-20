@@ -29,7 +29,7 @@ select
     ,b.cverifier
     ,ifnull(a.ccuscode,"unknowncus")
     ,ifnull(a.item_code,"其他")
-    ,a.cinvcode
+    ,a.bi_cinvcode
     ,ifnull(a.cbustype,"产品类")
     ,null as plan_class
     ,null as key_project

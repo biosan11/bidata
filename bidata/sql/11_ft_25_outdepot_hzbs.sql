@@ -52,11 +52,11 @@ select
     ,null as cwhcode
     ,null as cdepcode
     ,null as cpersoncode
-    ,ifnull(a.ccuscode,"unknowncus")
-    ,ifnull(a.finnal_ccuscode,"unknowncus")
-    ,ifnull(a.cbustype,"产品类")
+    ,ifnull(bi_cuscode,"unknowncus")
+    ,true_finnal_ccuscode
+    ,ifnull(cbustype,"产品类")
     ,null as sales_type
-    ,a.cinvcode
+    ,a.bi_cinvcode
     ,null
     ,a.iquantity
     ,a.isum
@@ -68,6 +68,6 @@ select
 	,NULL
 	,NULL
     ,null as sys_time
-from ufdata.x_sales_hzbs as a
+from edw.x_sales_hzbs as a
 left join edw.map_inventory as b
-on a.cinvcode = b.bi_cinvcode;
+on a.bi_cinvcode = b.bi_cinvcode;
