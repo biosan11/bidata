@@ -74,10 +74,10 @@ where a.inum_person != 0 or a.isum_budget != 0;
 
 -- 加工处理不含税计划销售额
 update report.fin_12_sales_budget_base
-set isum_budget_notax = round(isum_budget-(isum_budget*0.13),4)
+set isum_budget_notax = round(isum_budget/(1+0.13),4)
 where cbustype in("产品类","租赁类","服务类");
 update report.fin_12_sales_budget_base
-set isum_budget_notax = round(isum_budget-(isum_budget*0.06),4)
+set isum_budget_notax = round(isum_budget/(1+0.06),4)
 where cbustype = "ldt";
 
 -- 导入2020年计划表明细
