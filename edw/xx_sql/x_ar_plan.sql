@@ -42,7 +42,10 @@ left join
 (select ccusname,bi_cuscode,bi_cusname from edw.dic_customer group by  ccusname) as b
 on a.ccusname = b.ccusname;
 
-
+-- 200520 增加逻辑 对于 mark_aperiod 是 未知的 客户, 终端客户 账期3个月  代理商和个人客户 账期0
+update edw.x_ar_plan 
+set aperiod = 0 
+where mark_aperiod = "未知" and left(true_ccuscode,2) != 'ZD';
 
 
 
