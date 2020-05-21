@@ -221,12 +221,16 @@ select f.i_id
       ,a.cd_name
       ,f.voucher_id
       ,a.neibuhylxmc as fylx
-      ,a.u8_ccode
+      ,concat(left(case when b.liuchengbh is not null then b.ccode else f.ccode end,4),case when b.liuchengbh is not null then b.ccode_name else f.ccode_name end)
       ,a.kmwb
-      ,a.oa_ccode
-      ,a.oa_ccode_name
-      ,a.oa_ccode_lv2
-      ,a.oa_ccode_name_lv2
+      ,case when b.liuchengbh is not null then b.ccode else f.ccode end
+      ,case when b.liuchengbh is not null then b.ccode_name else f.ccode_name end
+      ,case when b.liuchengbh is not null then b.ccode_lv2 else f.ccode_lv2 end
+      ,case when b.liuchengbh is not null then b.ccode_name_lv2 else f.ccode_name_lv2 end
+--      ,a.oa_ccode
+--      ,a.oa_ccode_name
+--      ,a.oa_ccode_lv2
+--      ,a.oa_ccode_name_lv2
       ,a.jine
       ,a.liuchengbh
       ,a.beizhu
