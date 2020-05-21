@@ -472,3 +472,5 @@ set true_finnal_ccuscode = 'DL5101020'
 where db = 'UFDATA_889_2019'
   and true_finnal_ccuscode = 'DL3301005';
 
+-- 删除一条产品是空的脏数据
+delete from edw.sales_order where cinvcode is null;
