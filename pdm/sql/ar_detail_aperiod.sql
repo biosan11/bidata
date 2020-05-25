@@ -92,6 +92,7 @@ select
     ,aperiod
     ,mark_aperiod
 from edw.x_ar_plan
+where mark_aperiod != '未知'  -- 200522更新, 优化脚本不取未知的 , 因为edw.x_ar_plan数据有 db 有的账套有账期 有的账套是 未知 
 order by true_ccuscode,ar_class,ddate desc;
 
 drop temporary table if exists pdm.dt_16_person_ar_tem_2;
