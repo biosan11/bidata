@@ -77,7 +77,8 @@ select distinct a.userid
 --  where b.type = '1'
 -- ;
 
-
+--返聘人员名称区别
+update pdm.ehr_employee set name = '叶艳玲1' where userid = '120823588';
 
 
 
