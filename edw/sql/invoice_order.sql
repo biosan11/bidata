@@ -582,7 +582,7 @@ update edw.invoice_order s
 
 -- 财务调账，王涛提供
 update edw.invoice_order
-   set isum = 0
+   set isum = 0,itax = 0,itaxunitprice = 0
  where db = 'UFDATA_588_2019'
    and autoid in (
 '1000000078'
