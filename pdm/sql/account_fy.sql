@@ -467,6 +467,7 @@ update pdm.account_fy
 -- 日期就行修正
 update pdm.account_fy set fashengrq = '2020-04-07' where fashengrq = '1020-04-07';
 update pdm.account_fy set fashengrq = '2020-03-17' where fashengrq = '1020-03-17';
+update pdm.account_fy set fashengrq = '2020-05-08' where fashengrq = '1020-05-08';
 update pdm.account_fy set fashengrq = '2020-04-25' where fashengrq = '1020-04-25';
 update pdm.account_fy set fashengrq = '2019-03-20' where fashengrq = '1019-03-20';
 update pdm.account_fy set fashengrq = '2019-09-17' where fashengrq = '1019-09-17';
