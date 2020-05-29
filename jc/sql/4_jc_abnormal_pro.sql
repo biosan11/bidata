@@ -157,10 +157,10 @@ select distinct
   from edw.x_ldt_list_before where bi_cinvcode = '请核查'
 ;
 
-
+-- 进行拆分
 insert into tracking.jc_abnormal_day
 select distinct 
-       'excel'
+       'BKJC'
       ,'edw' as source
       ,'x_sales_bk' as tb_name
       ,null
@@ -170,8 +170,38 @@ select distinct
       ,'产品清洗' as type
       ,1 as leve
       ,CURDATE( ) as date
-  from edw.x_sales_bk where bi_cinvcode = '请核查'
+  from edw.x_sales_bk where bi_cinvcode = '请核查' and (db = 'bk' or db = 'BK')
 ;
+insert into tracking.jc_abnormal_day
+select distinct 
+       'ZYJC'
+      ,'edw' as source
+      ,'x_sales_bk' as tb_name
+      ,null
+      ,'product_ori' as err_col
+      ,null as err_value
+      ,product_ori as err_col_name
+      ,'产品清洗' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from edw.x_sales_bk where bi_cinvcode = '请核查' and (db = 'ZYSY' or db = 'ZYJK')
+;
+
+insert into tracking.jc_abnormal_day
+select distinct 
+       'TEMP'
+      ,'edw' as source
+      ,'x_sales_bk' as tb_name
+      ,null
+      ,'product_ori' as err_col
+      ,null as err_value
+      ,product_ori as err_col_name
+      ,'产品清洗' as type
+      ,1 as leve
+      ,CURDATE( ) as date
+  from edw.x_sales_bk where bi_cinvcode = '请核查' and (db = 'JYMT' or db = 'XJ')
+;
+
 
 insert into tracking.jc_abnormal_day
 select distinct 
