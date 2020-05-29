@@ -220,7 +220,7 @@ select distinct
 
 insert into tracking.jc_abnormal_day
 select distinct 
-       'excel'
+       'BKJC'
       ,'edw' as source
       ,'x_ldt_bk' as tb_name
       ,null
