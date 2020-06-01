@@ -59,8 +59,8 @@ alter table test.bonus_base_budget add index (ddate),add index (matchid);
 
 -- 明细匹配人员数据(19年人员 用20年客户同期的人员)
 
-drop table if exists test.bonus_base_person;
-create table if not exists test.bonus_base_person
+drop table if exists report.bonus_base_person;
+create table if not exists report.bonus_base_person
 -- 先取2020年实际数据
 select 
     a.cohr
@@ -92,7 +92,7 @@ where a.ddate >= '2020-01-01'
 and a.isum !=0 ; -- 收入是0的数据不取 
 
 -- 取2019年实际数据
-insert into test.bonus_base_person
+insert into report.bonus_base_person
 select 
     a.cohr
     ,a.ddate
@@ -123,7 +123,7 @@ where a.ddate >= '2019-01-01' and a.ddate <= '2019-12-31'
 and a.isum != 0 ; -- 收入是0的数据不取 
 
 -- 取2020年计划数据 
-insert into test.bonus_base_person
+insert into report.bonus_base_person
 select 
     a.cohr
     ,a.ddate
@@ -154,16 +154,16 @@ where a.ddate >= '2020-01-01'
 and a.isum_budget != 0; -- 计划收入是0的数据不取 
 
 -- 非省区客户,手动维护 
-update test.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "浙江迪安深海冷链物流有限公司";
-update test.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "杭州优客互动网络科技有限公司";
-update test.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "湖南文吉健康管理有限公司";
-update test.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "浙江玺诺医疗器械有限公司";
-update test.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "杭州方回春堂同心中医门诊部有限公司";
+update report.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "浙江迪安深海冷链物流有限公司";
+update report.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "杭州优客互动网络科技有限公司";
+update report.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "湖南文吉健康管理有限公司";
+update report.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "浙江玺诺医疗器械有限公司";
+update report.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "杭州方回春堂同心中医门诊部有限公司";
 
 
 -- 根据20年奖金方案 聚合减少数据量
-drop table if exists test.bonus_base_cal;
-create table if not exists test.bonus_base_cal
+drop table if exists report.bonus_base_cal;
+create table if not exists report.bonus_base_cal
 select 
     year(a.ddate) as year_
     ,month(a.ddate) as month_
@@ -176,7 +176,7 @@ select
     ,c.equipment
     ,sum(isum) as isum 
     ,sum(isum_budget) as isum_budget
-from test.bonus_base_person as a 
+from report.bonus_base_person as a 
 left join edw.map_inventory as c 
 on a.cinvcode = c.bi_cinvcode 
 group by year_,month_,a.province,a.areadirector,a.cverifier,c.cinv_key_2020,c.screen_class,c.equipment;
