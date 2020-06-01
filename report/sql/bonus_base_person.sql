@@ -167,6 +167,8 @@ create table if not exists report.bonus_base_cal
 select 
     year(a.ddate) as year_
     ,month(a.ddate) as month_
+    ,a.sales_dept
+    ,a.sales_region_new
     ,a.province
     ,a.mark_province
     ,a.areadirector
