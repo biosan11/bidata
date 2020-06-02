@@ -480,9 +480,9 @@ select distinct
       ,'edw' as source
       ,'x_sales_bkgr' as tb_name
       ,null
-      ,'ccusname_ori' as err_col
+      ,'true_ccusname_ori' as err_col
       ,null as err_value
-      ,ccusname_ori as err_col_name
+      ,true_ccusname_ori as err_col_name
       ,'客户清洗' as type
       ,1 as leve
       ,CURDATE( ) as date
