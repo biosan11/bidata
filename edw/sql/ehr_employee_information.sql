@@ -142,6 +142,7 @@ select a.userid
 ,a.mobilephone
 ,a.workdate
 ,a.birthday
+,b.oiddepartment as dept_id
 ,b.dept_name
 ,c.name as first_dept
 ,d.name as second_dept
@@ -261,6 +262,7 @@ select distinct userid
       ,mobilephone
       ,workdate
       ,birthday
+      ,dept_id
       ,dept_name
       ,first_dept
       ,second_dept
@@ -309,6 +311,7 @@ select distinct userid
       ,mobilephone
       ,workdate
       ,birthday
+      ,dept_id
       ,dept_name
       ,first_dept
       ,concat(ifnull(second_dept,''),ifnull(third_dept,''))
@@ -360,6 +363,7 @@ select a.userid
       ,a.mobilephone
       ,a.workdate
       ,a.birthday
+      ,a.dept_id
       ,a.dept_name
       ,a.first_dept
       ,a.second_dept
