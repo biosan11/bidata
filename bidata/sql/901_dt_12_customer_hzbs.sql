@@ -49,8 +49,27 @@ group by true_ccuscode;
 
 -- 1.5 取 ft_25_outdepot_hzbs 去重客户
 insert into bidata.bi_customer_pre
-select ccuscode from bidata.ft_25_outdepot_hzbs group by ccuscode;
+select ccuscode from bidata.ft_25_outdepot_hzbs 
+where cohr = '杭州贝生'
+group by ccuscode;
 
+-- 1.6 取 bidata.sales_cost
+insert into bidata.bi_customer_pre 
+select ccuscode from bidata.sales_cost 
+where cohr = '杭州贝生'
+group by ccuscode;
+
+-- 1.7 取发货单数据 
+insert into bidata.bi_customer_pre 
+select finnal_ccuscode from bidata.ft_61_dispatch 
+where cohr = '杭州贝生'
+group by finnal_ccuscode;
+
+-- 1.8 取订单数据 
+insert into bidata.bi_customer_pre 
+select finnal_ccuscode from bidata.ft_111_sales_order
+where cohr = '杭州贝生'
+group by finnal_ccuscode;
 
 
 -- 1.* 生成bi_customer
