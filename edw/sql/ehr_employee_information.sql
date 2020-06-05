@@ -371,14 +371,22 @@ select a.userid
       ,a.fourth_dept
       ,a.fifth_dept
       ,a.sixth_dept
-      ,b.cdept_id_ehr
-      ,b.name_ehr
-      ,a.first_dept
-      ,b.second_dept
-      ,b.third_dept
-      ,b.fourth_dept
-      ,b.fifth_dept
-      ,b.sixth_dept
+-- 原逻辑      ,b.cdept_id_ehr
+-- 原逻辑      ,b.name_ehr
+-- 原逻辑      ,a.first_dept
+-- 原逻辑      ,b.second_dept
+-- 原逻辑      ,b.third_dept
+-- 原逻辑      ,b.fourth_dept
+-- 原逻辑      ,b.fifth_dept
+-- 原逻辑      ,b.sixth_dept
+      ,ifnull(b.cdept_id_ehr,a.dept_id)             -- 200605新逻辑
+      ,ifnull(b.name_ehr,a.dept_name)               -- 200605新逻辑
+      ,a.first_dept                                 -- 200605新逻辑
+      ,ifnull(b.second_dept,a.second_dept)          -- 200605新逻辑
+      ,ifnull(b.third_dept,a.third_dept)            -- 200605新逻辑
+      ,ifnull(b.fourth_dept,a.fourth_dept)          -- 200605新逻辑
+      ,ifnull(b.fifth_dept,a.fifth_dept)            -- 200605新逻辑
+      ,ifnull(b.sixth_dept,a.sixth_dept)            -- 200605新逻辑
       ,a.position_name
       ,a.jobpost_name
       ,a.oidjoblevel
@@ -400,9 +408,24 @@ select a.userid
       ,a.start_dt
       ,a.end_dt
       ,a.sys_time
+      ,if(b.cdept_id_ehr is not null , 'y','n')    -- 200605新逻辑
   from edw.ehr_employee_fin a
-  left join (select * from edw.dic_deptment group by cdept_name) b
-    on CONCAT(ifnull(a.dept_name,''),ifnull(a.first_dept,''),ifnull(a.second_dept,''),ifnull(a.third_dept,''),ifnull(a.fourth_dept,''),ifnull(a.fifth_dept,''),ifnull(a.sixth_dept,''),ifnull(a.position_name,'')) = b.cdept_name
+--   left join (select * from edw.dic_deptment group by cdept_name) b
+--     on CONCAT(ifnull(a.dept_name,''),ifnull(a.first_dept,''),ifnull(a.second_dept,''),ifnull(a.third_dept,''),ifnull(a.fourth_dept,''),ifnull(a.fifth_dept,''),ifnull(a.sixth_dept,''),ifnull(a.position_name,'')) = b.cdept_name
+  left join (select * from edw.dic_deptment where source = 'ehr' group by cdept_id) as b
+  on a.dept_id = b.cdept_id 
+;
+-- 实验员部门清洗
+update edw.ehr_employee as a
+join (select * from edw.dic_deptment where source = 'ehr_sy' group by cdept_id) as b 
+on concat(a.cdept_id, a.position_name) = b.cdept_id 
+set a.cdept_id = b.cdept_id_ehr
+,a.cdept_name = b.name_ehr
+,a.cdept_lv2 = b.second_dept
+,a.cdept_lv3 = b.third_dept
+,a.cdept_lv4 = b.fourth_dept
+,a.cdept_lv5 = b.fifth_dept
+,a.cdept_lv6 = b.sixth_dept
 ;
 
 
