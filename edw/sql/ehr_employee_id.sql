@@ -56,67 +56,72 @@ select distinct a.userid
 -- 任职记录表的数据整合
 drop table if exists edw.employment_record;
 create temporary table edw.employment_record as
-select * from (
-select a.userid
-,a.oiddepartment
-,a.sys_date
-,d.name as dept_name
-,d.firstlevelorganization
-,d.secondlevelorganization
-,d.thirdlevelorganization
-,d.fourthlevelorganization
-,d.fifthlevelorganization
-,d.sixthlevelorganization
-,d.seventhlevelorganization
-,e.name as position_name
-,f.name as jobpost_name
-,a.oidjoblevel
-,a.oidjobgrade
-,a.entrydate
-,a.startdate
-,a.stopdate
-,g.transitiontype
-,a.probation
-,c.name as employeestatus
-,a.workyeartotal
-,a.workyearcompanytotal
-,a.probationstartdate
-,a.probationstopdate
-,a.regularizationdate
-,b.name as probationresult
-,a.lastworkdate
-,a.extlizhireason_107502_632202192
-,h.name as poidempadmin
-,i.name as poidempreserve2
-,a.jobnumber
-,a.workyearbefore
-,a.workyearcompanybefore
-,a.employmenttype
-,j.name as address_usual
-,k.name as address_fuli
-  from ufdata.ehr_employment_record_id a
-  left join (select id,name from edw.dic_ehr where type = 'probation') b
-    on a.probationresult = b.id
-  left join (select id,name from edw.dic_ehr where type = 'status') c
-    on a.employeestatus = c.id
-  left join ufdata.ehr_organization d
-    on a.oiddepartment = d.oid
-  left join ufdata.ehr_position e
-    on a.oidjobposition = e.oid
-  left join ufdata.ehr_jobpost f
-    on a.oidjobpost = f.oid
-  left join ufdata.ehr_emptransition_type g
-    on a.transitiontypeoid = g.oid
-  left join (select userid,name from ufdata.ehr_employee_information where stdisdeleted = 'false' group by userid) h
-    on a.poidempadmin = h.userid
-  left join (select userid,name from ufdata.ehr_employee_information where stdisdeleted = 'false' group by userid) i
-    on a.poidempadmin = i.userid
-  left join (select * from edw.dic_ehr where type = 'address') j
-    on a.extzhudi_107502_1469764567 = j.id
-  left join (select * from edw.dic_ehr where type = 'address') k
-    on a.extfulidi_107502_234107054 = k.id
- where a.stdisdeleted = 'false'
- order by sys_date desc) b
+select 
+    * 
+from 
+(
+select 
+    a.userid
+    ,a.oiddepartment
+    ,a.sys_date
+    ,d.name as dept_name
+    ,d.firstlevelorganization
+    ,d.secondlevelorganization
+    ,d.thirdlevelorganization
+    ,d.fourthlevelorganization
+    ,d.fifthlevelorganization
+    ,d.sixthlevelorganization
+    ,d.seventhlevelorganization
+    ,e.name as position_name
+    ,f.name as jobpost_name
+    ,a.oidjoblevel
+    ,a.oidjobgrade
+    ,a.entrydate
+    ,a.startdate
+    ,a.stopdate
+    ,g.transitiontype
+    ,a.probation
+    ,c.name as employeestatus
+    ,a.workyeartotal
+    ,a.workyearcompanytotal
+    ,a.probationstartdate
+    ,a.probationstopdate
+    ,a.regularizationdate
+    ,b.name as probationresult
+    ,a.lastworkdate
+    ,a.extlizhireason_107502_632202192
+    ,h.name as poidempadmin
+    ,i.name as poidempreserve2
+    ,a.jobnumber
+    ,a.workyearbefore
+    ,a.workyearcompanybefore
+    ,a.employmenttype
+    ,j.name as address_usual
+    ,k.name as address_fuli
+      from ufdata.ehr_employment_record_id a
+      left join (select id,name from edw.dic_ehr where type = 'probation') b
+        on a.probationresult = b.id
+      left join (select id,name from edw.dic_ehr where type = 'status') c
+        on a.employeestatus = c.id
+      left join ufdata.ehr_organization d
+        on a.oiddepartment = d.oid
+      left join ufdata.ehr_position e
+        on a.oidjobposition = e.oid
+      left join ufdata.ehr_jobpost f
+        on a.oidjobpost = f.oid
+      left join ufdata.ehr_emptransition_type g
+        on a.transitiontypeoid = g.oid
+      left join (select userid,name from ufdata.ehr_employee_information where stdisdeleted = 'false' group by userid) h
+        on a.poidempadmin = h.userid
+      left join (select userid,name from ufdata.ehr_employee_information where stdisdeleted = 'false' group by userid) i
+        on a.poidempadmin = i.userid
+      left join (select * from edw.dic_ehr where type = 'address') j
+        on a.extzhudi_107502_1469764567 = j.id
+      left join (select * from edw.dic_ehr where type = 'address') k
+        on a.extfulidi_107502_234107054 = k.id
+     where a.stdisdeleted = 'false'
+     order by sys_date desc
+     ) b
 ;
 
 
@@ -312,14 +317,22 @@ select userid
       ,a.fourth_dept
       ,a.fifth_dept
       ,a.sixth_dept
-      ,b.cdept_id_ehr
-      ,b.name_ehr
-      ,a.first_dept
-      ,b.second_dept
-      ,b.third_dept
-      ,b.fourth_dept
-      ,b.fifth_dept
-      ,b.sixth_dept
+-- 原逻辑      ,b.cdept_id_ehr
+-- 原逻辑      ,b.name_ehr
+-- 原逻辑      ,a.first_dept
+-- 原逻辑      ,b.second_dept
+-- 原逻辑      ,b.third_dept
+-- 原逻辑      ,b.fourth_dept
+-- 原逻辑      ,b.fifth_dept
+-- 原逻辑      ,b.sixth_dept
+      ,ifnull(b.cdept_id_ehr,a.dept_id)             -- 200605新逻辑
+      ,ifnull(b.name_ehr,a.dept_name)               -- 200605新逻辑
+      ,a.first_dept                                 -- 200605新逻辑
+      ,ifnull(b.second_dept,a.second_dept)          -- 200605新逻辑
+      ,ifnull(b.third_dept,a.third_dept)            -- 200605新逻辑
+      ,ifnull(b.fourth_dept,a.fourth_dept)          -- 200605新逻辑
+      ,ifnull(b.fifth_dept,a.fifth_dept)            -- 200605新逻辑
+      ,ifnull(b.sixth_dept,a.sixth_dept)            -- 200605新逻辑
       ,a.position_name
       ,a.jobpost_name
       ,a.oidjoblevel
@@ -339,11 +352,25 @@ select userid
       ,a.workyearbefore
       ,a.workyearcompanybefore
       ,a.sys_time
+      ,if(b.cdept_id_ehr is not null , 'y','n')    -- 200605新逻辑
   from edw.ehr_employee_id_fin a
-  left join (select * from edw.dic_deptment group by cdept_name) b
-    on CONCAT(ifnull(a.dept_name,''),ifnull(a.first_dept,''),ifnull(a.second_dept,''),ifnull(a.third_dept,''),ifnull(a.fourth_dept,''),ifnull(a.fifth_dept,''),ifnull(a.sixth_dept,''),ifnull(a.position_name,'')) = b.cdept_name
+--   left join (select * from edw.dic_deptment group by cdept_name) b
+--     on CONCAT(ifnull(a.dept_name,''),ifnull(a.first_dept,''),ifnull(a.second_dept,''),ifnull(a.third_dept,''),ifnull(a.fourth_dept,''),ifnull(a.fifth_dept,''),ifnull(a.sixth_dept,''),ifnull(a.position_name,'')) = b.cdept_name
+  left join (select * from edw.dic_deptment where source = 'ehr' group by cdept_id) as b
+  on a.dept_id = b.cdept_id 
 ;
 
+update edw.ehr_employee_id as a
+join (select * from edw.dic_deptment where source = 'ehr_sy' group by cdept_id) as b 
+on concat(a.cdept_id, a.position_name) = b.cdept_id 
+set a.cdept_id = b.cdept_id_ehr
+,a.cdept_name = b.name_ehr
+,a.cdept_lv2 = b.second_dept
+,a.cdept_lv3 = b.third_dept
+,a.cdept_lv4 = b.fourth_dept
+,a.cdept_lv5 = b.fifth_dept
+,a.cdept_lv6 = b.sixth_dept
+;
 
 -- 插入数据	
 -- truncate table edw.ehr_employee_id;
