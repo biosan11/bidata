@@ -219,6 +219,7 @@ select a.cohr1 as cohr
       ,null
       ,null
       ,null
+      ,null
   from pdm.mid31_cusitem_person_newstate a
   left join pdm.mid1_cusitem_person_newstate b
     on a.cohr1 = b.cohr1
@@ -361,6 +362,7 @@ select a.*
       ,null
       ,null
       ,null
+      ,null
   from pdm.mid6_cusitem_person_newstate a
   left join pdm.cusitem_person_newstate b
     on a.cohr = b.cohr
@@ -428,4 +430,16 @@ update pdm.cusitem_person_newstate set if_mechanism_online = 'True' where nsieve
 
 -- 200424确认删除健康项目
 delete from pdm.cusitem_person_newstate where left(item_code,2) = 'jk';
+
+
+-- 增加客户项目成功率
+update pdm.cusitem_person_newstate a
+ inner join (select cohr,bi_cuscode,item_code,max(plan_success_rate) as plan_success_rate from edw.x_sales_budget_20 group by cohr,bi_cuscode,item_code) b
+    on a.cuscode = b.bi_cuscode
+   and left(a.cohr,2) = left(b.cohr,2)
+   and a.item_code = b.item_code
+   set a.plan_success_rate = b.plan_success_rate
+-- where type = '只有计划'
+;
+
 
