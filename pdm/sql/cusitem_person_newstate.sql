@@ -32,7 +32,7 @@ select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as
   from pdm.invoice_order
  where year(ddate) = '2019'
    and left(finnal_ccuscode,2) = 'ZD'
-   and ifnull(isum,0) <> 0
+   and (ifnull(isum,0) >= 0 or ifnull(iquantity,0) >= 0)
  group by cohr1,finnal_ccuscode
 ;
 
@@ -245,7 +245,7 @@ select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as
   from pdm.invoice_order
  where year(ddate) = '2019'
    and left(finnal_ccuscode,2) = 'ZD'
-   and ifnull(isum,0) <> 0
+   and (ifnull(isum,0) >= 0 or ifnull(iquantity,0) >= 0)
  group by cohr1,finnal_ccuscode,(case when cinvcode in ('SJ02030','TEMP2020_1') then cinvcode else item_code end)
 ;
 
