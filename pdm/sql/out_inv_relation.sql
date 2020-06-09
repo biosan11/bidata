@@ -561,6 +561,7 @@ select a.db
   from edw.x_out_inv_relation a
   left join (select * from pdm.out_inv_relation group by cdlcode) b
     on a.cdlcode = b.cdlcode
+   and a.bi_cinvcode = b.cinvcode
   left join (select * from pdm.invoice_price where state = '最后一次价格' group by finnal_ccuscode,cinvcode) c
     on a.bi_ccuscode = c.finnal_ccuscode
    and a.bi_cinvcode = c.cinvcode
