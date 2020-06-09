@@ -51,11 +51,12 @@ select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as
       ,cverifier
       ,areadirector
       ,item_code
+      ,sum(isum) as isum_
   from pdm.invoice_order
  where year(ddate) = '2020'
    and left(finnal_ccuscode,2) = 'ZD'
-   and ifnull(isum,0) <> 0
  group by cohr1,finnal_ccuscode,cinvcode
+ having isum_ <> 0
 ;
 
 -- 跟新杰毅NIPT、东方海洋VD
@@ -140,6 +141,7 @@ select a.cohr1 as cohr
       ,null
       ,null
       ,null
+      ,1
   from pdm.mid2_cusitem_person_newstate a
   left join pdm.mid1_cusitem_person_newstate b
     on a.cohr1 = b.cohr1
@@ -219,7 +221,7 @@ select a.cohr1 as cohr
       ,null
       ,null
       ,null
-      ,null
+      ,1
   from pdm.mid31_cusitem_person_newstate a
   left join pdm.mid1_cusitem_person_newstate b
     on a.cohr1 = b.cohr1
@@ -442,4 +444,20 @@ update pdm.cusitem_person_newstate a
 -- where type = '只有计划'
 ;
 
+-- 判断一下20年收入是否为0，是则不计算
+drop table if exists pdm.mid2_cusitem_person_newstate;
+create temporary table pdm.mid2_cusitem_person_newstate as
+select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as cohr1
+      ,finnal_ccuscode
+  from pdm.invoice_order
+ where year(ddate) = '2020'
+   and left(finnal_ccuscode,2) = 'ZD'
+ group by cohr1,finnal_ccuscode
+ having sum(isum) = 0
+;
+
+delete from pdm.cusitem_person_newstate 
+ where concat(cohr,cuscode) in (select concat(cohr1,finnal_ccuscode) from pdm.mid2_cusitem_person_newstate)
+   and type <> '只有计划'
+;
 
