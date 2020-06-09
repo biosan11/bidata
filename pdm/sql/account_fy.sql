@@ -73,12 +73,54 @@ where dbill_date >= '2019-01-01'
 -- 创建oa共有的情况表
 drop table if exists pdm.accvouch_oa_pre;
 create temporary table pdm.accvouch_oa_pre as
-select a.*
+select a.id
+      ,a.lc_state
+      ,a.baoxiaorq
+      ,a.liuchengbh
+      ,a.baoxiaor
+      ,a.bx_name
+      ,a.baoxiaorbm
+      ,a.bxr_dept_name
+      ,a.chengdanr
+      ,a.cd_name
+      ,a.chengdanrbm
+      ,a.cdr_dept_name
+      ,a.kaipiaogs
+      ,a.subcompanyname
+      ,a.db
+      ,a.feiyonglx
+      ,a.selectname
+      ,a.u8km
+      ,a.u8dykm
+      ,a.u8_ccode
+      ,a.kmwb
+      ,a.oa_ccode
+      ,a.oa_ccode_name
+      ,a.oa_ccode_lv2
+      ,a.oa_ccode_name_lv2
+      ,a.fashengrq
+      ,a.pingzhengscrq
+      ,a.xiangguankh
+      ,a.kehumc
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,a.province
+      ,a.neibuhy
+      ,a.huiyimc
+      ,a.neibuhylx
+      ,a.neibuhylxmc
+      ,sum(jine) as jine
+      ,a.shuoming
+      ,a.beizhu
+      ,a.new_beizhu
+      ,a.km
+      ,a.sys_time
   from edw.accvouch_oa a
   left join (select * from pdm.accvouch_u8_pre group by liuchengbh) b
     on a.liuchengbh = b.liuchengbh
  where b.liuchengbh is not null
    and left(a.oa_ccode,2) in ('51','53','64','66')
+ group by a.bi_cuscode,a.u8km,a.liuchengbh
 ;
 
 drop table if exists pdm.account_fy_pre2;
