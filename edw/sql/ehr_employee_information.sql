@@ -418,7 +418,7 @@ select a.userid
 -- 实验员部门清洗
 update edw.ehr_employee as a
 join (select * from edw.dic_deptment where source = 'ehr_sy' group by cdept_id) as b 
-on concat(a.cdept_id, a.position_name) = b.cdept_id 
+on concat(a.dept_id, a.position_name) = b.cdept_id 
 set a.cdept_id = b.cdept_id_ehr
 ,a.cdept_name = b.name_ehr
 ,a.cdept_lv2 = b.second_dept
