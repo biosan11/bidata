@@ -55,7 +55,7 @@ select a.cohr
     on a.bi_cuscode = b.bi_cuscode
   left join (select * from ufdata.code group by ccode) c
     on left(code,4) = c.ccode
- where a.dbill_date >= '2019-01-01'
+ where a.dbill_date >= '2018-01-01'
 ;
 
 -- 更新销售中心的部门标签

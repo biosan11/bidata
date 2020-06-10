@@ -138,4 +138,4 @@ on a.year_ = d.year_ and a.month_ = d.month_
 left join report.fin_prov_tem05 as e
 on a.year_ = e.year_ and a.month_ = e.month_
 left join report.fin_prov_tem06 as f
-on a.year_ = f.year_ and a.month_ = f.month_ and a.sales_region = f.sales_region_new ;
+on a.year_ = f.year_ and a.month_ = f.month_ and a.sales_region_new = f.sales_region_new ;
