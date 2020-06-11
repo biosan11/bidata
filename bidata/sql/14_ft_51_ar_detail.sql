@@ -69,8 +69,8 @@ select
     ,cinvcode 
     ,ar_class 
     ,cdigest 
-    ,round(idamount/1000,5)  
-    ,round(icamount/1000,5)
+    ,round(idamount/1000,4)  
+    ,round(icamount/1000,4)
     ,idamount_s 
     ,idamount_s 
     ,date_ar 
