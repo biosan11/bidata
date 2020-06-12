@@ -519,6 +519,7 @@ select a.db
       ,a.iorderdid
       ,a.iordercode
       ,a.cinvcode
+      ,null
       ,a.bi_cinvcode
       ,a.bi_cinvname
       ,a.iquantity
@@ -591,4 +592,21 @@ set true_finnal_ccuscode = 'DL5101020'
 , true_finnal_ccusname2 = '杭州杰毅麦特医疗器械有限公司（西南区）'
 where db = 'UFDATA_889_2019'
   and true_finnal_ccuscode = 'DL3301005';
+
+
+-- 还原第二层原始U8产品名称
+update edw.outdepot_order a
+ inner join (select * from edw.inventory group by cinvcode,left(db,10)) b
+    on left(a.db,10) = left(b.db,10)
+   and a.cinvcode = b.cinvcode
+   set a.cinvname = b.cinvname
+;
+
+update edw.outdepot_order a
+ inner join (select * from edw.inventory group by cinvcode) b
+    on a.cinvcode = b.cinvcode
+   set a.cinvname = b.cinvname
+ where a.cinvname is null
+;
+
 
