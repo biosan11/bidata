@@ -104,8 +104,9 @@ select a.db
   from ufdata.gl_accvouch a
   left join (select ccode,ccode_name from edw.code group by ccode) b
     on a.ccode = b.ccode
-  left join (select * from edw.department_pre group by cdepcode) c
+  left join (select * from edw.department_pre group by cdepcode,left(db,10)) c
     on a.cdept_id = c.cdepcode
+   and left(a.db,10) = left(c.db,10)
   left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
     on a.cperson_id = d.cpersoncode
    and left(a.db,10) = left(d.db,10)
@@ -148,7 +149,7 @@ select a.db
   from ufdata.gl_accvouch a
   left join (select ccode,ccode_name from ufdata.code group by ccode) b
     on a.ccode = b.ccode
-  left join (select * from edw.department_pre group by cdepcode,db) c
+  left join (select * from edw.department_pre group by cdepcode,left(db,10)) c
     on a.cdept_id = c.cdepcode
    and left(a.db,10) = left(c.db,10)
   left join (select cpersoncode,cpersonname,db from ufdata.person group by cpersoncode,left(db,10)) d
@@ -208,6 +209,17 @@ select a.db
    and left(a.db,10) = 'UFDATA_168'
 ;
 
+-- 更新没有关联上的部门
+update edw.accvouch_u8_pre a
+ inner join (select * from edw.department_pre group by cdepcode) c
+    on a.cdept_id = c.cdepcode
+   set a.cdepname = c.cdepname
+      ,a.cdepname_lv1 = substring_index(substring_index(c.cdepfullname, '/', 1) , '/', -1)
+      ,a.cdepname_lv1 = substring_index(substring_index(c.cdepfullname, '/', 2) , '/', -1)
+      ,a.cdepname_lv1 = substring_index(substring_index(c.cdepfullname, '/', 3) , '/', -1)
+      ,a.cdepname_lv1 = substring_index(substring_index(c.cdepfullname, '/', 4) , '/', -1)
+ where a.cdepname is null and a.cdept_id is not null
+;
 
 truncate table edw.accvouch_u8;
 insert into edw.accvouch_u8
