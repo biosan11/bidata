@@ -1,7 +1,7 @@
 truncate table edw.x_insure_cover;
 insert into edw.x_insure_cover
-select a.province
-      ,a.city
+select d.province
+      ,d.city
       ,a.hospital
       ,case when a.hospital is not null and b.ccusname is null then '请核查' else b.bi_cuscode end as bi_cuscode
       ,case when a.hospital is not null and b.ccusname is null then '请核查' else b.bi_cusname end as bi_cusname
@@ -21,4 +21,6 @@ select a.province
     on a.hospital = b.ccusname
   left join (select * from edw.dic_inventory group by cinvname) c
     on a.item_name = c.cinvname
+  left join edw.map_customer as d 
+    on b.bi_cuscode = d.bi_cuscode
 ;
