@@ -73,8 +73,8 @@ insert into bidata.bi_customer_pre
 select ccuscode from bidata.ft_41_cusitem_occupy group by ccuscode;
 
 -- 2.1 应收部分ft_51_ar
-insert into bidata.bi_customer_pre
-select true_ccuscode from bidata.ft_51_ar group by true_ccuscode;
+-- insert into bidata.bi_customer_pre
+-- select true_ccuscode from bidata.ft_51_ar group by true_ccuscode;
 
 -- 2.2 收入成本
 -- insert into bidata.bi_customer_pre
