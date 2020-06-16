@@ -34,7 +34,7 @@ select a.cohr
   from ufdata.x_account_fy a
   left join (select * from edw.dic_customer group by ccusname) b
     on replace(trim(a.kehumc),' ','') = b.ccusname
-  left join (select * from edw.dic_deptment_0426 cdept_name) c
+  left join (select * from edw.dic_deptment where source = 'xlsx' group by cdept_name) c
     on a.cdr_dept_name = c.cdept_name
 ;
 
