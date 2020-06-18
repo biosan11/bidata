@@ -393,7 +393,6 @@ select a.db
       ,a.sbvid
       ,a.csbvcode
       ,a.csocode
-      ,a.cbsaleout
       ,a.ddate
       ,a.ccuscode
       ,a.ccusname
@@ -447,6 +446,7 @@ select a.db
       ,a.tbquantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cbsaleout
       ,a.cmemo
   from edw.mid3_invoice_order a
   left join edw.dic_inventory b
