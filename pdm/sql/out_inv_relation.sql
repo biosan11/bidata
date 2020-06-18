@@ -548,7 +548,7 @@ select a.db
       ,a.iquantity
       ,a.isettlequantity
       ,a.cdefine23
-      ,ifnull(c.itaxunitprice * a.iquantity,0)
+      ,ifnull(c.itaxunitprice,0)
       ,0
       ,a.plan_dt
       ,a.cstcode
@@ -557,7 +557,7 @@ select a.db
       ,a.province
       ,a.city
       ,a.cmemo
-      ,'出库单'
+      ,'作废未开票'
   from edw.x_out_inv_relation a
   left join (select * from pdm.out_inv_relation group by cdlcode) b
     on a.cdlcode = b.cdlcode
