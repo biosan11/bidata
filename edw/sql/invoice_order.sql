@@ -311,6 +311,7 @@ select a.db
       ,b.tbquantity
       ,b.cdefine23
       ,b.cdefine36
+      ,b.cbsaleout
       ,a.cmemo
       ,localtimestamp() as sys_time
   from edw.mid2_invoice_order a
@@ -379,6 +380,7 @@ select a.db
       ,a.tbquantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cbsaleout
       ,a.cmemo
   from edw.mid3_invoice_order a
   left join (select cinvcode,db,bi_cinvcode,bi_cinvname from edw.dic_inventory group by cinvcode) b
@@ -391,6 +393,7 @@ select a.db
       ,a.sbvid
       ,a.csbvcode
       ,a.csocode
+      ,a.cbsaleout
       ,a.ddate
       ,a.ccuscode
       ,a.ccusname
@@ -458,6 +461,7 @@ select distinct a.db
       ,a.sbvid
       ,a.csbvcode
       ,a.csocode
+      ,a.cbsaleout
       ,a.ddate
       ,a.ccuscode
       ,a.ccusname
