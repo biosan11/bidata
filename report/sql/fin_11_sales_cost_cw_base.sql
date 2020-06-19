@@ -191,7 +191,7 @@ update report.fin_11_sales_cost_cw_base set type = '关联公司' where left(ccu
 -- ;
 
 -- 删除收入是0的数据，这里默认是红冲造成的
-delete from report.mid1_fin_11_sales_cost_cw_base where isum = 0 and cost = 0; 
+-- delete from report.mid1_fin_11_sales_cost_cw_base where isum = 0 and cost = 0; 
 
 -- 得到所有关联公司当月的的非零成本价
 drop table if exists report.mid2_fin_11_sales_cost_cw_base;
