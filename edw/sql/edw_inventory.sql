@@ -309,6 +309,11 @@ update edw.map_inventory set cinv_own ='自有产品_甄元' where cinvbrand='�
 update edw.map_inventory set cinv_own ='自有产品_杰毅麦特' where cinvbrand='杰毅麦特';
 update edw.map_inventory set cinv_own ='自有产品_贝安云' where cinvbrand='贝安云';
 
+-- 20200618更新: 产品档案中 425_item, item_key_2019等, 空替换成null
+update edw.map_inventory set 425_item = null where 425_item = '';
+update edw.map_inventory set item_key_2019 = null where item_key_2019 = '';
+update edw.map_inventory set cinv_key_2020 = null where cinv_key_2020 = '';
+update edw.map_inventory set cinv_own = null where cinv_own = '';
 
 -- 这里每天全量覆盖现有的项目档案的情况,每日一运行保持一致
 truncate table edw.map_item;
