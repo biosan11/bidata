@@ -140,7 +140,7 @@ update report.fin_11_sales_cost_cw_base as a
       ,a.cost = 0
  where a.sales_type <> '固定资产'
 ;
-
+ 
 -- 关联公司、美博特的客户类型更新
 update report.fin_11_sales_cost_cw_base set type = '美博特' where cohr = '美博特';
 update report.fin_11_sales_cost_cw_base set type = '关联公司' where left(ccuscode,2) = 'GL';

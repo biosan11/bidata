@@ -15,7 +15,7 @@
 --         V1.0     jiangsh  2020-03-30   修改销售出库类型，转为中文
 --调用方法　python /home/bidata/edw/invoice_order_cost.py 1900-01-01 1900-01-01
 ------------------------------------开始处理逻辑------------------------------------------
-
+ 
 
 truncate table pdm.invoice_order_cw;
 insert into pdm.invoice_order_cw
