@@ -107,16 +107,11 @@ select
     ,ifnull(a.itax,0) as itax 
     ,a.isum
     ,a.isum - ifnull(a.itax,0) as isum_notax
-    ,(case when price1 <> 0 then price1 else price end) / (case when a.db = "UFDATA_889_2018" then ifnull(a.iquantity,0)
+    ,price1 / (case when a.db = "UFDATA_889_2018" then ifnull(a.iquantity,0)
                                                                 when a.itb = "退补" then ifnull(a.tbquantity,0)
                                                                 when a.itb = "1" then ifnull(a.tbquantity,0) 
                                                                 else ifnull(a.iquantity,0)  end) as cost_price
-    ,case 
-        when a.sales_type = "固定资产" then 0
---        when tbquantity < 0 then (case when price1 <> 0 then price1 else price end) * -1
-        when price1 <> 0 then price1
-        else price
-     end as cost
+    ,case when a.sales_type = "固定资产" then 0 else price1 end as cost
     ,0 -- 这里是两个关联公司对于的成本字
     ,0
     ,'正常' as type

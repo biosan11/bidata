@@ -64,10 +64,10 @@ select a.db
       ,round(ifnull(a.itaxunitprice,0),2)
       ,round(ifnull(a.itaxrate,0),2)
       ,round(ifnull(b.iunitcost,0),2)
-      ,case when a.itb = '1' and ifnull(a.tbquantity,0) < 0 then round(ifnull(b.iprice,0),2) * - 1 else round(ifnull(b.iprice,0),2) end as price
-      ,case when a.itb = '1' and ifnull(a.tbquantity,0) < 0 then round(ifnull(d.iaoutprice,0),2) * - 1 else round(ifnull(d.iaoutprice,0),2) end as price1
---      ,round(ifnull(b.iprice,0),2) as price
---      ,round(ifnull(d.iaoutprice,0),2) price1
+--      ,case when a.itb = '1' and ifnull(a.tbquantity,0) < 0 then round(ifnull(b.iprice,0),2) * - 1 else round(ifnull(b.iprice,0),2) end as price
+--      ,case when a.itb = '1' and ifnull(a.tbquantity,0) < 0 then round(ifnull(d.iaoutprice,0),2) * - 1 else round(ifnull(d.iaoutprice,0),2) end as price1
+      ,round(ifnull(b.iprice,0),2) as price
+      ,round(ifnull(d.iaoutprice,0),2) price1
       ,a.cdefine22
       ,a.cdefine23
       ,case when a.itb = '1' then '退补' else '正常' end
