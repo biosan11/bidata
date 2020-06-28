@@ -647,6 +647,13 @@ set true_finnal_ccuscode = 'DL5101020'
 where db = 'UFDATA_889_2019'
   and true_finnal_ccuscode = 'DL3301005';
 
-
+-- 调整一笔发票，由于是捐赠的不计入销售收入，最终客户进行调整
+update edw.dispatch_order 
+   set true_finnal_ccuscode = 'DL5113001' 
+     , true_finnal_ccusname1 = '北京中慈公益基金会'
+     , true_finnal_ccusname2 = '北京中慈公益基金会'
+ where db = 'UFDATA_111_2018'
+   and cdlcode = 'ZJBSFH190920001'
+;
 
 
