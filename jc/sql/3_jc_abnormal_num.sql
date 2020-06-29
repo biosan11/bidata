@@ -175,72 +175,73 @@ select distinct
 ;
 
 -- 线上的增量监控insert into tracking.jc_abnormal_day
-insert into tracking.jc_abnormal_day
-select distinct 
-       'edw'
-      ,'edw' as source
-      ,'outdepot_order'
-      ,CURDATE( )
-      ,null
-      ,null
-      ,null
-      ,'数量监控' as type
-      ,2 as leve
-      ,CURDATE( ) as date
-  FROM (SELECT count( * ) AS num FROM ufdata.rdrecord32 a
-		LEFT JOIN edw.outdepot_order b ON a.id = b.id and a.db = b.db WHERE b.id IS NULL and a.ddate>='2019-01-01') a 
-WHERE a.num > 0;
-
-insert into tracking.jc_abnormal_day
-select distinct 
-       'edw'
-      ,'edw' as source
-      ,'invoice_order'
-      ,CURDATE( )
-      ,null
-      ,null
-      ,null
-      ,'数量监控' as type
-      ,2 as leve
-      ,CURDATE( ) as date
-  FROM (SELECT count( * ) AS num FROM ufdata.salebillvouch a
-		LEFT JOIN edw.invoice_order b ON a.sbvid = b.sbvid and a.db = b.db
-	WHERE b.sbvid IS NULL and a.ddate>='2019-01-01') a 
-WHERE a.num > 0;
-
-insert into tracking.jc_abnormal_day
-select distinct 
-       'edw'
-      ,'edw' as source
-      ,'dispatch_order'
-      ,CURDATE( )
-      ,null
-      ,null
-      ,null
-      ,'数量监控' as type
-      ,2 as leve
-      ,CURDATE( ) as date
-  FROM (SELECT count( * ) AS num FROM ufdata.dispatchlists a
-		LEFT JOIN edw.dispatch_order b ON a.autoid = b.autoid and a.db = b.db
-	WHERE b.autoid IS NULL ) a 
-WHERE a.num > 0;
-
-insert into tracking.jc_abnormal_day
-select distinct 
-       'edw'
-      ,'edw' as source
-      ,'sales_order'
-      ,CURDATE( )
-      ,null
-      ,null
-      ,null
-      ,'数量监控' as type
-      ,2 as leve
-      ,CURDATE( ) as date
-  FROM (SELECT count( * ) AS num FROM ufdata.so_sodetails a
-		LEFT JOIN edw.sales_order b ON a.autoid = b.autoid and a.db = b.db
-	WHERE b.autoid IS NULL ) a 
-WHERE a.num > 0;
+-- insert into tracking.jc_abnormal_day
+-- select distinct 
+--        'edw'
+--       ,'edw' as source
+--       ,'outdepot_order'
+--       ,CURDATE( )
+--       ,null
+--       ,null
+--       ,null
+--       ,'数量监控' as type
+--       ,2 as leve
+--       ,CURDATE( ) as date
+--   FROM (SELECT count( * ) AS num FROM ufdata.rdrecord32 a
+-- 		LEFT JOIN edw.outdepot_order b ON a.id = b.id and a.db = b.db WHERE b.id IS NULL and a.ddate>='2019-01-01') a 
+-- WHERE a.num > 0;
+-- 
+-- insert into tracking.jc_abnormal_day
+-- select distinct 
+--        'edw'
+--       ,'edw' as source
+--       ,'invoice_order'
+--       ,CURDATE( )
+--       ,null
+--       ,null
+--       ,null
+--       ,'数量监控' as type
+--       ,2 as leve
+--       ,CURDATE( ) as date
+--   FROM (SELECT count( * ) AS num FROM ufdata.salebillvouch a
+-- 		LEFT JOIN edw.invoice_order b ON a.sbvid = b.sbvid and a.db = b.db
+-- 	WHERE b.sbvid IS NULL and a.ddate>='2019-01-01') a 
+-- WHERE a.num > 0;
+-- 
+-- insert into tracking.jc_abnormal_day
+-- select distinct 
+--        'edw'
+--       ,'edw' as source
+--       ,'dispatch_order'
+--       ,CURDATE( )
+--       ,null
+--       ,null
+--       ,null
+--       ,'数量监控' as type
+--       ,2 as leve
+--       ,CURDATE( ) as date
+--   FROM (SELECT count( * ) AS num FROM ufdata.dispatchlist a
+-- 		LEFT JOIN edw.dispatch_order b ON a.autoid = b.autoid and a.db = b.db
+-- 	WHERE b.autoid IS NULL
+-- 	  and a.ddate>='2019-01-01') a 
+-- WHERE a.num > 0;
+-- 
+-- insert into tracking.jc_abnormal_day
+-- select distinct 
+--        'edw'
+--       ,'edw' as source
+--       ,'sales_order'
+--       ,CURDATE( )
+--       ,null
+--       ,null
+--       ,null
+--       ,'数量监控' as type
+--       ,2 as leve
+--       ,CURDATE( ) as date
+--   FROM (SELECT count( * ) AS num FROM ufdata.so_sodetails a
+-- 		LEFT JOIN edw.sales_order b ON a.autoid = b.autoid and a.db = b.db
+-- 	WHERE b.autoid IS NULL ) a 
+-- WHERE a.num > 0;
 
 -- 3、第二层和第三层监控
 -- 无数据
