@@ -44,12 +44,15 @@ select a.cohr
       ,a.code_lv2
       ,a.code_name_lv2
       ,c.ccode_name as code_class
+      ,a.kemu as code_name_fx
+      ,a.code_class as code_class_fx
       ,a.cd_name
       ,a.u8_liuchengbh
       ,a.md
       ,null as dept_type
       ,null as dept_type1
       ,null as code_type
+      ,null as code_type1
   from edw.x_account_fy a
   left join (select * from edw.map_customer group by bi_cuscode) b
     on a.bi_cuscode = b.bi_cuscode
@@ -186,6 +189,7 @@ update report.fin_21_expenses_base
 -- 科目打赏标签
 update report.fin_21_expenses_base
    set code_type = case when code_name_lv2 in ('业务招待费','差旅费','人员成本','会务费','试剂招标经费') then code_name_lv2 else '其他费用' end 
+      ,code_type1 = case when code_class_fx in ('业务招待费','差旅费','人员成本','会务费','试剂招标经费') then code_class_fx else '其他费用' end
 ;
 
 
