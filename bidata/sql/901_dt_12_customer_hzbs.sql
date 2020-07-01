@@ -32,45 +32,77 @@ drop temporary table if exists bidata.bi_customer_pre;
 
 -- 1.1 取ft_11_sales去重客户
 create temporary table if not exists bidata.bi_customer_pre
-select ccuscode from bidata.ft_14_sales_hzbs group by ccuscode;
+select 
+    cast('ft_14_sales_hzbs' as char(50)) as source
+    ,ccuscode 
+from bidata.ft_14_sales_hzbs group by ccuscode;
 
 -- 1.3 取ft_12_sales_budget去重客户
 insert into bidata.bi_customer_pre
-select true_ccuscode from bidata.ft_12_sales_budget 
+select 
+    'ft_12_sales_budget' as source
+    ,true_ccuscode 
+from bidata.ft_12_sales_budget 
 where cohr = "杭州贝生"
 group by true_ccuscode;
 
 -- 1.4 取ft_13_sales_budget_new去重客户
 insert into bidata.bi_customer_pre
-select true_ccuscode from bidata.ft_13_sales_budget_new 
+select 
+    'ft_13_sales_budget_new' as source
+    ,true_ccuscode 
+from bidata.ft_13_sales_budget_new 
 where cohr = "杭州贝生"
 group by true_ccuscode;
 
-
 -- 1.5 取 ft_25_outdepot_hzbs 去重客户
 insert into bidata.bi_customer_pre
-select ccuscode from bidata.ft_25_outdepot_hzbs 
+select 
+    'ft_25_outdepot_hzbs' as source
+    ,ccuscode 
+from bidata.ft_25_outdepot_hzbs 
 where cohr = '杭州贝生'
 group by ccuscode;
 
 -- 1.6 取 bidata.sales_cost
 insert into bidata.bi_customer_pre 
-select ccuscode from bidata.sales_cost 
+select 
+    'sales_cost' as source
+    ,ccuscode 
+from bidata.sales_cost 
 where cohr = '杭州贝生'
 group by ccuscode;
 
 -- 1.7 取发货单数据 
 insert into bidata.bi_customer_pre 
-select finnal_ccuscode from bidata.ft_61_dispatch 
+select 
+    'ft_61_dispatch' as source
+    ,finnal_ccuscode 
+from bidata.ft_61_dispatch 
 where cohr = '杭州贝生'
 group by finnal_ccuscode;
 
 -- 1.8 取订单数据 
 insert into bidata.bi_customer_pre 
-select finnal_ccuscode from bidata.ft_111_sales_order
+select  
+    'ft_111_sales_order' as source
+    ,finnal_ccuscode 
+from bidata.ft_111_sales_order
 where cohr = '杭州贝生'
 group by finnal_ccuscode;
 
+
+-- 查询是哪里来源的数据, 导致杭州贝生客户档案没有维护
+/*
+select 
+    a.source
+    ,a.ccuscode as ccuscode_source
+    
+from bidata.bi_customer_pre as a
+left join edw.map_customer_hzbs as b
+on a.ccuscode = b.bi_cuscode
+where b.bi_cusname is null;
+*/
 
 -- 1.* 生成bi_customer
 truncate table bidata.dt_12_customer_hzbs;
