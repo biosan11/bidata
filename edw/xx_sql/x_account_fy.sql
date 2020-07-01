@@ -76,6 +76,9 @@ update edw.x_account_fy a
  where a.code is null
 ;
 
-
+update edw.x_account_fy a
+   set a.code_class = '人员成本'
+ where a.code_class = '人力成本'
+;
 
 
