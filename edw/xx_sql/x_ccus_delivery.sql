@@ -20,14 +20,14 @@ new_province
 ,sum(new_november) as month_11
 ,sum(new_december) as month_12
 from edw.crm_sale_screenings
-where new_province = '安徽省' and item_name ='NIPT' and year_ = 2020
+where new_province = '安徽省' and item_name ='NIPT' and year_ >= 2020
 group by new_city
 ;
 
 -- 更新第一层数据
 update ufdata.x_ccus_delivery as a
   join edw.x_ccus_delivery_tem0 as b
-   on a.province_get = b.new_province and a.city_get = b.new_city and a.item_name = b.item_name and a.year_ = b.year_
+   on a.province_get = b.new_province and a.city_give = b.new_city and a.item_name = b.item_name and a.year_ = b.year_
   set a.month_1 = b.month_1 ,a.month_2 = b.month_2 ,a.month_3 = b.month_3 ,a.month_4 = b.month_4 ,
       a.month_5 = b.month_5 ,a.month_6 = b.month_6 ,a.month_7 = b.month_7 ,a.month_8 = b.month_8,
       a.month_9 = b.month_9 ,a.month_10 = b.month_10 ,a.month_11 = b.month_11 ,a.month_12 = b.month_12
