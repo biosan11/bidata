@@ -73,4 +73,22 @@ select a.ccusname
  group by b.bi_cuscode,y_mon,type
 ;
 
-
+-- 20年的物流成本: 部门 = 供应链中心 样本流管理部 预算科目(code_name_lv2)) = 汽车费 与 邮运费
+-- logistics
+insert into edw.x_account_insettle
+select a.kehumc
+      ,a.bi_cuscode
+      ,a.bi_cusname
+      ,c.sales_region
+      ,c.province
+      ,left(a.dbill_date,7) as y_mon
+      ,'logistics'
+      ,sum(md)
+  from edw.x_account_fy a
+  left join (select * from edw.map_customer group by bi_cuscode) c
+    on a.bi_cuscode = c.bi_cuscode
+ where a.dbill_date >= '2020-01-01'
+   and ifnull(a.bi_cuscode,'GL') <> 'GL'
+   and ifnull(a.bi_cuscode,'GL') <> '请核查'
+ group by a.bi_cuscode,y_mon
+;
