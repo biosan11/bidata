@@ -52,7 +52,7 @@ select a.ccuscode
       ,ifnull(f.isum,0) as isum_sy
       ,ifnull(g.isum,0) as isum_ht
   from report.mid2_fin_22_expenses_else_base a
-  left join (select * from edw.x_account_insettle where type = 'infor_center') b
+  left join (select * from edw.x_account_insettle where type = 'infor_center' or type = 'software') b
     on a.ccuscode = b.bi_cuscode
    and a.y_mon = b.y_mon
   left join (select * from edw.x_account_insettle where type = 'technical') c

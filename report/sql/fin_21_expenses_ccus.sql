@@ -157,7 +157,7 @@ select a.cohr
       ,sum(a.md * per_salesregion) as md
       ,'直接费用' as dept_type
       ,'直接费用' as type
-  from report.fin_21_expenses_base a
+  from (select * from report.fin_21_expenses_base where dept_type1  in ('直接销售区域') and ddate >= '2019-01-01') a
   left join report.auxi_01_ccuscode_per b
     on a.year_ = b.year_
    and a.month_ = b.month_
@@ -177,7 +177,7 @@ select a.cohr
       ,'' as code_type
       ,a.md
       ,a.dept_type
-  from report.fin_21_expenses_base a
+  from (select * from report.fin_21_expenses_base where dept_type1  in ('直接销售区域') and ddate >= '2019-01-01') a
   left join report.auxi_01_ccuscode_per b
     on a.year_ = b.year_
    and a.month_ = b.month_
