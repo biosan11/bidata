@@ -187,5 +187,31 @@ update pdm.dispatch_order a
    and a.ddate <= b.end_dt
 ;
 
+-- 客户名称 = 杭州云医购供应链科技有限公司  最终客户 = 上海文脉生物科技有限公司  的数据(通过订单号, 发票号等定位),最终客户改成 安庆市妇幼保健计划生育服务中心
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='HC01028' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='HC01624' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='HC01673' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='SJ01021' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='SJ01026' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='SJ01028' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='WX01423' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='WX02028' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='WX02038' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ01004' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ01008' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ01010' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02067' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02100' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02112' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02127' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02146' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02147' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02181' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02254' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02275' and finnal_ccuscode = 'DL3101079';
+update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02291' and finnal_ccuscode = 'DL3101079';
+
+
+
 
 

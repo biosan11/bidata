@@ -215,3 +215,28 @@ update pdm.invoice_order a
    and a.ddate <= b.end_dt
 ;
 
+-- 客户名称 = 杭州云医购供应链科技有限公司  最终客户 = 上海文脉生物科技有限公司  的数据(通过订单号, 发票号等定位),最终客户改成 安庆市妇幼保健计划生育服务中心
+update pdm.invoice_order set itaxunitprice = '49.54',itax = '5.7',isum='49.54', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='HC01028' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '504.39',itax = '116.05',isum='1008.78', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='HC01624' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '2.25',itax = '25.9',isum='225.17', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='HC01673' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '17684.21',itax = '20344.65',isum='176842.11', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='SJ01021' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '2357.89',itax = '2712.61',isum='23578.95', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='SJ01026' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '75157.89',itax = '86464.83',isum='751578.95', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='SJ01028' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '585.45',itax = '134.71',isum='1170.9', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='WX01423' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '180.14',itax = '20.73',isum='180.14', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='WX02028' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '270.21',itax = '31.08',isum='270.21', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='WX02038' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '1333029.67',itax = '153357.39',isum='1333029.67', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ01004' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '217518.02',itax = '25024.2',isum='217518.02', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ01008' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '1390043.71',itax = '159916.53',isum='1390043.71', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ01010' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '40.53',itax = '4.67',isum='40.53', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02067' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '5404.17',itax = '621.72',isum='5404.17', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02100' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '5224.04',itax = '601',isum='5224.04', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02112' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '1531.18',itax = '176.16',isum='1531.18', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02127' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '1891.46',itax = '217.6',isum='1891.46', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02146' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '92231.24',itax = '10610.67',isum='92231.24', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02147' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '990.77',itax = '113.98',isum='990.77', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02181' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '5043.9',itax = '580.27',isum='5043.9', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02254' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '24.77',itax = '5.7',isum='49.54', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02275' and finnal_ccuscode = 'DL3101079';
+update pdm.invoice_order set itaxunitprice = '9097.03',itax = '1046.56',isum='9097.03', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02291' and finnal_ccuscode = 'DL3101079';
+
+
