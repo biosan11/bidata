@@ -39,6 +39,19 @@ select finnal_ccuscode as ccuscode from bidata.ft_11_sales group by finnal_ccusc
 insert into bidata.bi_customer_pre
 select true_ccuscode from bidata.ft_12_sales_budget group by true_ccuscode;
 
+-- 200703更新(金晶): 新增BI财务数据分析模块时, 发现需要增加财务模块数据中的客户
+-- 1.3.1 取pdm.invoice_order_cw 去重客户与去重最终客户
+insert into bidata.bi_customer_pre
+select ccuscode from pdm.invoice_order_cw group by ccuscode;
+insert into bidata.bi_customer_pre
+select finnal_ccuscode from pdm.invoice_order_cw group by finnal_ccuscode;
+-- 1.3.2 取pdm.ar_detail_aging 去重客户
+insert into bidata.bi_customer_pre
+select ccuscode from pdm.ar_detail_aging group by ccuscode;
+-- 1.3.3 取bidata.ft_51_ar_detail 去重客户 
+insert into bidata.bi_customer_pre
+select ccuscode from bidata.ft_51_ar_detail group by ccuscode;
+
 
 -- 1.4 取ft_13_sales_budget_new去重客户
 insert into bidata.bi_customer_pre
