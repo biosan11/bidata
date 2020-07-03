@@ -1,6 +1,26 @@
+-- ----------------------------------程序头部----------------------------------------------
+-- 功能：bidata层费用明细表
+-- ----------------------------------------------------------------------------------------
+-- 程序名称：bidata.XXX_ft_81_expenses.sql
+-- 目标模型：bidata.ft_81_expenses
+-- 源    表：edw.x_account_fy
+-- ---------------------------------------------------------------------------------------
+-- 加载周期：日全
+-- ----------------------------------------------------------------------------------------
+-- 作者：
+-- 开发日期：2020-07-03
+-- ----------------------------------------------------------------------------------------
+-- 版本控制：版本号  提交人   提交日期   提交内容
+--          
+-- 调用方法　
+-- ----------------------------------开始处理逻辑------------------------------------------
 
+/*  
+-- 原先的取第三层的费用明细表
 update pdm.account_fy set fashengrq = null where fashengrq = '';
 update pdm.account_fy set ccuscode = null where ccuscode = '';
+
+
 -- 整合线上、下费用的数据，按照客户、账套、时间、凭证、部门等分组排序
 truncate table bidata.ft_81_expenses;
 insert into bidata.ft_81_expenses
@@ -86,6 +106,26 @@ and b.type in ("个人客户","代理商","终端客户");
 update bidata.ft_81_expenses as a 
 set fy_share_ifccus = "n"
 where a.fy_share_ifccus is null;
+*/
 
 
+-- 20200703更新, 取edw.x_account_fy
+truncate table bidata.ft_81_expenses;
+insert into bidata.ft_81_expenses
+select 
+    null as i_id
+    ,null as db 
+    ,cohr
+    ,dbill_date
+    ,null as fashengrq
+    ,cd_name
+    ,bi_cuscode as ccuscode 
+    ,cdept_id_ehr as name_ehr_id
+	,name_ehr
+	,bx_name
+	,voucher_id
+	,code
+	,md
+from edw.x_account_fy
+;
 
