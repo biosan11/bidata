@@ -247,7 +247,7 @@ select null
       ,null
       ,case when f.item_code is not null then f.level_three end 
       ,null
-      ,null
+      ,g.cinvbrand
       ,null
       ,null
       ,null
@@ -260,7 +260,7 @@ select null
     on a.ccuscode = b.bi_cuscode
   left join (select item_code,level_three from edw.map_item group by item_code) f
     on a.item_code = f.item_code
-  left join (select bi_cinvcode,inum_unit_person from edw.map_inventory group by bi_cinvcode) g
+  left join (select * from edw.map_inventory group by bi_cinvcode) g
     on a.cinvcode = g.bi_cinvcode
  where left(ccuscode,2) <> 'GL' 
    and a.cbustype = 'LDT'
