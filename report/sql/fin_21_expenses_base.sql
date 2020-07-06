@@ -188,8 +188,8 @@ update report.fin_21_expenses_base
 
 -- 科目打赏标签
 update report.fin_21_expenses_base
-   set code_type = case when code_name_lv2 in ('业务招待费','差旅费','人员成本','会务费','试剂招标经费') then code_name_lv2 else '其他费用' end 
-      ,code_type1 = case when code_class_fx in ('业务招待费','差旅费','人员成本','会务费','试剂招标经费') then code_class_fx else '其他费用' end
+   set code_type = case when code_name_lv2 in ('业务招待费','差旅费','人员成本','会务费','试剂招标经费','科研协作费') then code_name_lv2 else '其他费用' end 
+      ,code_type1 = case when code_class_fx in ('业务招待费','差旅费','人员成本','会务费','试剂招标经费','科研协作费') then code_class_fx else '其他费用' end
 ;
 
 
