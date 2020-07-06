@@ -90,5 +90,7 @@ select a.kehumc
  where a.dbill_date >= '2020-01-01'
    and ifnull(a.bi_cuscode,'GL') <> 'GL'
    and ifnull(a.bi_cuscode,'GL') <> '请核查'
+   and name_ehr = '样本流管理部'
+   and code_name_lv2 in ('汽车费','邮运费')
  group by a.bi_cuscode,y_mon
 ;
