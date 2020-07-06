@@ -61,9 +61,9 @@ if __name__ == '__main__':
     cursor.execute("truncate table pdm.ar_detail_aging")
     sql_commands=get_sqlfile()
     for dt in get_month_range('2020-01-01',str(datetime.datetime.now())):
-    		start_dt = datetime.datetime.strptime(dt,"%Y-%m-%d").date())
+    		start_dt = datetime.datetime.strptime(dt,"%Y-%m-%d").date()
         fo = open(LOG_FILE, "a")
-        fo.write(('\n{}开始执行{}数据加载日志:\n').format(sysCurDate,start_dt)
+        fo.write(('\n{}开始执行{}数据加载日志:\n').format(sysCurDate,start_dt))
         for sql_command in sql_commands:
             start_time=time.strftime("%Y%m%d%H%M%S",time.localtime(time.time()))
             fo.write('SQL开始执行时间：'+start_time+'\n')
