@@ -26,15 +26,19 @@ conf_dict = {
 }
 
 # 获取sql文件,sql语句
-def get_sqlfile():
+def get_sqlfile(start_dt):
     tar_sql_commands = []
+    conf_dict1 = {
+        'sysCurDate':sysCurDate,
+        'start_dt':start_dt
+    }
     with open(SQL_FILE) as f:
             sql_command=''
             for line in f:
                 if not line.strip().startswith('--'):
                         if line.strip().endswith(';'):
                                 sql_command = sql_command + line[:line.index(';')] + '\n'
-                                tar_sql_commands.append(Template(sql_command).substitute(conf_dict))
+                                tar_sql_commands.append(Template(sql_command).substitute(conf_dict1))
                                 sql_command = ''
                         else:
                                 sql_command = sql_command + line
@@ -59,9 +63,9 @@ if __name__ == '__main__':
     #创建游标对象
     cursor = db.cursor()
     cursor.execute("truncate table pdm.ar_detail_aging")
-    sql_commands=get_sqlfile()
     for dt in get_month_range('2020-01-01',str(datetime.datetime.now())):
         start_dt = datetime.datetime.strptime(dt,"%Y-%m-%d").date()
+        sql_commands=get_sqlfile(start_dt)
         fo = open(LOG_FILE, "a")
         fo.write(('\n{}开始执行{}数据加载日志:\n').format(sysCurDate,start_dt))
         for sql_command in sql_commands:

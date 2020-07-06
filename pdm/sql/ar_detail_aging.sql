@@ -20,7 +20,7 @@
 
 set @dt = '${start_dt}';
 -- truncate table pdm.ar_detail_aging;
-delete from pdm.ar_detail_aging where ddate = '${start_dt}'
+delete from pdm.ar_detail_aging where ddate = '${start_dt}';
 insert into pdm.ar_detail_aging
 select concat(db,cdwcode,ar_class) as matchid
       ,db
