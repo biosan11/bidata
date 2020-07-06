@@ -57,17 +57,16 @@ def get_month_range(start_day,end_day):
 
 
 if __name__ == '__main__':
-    # 可以在sql中切换 database
-    #打开数据库连接
-    db = pymysql.connect('172.16.0.181','root','biosan','pdm')
-    #创建游标对象
-    cursor = db.cursor()
-    cursor.execute("truncate table pdm.ar_detail_aging")
     for dt in get_month_range('2020-01-01',str(datetime.datetime.now())):
         start_dt = datetime.datetime.strptime(dt,"%Y-%m-%d").date()
         sql_commands=get_sqlfile(start_dt)
         fo = open(LOG_FILE, "a")
         fo.write(('\n{}开始执行{}数据加载日志:\n').format(sysCurDate,start_dt))
+        # 可以在sql中切换 database
+        #打开数据库连接
+        db = pymysql.connect('172.16.0.181','root','biosan','pdm')
+        #创建游标对象
+        cursor = db.cursor()
         for sql_command in sql_commands:
             start_time=time.strftime("%Y%m%d%H%M%S",time.localtime(time.time()))
             fo.write('SQL开始执行时间：'+start_time+'\n')

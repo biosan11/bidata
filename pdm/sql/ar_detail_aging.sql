@@ -18,9 +18,9 @@
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-set @dt = '${start_dt}';
+set @dt = last_day('${start_dt}');
 -- truncate table pdm.ar_detail_aging;
-delete from pdm.ar_detail_aging where ddate = '${start_dt}';
+delete from pdm.ar_detail_aging where ddate = last_day('${start_dt}');
 insert into pdm.ar_detail_aging
 select concat(db,cdwcode,ar_class) as matchid
       ,db
