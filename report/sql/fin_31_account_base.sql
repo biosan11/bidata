@@ -237,3 +237,6 @@ call report.fin_31_account_base_pro(@dt);
 
 set @dt = '2020-05-31';
 call report.fin_31_account_base_pro(@dt);
+
+set @dt = '2020-06-30';
+call report.fin_31_account_base_pro(@dt);
