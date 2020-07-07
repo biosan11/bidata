@@ -1,5 +1,5 @@
 -- ----------------------------------程序头部----------------------------------------------
--- 功能：report层基础表--2019年以后设备折旧明细表
+-- 功能：report层基础表--2018年以后设备折旧明细表
 -- 说明：取自edw层, x_eq_depreciation_19,x_eq_depreciation_20 
 -- ----------------------------------------------------------------------------------------
 -- 程序名称：
@@ -38,6 +38,285 @@
 -- 
 
 truncate table report.fin_13_eq_depreciation_base;
+
+-- 导入18年设备折旧明细
+-- 1月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-01-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_1,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+-- 2月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-02-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_2,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+-- 3月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-03-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_3,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+-- 4月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-04-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_4,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+-- 5月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-05-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_5,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+-- 6月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-06-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_6,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+-- 7月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-07-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_7,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+-- 8月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-08-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_8,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+-- 9月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-09-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_9,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+-- 10月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-10-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_10,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+-- 11月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-11-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_11,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+-- 12月
+insert into report.fin_13_eq_depreciation_base
+select
+	'2018-12-01'
+    ,a.cohr  
+    ,a.bi_cuscode as ccuscode 
+    ,b.bi_cusname as ccusname 
+    ,b.sales_dept
+    ,b.sales_region_new
+    ,b.province
+    ,a.cinvcode 
+    ,c.bi_cinvname
+    ,c.item_code 
+    ,c.level_three
+    ,c.level_two
+    ,c.level_one
+    ,c.screen_class
+    ,round(a.amount_depre_12,4) as amount_depre
+from edw.x_eq_depreciation_18 as a 
+left join edw.map_customer as b 
+on a.bi_cuscode = b.bi_cuscode 
+left join edw.map_inventory as c 
+on a.cinvcode = c.bi_cinvcode;
+
 
 -- 导入19年设备折旧明细
 insert into report.fin_13_eq_depreciation_base
@@ -86,19 +365,3 @@ left join edw.map_customer as b
 on a.bi_cuscode = b.bi_cuscode 
 left join edw.map_inventory as c 
 on a.cinvcode = c.bi_cinvcode;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
