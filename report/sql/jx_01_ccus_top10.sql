@@ -20,7 +20,7 @@
 drop table if exists report.mid1_jx_01_ccus_top10;
 create temporary table report.mid1_jx_01_ccus_top10
 select year(ddate) as year_
-      ,12 as month_
+      ,'Q4' as month_
       ,ccuscode
       ,ccusname
       ,sum(isum) as isum
@@ -36,7 +36,7 @@ select year(ddate) as year_
 -- 插入1季度情况
 insert into report.mid1_jx_01_ccus_top10
 select year(ddate) as year_
-      ,3
+      ,'Q1'
       ,ccuscode
       ,ccusname
       ,sum(isum) as isum
@@ -53,7 +53,7 @@ select year(ddate) as year_
 -- 插入2季度情况
 insert into report.mid1_jx_01_ccus_top10
 select year(ddate) as year_
-      ,6
+      ,'Q2'
       ,ccuscode
       ,ccusname
       ,sum(isum) as isum
@@ -69,7 +69,7 @@ select year(ddate) as year_
 -- 插入3季度情况
 insert into report.mid1_jx_01_ccus_top10
 select year(ddate) as year_
-      ,9
+      ,'Q3'
       ,ccuscode
       ,ccusname
       ,sum(isum) as isum
@@ -85,7 +85,7 @@ select year(ddate) as year_
 -- 插入4季度情况
 insert into report.mid1_jx_01_ccus_top10
 select year(ddate) as year_
-      ,12
+      ,'Q4'
       ,ccuscode
       ,ccusname
       ,sum(isum) as isum
