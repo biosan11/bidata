@@ -57,7 +57,7 @@ def get_month_range(start_day,end_day):
 
 
 if __name__ == '__main__':
-    for dt in get_month_range('2020-01-01',str(datetime.datetime.now())):
+    for dt in get_month_range('2018-01-01',str(datetime.datetime.now())):
         start_dt = datetime.datetime.strptime(dt,"%Y-%m-%d").date()
         sql_commands=get_sqlfile(start_dt)
         fo = open(LOG_FILE, "a")
