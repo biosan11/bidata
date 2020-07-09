@@ -345,6 +345,7 @@ select a.db
       ,b.isettlequantity
       ,b.cdefine23
       ,b.cdefine36
+      ,b.cdefine34
       ,a.cmemo
       ,localtimestamp() as sys_time
   from edw.mid2_dispatch_order a
@@ -429,6 +430,7 @@ select a.db
       ,a.isettlequantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cdefine34
       ,a.cmemo
       ,a.sys_time
  from edw.mid3_dispatch_order a
@@ -510,6 +512,7 @@ select a.db
       ,a.isettlequantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cdefine34
       ,a.cmemo
       ,a.sys_time
  from edw.mid3_dispatch_order a
@@ -593,6 +596,7 @@ select a.db
       ,a.isettlequantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cdefine34
       ,a.cmemo
       ,a.sys_time
   from edw.mid4_dispatch_order a

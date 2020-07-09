@@ -323,6 +323,7 @@ select a.db
       ,b.inquantity
       ,b.cdefine23
       ,b.cdefine36
+      ,b.cdefine34
       ,a.cmemo
       ,localtimestamp() as sys_time
   from edw.mid2_outdepot_order a
@@ -394,6 +395,7 @@ select a.db
       ,a.inquantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cdefine34
       ,a.cmemo
       ,a.sys_time
   from edw.mid3_outdepot_order a
@@ -463,6 +465,7 @@ select a.db
       ,a.inquantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cdefine34
       ,a.cmemo
       ,a.sys_time
   from edw.mid3_outdepot_order a
@@ -535,6 +538,7 @@ select a.db
       ,a.inquantity
       ,a.cdefine23
       ,a.cdefine36
+      ,a.cdefine34
       ,a.cmemo
       ,'有效'
       ,a.sys_time
