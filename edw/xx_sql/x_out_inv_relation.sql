@@ -22,6 +22,8 @@ select a.db
       ,a.cdefine23
       ,a.isettlequantity
       ,a.plan_dt
+      ,state
+      ,iunitcost
   from ufdata.x_out_inv_relation a
   left join (select * from edw.dic_customer group by ccusname) b
     on a.ccusname = b.ccusname

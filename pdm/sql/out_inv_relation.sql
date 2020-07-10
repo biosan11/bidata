@@ -34,6 +34,7 @@ select db
       ,cdefine22
       ,iquantity
       ,isettlequantity
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -41,6 +42,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'发货单' as type
+      ,itaxunitprice as dj
   from edw.dispatch_order
  where ddate BETWEEN '2018-01-01' and '2019-03-14'
    and db = 'UFDATA_111_2018'
@@ -63,6 +65,7 @@ select db
       ,cdefine22
       ,iquantity
       ,isettlequantity
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -70,6 +73,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'发货单' as type
+      ,itaxunitprice as dj
   from edw.dispatch_order
  where ddate < '2018-01-01'
    and db = 'UFDATA_111_2018'
@@ -91,6 +95,7 @@ select db
       ,cdefine22
       ,iquantity
       ,fsettleqty
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -98,6 +103,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'出库单' as type
+      ,iunitcost as dj
   from edw.outdepot_order
  where ddate BETWEEN '2018-01-01' and '2019-03-14'
    and db = 'UFDATA_111_2018'
@@ -120,6 +126,7 @@ select db
       ,cdefine22
       ,iquantity
       ,fsettleqty
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -127,6 +134,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'出库单' as type
+      ,iunitcost as dj
   from edw.outdepot_order
  where ddate > '2019-03-14'
    and db = 'UFDATA_111_2018'
@@ -153,6 +161,7 @@ select db
       ,cdefine22
       ,iquantity
       ,isettlequantity
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -160,6 +169,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'发货单' as type
+      ,itaxunitprice as dj
   from edw.dispatch_order
  where ddate BETWEEN '2017-01-01' and '2019-02-28'
    and db = 'UFDATA_222_2019'
@@ -182,6 +192,7 @@ select db
       ,cdefine22
       ,iquantity
       ,fsettleqty
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -189,6 +200,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'出库单' as type
+      ,iunitcost as dj
   from edw.outdepot_order
  where ddate >= '2019-02-01'
    and db = 'UFDATA_222_2019'
@@ -214,6 +226,7 @@ select db
       ,cdefine22
       ,iquantity
       ,fsettleqty as isettlequantity
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -221,6 +234,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'出库单' as type
+      ,iunitcost as dj
   from edw.outdepot_order
  where ddate >= '2018-01-01'
    and db = 'UFDATA_118_2018'
@@ -243,6 +257,7 @@ select db
       ,cdefine22
       ,iquantity
       ,isettlequantity
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -250,6 +265,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'发货单' as type
+      ,itaxunitprice as dj
   from edw.dispatch_order
  where ddate < '2018-01-01'
    and db = 'UFDATA_118_2018'
@@ -274,6 +290,7 @@ select db
       ,cdefine22
       ,iquantity
       ,fsettleqty as isettlequantity
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -281,6 +298,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'出库单' as type
+      ,iunitcost as dj
   from edw.outdepot_order
  where ddate >= '2017-01-01'
    and db = 'UFDATA_123_2018'
@@ -303,6 +321,7 @@ select db
       ,cdefine22
       ,iquantity
       ,isettlequantity
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -310,6 +329,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'发货单' as type
+      ,itaxunitprice as dj
   from edw.dispatch_order
  where ddate < '2018-01-01'
    and db = 'UFDATA_123_2018'
@@ -333,6 +353,7 @@ select db
       ,cdefine22
       ,iquantity
       ,fsettleqty as isettlequantity
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -340,6 +361,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'出库单' as type
+      ,iunitcost as dj
   from edw.outdepot_order
  where ddate >= '2017-01-01'
    and db = 'UFDATA_333_2018'
@@ -362,6 +384,7 @@ select db
       ,cdefine22
       ,iquantity
       ,isettlequantity
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -369,6 +392,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'发货单' as type
+      ,itaxunitprice as dj
   from edw.dispatch_order
  where ddate < '2018-01-01'
    and db = 'UFDATA_333_2018'
@@ -393,6 +417,7 @@ select db
       ,cdefine22
       ,iquantity
       ,isettlequantity
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -400,6 +425,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'发货单' as type
+      ,itaxunitprice as dj
   from edw.dispatch_order
  where year(ddate) <= '2018'
    and db = 'UFDATA_168_2019'
@@ -422,6 +448,7 @@ select db
       ,cdefine22
       ,iquantity
       ,fsettleqty
+      ,cdefine34
       ,cdefine23
       ,plan_dt
       ,cstcode
@@ -429,6 +456,7 @@ select db
       ,cpersoncode
       ,cmemo
       ,'出库单' as type
+      ,iunitcost as dj
   from edw.outdepot_order
  where ddate >= '2019-01-01'
    and db = 'UFDATA_168_2019'
@@ -455,9 +483,11 @@ select a.db
       ,a.cdefine22
       ,a.iquantity
       ,ifnull(a.isettlequantity,0)
+      ,cdefine34
       ,a.cdefine23
       ,0
       ,0
+      ,dj as iunitcost
       ,a.plan_dt
       ,a.cstcode
       ,c.cdepname
@@ -547,8 +577,10 @@ select a.db
       ,a.cdefine22
       ,a.iquantity
       ,a.isettlequantity
+      ,0
       ,a.cdefine23
       ,ifnull(c.itaxunitprice,0)
+      ,0
       ,0
       ,a.plan_dt
       ,a.cstcode
@@ -568,6 +600,16 @@ select a.db
   left join edw.map_inventory e
     on a.bi_cinvcode = e.bi_cinvcode
  where b.cdlcode is null
+   and a.state = '1'
+;
+
+-- 更新17年的成本价
+update pdm.out_inv_relation a
+ inner join (select * from edw.x_out_inv_relation where state = 2) b
+    on a.ccuscode = b.bi_ccuscode
+   and a.cinvcode = b.bi_cinvcode
+   and a.cdlcode = b.cdlcode
+   set a.iunitcost = b.iunitcost
 ;
 
 -- oa_uf_shebeicpqd 加工oa标准价格，chanpinbh，biaozhunjg
