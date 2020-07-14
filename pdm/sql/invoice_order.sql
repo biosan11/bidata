@@ -240,7 +240,7 @@ update pdm.invoice_order set itaxunitprice = '24.77',itax = '5.7',isum='49.54', 
 update pdm.invoice_order set itaxunitprice = '9097.03',itax = '1046.56',isum='9097.03', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02291' and sbvid = '1000024466' and db = 'UFDATA_111_2018';
 
 -- 甄元账套 开票数据中, 客户是吉林三基医学检验实验室有限公司 的数据, 收入应该归在杭州贝生  
-update pdm.invoice_order set db = 'UFDATA_111_2018',cohr = '博圣' where cohr = '甄元实验室' and ccusname = '吉林三基医学检验实验室有限公司';
+update pdm.invoice_order set db = 'UFDATA_168_2018',cohr = '杭州贝生' where cohr = '甄元实验室' and ccusname = '吉林三基医学检验实验室有限公司';
 
 
 
