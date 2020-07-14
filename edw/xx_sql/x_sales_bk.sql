@@ -79,7 +79,7 @@ select a.auto_id
     on a.ccusname_ori = b.ccusname
   left join (select cinvname,bi_cinvcode,bi_cinvname from edw.dic_inventory where db = 'TEMP' group by cinvname) c
     on a.product_ori = c.cinvname
- where db = 'JYMT' or db = 'XJ'
+ where db = 'JYMT' or db = 'XJ' or db = 'jsc' or db = "HNAB"
 ;
 
 
