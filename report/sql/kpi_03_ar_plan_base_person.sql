@@ -134,6 +134,11 @@ select
     ,a.amount_plan 
     ,a.amount_act 
     ,c.areadirector
+    ,null
+    ,null
+    ,null
+    ,null
+    ,null
 from edw.x_ar_plan as a 
 left join edw.map_customer as b 
 on a.true_ccuscode = b.bi_cuscode 
@@ -149,3 +154,100 @@ where amount_plan = 0 and amount_act = 0;
 
 drop table if exists report.kpi_03_person_tem;
 
+-- 增加对客户项目负责人的处理，负责人有最多出现4个
+-- 这里先把第三层的客户负责人，操作到每个月的数据
+drop table if exists report.cusitem_person_pre;
+create temporary table report.cusitem_person_pre as
+select ccuscode
+      ,ccusname
+      ,start_dt
+      ,end_dt
+      ,cverifier
+      ,cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) as mon_num
+			,case when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 1  then '0'
+			      when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 2  then '0,1'
+			      when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 3  then '0,1,2'
+			      when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 4  then '0,1,2,3'
+			      when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 5  then '0,1,2,3,4'
+			      when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 6  then '0,1,2,3,4,5'
+			      when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 7  then '0,1,2,3,4,5,6'
+			      when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 8  then '0,1,2,3,4,5,6,7'
+			      when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 9  then '0,1,2,3,4,5,6,7,8'
+			      when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 10  then '0,1,2,3,4,5,6,7,8,9'
+			      when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 11 then '0,1,2,3,4,5,6,7,8,9,10'
+			      when cast(DATEDIFF(end_dt,start_dt)/30 as SIGNED) = 12 then '0,1,2,3,4,5,6,7,8,9,10,11'
+			      end as mon_diff
+  from pdm.cusitem_person
+ where end_dt > '2020-01-01'
+;
+
+-- 分裂月份
+drop table if exists report.cusitem_person_pre1;
+create temporary table report.cusitem_person_pre1 as
+select distinct a.ccuscode
+      ,a.ccusname
+      ,a.cverifier
+      ,DATE_ADD(start_dt,INTERVAL substring_index(substring_index(a.mon_diff,',',b.help_topic_id+1),',',-1) MONTH) as ddate
+  from report.cusitem_person_pre a 
+  join mysql.help_topic b
+    on b.help_topic_id < (length(a.mon_diff) - length(replace(a.mon_diff,',',''))+1)
+ order by ccuscode,ddate,cverifier
+;
+
+-- 按照客户、时间、负责人进行排序
+drop table if exists report.cusitem_person_pre2;
+create temporary table report.cusitem_person_pre2 as
+select @r:= case when @ccuscode=a.ccuscode and @ddate = a.ddate then @r+1 else 1 end as rownum
+      ,@ccuscode:=a.ccuscode as ccuscode
+      ,@ddate:=a.ddate as ddate
+      ,a.cverifier
+      ,ccusname
+  from report.cusitem_person_pre1 a
+,(select @r:=0,@ccuscode:='',@ddate:='') b
+;
+
+CREATE INDEX index_cusitem_person_pre2_ccuscode ON report.cusitem_person_pre2(ccuscode);
+CREATE INDEX index_cusitem_person_pre2_ddate ON report.cusitem_person_pre2(ddate);
+
+-- 更新该表的客户负责人，对应的最多存在4个
+update report.kpi_03_ar_plan_base_person a
+ inner join report.cusitem_person_pre2 b
+    on a.ccuscode = b.ccuscode
+   and a.ddate = b.ddate
+   set a.cverifier1 = b.cverifier
+ where b.rownum = 1;
+
+-- 更新该表的客户负责人，对应的最多存在4个
+update report.kpi_03_ar_plan_base_person a
+ inner join report.cusitem_person_pre2 b
+    on a.ccuscode = b.ccuscode
+   and a.ddate = b.ddate
+   set a.cverifier2 = b.cverifier
+ where b.rownum = 2;
+
+-- 更新该表的客户负责人，对应的最多存在4个
+update report.kpi_03_ar_plan_base_person a
+ inner join report.cusitem_person_pre2 b
+    on a.ccuscode = b.ccuscode
+   and a.ddate = b.ddate
+   set a.cverifier3 = b.cverifier
+ where b.rownum = 3;
+
+-- 更新该表的客户负责人，对应的最多存在4个
+update report.kpi_03_ar_plan_base_person a
+ inner join report.cusitem_person_pre2 b
+    on a.ccuscode = b.ccuscode
+   and a.ddate = b.ddate
+   set a.cverifier4 = b.cverifier
+ where b.rownum = 4;
+
+-- 更新客户项目主要负责人
+update report.kpi_03_ar_plan_base_person
+  set cverifier_main = (case when areadirector <> ifnull(cverifier1,"无数据") then cverifier1
+                            when areadirector <> ifnull(cverifier2,"无数据") then cverifier2
+                            when areadirector <> ifnull(cverifier3,"无数据") then cverifier3
+                            when areadirector <> ifnull(cverifier4,"无数据") then cverifier4
+                            else cverifier1 end)
+;
+
+update report.kpi_03_ar_plan_base_person set cverifier_main = cverifier1 where cverifier_main is null;
