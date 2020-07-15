@@ -42,6 +42,7 @@ select a.id
       ,b.danjiahs
       ,b.xiaoji
       ,b.beizhu
+      ,localtimestamp()
   from ufdata.oa_formtable_main_15 a
   left join ufdata.oa_formtable_main_15_dt1 b
     on a.id = b.mainid
