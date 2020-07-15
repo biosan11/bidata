@@ -125,6 +125,8 @@ select a.sbvid
       ,a.cdepcode
       ,d.cdepname
       ,a.cpersoncode
+      ,b.sales_dept
+      ,b.sales_region_new
       ,b.sales_region
       ,b.province
       ,b.city

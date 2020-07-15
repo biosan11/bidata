@@ -128,6 +128,8 @@ select a.csocode
       ,a.cpersoncode
       ,a.cdepcode
       ,d.cdepname
+      ,b.sales_dept
+      ,b.sales_region_new
       ,b.sales_region
       ,b.province
       ,b.city

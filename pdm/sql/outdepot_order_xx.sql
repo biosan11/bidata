@@ -1,4 +1,5 @@
 
+drop table if exists pdm.x_outdepot_history;
 create temporary table pdm.x_outdepot_history as
 select a.*
       ,b.type as ccustype
@@ -7,6 +8,7 @@ select a.*
     on a.true_ccuscode = b.bi_cuscode
  where year(ddate) < 2018;
 
+drop table if exists pdm.outdepot_order_item;
 create temporary table pdm.outdepot_order_item as
 select e.bi_cinvcode
       ,e.business_class
@@ -48,6 +50,8 @@ select a.id
       ,a.cdepcode
       ,d.cdepname
       ,a.cpersoncode
+      ,e.sales_dept
+      ,e.sales_region_new
       ,a.sales_region
       ,a.province
       ,a.city
@@ -94,6 +98,8 @@ select a.id
   left join (select cdepcode,db,cdepname from ufdata.department group by cdepcode,db) d
     on a.cdepcode = d.cdepcode
    and a.db = d.db
+  left join edw.map_customer e
+    on a.true_finnal_ccuscode = e.bi_cuscode 
 ;
 
 --  插入数据，计算数量屏蔽远比含税单价
@@ -110,6 +116,8 @@ select null
       ,null
       ,null
       ,a.cverifier
+      ,b.sales_dept
+      ,b.sales_region_new
       ,b.sales_region
       ,b.province
       ,b.city
@@ -157,59 +165,6 @@ select null
 delete from pdm.outdepot_order where left(ccuscode,2) = 'GL';
 delete from pdm.outdepot_order where left(cinvcode,2) = 'JC';
 
-
--- 检测外送数据的插入
--- 按时间时间，客户，产品分组排序，取月维度的信息
--- delete from pdm.outdepot_order where db = 'bkgr';
--- insert into pdm.outdepot_order
--- select null
---       ,min(auto_id)
---       ,'bkgr'
---       ,'贝康个人'
---       ,null
---       ,a.ddate
---       ,null
---       ,null
---       ,null
---       ,null
---       ,null
---       ,b.sales_region
---       ,b.province
---       ,b.city
---       ,b.type
---       ,a.true_ccuscode as ccuscode
---       ,a.true_ccusname as ccusname
---       ,b.finnal_cuscode
---       ,b.finnal_ccusname
---       ,'LDT'
---       ,null
---       ,a.bi_cinvcode
---       ,a.bi_cinvname
---       ,null
---       ,case when g.inum_unit_person > 0 then count(*)/g.inum_unit_person
---             when g.inum_unit_person is null then '请核查'
---             else count(*) end as iquantity
---       ,null
---       ,count(*) as inum_person
---       ,a.item_code
---       ,null
---       ,null
---       ,case when f.item_code is not null then f.level_three end 
---       ,null
---       ,null
---       ,null
---       ,null
---       ,localtimestamp()
---   from edw.x_sales_bkgr a
---   left join edw.map_customer b
---     on a.true_ccuscode = b.bi_cuscode
---   left join (select item_code,level_three from edw.map_item group by item_code) f
---     on a.item_code = f.item_code
---   left join (select bi_cinvcode,inum_unit_person from edw.map_inventory group by bi_cinvcode) g
---     on a.bi_cinvcode = g.bi_cinvcode
---  where left(true_ccuscode,2) <> 'GL' 
---  group by a.ddate,a.true_ccuscode,a.bi_cinvcode
--- ;
 set @n = 99999;
 delete from pdm.outdepot_order where db = 'bkgr';
 insert into pdm.outdepot_order
@@ -224,6 +179,8 @@ select null
       ,null
       ,null
       ,null
+      ,b.sales_dept
+      ,b.sales_region_new
       ,b.sales_region
       ,b.province
       ,b.city

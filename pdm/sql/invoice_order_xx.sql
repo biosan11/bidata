@@ -1,4 +1,4 @@
-
+drop table if exists pdm.invoice_order_item;
 create temporary table pdm.invoice_order_item as
 select e.bi_cinvcode
       ,e.business_class
@@ -6,7 +6,7 @@ select e.bi_cinvcode
       ,e.item_code
       ,f.plan_class
       ,f.key_project
-   from (select bi_cinvcode,item_code,business_class,cinvbrand from edw.map_inventory group by bi_cinvcode) e
+   from (select * from edw.map_inventory group by bi_cinvcode) e
    left join (select ccuscode,true_item_code,plan_class,key_project from edw.x_sales_budget_18 group by ccuscode,true_item_code) f
     on e.item_code = f.true_item_code
 ;
@@ -41,6 +41,8 @@ select a.sbvid
       ,a.cdepcode
       ,d.cdepname
       ,a.cpersoncode
+      ,e.sales_dept
+      ,e.sales_region_new
       ,a.sales_region
       ,a.province
       ,a.city
@@ -85,7 +87,7 @@ select a.sbvid
       ,null
       ,localtimestamp()
   from edw.x_invoice_order_18 a
-  left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.invoice_order_item group by bi_cinvcode) b
+  left join (select * from pdm.invoice_order_item group by bi_cinvcode) b
     on a.bi_cinvcode = b.bi_cinvcode
   left join (select cwhcode,db,cwhname from ufdata.warehouse group by cwhcode,db) c
     on a.cwhcode = c.cwhcode
@@ -93,6 +95,8 @@ select a.sbvid
   left join (select cdepcode,db,cdepname from ufdata.department group by cdepcode,db) d
     on a.cdepcode = d.cdepcode
    and a.db = d.db
+  left join (select * from edw.map_customer group by bi_cuscode) e
+    on a.true_finnal_ccuscode = e.bi_cuscode
 ;
 
 
@@ -110,6 +114,8 @@ select '17'
       ,null
       ,null
       ,null
+      ,d.sales_dept
+      ,d.sales_region_new
       ,b.sales_region
       ,b.province
       ,b.city
@@ -148,10 +154,12 @@ select '17'
   from edw.x_sales_bkgr a
   left join edw.map_customer b
     on a.finnal_ccuscode = b.bi_cuscode
-  left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.invoice_order_item group by bi_cinvcode) e
+  left join (select * from pdm.invoice_order_item group by bi_cinvcode) e
     on a.bi_cinvcode = e.bi_cinvcode
   left join (select item_code,level_three from edw.map_item group by item_code) c
     on a.item_code = c.item_code
+  left join (select * from edw.map_customer group by bi_cuscode) d
+    on a.finnal_ccuscode = d.bi_cuscode
  where year(a.ddate) >= 2018
    and a.method_settlement = '个人'
    and a.accounts like '%贝康%';
@@ -188,6 +196,8 @@ select '17'
       ,null
       ,null
       ,null
+      ,d.sales_dept
+      ,d.sales_region_new
       ,b.sales_region
       ,b.province
       ,b.city
@@ -227,10 +237,12 @@ select '17'
   from edw.x_sales_bk a
   left join edw.map_customer b
     on a.true_ccuscode = b.bi_cuscode
-  left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.invoice_order_item group by bi_cinvcode) e
+  left join (select * from pdm.invoice_order_item group by bi_cinvcode) e
     on a.bi_cinvcode = e.bi_cinvcode
   left join (select item_code,level_three from edw.map_item group by item_code) c
     on a.item_code = c.item_code
+  left join (select * from edw.map_customer group by bi_cuscode) d
+    on b.finnal_cuscode = d.bi_cuscode
  where year(a.ddate)>=2018
 ;
 
@@ -256,6 +268,8 @@ select '17'
       ,null
       ,null
       ,null
+      ,b.sales_dept
+      ,b.sales_region_new
       ,b.sales_region
       ,b.province
       ,b.city
@@ -290,7 +304,7 @@ select '17'
       ,cverifier
       ,localtimestamp()
   from edw.x_sales_history a
-  left join (select bi_cuscode,bi_cusname,sales_region,province,city,type from edw.map_customer group by bi_cusname) b
+  left join (select * from edw.map_customer group by bi_cusname) b
     on a.true_finnal_ccusname = b.bi_cusname
   left join (select bi_cinvcode,plan_class,key_project,business_class,cinvbrand from pdm.invoice_order_item group by bi_cinvcode) e
     on a.bi_cinvcode = e.bi_cinvcode
