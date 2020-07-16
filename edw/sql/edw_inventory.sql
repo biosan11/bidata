@@ -72,6 +72,7 @@ select a.db
       ,a.cinvdefine9
       ,a.cinvdefine13
       ,a.cinvdefine5
+      ,a.centerprise
       ,a.cinvccode
       ,a.cvencode
       ,a.bsale
@@ -99,6 +100,7 @@ select a.db
       ,a.cinvdefine9
       ,a.cinvdefine13
       ,a.cinvdefine5
+      ,a.centerprise
       ,a.cinvccode
       ,a.cvencode
       ,a.bsale
