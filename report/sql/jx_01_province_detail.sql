@@ -15,7 +15,7 @@
 -- -调用方法　sh /home/bidata/report/python/jx_01_province_compare.py
 -- -----------------------------------开始处理逻辑------------------------------------------
 
-set @dt = '2020-03-31';
+set @dt = '2020-06-30';
 -- 已发货未开票的需要处理一下，现有是最新你的，需要减去这段时间发货加上这段时间开票
 drop table if exists report.out_inv_relation;
 create temporary table report.out_inv_relation as
@@ -84,6 +84,7 @@ select ccuscode
       ,sum(balance_closing) as balance_closing
       ,sum(date_6_12+date_12_24+date_24_36+date_36) as md
   from pdm.ar_detail_aging
+ where ddate = @dt
  group by ccuscode,ar_class
  having md > 0
 ;
