@@ -34,7 +34,7 @@ left join edw.map_inventory as b
 on a.cinvcode = b.bi_cinvcode
 where a.item_code != 'JK0101' and year(ddate) >= 2019
 and a.cohr != '杭州贝生'
-group by a.cohr,a.ddate,a.ccuscode,a.cinvcode;
+group by a.cohr,a.ddate,a.ccuscode,a.finnal_ccuscode,a.cinvcode;
 alter table test.bonus_base add index (ddate),add index (matchid);
 
 -- 计划收入处理 
