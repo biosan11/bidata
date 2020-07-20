@@ -34,7 +34,7 @@ left join edw.map_inventory as b
 on a.cinvcode = b.bi_cinvcode
 where a.item_code != 'JK0101' and year(ddate) >= 2019
 and a.cohr != '杭州贝生'
-group by a.cohr,a.ddate,a.ccuscode,a.cinvcode;
+group by a.cohr,a.ddate,a.ccuscode,a.finnal_ccuscode,a.cinvcode;
 alter table test.bonus_base add index (ddate),add index (matchid);
 
 -- 计划收入处理 
@@ -156,7 +156,7 @@ and a.isum_budget != 0; -- 计划收入是0的数据不取
 -- 非省区客户,手动维护 
 update report.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "浙江迪安深海冷链物流有限公司";
 update report.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "杭州优客互动网络科技有限公司";
-update report.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "湖南文吉健康管理有限公司";
+-- 20200717更新 这家客户是销售负责 update report.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "湖南文吉健康管理有限公司";
 update report.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "浙江玺诺医疗器械有限公司";
 update report.bonus_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where bi_cusname = "杭州方回春堂同心中医门诊部有限公司";
 
