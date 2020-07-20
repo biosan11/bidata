@@ -33,29 +33,31 @@ CREATE TABLE `ft_11_sales` (
 truncate table bidata.ft_11_sales;
 insert into bidata.ft_11_sales 
 select
-	sbvid
-	,ddate
-	,cohr
-	,cwhcode
-	,cdepcode
+	 a.sbvid
+	,a.ddate
+	,a.cohr
+	,a.cwhcode
+	,a.cdepcode
 	,ifnull(ccuscode,"unknowncus")
 	,ifnull(ccusname,"unknowncus")
 	,finnal_ccuscode
 	,finnal_ccusname
-	,ifnull(cbustype,"产品类")
-	,cinvcode
-	,ifnull(item_code,"其他")
-	,plan_type
-	,key_points
+	,ifnull(b.business_class,"产品类")
+	,a.cinvcode
+	,ifnull(a.item_code,"其他")
+	,a.plan_type
+	,a.key_points
 	,round((ifnull(itaxunitprice,0)/1000),3) as itaxunitprice
-	,round((ifnull(itax,0)/1000),3) as itax
-	,round((ifnull(isum,0)/1000),3) as isum
-	,areadirector
-	,cverifier
-	,sys_time
-from pdm.invoice_order
-where item_code != "jk0101"
-and (isum != 0 or itax != 0);
+	,round((ifnull(a.itax,0)/1000),3) as itax
+	,round((ifnull(a.isum,0)/1000),3) as isum
+	,a.areadirector
+	,a.cverifier
+	,a.sys_time
+from pdm.invoice_order a
+left join edw.map_inventory b
+  on a.cinvcode = b.bi_cinvcode
+where a.item_code != "jk0101"
+and (isum != 0 or a.itax != 0);
 
 update bidata.ft_11_sales 
 set finnal_ccuscode = ccuscode 
