@@ -81,11 +81,18 @@ select a.db
       ,a.cmodifyperson
       ,a.dmodifydate
       ,a.cinvdefine7
+      ,c.cidefine5
+      ,c.cidefine4
+      ,c.cidefine3
+      ,c.cidefine2
+      ,c.cidefine1
       ,'3000-12-31'
       ,localtimestamp()
   from edw.inventory_pre a
   left join (select cinvcode,db,bi_cinvcode,bi_cinvname from dic_inventory group by cinvcode) b
     on a.cinvcode = b.cinvcode
+  left join ufdata.inventory_extradefine c
+    on a.cinvcode = c.cinvcode
  where a.db not in ('UFDATA_222_2018','UFDATA_222_2019', 'UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018')
 ;
 -- 分批插入
@@ -109,12 +116,19 @@ select a.db
       ,a.cmodifyperson
       ,a.dmodifydate
       ,a.cinvdefine7
+      ,c.cidefine5
+      ,c.cidefine4
+      ,c.cidefine3
+      ,c.cidefine2
+      ,c.cidefine1
       ,'3000-12-31'
       ,localtimestamp()
   from edw.inventory_pre a
   left join dic_inventory b
     on left(a.db,10) = left(b.db,10)
    and a.cinvcode = b.cinvcode
+  left join ufdata.inventory_extradefine c
+    on a.cinvcode = c.cinvcode
  where a.db in ('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018')
 ;
 
