@@ -70,6 +70,7 @@ select a.autoid
     on b.bi_cuscode = e.bi_cuscode
 ;
 
+
 insert into edw.x_sales_budget_20
 select autoid
       ,cohr
@@ -539,6 +540,40 @@ select autoid
 ;
 
 
+-- 更新计划开始时间
+-- 取用发票发货最早时间来进行处理
+drop table if exists ufdata.x_sales_budget_20_pre1;
+create temporary table ufdata.x_sales_budget_20_pre1 as
+select true_finnal_ccuscode as bi_cuscode
+      ,true_finnal_ccusname2 as bi_cusname
+      ,bi_cinvcode
+      ,bi_cinvname
+      ,min(ddate) as ddate
+  from edw.invoice_order where ddate >= '2020-01-01' and ifnull(isum,0) > 0 group by true_finnal_ccuscode,bi_cinvcode union 
+select true_finnal_ccuscode as bi_cuscode
+      ,true_finnal_ccusname2 as bi_cusname
+      ,bi_cinvcode
+      ,bi_cinvname
+      ,min(ddate) as ddate
+  from edw.outdepot_order where ddate >= '2020-01-01' and ifnull(inum_person,0) > 0 group by true_finnal_ccuscode,bi_cinvcode
+;
+
+drop table if exists ufdata.x_sales_budget_20_pre2;
+create temporary table ufdata.x_sales_budget_20_pre2 as
+select bi_cuscode,bi_cinvcode,min(ddate) as ddate
+  from ufdata.x_sales_budget_20_pre1
+ group by bi_cuscode,bi_cinvcode
+;
+
+update edw.x_sales_budget_20 set plan_complete_dt = null;
+
+update edw.x_sales_budget_20 a
+ inner join ufdata.x_sales_budget_20_pre2 b
+    on a.bi_cuscode = b.bi_cuscode
+   and a.bi_cinvcode = b.bi_cinvcode
+   set a.plan_complete_dt = b.ddate
+ where a.isum_budget_ori > 0
+;
 
 
 
