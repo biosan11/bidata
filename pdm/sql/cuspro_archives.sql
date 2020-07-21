@@ -111,12 +111,12 @@ select LEFT(ccuscode,2) as type,
        ccuscode as ccuscode,
        cinvcode as cinvcode,
        a.item_code as item_code,
-       min(plan_complete_dt_recount) as plan_start_dt
-  from edw.x_sales_budget_19 a
+       min(plan_complete_dt) as plan_start_dt
+  from edw.x_sales_budget_20 a
 --   left join edw.map_item b
 --     on a.item_code = b.item_code
 --    and b.equipment = '是'
- where a.plan_complete_dt_recount > 0
+ where a.plan_complete_dt > 0
 --    and b.item_code is not null
  group by a.ccuscode,a.item_code
 ;
