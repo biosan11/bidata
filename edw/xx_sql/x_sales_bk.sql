@@ -21,6 +21,7 @@ select a.auto_id
       ,a.ccusname_ori
       ,case when b.ccusname is not null then b.bi_cuscode else '请核查' end as bi_cuscode
       ,case when b.ccusname is not null then b.bi_cusname else '请核查' end as bi_cusname
+	  ,a.comment
   from ufdata.x_sales_bk a
   left join (select ccusname,bi_cuscode,bi_cusname from edw.dic_customer group by ccusname) b
     on a.ccusname_ori = b.ccusname
@@ -48,6 +49,7 @@ select a.auto_id
       ,a.ccusname_ori
       ,case when b.ccusname is not null then b.bi_cuscode else '请核查' end as bi_cuscode
       ,case when b.ccusname is not null then b.bi_cusname else '请核查' end as bi_cusname
+	  ,a.comment
   from ufdata.x_sales_bk a
   left join (select ccusname,bi_cuscode,bi_cusname from edw.dic_customer group by ccusname) b
     on a.ccusname_ori = b.ccusname
@@ -74,6 +76,7 @@ select a.auto_id
       ,a.ccusname_ori
       ,case when b.ccusname is not null then b.bi_cuscode else '请核查' end as bi_cuscode
       ,case when b.ccusname is not null then b.bi_cusname else '请核查' end as bi_cusname
+	  ,a.comment
   from ufdata.x_sales_bk a
   left join (select ccusname,bi_cuscode,bi_cusname from edw.dic_customer group by ccusname) b
     on a.ccusname_ori = b.ccusname
@@ -104,6 +107,7 @@ select a.auto_id
       ,a.ccusname_ori
       ,a.bi_cuscode
       ,a.bi_cusname
+	  ,a.comment
   from edw.x_sales_bk_pre a
   left join edw.map_inventory b
     on a.bi_cinvcode = b.bi_cinvcode
