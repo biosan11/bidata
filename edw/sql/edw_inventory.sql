@@ -331,11 +331,14 @@ update edw.map_inventory set item_key_2019 = null where item_key_2019 = '';
 update edw.map_inventory set cinv_key_2020 = null where cinv_key_2020 = '';
 update edw.map_inventory set cinv_own = null where cinv_own = '';
 
+-- 20200724更新(金晶) : 产品档案中,  screen_class 空替换成 null
+update edw.map_inventory set screen_class = null where screen_class = '';
+
 -- 这里每天全量覆盖现有的项目档案的情况,每日一运行保持一致
 truncate table edw.map_item;
 insert into edw.map_item
 select DISTINCT
-item_code, level_three, level_two, level_one, equipment,screen_class, '', item_key_2019
+item_code, level_three, level_two, level_one, equipment,screen_class, null, item_key_2019
   from edw.map_inventory
 ;
 
