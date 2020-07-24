@@ -380,8 +380,8 @@ set a.cdept_id = b.cdept_id_ehr
 --   from edw.mid1_ehr_employee_id a;
 
 
-delete from edw.ehr_employee_id where employmenttype = '未知' and oidjoblevel is null;
-delete from edw.ehr_employee_id where employmenttype = '外部' and lastworkdate is null;
+-- delete from edw.ehr_employee_id where employmenttype = '未知' and oidjoblevel is null;
+-- delete from edw.ehr_employee_id where employmenttype = '外部' and lastworkdate is null;
 delete from edw.ehr_employee_id where userid = '124741099';
 delete from edw.ehr_employee_id where userid = '120421497';
 delete from edw.ehr_employee_id where userid = '122762056';

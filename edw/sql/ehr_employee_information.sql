@@ -430,8 +430,8 @@ set a.cdept_id = b.cdept_id_ehr
 
 
 
-delete from edw.ehr_employee where employmenttype = '未知' and oidjoblevel is null;
-delete from edw.ehr_employee where employmenttype = '外部' and lastworkdate is null;
+-- delete from edw.ehr_employee where employmenttype = '未知' and oidjoblevel is null;
+-- delete from edw.ehr_employee where employmenttype = '外部' and lastworkdate is null;
 delete from edw.ehr_employee where userid = '124741099';
 delete from edw.ehr_employee where userid = '120421497';
 delete from edw.ehr_employee where userid = '122762056';
