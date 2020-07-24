@@ -2,7 +2,7 @@
 -- edw.x_data_tables
 
 truncate table tracking.x_data_tables;
-insert into tracking.x_data_tables(data_module,data_content,dept_provide,person_provide,freq,timeliness,comment,address_table,db,comment_2)
+insert into tracking.x_data_tables(data_module,data_content,dept_provide,person_provide,freq,timeliness,day,comment,address_table,db,comment_2)
 select * from ufdata.x_data_tables;
 
 -- 获取各数据最新日期
