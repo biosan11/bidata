@@ -30,6 +30,7 @@ select distinct 'UFDATA_111'
   from (select * from edw.dispatch_order 
                 where true_itemcode = '请核查'
                   and bi_cinvcode <> '请核查' order by ddate asc) a
+ where state <> '无效'
  group by bi_cinvcode
 ;
 
@@ -47,6 +48,7 @@ select distinct 'UFDATA_111'
   from (select * from edw.invoice_order 
                 where true_itemcode = '请核查'
                   and bi_cinvcode <> '请核查' order by ddate asc) a
+ where state <> '无效'
  group by bi_cinvcode
 ;
 
@@ -64,6 +66,7 @@ select distinct 'UFDATA_111'
   from (select * from edw.outdepot_order 
                 where true_itemcode = '请核查'
                   and bi_cinvcode <> '请核查' order by ddate asc) a
+ where state <> '无效'
  group by bi_cinvcode
 ;
 
@@ -81,6 +84,7 @@ select distinct 'UFDATA_111'
   from (select * from edw.sales_order 
                 where true_itemcode = '请核查'
                   and bi_cinvcode <> '请核查' order by ddate asc) a
+ where state <> '无效'
  group by bi_cinvcode
 ;
 

@@ -45,6 +45,7 @@ select distinct
       ,1 as leve
       ,CURDATE( ) as date
   from (select * from edw.dispatch_order where bi_cinvcode = '请核查' order by ddate asc) a
+ where state <> '无效'
  group by cinvcode 
 ;
 
@@ -66,6 +67,7 @@ select distinct
       ,1 as leve
       ,CURDATE( ) as date
   from (select * from edw.invoice_order where bi_cinvcode = '请核查' order by ddate asc) a
+ where state <> '无效'
  group by cinvcode 
 ;
 
@@ -87,6 +89,7 @@ select distinct
       ,1 as leve
       ,CURDATE( ) as date
   from (select * from edw.outdepot_order where bi_cinvcode = '请核查' order by ddate asc) a
+ where state <> '无效'
  group by cinvcode,db
 ;
 
@@ -108,6 +111,7 @@ select distinct
       ,1 as leve
       ,CURDATE( ) as date
   from (select * from edw.sales_order where bi_cinvcode = '请核查' order by ddate asc) a
+ where state <> '无效'
  group by cinvcode 
 ;
 
