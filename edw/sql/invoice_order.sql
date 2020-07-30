@@ -260,7 +260,7 @@ create temporary table edw.mid3_invoice_order as
 select a.db
       ,a.sbvid
       ,a.csbvcode
-      ,a.csocode
+      ,b.csocode
       ,a.ddate
       ,a.ccuscode
       ,a.ccusname

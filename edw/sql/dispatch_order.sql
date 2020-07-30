@@ -278,7 +278,7 @@ create temporary table edw.mid3_dispatch_order as
 select a.db
       ,a.cdlcode
       ,a.dlid
-      ,a.csocode
+      ,b.csocode
       ,a.ddate
       ,a.ccuscode
       ,a.ccusname
