@@ -162,8 +162,8 @@ update report.bonus_base_person set areadirector = '非省区客户' , cverifier
 
 
 -- 根据20年奖金方案 聚合减少数据量
-drop table if exists report.bonus_base_cal;
-create table if not exists report.bonus_base_cal
+drop temporary table if exists report.bonus_base_cal_;
+create temporary table if not exists report.bonus_base_cal_
 select 
     year(a.ddate) as year_
     ,month(a.ddate) as month_
@@ -182,12 +182,91 @@ from report.bonus_base_person as a
 left join edw.map_inventory as c 
 on a.cinvcode = c.bi_cinvcode 
 group by year_,month_,a.province,a.areadirector,a.cverifier,c.cinv_key_2020,c.screen_class,c.equipment;
+alter table report.bonus_base_cal_ add index (areadirector),add index(cverifier);
 
 
+-- ehr离职人员档案
+drop table if exists report.bonus_base_ehr;
+create table if not exists report.bonus_base_ehr
+select 
+	name 
+    ,employeestatus
+    ,TransitionType
+    ,lastworkdate
+    ,year(lastworkdate) as year_ 
+    ,month(lastworkdate) as month_ 
+from pdm.ehr_employee 
+where employeestatus = '离职' and year(lastworkdate) = 2020;
+alter table report.bonus_base_ehr add index (name);
 
+-- 根据20年奖金方案 聚合减少数据量
+drop table if exists report.bonus_base_cal;
+create table if not exists report.bonus_base_cal
+select 
+    a.year_
+    ,a.month_
+    ,a.sales_dept
+    ,a.sales_region_new
+    ,a.province
+    ,a.mark_province
+    ,a.areadirector
+    ,a.cverifier
+    ,a.cinv_key_2020
+    ,a.screen_class
+    ,a.equipment
+    ,a.isum 
+    ,a.isum_budget
+	,b.TransitionType as TransitionType_area
+	,b.lastworkdate as lastworkdate_area
+	,b.month_ as month_area
+	,c.TransitionType as TransitionType_cver
+	,c.lastworkdate as lastworkdate_cver
+	,c.month_ as month_cver
+from report.bonus_base_cal_ as a 
+left join report.bonus_base_ehr as b 
+on a.areadirector = b.name 
+left join report.bonus_base_ehr as c 
+on a.cverifier = c.name 
+;
 
+-- 被动离职的, 改 确认空
+update report.bonus_base_cal set areadirector = '确认空' where TransitionType_area = '被动离职';
+update report.bonus_base_cal set cverifier = '确认空' where TransitionType_cver = '被动离职';
 
+-- 主动离职的, 根据最后工作日期判断
+-- 1. 最后工作日期在Q1, 改 确认空
+update report.bonus_base_cal set areadirector = '确认空' 
+where TransitionType_area != '被动离职' and lastworkdate_area is not null 
+and month_area <= 3;
 
+update report.bonus_base_cal set cverifier = '确认空' 
+where TransitionType_cver != '被动离职' and lastworkdate_cver is not null 
+and month_cver <= 3;
 
+-- 2. 最后工作日期在Q2 , Q1不变, 其余改 确认空 
+update report.bonus_base_cal set areadirector = '确认空' 
+where (TransitionType_area = '主动离职' or TransitionType_area is null )and lastworkdate_area is not null 
+and month_area > 3 and month_area <= 6 and month_ >3;
 
+update report.bonus_base_cal set cverifier = '确认空' 
+where (TransitionType_cver = '主动离职' or TransitionType_cver is null ) and lastworkdate_cver is not null 
+and month_cver > 3 and month_cver <= 6 and month_ >3;
+
+-- 3. 最后工作日期在Q3 , Q1-Q2不变, 其余改 确认空 
+update report.bonus_base_cal set areadirector = '确认空' 
+where (TransitionType_area = '主动离职' or TransitionType_area is null ) and lastworkdate_area is not null 
+and month_area > 6 and month_area <= 9 and month_ >6;
+
+update report.bonus_base_cal set cverifier = '确认空' 
+where (TransitionType_cver = '主动离职' or TransitionType_cver is null )  and lastworkdate_cver is not null 
+and month_cver > 6 and month_cver <= 9 and month_ >6;
+
+-- 4. 最后工作日期在Q4 , Q1-Q3不变, 其余改 确认空 
+update report.bonus_base_cal set areadirector = '确认空' 
+where (TransitionType_area = '主动离职' or TransitionType_area is null ) and lastworkdate_area is not null 
+and month_area > 9 and month_area <= 12 and month_ >9;
+
+update report.bonus_base_cal set cverifier = '确认空' 
+where (TransitionType_cver = '主动离职' or TransitionType_cver is null )  and lastworkdate_cver is not null 
+and month_cver > 9 and month_cver <= 12 and month_ >9;
 
