@@ -43,7 +43,7 @@ select a.db
       ,a.true_ccuscode as ccuscode
       ,a.true_ccusname as ccusname
       ,a.true_finnal_ccuscode as finnal_ccuscode
-      ,a.true_finnal_ccusname1 as finnal_ccusname
+      ,a.true_finnal_ccusname2 as finnal_ccusname
       ,e.sales_region_new
       ,e.sales_region
       ,e.province
