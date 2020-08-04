@@ -144,6 +144,10 @@ update report.fin_11_sales_cost_cw_base as a
 -- 关联公司、美博特的客户类型更新
 update report.fin_11_sales_cost_cw_base set type = '美博特' where cohr = '美博特';
 update report.fin_11_sales_cost_cw_base set type = '关联公司' where left(ccuscode,2) = 'GL';
+-- 美博特数据
+update report.fin_11_sales_cost_cw_base set type = '正常' where ccuscode = 'GL5101001';
+-- 河南爱博数据
+update report.fin_11_sales_cost_cw_base set type = '正常' where ccuscode = 'GL4101001';
 
 -- 根据财务角度修改一波产品档案
 -- 档案修改去excel里面调整
