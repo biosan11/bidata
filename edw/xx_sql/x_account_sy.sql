@@ -24,7 +24,7 @@ select a.ccusname
       ,sum(a.mon_11) as mon_11
       ,sum(a.mon_12) as mon_12
   from ufdata.x_account_sy a
-  left join (select * from edw.dic_customer group by ccusname) b
+  left join (select * from edw.dic_customer group by trim(ccusname)) b
     on trim(a.ccusname) = trim(b.ccusname)
   left join (select * from edw.map_customer group by bi_cuscode) c
     on b.bi_cuscode = c.bi_cuscode
