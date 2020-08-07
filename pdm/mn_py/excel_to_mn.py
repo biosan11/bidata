@@ -135,9 +135,9 @@ if __name__ == '__main__':
     # 手动填写，确保信息无误
         "user": "jiangsunhui@biosan.cn",
         # "to": "jiangsunhui@biosan.cn", # 多个邮箱以','隔开；
-       "to": "jiangsunhui@biosan.cn,张梅妮<zhangmeini@biosan.cn>,彭丽<pengli@biosan.cn>,wangshaojie@biosan.cn,丁明君<dingmingjun@biosan.cn>", # 多个邮箱以','隔开；
-        "server": "smtp.exmail.qq.com",
-        'port': 465,    # values值必须int类型
+       "to": "jiangsunhui@biosan.cn,张梅妮<zhangmeini@biosan.cn>,彭丽<pengli@biosan.cn>,wangshaojie@biosan.cn,陆秋萍<luqiuping@biosan.cn>", # 多个邮箱以','隔开；
+        "server": "smtphz.qiye.163.com",
+        'port': 994,    # values值必须int类型
         "username": "jiangsunhui@biosan.cn",
         "password": "JSW19941123aa",
         "subject": "发货收入bi数据",
