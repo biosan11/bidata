@@ -177,17 +177,7 @@ update pdm.dispatch_order
  where finnal_ccusname = 'multi'
 ;
 
--- 按照王涛提供的客户项目负责人跟新18年以后的数据
-update pdm.dispatch_order a
- inner join pdm.cusitem_person b
-    on a.finnal_ccuscode = b.ccuscode
-   and a.item_code = b.item_code
-   and a.cbustype = b.cbustype
-   set a.areadirector = b.areadirector
-      ,a.cverifier = b.cverifier
- where a.ddate >= b.start_dt
-   and a.ddate <= b.end_dt
-;
+
 
 -- 客户名称 = 杭州云医购供应链科技有限公司  最终客户 = 上海文脉生物科技有限公司  的数据(通过订单号, 发票号等定位),最终客户改成 安庆市妇幼保健计划生育服务中心
 update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='HC01028' and finnal_ccuscode = 'DL3101079';
@@ -214,6 +204,16 @@ update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '�
 update pdm.dispatch_order set finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='YQ02291' and finnal_ccuscode = 'DL3101079';
 
 
-
+-- 按照王涛提供的客户项目负责人跟新18年以后的数据
+update pdm.dispatch_order a
+ inner join pdm.cusitem_person b
+    on a.finnal_ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+   set a.areadirector = b.areadirector
+      ,a.cverifier = b.cverifier
+ where a.ddate >= b.start_dt
+   and a.ddate <= b.end_dt
+;
 
 

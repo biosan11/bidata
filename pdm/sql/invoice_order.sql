@@ -204,18 +204,7 @@ update pdm.invoice_order
 ;
 
 
--- 按照王涛提供的客户项目负责人跟新18年以后的数据
-update pdm.invoice_order a
- inner join pdm.cusitem_person b
-    on a.finnal_ccuscode = b.ccuscode
-   and a.item_code = b.item_code
-   and a.cbustype = b.cbustype
-   set a.areadirector = b.areadirector
-      ,a.cverifier = b.cverifier
- where a.ddate >= '2018-01-01'
-   and a.ddate >= b.start_dt
-   and a.ddate <= b.end_dt
-;
+
 
 -- 客户名称 = 杭州云医购供应链科技有限公司  最终客户 = 上海文脉生物科技有限公司  的数据(通过订单号, 发票号等定位),最终客户改成 安庆市妇幼保健计划生育服务中心
 update pdm.invoice_order set itaxunitprice = '49.54',itax = '5.7',isum='49.54', finnal_ccuscode= 'ZD3408002',finnal_ccusname = '安庆市妇幼保健计划生育服务中心' where cinvcode ='HC01028' and sbvid = '1000024466' and db = 'UFDATA_111_2018';
@@ -245,5 +234,16 @@ update pdm.invoice_order set itaxunitprice = '9097.03',itax = '1046.56',isum='90
 update pdm.invoice_order set db = 'UFDATA_168_2018',cohr = '杭州贝生' where cohr = '甄元实验室' and ccusname = '吉林三基医学检验实验室有限公司';
 
 
-
+-- 按照王涛提供的客户项目负责人跟新18年以后的数据
+update pdm.invoice_order a
+ inner join pdm.cusitem_person b
+    on a.finnal_ccuscode = b.ccuscode
+   and a.item_code = b.item_code
+   and a.cbustype = b.cbustype
+   set a.areadirector = b.areadirector
+      ,a.cverifier = b.cverifier
+ where a.ddate >= '2018-01-01'
+   and a.ddate >= b.start_dt
+   and a.ddate <= b.end_dt
+;
 
