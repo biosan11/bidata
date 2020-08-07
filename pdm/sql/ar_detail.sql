@@ -126,6 +126,7 @@ select
         when a.db = 'UFDATA_889_2018' then '美博特'
         when a.db = 'UFDATA_889_2019' then '美博特'
         when a.db = 'UFDATA_555_2018' then '贝安云'
+        when a.db = 'UFDATA_170_2020' then '甄元'
         else '其他'
         end as cohr
     ,a.db
