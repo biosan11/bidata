@@ -225,7 +225,7 @@ select a.i_id
       ,a.cdept_id
       ,'取'
   from pdm.account_fy_pre3 a
-  left join (select * from edw.dic_deptment group by cdept_id,db) c
+  left join (select * from edw.dic_deptment group by cdept_id,left(db,10)) c
     on a.cdept_id = c.cdept_id
    and left(a.db,10) = left(c.db,10)
 	left join (select * from edw.dic_customer group by ccusname) e
@@ -283,12 +283,12 @@ select f.i_id
   left join (select * from pdm.accvouch_u8_pre group by liuchengbh,md) b
     on a.liuchengbh = b.liuchengbh
    and a.jine = b.md
-  left join (select * from edw.dic_deptment group by cdept_id,db) c
+  left join (select * from edw.dic_deptment group by cdept_id,left(db,10)) c
     on b.cdept_id = c.cdept_id
    and left(b.db,10) = left(c.db,10)
   left join (select * from pdm.accvouch_u8_pre1 group by liuchengbh) f
     on a.liuchengbh = f.liuchengbh
-  left join (select * from edw.dic_deptment group by cdept_id,db) d
+  left join (select * from edw.dic_deptment group by cdept_id,left(db,10)) d
     on f.cdept_id = d.cdept_id
    and left(f.db,10) = left(d.db,10)
 ;
