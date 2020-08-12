@@ -9,6 +9,8 @@ from sqlalchemy import create_engine
 from dateutil.relativedelta import relativedelta
 from pandas.core.frame import DataFrame
 from statsmodels.tsa.api import ExponentialSmoothing
+from statsmodels.tsa.api import Holt
+import matplotlib.pyplot as plt
 import os
 
 # 获取数据
@@ -18,6 +20,7 @@ def get_date():
                 passwd='biosan',
                 db='edw')#链接本地数据库
     sql = "select ccusname,ddate,sum(inum_person) as inum_person from report.checklist_tsh group by ccusname,ddate order by ccusname,ddate"#sql语句
+    # sql = "select ccusname,ddate,sum(inum_person) as inum_person from report.checklist_tsh where ccusname = '孝感市妇幼保健院' group by ccusname,ddate order by ccusname,ddate"#sql语句
     data = pd.read_sql(sql,conn)#获取数据
     return data
 # print(data)
@@ -177,16 +180,18 @@ def date_forecast(date):
     mon_list = list(reversed(mon_list))
     # print(mon_list)
     test = []
-    test = data[len(data)-20:len(data)]
+    test = data[len(data)-12:len(data)]
     # test = data
     y_hat_avg = test.copy()
     # 这里是设置特征函数，规划出一条一元一次方程
     # fit = Holt(np.asarray(test['inum_person_true'])).fit(smoothing_level=0.4, smoothing_slope=0.1)
     print(test)
     if len(test) <= 12:
-        fit = ExponentialSmoothing(np.asarray(test['inum_person_true']), seasonal_periods=3, trend='add', seasonal='add', ).fit()
+        # fit = ExponentialSmoothing(np.asarray(test['inum_person_true']), seasonal_periods=3, trend='add', seasonal='add', ).fit()
+        fit = Holt(np.asarray(test['inum_person_true'])).fit(smoothing_level=0.1, smoothing_slope=0.1)
     else:
-        fit = ExponentialSmoothing(np.asarray(test['inum_person_true']), seasonal_periods=6, trend='add', seasonal='add', ).fit()
+        fit = Holt(np.asarray(test['inum_person_true'])).fit(smoothing_level=0.6, smoothing_slope=0.1)
+        # fit = ExponentialSmoothing(np.asarray(test['inum_person_true']), seasonal_periods=12, trend='add', seasonal='add', ).fit()
     # 这里预测截止到2020年12月的数据
     num_list = fit.forecast(len(test)+ddate_diff+1)[len(test)+1:]
     # print(num_list)
@@ -214,7 +219,7 @@ def date_forecast(date):
 
 if __name__ == '__main__':
     # 先建立表，生成预测之前的数据
-    os.system("sh /home/bidata/report/sql/user.sh ccus_01_checklist_tsh_01.sql")
+    # os.system("sh /home/bidata/report/sql/user.sh ccus_01_checklist_tsh_01.sql")
     # 开始预测
     date_all = get_date()
     # df按照-ccusname-来切片
@@ -241,4 +246,4 @@ if __name__ == '__main__':
             # plt.show()
 
     # 生成最终表
-    os.system("sh /home/bidata/report/sql/user.sh ccus_01_checklist_tsh_02.sql")
+    # os.system("sh /home/bidata/report/sql/user.sh ccus_01_checklist_tsh_02.sql")
