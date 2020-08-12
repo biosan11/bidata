@@ -10,7 +10,7 @@ from dateutil.relativedelta import relativedelta
 from pandas.core.frame import DataFrame
 from statsmodels.tsa.api import ExponentialSmoothing
 from statsmodels.tsa.api import Holt
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import os
 
 # 获取数据
