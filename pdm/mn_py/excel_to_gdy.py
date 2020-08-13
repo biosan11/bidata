@@ -125,8 +125,8 @@ if __name__ == '__main__':
         "user": "jiangsunhui@biosan.cn",
         # "to": "jiangsunhui@biosan.cn", # 多个邮箱以','隔开；
        "to": "jiangsunhui@biosan.cn,彭丽<pengli@biosan.cn>,郭冬艳<guodongyan@biosan.cn>", # 多个邮箱以','隔开；
-        "server": "smtp.exmail.qq.com",
-        'port': 465,    # values值必须int类型
+        "server": "smtphz.qiye.163.com",
+        'port': 994,    # values值必须int类型
         "username": "jiangsunhui@biosan.cn",
         "password": "JSW19941123aa",
         "subject": "装机档案bi数据",
