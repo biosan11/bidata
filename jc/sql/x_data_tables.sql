@@ -1,9 +1,22 @@
 
--- edw.x_data_tables
+-- 计算数据应该更新的日期
+drop temporary table if exists tracking.tables_tem;
+create temporary table if not exists tracking.tables_tem
+select 
+	*
+	,case 
+		when freq = '按月' and day(current_date()) <= day 
+			then str_to_date(concat(year(current_date()),'-',month(current_date())-2,'-01'),'%Y-%m-%d') 
+		when freq = '按月' and day(current_date()) > day 
+			then str_to_date(concat(year(current_date()),'-',month(current_date())-1,'-01'),'%Y-%m-%d') 
+		else null 
+	end as date_next_update
+from ufdata.x_data_tables;
 
+-- tracking.x_data_tables
 truncate table tracking.x_data_tables;
-insert into tracking.x_data_tables(data_module,data_content,dept_provide,person_provide,freq,timeliness,day,comment,address_table,db,comment_2)
-select * from ufdata.x_data_tables;
+insert into tracking.x_data_tables(data_module,data_content,dept_provide,person_provide,freq,timeliness,day,comment,address_table,db,comment_2,date_next_update)
+select * from tracking.tables_tem;
 
 -- 获取各数据最新日期
 
