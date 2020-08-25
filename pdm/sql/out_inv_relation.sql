@@ -31,6 +31,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -62,6 +63,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -92,6 +94,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,fsettleqty
@@ -123,6 +126,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,fsettleqty
@@ -158,6 +162,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -189,6 +194,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,fsettleqty
@@ -223,6 +229,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,fsettleqty as isettlequantity
@@ -254,6 +261,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -287,6 +295,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,fsettleqty as isettlequantity
@@ -318,6 +327,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -350,6 +360,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,fsettleqty as isettlequantity
@@ -381,6 +392,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -414,6 +426,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,isettlequantity
@@ -445,6 +458,7 @@ select db
       ,bi_cinvname as cinvname
       ,cinvcode as cinvcode_old
       ,null
+      ,null as ccomunitname
       ,cdefine22
       ,iquantity
       ,fsettleqty
@@ -480,6 +494,7 @@ select a.db
       ,e.specification_type
       ,a.cinvcode_old
       ,e.u8_name as cinvname_old
+      ,a.ccomunitname
       ,a.cdefine22
       ,a.iquantity
       ,ifnull(a.isettlequantity,0)
@@ -579,6 +594,7 @@ select a.db
       ,e.specification_type
       ,a.cinvcode
       ,a.cinvname
+      ,null
       ,a.cdefine22
       ,a.iquantity
       ,a.isettlequantity
@@ -634,3 +650,26 @@ update pdm.out_inv_relation a
     on a.cinvcode = b.bi_cinvcode
    set a.bzj = b.biaozhunjg
 ;
+
+-- 更新一下产品单位
+update pdm.out_inv_relation a
+ inner join ufdata.inventory b
+    on a.cinvcode_old = b.cinvcode
+   and a.db = b.db
+ inner join ufdata.computationunit c
+    on b.ccomunitcode = b.ccomunitcode
+   and b.db = c.db
+   set a.ccomunitname = c.ccomunitname
+;
+
+update pdm.out_inv_relation a
+ inner join ufdata.inventory b
+    on a.cinvcode_old = b.cinvcode
+ inner join ufdata.computationunit c
+    on b.ccomunitcode = b.ccomunitcode
+   and b.db = c.db
+   set a.ccomunitname = c.ccomunitname
+ where a.ccomunitname is null
+;
+
+
