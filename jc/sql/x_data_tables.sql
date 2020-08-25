@@ -189,7 +189,7 @@ select
 	'最新只有计划' as if_comfirm
 	,max(ddate) as date_new
 from ufdata.x_ar_plan
-where comment != '计划'
+where comment = '计划'
 ;
 
 update tracking.x_data_tables as a 
