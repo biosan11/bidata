@@ -124,8 +124,8 @@ select a.db
   from ufdata.rdrecord32 a
   left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
     on a.ccuscode = b.ccuscode
- where (left(a.dnmaketime,10) >= '${start1_dt}' or left(a.dnmodifytime,10) >= '${start1_dt}' or left(a.dVeriDate,10) >= '${start1_dt}')
-   and a.db <> 'UFDATA_889_2019'
+ -- where (left(a.dnmaketime,10) >= '${start1_dt}' or left(a.dnmodifytime,10) >= '${start1_dt}' or left(a.dVeriDate,10) >= '${start1_dt}')
+ where a.db <> 'UFDATA_889_2019'
    and a.db <> 'UFDATA_666_2018'
    and a.db <> 'UFDATA_555_2018'
    and year(a.ddate) >= '2017'; 
@@ -175,8 +175,8 @@ select a.db
   left join edw.dic_customer b
     on a.ccuscode = b.ccuscode
    and left(a.db,10) = left(b.db,10)
- where (left(a.dnmaketime,10) >= '${start1_dt}' or left(a.dnmodifytime,10) >= '${start1_dt}' or left(a.dVeriDate,10) >= '${start1_dt}')
-   and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018' or a.db = 'UFDATA_666_2018')
+ -- where (left(a.dnmaketime,10) >= '${start1_dt}' or left(a.dnmodifytime,10) >= '${start1_dt}' or left(a.dVeriDate,10) >= '${start1_dt}')
+  where (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018' or a.db = 'UFDATA_666_2018')
    and year(a.ddate) >= '2017';
 --   and a.ccuscode in ("001","002","003","004","005","006","007","008","009","010","011","012","013");
 
@@ -259,7 +259,7 @@ select a.db
 ;
 
 -- 删除今天更新的数据
-delete from edw.outdepot_order where concat(db,id) in (select concat(db,id) from  edw.outdepot_order_pre);
+-- delete from edw.outdepot_order where concat(db,id) in (select concat(db,id) from  edw.outdepot_order_pre);
 
 CREATE INDEX index_mid2_outdepot_order_id ON edw.mid2_outdepot_order(id);
 CREATE INDEX index_mid2_outdepot_order_db ON edw.mid2_outdepot_order(db);
@@ -476,6 +476,7 @@ select a.db
 ;
 
 -- 新增项目正确的，都在第二层处理
+truncate table edw.outdepot_order;
 insert into edw.outdepot_order
 select a.db
       ,a.id

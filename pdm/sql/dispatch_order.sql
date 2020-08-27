@@ -58,8 +58,9 @@
 create temporary table pdm.dispatch_order_pre as 
 select *
   from edw.dispatch_order a
- where left(a.sys_time,10) >= '${start_dt}'
-  and year(ddate)>=2018;
+ -- where left(a.sys_time,10) >= '${start_dt}'
+ where year(ddate)>=2018
+  and state = '有效';
 
 -- 修复cwhcode部分字段，关联发票表
 -- create temporary table pdm.mid_dispatch_order as 
@@ -79,7 +80,7 @@ delete from pdm.dispatch_order_pre where left(true_ccuscode,2) = 'GL';
 -- 删除今天更新的数据
 CREATE INDEX index_dispatch_order_pre_db ON pdm.dispatch_order_pre(db);
 CREATE INDEX index_dispatch_order_pre_dlid ON pdm.dispatch_order_pre(dlid);
-delete from pdm.dispatch_order where concat(dlid,db) in (select concat(dlid,db) from  pdm.dispatch_order_pre);
+delete from pdm.dispatch_order where year(ddate)>=2019;
 
 -- 插入数据
 insert into pdm.dispatch_order
@@ -159,7 +160,7 @@ select a.cdlcode
 
 
 -- 删除上游已经删除的数据
-delete from pdm.dispatch_order where concat(db,dlid) in (select concat(db,dlid) from edw.dispatch_order where state = '无效') ;
+-- delete from pdm.dispatch_order where year(ddate)>=2019;
 
 -- 这里新增更新部门
 update pdm.dispatch_order s

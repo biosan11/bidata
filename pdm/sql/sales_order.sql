@@ -63,9 +63,9 @@ select a.*
   from edw.sales_order a
   left join edw.map_customer b
     on a.true_ccuscode = b.bi_cuscode
- where left(a.sys_time,10) >= '2018-01-01'
-  and year(ddate)>=2018
-  and state <> '无效';
+ -- where left(a.sys_time,10) >= '2018-01-01'
+ where year(ddate)>=2018
+  and state = '有效';
 
 -- 根据发票表和发货表获取到仓库编码
 -- create temporary table pdm.mid_sales_order as 
@@ -100,7 +100,7 @@ select e.bi_cinvcode
 delete from pdm.sales_order_pre where left(true_ccuscode,2) = 'GL';
 
 -- 删除今天更新的数据
-delete from pdm.sales_order where concat(id,db) in (select concat(id,db) from  pdm.sales_order_pre);
+delete from pdm.sales_order where year(ddate)>=2019;
 
 --插入数据
 insert into pdm.sales_order

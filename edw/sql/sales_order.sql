@@ -101,8 +101,8 @@ select a.db
   from ufdata.so_somain a
   left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
     on a.ccuscode = b.ccuscode
- where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
-   and a.db <> 'UFDATA_889_2019'
+ -- where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
+ where a.db <> 'UFDATA_889_2019'
    and a.db <> 'UFDATA_555_2018'
    and a.db <> 'UFDATA_666_2018'; 
 
@@ -145,8 +145,8 @@ select a.db
   left join edw.dic_customer b
     on a.ccuscode = b.ccuscode
    and left(a.db,10) = left(b.db,10)
- where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
-   and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018' or a.db = 'UFDATA_666_2018');
+-- where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
+ where (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018' or a.db = 'UFDATA_666_2018');
 
 --   and a.ccuscode in ("001","002","003","004","005","006","007","008","009","010","011","012","013");
 
@@ -219,7 +219,7 @@ select a.db
 ;
 
 --删除今天更新的数据
-delete from edw.sales_order where concat(id,db) in (select concat(id,db) from edw.sales_order_pre);
+-- delete from edw.sales_order where concat(id,db) in (select concat(id,db) from edw.sales_order_pre);
 CREATE INDEX index_mid2_sales_order_db ON edw.mid2_sales_order(db);
 CREATE INDEX index_mid2_sales_order_id ON edw.mid2_sales_order(id);
 
@@ -376,7 +376,7 @@ select a.db
  where a.db in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
 ;
 
-
+truncate table edw.sales_order;
 insert into edw.sales_order
 select a.db
       ,a.csocode

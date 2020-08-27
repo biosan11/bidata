@@ -68,8 +68,8 @@ select a.*
   from edw.outdepot_order a
   left join edw.map_customer b
     on a.true_ccuscode = b.bi_cuscode
- where left(a.sys_time,10) >= '${start_dt}'
-  and year(ddate)>=2019
+ -- where left(a.sys_time,10) >= '${start_dt}'
+ where year(ddate)>=2019
   and state = '有效';
 
 -- 删除贝康、检测收入
@@ -171,10 +171,10 @@ select a.id
 
 
 -- 删除上游已经删除的数据
-drop table if exists pdm.outdepot_order_wx;
-create temporary table pdm.outdepot_order_wx as select concat(db,id) as db from edw.outdepot_order where state = '无效';
-CREATE INDEX index_outdepot_order_wx_db ON pdm.outdepot_order_wx(db);
-delete from pdm.outdepot_order where concat(db,id) in (select db from pdm.outdepot_order_wx) ;
+-- drop table if exists pdm.outdepot_order_wx;
+-- create temporary table pdm.outdepot_order_wx as select concat(db,id) as db from edw.outdepot_order where state = '无效';
+-- CREATE INDEX index_outdepot_order_wx_db ON pdm.outdepot_order_wx(db);
+delete from pdm.outdepot_order where year(ddate)>=2019;
 
 -- 这里新增更新部门
 update pdm.outdepot_order s

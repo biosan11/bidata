@@ -64,8 +64,9 @@ select a.*
   from edw.invoice_order a
   left join edw.map_customer b
     on a.true_ccuscode = b.bi_cuscode
- where left(a.sys_time,10) >= '${start_dt}'
-  and year(ddate)>=2019;
+ -- where left(a.sys_time,10) >= '${start_dt}'
+  where year(ddate)>=2019
+  and state = '有效';
   
 -- 删除贝康、检测收入
 delete from pdm.invoice_order_pre where left(true_ccuscode,2) = 'GL';
@@ -77,7 +78,7 @@ delete from pdm.invoice_order_pre where true_ccuscode = 'DL1101002' and cinvcode
 
 -- 删除今天更新的数据
 -- delete from pdm.invoice_order where sbvid in (select sbvid from  pdm.invoice_order_pre);
-delete from pdm.invoice_order where concat(db,autoid) in (select concat(db,autoid) from  pdm.invoice_order_pre);
+delete from pdm.invoice_order year(ddate)>=2019;
 
 
 -- 创建中间临时表加工item_code
@@ -178,10 +179,10 @@ select a.sbvid
 ;
 
 -- 删除上游已经删除的数据
-drop table if exists pdm.invoice_order_wx;
-create temporary table pdm.invoice_order_wx as select concat(db,sbvid) as db from edw.invoice_order where state = '无效';
-CREATE INDEX index_invoice_order_wx_db ON pdm.invoice_order_wx(db);
-delete from pdm.invoice_order where concat(db,sbvid) in (select db from pdm.invoice_order_wx) ;
+-- drop table if exists pdm.invoice_order_wx;
+-- create temporary table pdm.invoice_order_wx as select concat(db,sbvid) as db from edw.invoice_order where state = '无效';
+-- CREATE INDEX index_invoice_order_wx_db ON pdm.invoice_order_wx(db);
+-- delete from pdm.invoice_order where concat(db,sbvid) in (select db from pdm.invoice_order_wx) ;
 
 -- 这里新增更新部门
 update pdm.invoice_order s

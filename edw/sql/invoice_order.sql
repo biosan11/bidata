@@ -117,8 +117,8 @@ select a.db
   from ufdata.salebillvouch a
   left join (select ccusname,ccuscode,bi_cusname,bi_cuscode from edw.dic_customer group by ccuscode) b
     on a.ccuscode = b.ccuscode
- where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
-   and a.db <> 'UFDATA_889_2019'
+ -- where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
+ where a.db <> 'UFDATA_889_2019'
    and a.db <> 'UFDATA_666_2018'
    and a.db <> 'UFDATA_555_2018'
    and a.db <> 'UFDATA_170_2020'
@@ -167,8 +167,8 @@ select a.db
   left join edw.dic_customer b
     on a.ccuscode = b.ccuscode
    and left(a.db,10) = left(b.db,10)
- where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
-   and (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018' or a.db = 'UFDATA_666_2018' or a.db = 'UFDATA_170_2020')
+ -- where (left(a.dcreatesystime,10) >= '${start1_dt}' or left(a.dmodifysystime,10) >= '${start1_dt}' or left(a.dverifydate,10) >= '${start1_dt}')
+ where (a.db = 'UFDATA_889_2019' or a.db = 'UFDATA_555_2018' or a.db = 'UFDATA_666_2018' or a.db = 'UFDATA_170_2020')
    and year(a.ddate) >= '2018'; 
 --   and a.ccuscode in ("001","002","003","004","005","006","007","008","009","010","011","012","013");
 
@@ -251,7 +251,7 @@ select a.db
 
 
 --删除今天更新的数据
-delete from edw.invoice_order where concat(db,sbvid) in (select concat(db,sbvid) from  edw.invoice_order_pre);
+-- delete from edw.invoice_order where concat(db,sbvid) in (select concat(db,sbvid) from  edw.invoice_order_pre);
 CREATE INDEX index_mid2_invoice_order_db ON edw.mid2_invoice_order(db);
 CREATE INDEX index_mid2_invoice_order_sbvid ON edw.mid2_invoice_order(sbvid);
 
@@ -456,6 +456,7 @@ select a.db
 ;
 
 --清洗项目编码
+truncate table edw.invoice_order;
 insert into edw.invoice_order
 select distinct a.db
       ,a.sbvid
