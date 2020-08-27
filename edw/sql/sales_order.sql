@@ -376,6 +376,9 @@ select a.db
  where a.db in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
 ;
 
+-- 针对这里运行较慢的情况，增加索引
+CREATE INDEX index_mid4_sales_order_bi_cinvcode ON edw.mid4_sales_order(bi_cinvcode);
+
 truncate table edw.sales_order;
 insert into edw.sales_order
 select a.db

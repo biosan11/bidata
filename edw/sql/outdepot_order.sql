@@ -475,6 +475,9 @@ select a.db
  where a.db in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
 ;
 
+-- 针对这里运行较慢的情况，增加索引
+CREATE INDEX index_mid4_outdepot_order_bi_cinvcode ON edw.mid4_outdepot_order(bi_cinvcode);
+
 -- 新增项目正确的，都在第二层处理
 truncate table edw.outdepot_order;
 insert into edw.outdepot_order

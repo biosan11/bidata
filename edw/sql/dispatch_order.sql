@@ -522,6 +522,9 @@ select a.db
  where a.db in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
 ;
 
+-- 针对这里运行较慢的情况，增加索引
+CREATE INDEX index_mid4_dispatch_order_bi_cinvcode ON edw.mid4_dispatch_order(bi_cinvcode);
+
 truncate table edw.dispatch_order;
 insert into edw.dispatch_order
 select a.db

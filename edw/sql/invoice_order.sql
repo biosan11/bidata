@@ -455,6 +455,9 @@ select a.db
  where a.db in('UFDATA_222_2018','UFDATA_222_2019','UFDATA_170_2020','UFDATA_588_2019','UFDATA_889_2019','UFDATA_588_2018','UFDATA_889_2018','UFDATA_555_2018')
 ;
 
+-- 针对这里运行较慢的情况，增加索引
+CREATE INDEX index_mid4_invoice_order_bi_cinvcode ON edw.mid4_invoice_order(bi_cinvcode);
+
 --清洗项目编码
 truncate table edw.invoice_order;
 insert into edw.invoice_order
