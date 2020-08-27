@@ -79,7 +79,7 @@ delete from pdm.outdepot_order_pre where left(bi_cinvcode,2) = 'JC';
 -- 删除今天更新的数据
 CREATE INDEX index_outdepot_order_pre_db ON pdm.outdepot_order_pre(db);
 CREATE INDEX index_outdepot_order_pre_autoid ON pdm.outdepot_order_pre(autoid);
-delete from pdm.outdepot_order where concat(db,autoid) in (select concat(db,autoid) from  pdm.outdepot_order_pre);
+delete from pdm.outdepot_order where year(ddate)>=2019;
 
 -- 创建中间临时表加工item_code
 create temporary table pdm.outdepot_order_item as
@@ -174,7 +174,7 @@ select a.id
 -- drop table if exists pdm.outdepot_order_wx;
 -- create temporary table pdm.outdepot_order_wx as select concat(db,id) as db from edw.outdepot_order where state = '无效';
 -- CREATE INDEX index_outdepot_order_wx_db ON pdm.outdepot_order_wx(db);
-delete from pdm.outdepot_order where year(ddate)>=2019;
+-- delete from pdm.outdepot_order where year(ddate)>=2019;
 
 -- 这里新增更新部门
 update pdm.outdepot_order s
