@@ -44,6 +44,7 @@ select db
       ,cmemo
       ,'发货单' as type
       ,itaxunitprice as dj
+      ,isosid
   from edw.dispatch_order
  where ddate BETWEEN '2018-01-01' and '2019-03-14'
    and db = 'UFDATA_111_2018'
@@ -76,6 +77,7 @@ select db
       ,cmemo
       ,'发货单' as type
       ,itaxunitprice as dj
+      ,isosid
   from edw.dispatch_order
  where ddate < '2018-01-01'
    and db = 'UFDATA_111_2018'
@@ -107,6 +109,7 @@ select db
       ,cmemo
       ,'出库单' as type
       ,iunitcost as dj
+      ,iorderdid as isosid
   from edw.outdepot_order
  where ddate BETWEEN '2018-01-01' and '2019-03-14'
    and db = 'UFDATA_111_2018'
@@ -139,6 +142,7 @@ select db
       ,cmemo
       ,'出库单' as type
       ,iunitcost as dj
+      ,iorderdid as isosid
   from edw.outdepot_order
  where ddate > '2019-03-14'
    and db = 'UFDATA_111_2018'
@@ -175,6 +179,7 @@ select db
       ,cmemo
       ,'发货单' as type
       ,itaxunitprice as dj
+      ,isosid
   from edw.dispatch_order
  where ddate BETWEEN '2017-01-01' and '2019-02-28'
    and db = 'UFDATA_222_2019'
@@ -207,6 +212,7 @@ select db
       ,cmemo
       ,'出库单' as type
       ,iunitcost as dj
+      ,iorderdid as isosid
   from edw.outdepot_order
  where ddate >= '2019-02-01'
    and db = 'UFDATA_222_2019'
@@ -242,6 +248,7 @@ select db
       ,cmemo
       ,'出库单' as type
       ,iunitcost as dj
+      ,iorderdid as isosid
   from edw.outdepot_order
  where ddate >= '2018-01-01'
    and db = 'UFDATA_118_2018'
@@ -274,6 +281,7 @@ select db
       ,cmemo
       ,'发货单' as type
       ,itaxunitprice as dj
+      ,isosid
   from edw.dispatch_order
  where ddate < '2018-01-01'
    and db = 'UFDATA_118_2018'
@@ -308,6 +316,7 @@ select db
       ,cmemo
       ,'出库单' as type
       ,iunitcost as dj
+      ,iorderdid as isosid
   from edw.outdepot_order
  where ddate >= '2017-01-01'
    and db = 'UFDATA_123_2018'
@@ -340,6 +349,7 @@ select db
       ,cmemo
       ,'发货单' as type
       ,itaxunitprice as dj
+      ,isosid
   from edw.dispatch_order
  where ddate < '2018-01-01'
    and db = 'UFDATA_123_2018'
@@ -373,6 +383,7 @@ select db
       ,cmemo
       ,'出库单' as type
       ,iunitcost as dj
+      ,iorderdid as isosid
   from edw.outdepot_order
  where ddate >= '2017-01-01'
    and db = 'UFDATA_333_2018'
@@ -405,6 +416,7 @@ select db
       ,cmemo
       ,'发货单' as type
       ,itaxunitprice as dj
+      ,isosid
   from edw.dispatch_order
  where ddate < '2018-01-01'
    and db = 'UFDATA_333_2018'
@@ -439,6 +451,7 @@ select db
       ,cmemo
       ,'发货单' as type
       ,itaxunitprice as dj
+      ,isosid
   from edw.dispatch_order
  where year(ddate) <= '2018'
    and db = 'UFDATA_168_2019'
@@ -471,6 +484,7 @@ select db
       ,cmemo
       ,'出库单' as type
       ,iunitcost as dj
+      ,iorderdid as isosid
   from edw.outdepot_order
  where ddate >= '2019-01-01'
    and db = 'UFDATA_168_2019'
@@ -503,6 +517,8 @@ select a.db
       ,0
       ,0
       ,dj as iunitcost
+      ,a.isosid
+      ,0
       ,a.plan_dt
       ,a.cstcode
       ,c.cdepname
@@ -603,6 +619,8 @@ select a.db
       ,ifnull(c.itaxunitprice,0)
       ,0
       ,0
+      ,null
+      ,0
       ,a.plan_dt
       ,a.cstcode
       ,a.cdepname
@@ -672,4 +690,10 @@ update pdm.out_inv_relation a
  where a.ccomunitname is null
 ;
 
-
+-- 更新一下订单价格
+update pdm.out_inv_relation a
+ inner join edw.sales_order b
+    on a.isosid = b.isosid
+   set a.md_dd = b.itaxunitprice
+;
+update pdm.out_inv_relation a set md_dd = iunitcost where a.md_dd = 0 and type = '发货单';
