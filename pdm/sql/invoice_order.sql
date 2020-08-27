@@ -78,7 +78,7 @@ delete from pdm.invoice_order_pre where true_ccuscode = 'DL1101002' and cinvcode
 
 -- 删除今天更新的数据
 -- delete from pdm.invoice_order where sbvid in (select sbvid from  pdm.invoice_order_pre);
-delete from pdm.invoice_order year(ddate)>=2019;
+delete from pdm.invoice_order where year(ddate)>=2019;
 
 
 -- 创建中间临时表加工item_code
