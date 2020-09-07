@@ -694,6 +694,7 @@ update pdm.out_inv_relation a
 update pdm.out_inv_relation a
  inner join edw.sales_order b
     on a.isosid = b.isosid
+   and a.db = b.db
    set a.md_dd = b.itaxunitprice
 ;
 update pdm.out_inv_relation a set md_dd = iunitcost where a.md_dd = 0 and type = '发货单';
