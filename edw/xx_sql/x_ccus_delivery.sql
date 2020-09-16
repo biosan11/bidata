@@ -21,7 +21,7 @@ new_province
 ,sum(new_december) as month_12
 from edw.crm_sale_screenings
 where new_province = '安徽省' and item_name ='NIPT' and year_ >= 2019
-group by new_city
+group by new_city,year_
 ;
 
 -- 更新第一层数据
