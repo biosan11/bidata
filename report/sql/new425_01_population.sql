@@ -178,7 +178,7 @@ from report.new425_population_tem01;
 
 -- 补充: 处理中间是空的或者未填写的部门 以平均值暂估
 -- 1.5.0 先将population_fenmu = 0 的 改为null 方便计数
-update report.new425_population set population_fenmu = null where population_fenmu = 0;
+update report.new425_01_population set population_fenmu = null where population_fenmu = 0;
 
 -- 1.5.1 取2019-2020年各省份地级市平均值 
 drop temporary table if exists report.new425_chulikong_tem01;
