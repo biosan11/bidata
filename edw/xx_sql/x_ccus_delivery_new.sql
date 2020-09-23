@@ -28,6 +28,31 @@ where new_province = '安徽省' and item_name ='NIPT' and year_ >= 2020
 group by new_city,year_
 ;
 
+-- 山东省 莱芜市 串联送样检测量 取自CRM
+drop temporary table if exists edw.x_ccus_delivery_tem0_sd;
+create temporary table if not exists edw.x_ccus_delivery_tem0_sd
+select
+	new_province
+	,new_city
+	,year_
+	,item_name
+	,sum(new_january) as month_1
+	,sum(new_february) as month_2
+	,sum(new_march) as month_3
+	,sum(new_april) as month_4
+	,sum(new_may) as month_5
+	,sum(new_june) as month_6
+	,sum(new_july) as month_7
+	,sum(new_august) as month_8
+	,sum(new_september) as month_9
+	,sum(new_october) as month_10
+	,sum(new_november) as month_11
+	,sum(new_december) as month_12
+	from edw.crm_sale_screenings
+where new_province = '山东省' and new_city = '莱芜市' and item_name ='串联试剂' and year_ >= 2019
+group by new_city,year_
+;
+
 -- 新建临时表抽取第一层 ufdata.x_ccus_delivery 相关字段并清洗
 drop temporary table if exists edw.x_ccus_delivery_tem1;
 create temporary table if not exists edw.x_ccus_delivery_tem1
@@ -54,6 +79,15 @@ on a.collection_hospital = d.ccusname
 -- 更新安徽省nipt数据, 来源取CRM 
 update edw.x_ccus_delivery_tem1 as a
 inner join edw.x_ccus_delivery_tem0 as b
+on a.province_get = b.new_province and a.city_give = b.new_city and a.item_name = b.item_name and a.year_ = b.year_
+set a.month_1 = b.month_1 ,a.month_2 = b.month_2 ,a.month_3 = b.month_3 ,a.month_4 = b.month_4 ,
+      a.month_5 = b.month_5 ,a.month_6 = b.month_6 ,a.month_7 = b.month_7 ,a.month_8 = b.month_8,
+      a.month_9 = b.month_9 ,a.month_10 = b.month_10 ,a.month_11 = b.month_11 ,a.month_12 = b.month_12
+;
+
+-- 更新山东省莱芜市串联试剂数据, 来源取CRM 
+update edw.x_ccus_delivery_tem1 as a
+inner join edw.x_ccus_delivery_tem0_sd as b
 on a.province_get = b.new_province and a.city_give = b.new_city and a.item_name = b.item_name and a.year_ = b.year_
 set a.month_1 = b.month_1 ,a.month_2 = b.month_2 ,a.month_3 = b.month_3 ,a.month_4 = b.month_4 ,
       a.month_5 = b.month_5 ,a.month_6 = b.month_6 ,a.month_7 = b.month_7 ,a.month_8 = b.month_8,
