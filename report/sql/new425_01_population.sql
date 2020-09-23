@@ -189,7 +189,7 @@ select
 	,sum(ifnull(population_fenmu,0)) as population_fenmu_sum 
 	,count(population_fenmu) as population_fenmu_sum_count
 	,ifnull(sum(ifnull(population_fenmu,0)),0) / ifnull(count(population_fenmu),1) as population_fenmu_cal
-from report.new425_population 
+from report.new425_01_population 
 where year_ >= 2019
 group by province,city;
 
@@ -202,18 +202,18 @@ select
 	,sum(ifnull(population_fenmu,0)) as population_fenmu_sum 
 	,count(population_fenmu) as population_fenmu_sum_count
 	,ifnull(sum(ifnull(population_fenmu,0)),0) / ifnull(count(population_fenmu),1) as population_fenmu_cal
-from report.new425_population 
+from report.new425_01_population 
 group by province,city;
 	
 -- 1.5.3 用2019-2020 代替null
-update report.new425_population as a
+update report.new425_01_population as a
 inner join report.new425_chulikong_tem01 as b 
 on a.province = b.province and a.city = b.city 
 set a.population_fenmu = b.population_fenmu_cal ,mark_result = '用19-20年数据暂估'
 where population_fenmu is null ;
 
 -- 1.5.4 用全部年份 代替null
-update report.new425_population as a
+update report.new425_01_population as a
 inner join report.new425_chulikong_tem02 as b 
 on a.province = b.province and a.city = b.city 
 set a.population_fenmu = b.population_fenmu_cal ,mark_result = '用全部年份数据暂估'
