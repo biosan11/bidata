@@ -518,7 +518,6 @@ select a.db
       ,0
       ,dj as iunitcost
       ,a.isosid
-      ,0
       ,a.plan_dt
       ,a.cstcode
       ,c.cdepname
@@ -620,7 +619,6 @@ select a.db
       ,0
       ,0
       ,null
-      ,0
       ,a.plan_dt
       ,a.cstcode
       ,a.cdepname
@@ -691,10 +689,10 @@ update pdm.out_inv_relation a
 ;
 
 -- 更新一下订单价格
-update pdm.out_inv_relation a
- inner join edw.sales_order b
-    on a.isosid = b.isosid
-   and a.db = b.db
-   set a.md_dd = b.itaxunitprice
-;
-update pdm.out_inv_relation a set md_dd = iunitcost where a.md_dd = 0 and type = '发货单';
+-- update pdm.out_inv_relation a
+--  inner join edw.sales_order b
+--     on a.isosid = b.isosid
+--    and a.db = b.db
+--    set a.md_dd = b.itaxunitprice
+-- ;
+-- update pdm.out_inv_relation a set md_dd = iunitcost where a.md_dd = 0 and type = '发货单';
