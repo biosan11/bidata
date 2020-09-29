@@ -38,7 +38,8 @@ select
 from report.c425_citys_tem01 as a 
 left join report.c425_months_tem01 as b 
 on 1 = 1;
-alter table report.c425_city_month_tem01 add index(concatid);  -- concatid: a.province,a.city,b.year_,b.month_
+alter table report.c425_city_month_tem01 add index(concatid); 
+-- concatid: a.province,a.city,b.year_,b.month_
 
 
 -- 1.4 通过上面基础表关联   1.pdm检测量checklist中TSH与17羟原始数据 2. 宏观人口数据 3.集中送样中tsh与17羟数据
