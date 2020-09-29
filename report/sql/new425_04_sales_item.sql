@@ -71,7 +71,7 @@ select
 	,a.month_ 
 	,round(a.isum_fentan,4)
 	,'送样地市加销售额' as mark_delivery
-from new425_03_delivery_ytd as a 
+from report.new425_03_delivery_ytd as a 
 left join (select sales_dept,sales_region_new,province,city from edw.map_customer where sales_dept in ('销售一部','销售二部') group by city) as b 
 on a.city_give = b.city 
 left join (select item_code,`425_item`  from edw.map_inventory where business_class != '租赁类' group by item_code ) as c -- 已经检查, 只有租赁类存在同一项目编码对应不同425项目
@@ -92,7 +92,7 @@ select
 	,a.month_ 
 	,round(a.isum_fentan * -1 ,4)
 	,'收样地市减销售额' as mark_delivery
-from new425_03_delivery_ytd as a 
+from report.new425_03_delivery_ytd as a 
 left join (select sales_dept,sales_region_new,province,city from edw.map_customer where sales_dept in ('销售一部','销售二部') group by city) as b 
 on a.city_get = b.city 
 left join (select item_code,`425_item`  from edw.map_inventory where business_class != '租赁类' group by item_code ) as c -- 已经检查, 只有租赁类存在同一项目编码对应不同425项目
