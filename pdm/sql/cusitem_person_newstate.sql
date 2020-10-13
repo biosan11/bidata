@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------------------
 --程序名称：cusitem_person_newstate.sql
 --目标模型：cusitem_person_newstate
---源    表：pdm.invoice_order,edw.x_sales_budget_20,edw.x_cinv_relation
+--源    表：pdm.invoice_order,edw.x_sales_budget_20_ori,edw.x_cinv_relation
 -----------------------------------------------------------------------------------------
 --加载周期：日增
 ------------------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as
       ,item_code
       ,cverifier
       ,areadirector
-  from edw.x_sales_budget_20
+  from edw.x_sales_budget_20_ori
  where year(ddate) = '2020'
    and left(bi_cuscode,2) = 'ZD'
    and isum_budget <> 0
@@ -101,7 +101,7 @@ select case when cohr  = '杭州贝生' then '杭州贝生' else '博圣' end as
       ,item_code
       ,cverifier
       ,areadirector
-  from edw.x_sales_budget_20
+  from edw.x_sales_budget_20_ori
  where year(ddate) = '2020'
    and left(bi_cuscode,2) = 'ZD'
    and isum_budget <> 0
@@ -436,7 +436,7 @@ delete from pdm.cusitem_person_newstate where left(item_code,2) = 'jk';
 
 -- 增加客户项目成功率
 update pdm.cusitem_person_newstate a
- inner join (select cohr,bi_cuscode,item_code,max(plan_success_rate) as plan_success_rate from edw.x_sales_budget_20 group by cohr,bi_cuscode,item_code) b
+ inner join (select cohr,bi_cuscode,item_code,max(plan_success_rate) as plan_success_rate from edw.x_sales_budget_20_ori group by cohr,bi_cuscode,item_code) b
     on a.cuscode = b.bi_cuscode
    and left(a.cohr,2) = left(b.cohr,2)
    and a.item_code = b.item_code
