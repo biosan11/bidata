@@ -24,6 +24,7 @@ def sqldir(path):
     sqlpath_list.append(path+"3_jc_abnormal_num.sql")
     sqlpath_list.append(path+"4_jc_abnormal_pro.sql")
     sqlpath_list.append(path+"5_jc_abnormal_else.sql")
+    sqlpath_list.append(path+"x_data_tables.sql")
     #sqlpath_list.sort(key=lambda x:int(x[len(path):len(path)+x[len(path):].find("_")]))
     return sqlpath_list
 
