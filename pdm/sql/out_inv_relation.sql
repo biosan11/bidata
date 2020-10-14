@@ -595,6 +595,7 @@ delete from pdm.out_inv_relation where cdlcode in(
 ,'ZJBSFH181023017'
 ,'ZJBSXC190916033'
 ,'ZJBSXC200221032'
+,'NBBSXC180331001'
 );
 
 -- 插入财务每月手动增加的数据
