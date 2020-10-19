@@ -140,7 +140,7 @@ update report.fin_11_sales_cost_base as a
    and a.cinvcode = b.cinvcode
    set a.eq_if_launch = '固定资产_线下'
       ,a.cost = 0
- where a.sales_type <> '固定资产'
+ where (a.sales_type <> '固定资产' or a.sales_type is null)  -- 20201010更新 当sales_type是null时 会产生bug
 ;
 
 
