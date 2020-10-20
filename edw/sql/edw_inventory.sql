@@ -47,6 +47,7 @@
 
 use edw;
 
+drop table if exists edw.inventory_pre;
 create temporary table edw.inventory_pre as
 select a.*
   from ufdata.inventory a
@@ -71,7 +72,16 @@ select a.db
       ,a.cinvdefine8
       ,a.cinvdefine9
       ,a.cinvdefine13
-      ,a.cinvdefine5
+      ,case 
+		when a.cinvdefine5 is not null then a.cinvdefine5 
+		when a.cinvdefine5 is null and a.centerprise = '贝安云' then '贝安云'
+		when a.cinvdefine5 is null and a.centerprise = '博圣' then '博圣'
+		when a.cinvdefine5 is null and a.centerprise = '杭州宝荣科技有限公司' then '宝荣'
+		when a.cinvdefine5 is null and a.centerprise = '杭州贝安云科技有限公司' then '贝安云'
+		when a.cinvdefine5 is null and a.centerprise = '杭州杰毅麦特医疗器械有限公司' then '杰毅麦特'
+		when a.cinvdefine5 is null and a.centerprise = '甄元' then '甄元'
+		else null 
+	end as cinvdefine5
       ,a.centerprise
       ,a.cinvccode
       ,a.cvencode
@@ -106,7 +116,16 @@ select a.db
       ,a.cinvdefine8
       ,a.cinvdefine9
       ,a.cinvdefine13
-      ,a.cinvdefine5
+      ,case 
+		when a.cinvdefine5 is not null then a.cinvdefine5 
+		when a.cinvdefine5 is null and a.centerprise = '贝安云' then '贝安云'
+		when a.cinvdefine5 is null and a.centerprise = '博圣' then '博圣'
+		when a.cinvdefine5 is null and a.centerprise = '杭州宝荣科技有限公司' then '宝荣'
+		when a.cinvdefine5 is null and a.centerprise = '杭州贝安云科技有限公司' then '贝安云'
+		when a.cinvdefine5 is null and a.centerprise = '杭州杰毅麦特医疗器械有限公司' then '杰毅麦特'
+		when a.cinvdefine5 is null and a.centerprise = '甄元' then '甄元'
+		else null 
+	end as cinvdefine5
       ,a.centerprise
       ,a.cinvccode
       ,a.cvencode
@@ -136,7 +155,7 @@ select a.db
 update edw.map_inventory a
 inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
   on a.bi_cinvcode = b.bi_cinvcode
-inner join (select * from edw.inventory_pre where cinvstd is not null group by cinvcode) c
+inner join (select * from edw.inventory where cinvstd is not null group by cinvcode) c
   on b.cinvcode = c.cinvcode
 set a.specification_type = c.cinvstd
 ;
@@ -145,7 +164,7 @@ set a.specification_type = c.cinvstd
 update edw.map_inventory a
 inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
   on a.bi_cinvcode = b.bi_cinvcode
-inner join (select * from edw.inventory_pre where dsdate is not null group by cinvcode) c
+inner join (select * from edw.inventory where dsdate is not null group by cinvcode) c
   on b.cinvcode = c.cinvcode
 set a.start_date = c.dsdate
 --   ,a.latest_cost = c.iinvncost
@@ -154,7 +173,7 @@ set a.start_date = c.dsdate
 update edw.map_inventory a
 inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
   on a.bi_cinvcode = b.bi_cinvcode
-inner join (select * from edw.inventory_pre where dedate is not null group by cinvcode) c
+inner join (select * from edw.inventory where dedate is not null group by cinvcode) c
   on b.cinvcode = c.cinvcode
 set a.end_date = c.dedate
 --   ,a.product = c.cinvccode
@@ -166,7 +185,7 @@ set a.end_date = c.dedate
 update edw.map_inventory a
 inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
   on a.bi_cinvcode = b.bi_cinvcode
-inner join (select * from edw.inventory_pre where cinvccode is not null group by cinvcode) c
+inner join (select * from edw.inventory where cinvccode is not null group by cinvcode) c
   on b.cinvcode = c.cinvcode
 set a.product = c.cinvccode
 --   ,a.cinvbrand = c.cinvdefine5
@@ -174,19 +193,19 @@ set a.product = c.cinvccode
 --   ,a.latest_cost = c.iinvncost
 ;
 -- 单价同步
-update edw.map_inventory a
-inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
-  on a.bi_cinvcode = b.bi_cinvcode
-inner join (select * from edw.inventory_pre where itaxrate is not null group by cinvcode) c
-  on b.cinvcode = c.cinvcode
-set a.itax = c.itaxrate
---   ,a.latest_cost = c.iinvncost
+-- update edw.map_inventory a
+-- inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
+--   on a.bi_cinvcode = b.bi_cinvcode
+-- inner join (select * from edw.edw.inventory where itaxrate is not null group by cinvcode) c
+--   on b.cinvcode = c.cinvcode
+-- set a.itax = c.itaxrate
+-- --   ,a.latest_cost = c.iinvncost
 ;
 -- U8名称同步
 update edw.map_inventory a
 inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
   on a.bi_cinvcode = b.bi_cinvcode
-inner join (select * from edw.inventory_pre where cinvname is not null group by cinvcode) c
+inner join (select * from edw.inventory where cinvname is not null group by cinvcode) c
   on b.cinvcode = c.cinvcode
 set a.u8_name = c.cinvname
 --   ,a.latest_cost = c.iinvncost
@@ -196,7 +215,7 @@ set a.u8_name = c.cinvname
 update edw.map_inventory a
 inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
   on a.bi_cinvcode = b.bi_cinvcode
-inner join (select * from edw.inventory_pre where cinvdefine5 is not null group by cinvcode) c
+inner join (select * from edw.inventory where cinvdefine5 is not null group by cinvcode) c
   on b.cinvcode = c.cinvcode
 set a.cinvbrand = c.cinvdefine5
 where a.cinvbrand is null
