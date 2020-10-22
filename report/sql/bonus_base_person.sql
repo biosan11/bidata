@@ -192,9 +192,9 @@ select
 	name 
     ,employeestatus
     ,TransitionType
-    ,date_add (lastworkdate, interval 1 day) as lastworkdate_add1
-    ,year(date_add (lastworkdate, interval 1 day)) as year_ 
-    ,month(date_add (lastworkdate, interval 1 day)) as month_ 
+    ,date_add(lastworkdate, interval 1 day) as lastworkdate_add1
+    ,year(date_add(lastworkdate, interval 1 day)) as year_ 
+    ,month(date_add(lastworkdate, interval 1 day)) as month_ 
 from pdm.ehr_employee 
 where employeestatus = '离职' and year(lastworkdate) = 2020;
 alter table report.bonus_base_ehr add index (name);
