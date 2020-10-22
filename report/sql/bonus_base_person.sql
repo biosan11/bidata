@@ -185,20 +185,22 @@ group by year_,month_,a.province,a.areadirector,a.cverifier,c.cinv_key_2020,c.sc
 alter table report.bonus_base_cal_ add index (areadirector),add index(cverifier);
 
 
--- ehr离职人员档案
+-- ehr离职人员档案  最后工作日期+1 钉钉群 销售奖金工作群 谷晓丽确认 2020-10-22 
 drop table if exists report.bonus_base_ehr;
 create table if not exists report.bonus_base_ehr
 select 
 	name 
     ,employeestatus
     ,TransitionType
-    ,lastworkdate
-    ,year(lastworkdate) as year_ 
-    ,month(lastworkdate) as month_ 
+    ,date_add (lastworkdate, interval 1 day) as lastworkdate_add1
+    ,year(date_add (lastworkdate, interval 1 day)) as year_ 
+    ,month(date_add (lastworkdate, interval 1 day)) as month_ 
 from pdm.ehr_employee 
 where employeestatus = '离职' and year(lastworkdate) = 2020;
 alter table report.bonus_base_ehr add index (name);
 
+		     
+		     
 -- 根据20年奖金方案 聚合减少数据量
 drop table if exists report.bonus_base_cal;
 create table if not exists report.bonus_base_cal
@@ -217,10 +219,10 @@ select
     ,a.isum 
     ,a.isum_budget
 	,b.TransitionType as TransitionType_area
-	,b.lastworkdate as lastworkdate_area
+	,b.lastworkdate_add1 as lastworkdate_area
 	,b.month_ as month_area
 	,c.TransitionType as TransitionType_cver
-	,c.lastworkdate as lastworkdate_cver
+	,c.lastworkdate_add1 as lastworkdate_cver
 	,c.month_ as month_cver
 from report.bonus_base_cal_ as a 
 left join report.bonus_base_ehr as b 
@@ -236,11 +238,11 @@ update report.bonus_base_cal set cverifier = '确认空' where TransitionType_cv
 -- 主动离职的, 根据最后工作日期判断
 -- 1. 最后工作日期在Q1, 改 确认空
 update report.bonus_base_cal set areadirector = '确认空' 
-where TransitionType_area != '被动离职' and lastworkdate_area is not null 
+where TransitionType_area != '主动离职' and lastworkdate_area is not null 
 and month_area <= 3;
 
 update report.bonus_base_cal set cverifier = '确认空' 
-where TransitionType_cver != '被动离职' and lastworkdate_cver is not null 
+where TransitionType_cver != '主动离职' and lastworkdate_cver is not null 
 and month_cver <= 3;
 
 -- 2. 最后工作日期在Q2 , Q1不变, 其余改 确认空 
