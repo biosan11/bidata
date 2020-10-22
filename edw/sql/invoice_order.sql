@@ -561,6 +561,27 @@ set true_finnal_ccuscode = 'ZD5101015'
 where db = 'UFDATA_889_2018'
   and ccusname = '其他-个人检测';
 
+-- 20201022修改最终客户 
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3703009' ,finnal_ccusname = '淄博市妇幼保健院', true_finnal_ccusname2 = '淄博市妇幼保健院' where db = 'UFDATA_170_2020' and csbvcode = 'HZZYPF20200131004';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3703009' ,finnal_ccusname = '淄博市妇幼保健院', true_finnal_ccusname2 = '淄博市妇幼保健院' where db = 'UFDATA_170_2020' and csbvcode = '64280881';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3703009' ,finnal_ccusname = '淄博市妇幼保健院', true_finnal_ccusname2 = '淄博市妇幼保健院' where db = 'UFDATA_170_2020' and csbvcode = '64280927';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3703009' ,finnal_ccusname = '淄博市妇幼保健院', true_finnal_ccusname2 = '淄博市妇幼保健院' where db = 'UFDATA_170_2020' and csbvcode = '67508628';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3703009' ,finnal_ccusname = '淄博市妇幼保健院', true_finnal_ccusname2 = '淄博市妇幼保健院' where db = 'UFDATA_170_2020' and csbvcode = '67508628';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3703009' ,finnal_ccusname = '淄博市妇幼保健院', true_finnal_ccusname2 = '淄博市妇幼保健院' where db = 'UFDATA_170_2020' and csbvcode = '05170920';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3503002' ,finnal_ccusname = '莆田市妇幼保健院', true_finnal_ccusname2 = '莆田市妇幼保健院' where db = 'UFDATA_111_2018' and csbvcode = '01158550（1）';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3503002' ,finnal_ccusname = '莆田市妇幼保健院', true_finnal_ccusname2 = '莆田市妇幼保健院' where db = 'UFDATA_111_2018' and csbvcode = '01158550（2）';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3208003' ,finnal_ccusname = '淮安市妇幼保健院', true_finnal_ccusname2 = '淮安市妇幼保健院' where db = 'UFDATA_111_2018' and csbvcode = '01158537';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3208003' ,finnal_ccusname = '淮安市妇幼保健院', true_finnal_ccusname2 = '淮安市妇幼保健院' where db = 'UFDATA_111_2018' and csbvcode = 'ZJBSPF200731001';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3208003' ,finnal_ccusname = '淮安市妇幼保健院', true_finnal_ccusname2 = '淮安市妇幼保健院' where db = 'UFDATA_111_2018' and csbvcode = 'ZJBSPF200731002';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3208003' ,finnal_ccusname = '淮安市妇幼保健院', true_finnal_ccusname2 = '淮安市妇幼保健院' where db = 'UFDATA_111_2018' and csbvcode = '01158536';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3208003' ,finnal_ccusname = '淮安市妇幼保健院', true_finnal_ccusname2 = '淮安市妇幼保健院' where db = 'UFDATA_111_2018' and csbvcode = '01158536';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD3208003' ,finnal_ccusname = '淮安市妇幼保健院', true_finnal_ccusname2 = '淮安市妇幼保健院' where db = 'UFDATA_111_2018' and csbvcode = '01158536';
+update edw.invoice_order set true_finnal_ccuscode = 'DL4310001' ,finnal_ccusname = '武汉康圣达医学检验所有限公司' , true_finnal_ccusname2 = '武汉康圣达医学检验所有限公司' where db = 'UFDATA_170_2020' and csbvcode = '67508547-8548';
+update edw.invoice_order set true_finnal_ccuscode = 'DL4310001' ,finnal_ccusname = '武汉康圣达医学检验所有限公司' , true_finnal_ccusname2 = '武汉康圣达医学检验所有限公司' where db = 'UFDATA_170_2020' and csbvcode = '67508547-8548';
+update edw.invoice_order set true_finnal_ccuscode = 'DL4310001' ,finnal_ccusname = '武汉康圣达医学检验所有限公司' , true_finnal_ccusname2 = '武汉康圣达医学检验所有限公司' where db = 'UFDATA_170_2020' and csbvcode = '67508637';
+update edw.invoice_order set true_finnal_ccuscode = 'DL4310001' ,finnal_ccusname = '武汉康圣达医学检验所有限公司' , true_finnal_ccusname2 = '武汉康圣达医学检验所有限公司' where db = 'UFDATA_170_2020' and csbvcode = '67508634';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD4205002' ,finnal_ccusname = '宜昌市中心人民医院', true_finnal_ccusname2 = '	宜昌市中心人民医院'	 where db = 'UFDATA_111_2018' and csbvcode = '98977464';
+
 -- 增加mbt对客户杰伊麦特清洗
 update edw.invoice_order 
 set true_finnal_ccuscode = 'DL5101020' 
