@@ -231,44 +231,47 @@ left join report.bonus_base_ehr as c
 on a.cverifier = c.name 
 ;
 
--- 被动离职的, 改 确认空
-update report.bonus_base_cal set areadirector = '确认空' where TransitionType_area = '被动离职';
-update report.bonus_base_cal set cverifier = '确认空' where TransitionType_cver = '被动离职';
 
--- 主动离职的, 根据最后工作日期判断
--- 1. 最后工作日期在Q1, 改 确认空
-update report.bonus_base_cal set areadirector = '确认空' 
-where TransitionType_area != '主动离职' and lastworkdate_area is not null 
-and month_area <= 3;
+-- 以下2020-10-23 彭丽电话确认  源数据中不改确认空
 
-update report.bonus_base_cal set cverifier = '确认空' 
-where TransitionType_cver != '主动离职' and lastworkdate_cver is not null 
-and month_cver <= 3;
-
--- 2. 最后工作日期在Q2 , Q1不变, 其余改 确认空 
-update report.bonus_base_cal set areadirector = '确认空' 
-where (TransitionType_area = '主动离职' or TransitionType_area is null )and lastworkdate_area is not null 
-and month_area > 3 and month_area <= 6 and month_ >3;
-
-update report.bonus_base_cal set cverifier = '确认空' 
-where (TransitionType_cver = '主动离职' or TransitionType_cver is null ) and lastworkdate_cver is not null 
-and month_cver > 3 and month_cver <= 6 and month_ >3;
-
--- 3. 最后工作日期在Q3 , Q1-Q2不变, 其余改 确认空 
-update report.bonus_base_cal set areadirector = '确认空' 
-where (TransitionType_area = '主动离职' or TransitionType_area is null ) and lastworkdate_area is not null 
-and month_area > 6 and month_area <= 9 and month_ >6;
-
-update report.bonus_base_cal set cverifier = '确认空' 
-where (TransitionType_cver = '主动离职' or TransitionType_cver is null )  and lastworkdate_cver is not null 
-and month_cver > 6 and month_cver <= 9 and month_ >6;
-
--- 4. 最后工作日期在Q4 , Q1-Q3不变, 其余改 确认空 
-update report.bonus_base_cal set areadirector = '确认空' 
-where (TransitionType_area = '主动离职' or TransitionType_area is null ) and lastworkdate_area is not null 
-and month_area > 9 and month_area <= 12 and month_ >9;
-
-update report.bonus_base_cal set cverifier = '确认空' 
-where (TransitionType_cver = '主动离职' or TransitionType_cver is null )  and lastworkdate_cver is not null 
-and month_cver > 9 and month_cver <= 12 and month_ >9;
+-- -- 被动离职的, 改 确认空
+-- update report.bonus_base_cal set areadirector = '确认空' where TransitionType_area = '被动离职';
+-- update report.bonus_base_cal set cverifier = '确认空' where TransitionType_cver = '被动离职';
+-- 
+-- -- 主动离职的, 根据最后工作日期判断
+-- -- 1. 最后工作日期在Q1, 改 确认空
+-- update report.bonus_base_cal set areadirector = '确认空' 
+-- where TransitionType_area != '主动离职' and lastworkdate_area is not null 
+-- and month_area <= 3;
+-- 
+-- update report.bonus_base_cal set cverifier = '确认空' 
+-- where TransitionType_cver != '主动离职' and lastworkdate_cver is not null 
+-- and month_cver <= 3;
+-- 
+-- -- 2. 最后工作日期在Q2 , Q1不变, 其余改 确认空 
+-- update report.bonus_base_cal set areadirector = '确认空' 
+-- where (TransitionType_area = '主动离职' or TransitionType_area is null )and lastworkdate_area is not null 
+-- and month_area > 3 and month_area <= 6 and month_ >3;
+-- 
+-- update report.bonus_base_cal set cverifier = '确认空' 
+-- where (TransitionType_cver = '主动离职' or TransitionType_cver is null ) and lastworkdate_cver is not null 
+-- and month_cver > 3 and month_cver <= 6 and month_ >3;
+-- 
+-- -- 3. 最后工作日期在Q3 , Q1-Q2不变, 其余改 确认空 
+-- update report.bonus_base_cal set areadirector = '确认空' 
+-- where (TransitionType_area = '主动离职' or TransitionType_area is null ) and lastworkdate_area is not null 
+-- and month_area > 6 and month_area <= 9 and month_ >6;
+-- 
+-- update report.bonus_base_cal set cverifier = '确认空' 
+-- where (TransitionType_cver = '主动离职' or TransitionType_cver is null )  and lastworkdate_cver is not null 
+-- and month_cver > 6 and month_cver <= 9 and month_ >6;
+-- 
+-- -- 4. 最后工作日期在Q4 , Q1-Q3不变, 其余改 确认空 
+-- update report.bonus_base_cal set areadirector = '确认空' 
+-- where (TransitionType_area = '主动离职' or TransitionType_area is null ) and lastworkdate_area is not null 
+-- and month_area > 9 and month_area <= 12 and month_ >9;
+-- 
+-- update report.bonus_base_cal set cverifier = '确认空' 
+-- where (TransitionType_cver = '主动离职' or TransitionType_cver is null )  and lastworkdate_cver is not null 
+-- and month_cver > 9 and month_cver <= 12 and month_ >9;
 
