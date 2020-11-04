@@ -81,4 +81,11 @@ update edw.x_account_fy a
  where a.code_class = '人力成本'
 ;
 
-
+-- 处理杰毅的科目编码   杰毅费用科目编码 中间多了两个0 66020012
+update  edw.x_account_fy a
+ inner join (select * from ufdata.code group by ccode) b
+    on concat(left(a.code_old,4),right(a.code_old,length(a.code_old)-6)) = b.ccode
+   set a.code = b.ccode
+      ,a.code_name = b.ccode_name
+ where a.cohr = '杰毅' and b.ccode is not null
+;
