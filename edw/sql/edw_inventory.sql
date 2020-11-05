@@ -200,7 +200,7 @@ set a.product = c.cinvccode
 --   on b.cinvcode = c.cinvcode
 -- set a.itax = c.itaxrate
 -- --   ,a.latest_cost = c.iinvncost
-;
+-- ;
 -- U8名称同步
 update edw.map_inventory a
 inner join (select * from edw.dic_inventory group by bi_cinvcode,cinvcode) b
