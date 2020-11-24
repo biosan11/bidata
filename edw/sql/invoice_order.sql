@@ -580,7 +580,7 @@ update edw.invoice_order set true_finnal_ccuscode = 'DL4310001' ,finnal_ccusname
 update edw.invoice_order set true_finnal_ccuscode = 'DL4310001' ,finnal_ccusname = '武汉康圣达医学检验所有限公司' , true_finnal_ccusname2 = '武汉康圣达医学检验所有限公司' where db = 'UFDATA_170_2020' and csbvcode = '67508547-8548';
 update edw.invoice_order set true_finnal_ccuscode = 'DL4310001' ,finnal_ccusname = '武汉康圣达医学检验所有限公司' , true_finnal_ccusname2 = '武汉康圣达医学检验所有限公司' where db = 'UFDATA_170_2020' and csbvcode = '67508637';
 update edw.invoice_order set true_finnal_ccuscode = 'DL4310001' ,finnal_ccusname = '武汉康圣达医学检验所有限公司' , true_finnal_ccusname2 = '武汉康圣达医学检验所有限公司' where db = 'UFDATA_170_2020' and csbvcode = '67508634';
-update edw.invoice_order set true_finnal_ccuscode = 'ZD4205002' ,finnal_ccusname = '宜昌市中心人民医院', true_finnal_ccusname2 = '	宜昌市中心人民医院'	 where db = 'UFDATA_111_2018' and csbvcode = '98977464';
+update edw.invoice_order set true_finnal_ccuscode = 'ZD4205002' ,finnal_ccusname = '宜昌市中心人民医院', true_finnal_ccusname2 = '宜昌市中心人民医院'	 where db = 'UFDATA_111_2018' and csbvcode = '98977464';
 
 -- 增加mbt对客户杰伊麦特清洗
 update edw.invoice_order 
