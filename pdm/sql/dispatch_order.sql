@@ -80,7 +80,7 @@ delete from pdm.dispatch_order_pre where left(true_ccuscode,2) = 'GL';
 -- 删除今天更新的数据
 CREATE INDEX index_dispatch_order_pre_db ON pdm.dispatch_order_pre(db);
 CREATE INDEX index_dispatch_order_pre_dlid ON pdm.dispatch_order_pre(dlid);
-delete from pdm.dispatch_order where year(ddate)>=2019;
+delete from pdm.dispatch_order where year(ddate)>=2018;
 
 -- 插入数据
 insert into pdm.dispatch_order
