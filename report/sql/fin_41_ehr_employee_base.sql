@@ -147,4 +147,15 @@ set @dt = '2020-05-31';
 call report.fin_41_ehr_employee_base_pro(@dt);
 set @dt = '2020-06-30';
 call report.fin_41_ehr_employee_base_pro(@dt);
-
+set @dt = '2020-07-31';
+call report.fin_41_ehr_employee_base_pro(@dt);
+set @dt = '2020-08-31';
+call report.fin_41_ehr_employee_base_pro(@dt);
+set @dt = '2020-09-30';
+call report.fin_41_ehr_employee_base_pro(@dt);
+set @dt = '2020-10-31';
+call report.fin_41_ehr_employee_base_pro(@dt);
+set @dt = '2020-11-30';
+call report.fin_41_ehr_employee_base_pro(@dt);
+set @dt = '2020-12-31';
+call report.fin_41_ehr_employee_base_pro(@dt);
