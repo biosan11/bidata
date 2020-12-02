@@ -100,7 +100,7 @@ select e.bi_cinvcode
 delete from pdm.sales_order_pre where left(true_ccuscode,2) = 'GL';
 
 -- 删除今天更新的数据
-delete from pdm.sales_order where year(ddate)>=2019;
+delete from pdm.sales_order where year(ddate)>=2018;
 
 --插入数据
 insert into pdm.sales_order
