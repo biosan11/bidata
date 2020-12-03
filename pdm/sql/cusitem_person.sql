@@ -21,7 +21,7 @@ drop table if exists pdm.invoice_order_pre;
 create temporary table pdm.invoice_order_pre as
 select finnal_ccuscode
       ,item_code
-      ,cbustype
+      ,upper(cbustype) as cbustype
       ,ddate
       ,cohr
       ,cinvcode
