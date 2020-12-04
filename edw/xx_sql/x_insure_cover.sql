@@ -6,8 +6,10 @@ select d.province
       ,case when a.hospital is not null and b.ccusname is null then '请核查' else b.bi_cuscode end as bi_cuscode
       ,case when a.hospital is not null and b.ccusname is null then '请核查' else b.bi_cusname end as bi_cusname
       ,a.item_name
-      ,case when a.item_name is not null and c.bi_cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
-      ,case when a.item_name is not null and c.bi_cinvname is null then '请核查' else c.bi_cinvname end as bi_cinvname
+      ,null as bi_cinvcode
+      ,null as bi_cinvname
+      -- ,case when a.item_name is not null and c.bi_cinvcode is null then '请核查' else c.bi_cinvcode end as bi_cinvcode
+      -- ,case when a.item_name is not null and c.bi_cinvname is null then '请核查' else c.bi_cinvname end as bi_cinvname
       ,a.ddate
       ,ifnull(a.insure_num ,0)
       ,ifnull(a.tickling   ,0)
