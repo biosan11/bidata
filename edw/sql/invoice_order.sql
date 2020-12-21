@@ -227,7 +227,10 @@ select a.db
       ,a.true_ccusname
       ,a.finnal_ccusname
       ,a.true_finnal_ccusname1
-      ,case when a.true_finnal_ccusname2 like "个人%" and char_LENGTH(a.true_finnal_ccusname2) > 6 then substr(a.true_finnal_ccusname2,4,char_length(a.true_finnal_ccusname2)-4) else a.true_finnal_ccusname2 end as true_finnal_ccusname2
+      ,case 
+            when a.true_finnal_ccusname2 like "个人%" and char_LENGTH(a.true_finnal_ccusname2) > 6 then substr(a.true_finnal_ccusname2,4,char_length(a.true_finnal_ccusname2)-4) 
+            when left(a.true_finnal_ccusname2,4) =  "（个人）" then replace(a.true_finnal_ccusname2,"（个人）","")
+            else a.true_finnal_ccusname2 end as true_finnal_ccusname2
       ,a.cstcode
       ,a.cmaker
       ,a.cverifier
