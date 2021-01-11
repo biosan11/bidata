@@ -150,6 +150,7 @@ select '17'
       ,null
       ,null
       ,null
+	  ,null as if_xs
       ,localtimestamp()
   from edw.x_sales_bkgr a
   left join edw.map_customer b
@@ -233,6 +234,7 @@ select '17'
       ,null
       ,null
       ,null
+	  ,null as if_xs 
       ,localtimestamp()
   from edw.x_sales_bk a
   left join edw.map_customer b
@@ -302,6 +304,7 @@ select '17'
       ,null
       ,null
       ,cverifier
+      ,null as if_xs
       ,localtimestamp()
   from edw.x_sales_history a
   left join (select * from edw.map_customer group by bi_cusname) b
