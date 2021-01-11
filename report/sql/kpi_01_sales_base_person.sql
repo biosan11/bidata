@@ -81,7 +81,7 @@ select
 from pdm.invoice_order as a 
 left join edw.map_inventory as b 
 on a.cinvcode = b.bi_cinvcode
-where a.item_code != 'JK0101' and year(ddate) >= 2019
+where a.item_code != 'JK0101' and year(ddate) >= 2019 and a.if_xs is null -- 增加if_xs = null 条件 (分中心部门)
 group by a.cohr,a.ddate,a.ccuscode,a.cinvcode;
 alter table report.bonus_base add index (ddate),add index (matchid);
 
