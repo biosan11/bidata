@@ -60,7 +60,7 @@ drop table if exists report.invoice_order;
 create temporary table report.invoice_order
 select *
   from pdm.invoice_order a
- where year(a.ddate) >= 2017
+ where year(a.ddate) >= 2017 and if_xs is null -- 增加销售口径标签条件
 ;
 
 CREATE INDEX index_invoice_order_cinvcode ON report.invoice_order(cinvcode);
