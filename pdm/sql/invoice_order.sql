@@ -1103,7 +1103,6 @@ update pdm.invoice_order set if_xs='非销售_销管代理商确认' where if_xs
 update pdm.invoice_order set if_xs='非销售_销管代理商确认' where if_xs is null and db = 'UFDATA_111_2018'and csbvcode = '00940236';
 update pdm.invoice_order set if_xs='非销售_销管代理商确认' where if_xs is null and db = 'UFDATA_111_2018'and csbvcode = 'ZJBSPF201110018';
 update pdm.invoice_order set if_xs='非销售_销管代理商确认' where if_xs is null and db = 'UFDATA_111_2018'and csbvcode = 'ZJBSPF201111029';
-update pdm.invoice_order set if_xs='非销售_销管代理商确认' where if_xs is null and db = 'UFDATA_111_2018'and csbvcode = '00940477';
 update pdm.invoice_order set if_xs='非销售_销管代理商确认' where if_xs is null and db = 'UFDATA_111_2018'and csbvcode = '05130611';
 update pdm.invoice_order set if_xs='非销售_BD' where if_xs is null and db = 'UFDATA_111_2018'and csbvcode = 'ZJBSPF200422014';
 update pdm.invoice_order set if_xs='非销售_BD' where if_xs is null and db = 'UFDATA_111_2018'and csbvcode = 'ZJBSPF200422016';
