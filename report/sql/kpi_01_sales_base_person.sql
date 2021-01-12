@@ -78,11 +78,12 @@ select
     ,b.business_class as cbustype 
     ,sum(a.isum) as isum
     ,concat( if(a.finnal_ccuscode = 'multi',a.ccuscode,a.finnal_ccuscode),b.item_code,b.business_class) as matchid
+	,a.if_xs
 from pdm.invoice_order as a 
 left join edw.map_inventory as b 
 on a.cinvcode = b.bi_cinvcode
-where a.item_code != 'JK0101' and year(ddate) >= 2019 and a.if_xs is null -- 增加if_xs = null 条件 (分中心部门)
-group by a.cohr,a.ddate,a.ccuscode,a.cinvcode;
+where a.item_code != 'JK0101' and year(ddate) >= 2019 
+group by a.cohr,a.ddate,a.ccuscode,a.cinvcode,a.if_xs;
 alter table report.bonus_base add index (ddate),add index (matchid);
 
 -- 计划收入处理 
@@ -112,7 +113,10 @@ select a.ddate
       ,a.ccuscode 
       ,c.bi_cusname
       ,c.sales_dept
-      ,c.sales_region_new
+      ,case 
+		when a.if_xs is null then c.sales_region_new
+		else '其他'
+	  end as sales_region_new
       ,c.province
       ,a.cbustype
       ,a.cinvcode
@@ -149,7 +153,10 @@ select a.ddate
       ,a.ccuscode 
       ,c.bi_cusname
       ,c.sales_dept
-      ,c.sales_region_new
+      ,case 
+		when a.if_xs is null then c.sales_region_new
+		else '其他'
+	  end as sales_region_new
       ,c.province
       ,a.cbustype
       ,a.cinvcode
@@ -218,10 +225,5 @@ and a.isum_budget != 0
 ;
 -- 计划收入是0的数据不取 
 
--- 非省区客户,手动维护 
-update report.kpi_01_sales_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where ccusname = "浙江迪安深海冷链物流有限公司";
-update report.kpi_01_sales_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where ccusname = "杭州优客互动网络科技有限公司";
-update report.kpi_01_sales_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where ccusname = "湖南文吉健康管理有限公司";
-update report.kpi_01_sales_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where ccusname = "浙江玺诺医疗器械有限公司";
-update report.kpi_01_sales_base_person set areadirector = '非省区客户' , cverifier = '非省区客户' where ccusname = "杭州方回春堂同心中医门诊部有限公司";
+
 
