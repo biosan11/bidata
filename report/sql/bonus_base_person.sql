@@ -180,7 +180,16 @@ select
     ,a.mark_province
     ,a.areadirector
     ,a.cverifier
-    ,c.cinv_key_2020
+	-- 新品要品增量奖，需刨除2020下半年补充的几个重点项目（杰毅NIPT、CNV_seq、LDT甄元、博圣自有软件、东方海洋VD）  谷晓丽 2020-12-24 邮件
+    ,case 
+		when month(a.ddate) <= 6 then c.cinv_key_2020
+		when month(a.ddate) > 6 and c.cinv_key_2020 = '杰毅麦特NIPT' then null 
+		when month(a.ddate) > 6 and c.cinv_key_2020 = '甄元LDT' then null 
+		when month(a.ddate) > 6 and c.cinv_key_2020 = '服务_软件' then null  
+		when month(a.ddate) > 6 and c.cinv_key_2020 = '东方海洋VD' then null  
+		when month(a.ddate) > 6 and c.item_code = 'CQ0706' then null  -- CNV-seq
+		else c.cinv_key_2020 
+	end as cinv_key_2020
     ,ifnull(c.screen_class,"筛查") as screen_class
     ,c.equipment
     ,sum(isum) as isum 
@@ -188,7 +197,7 @@ select
 from report.bonus_base_person as a 
 left join edw.map_inventory as c 
 on a.cinvcode = c.bi_cinvcode 
-group by year_,month_,a.province,a.areadirector,a.cverifier,c.cinv_key_2020,c.screen_class,c.equipment;
+group by year_,month_,a.province,a.areadirector,a.cverifier,cinv_key_2020,c.screen_class,c.equipment;
 alter table report.bonus_base_cal_ add index (areadirector),add index(cverifier);
 
 
