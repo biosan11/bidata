@@ -70,7 +70,7 @@ select
     ,case 
 		when a.if_xs is null then c.sales_region_new
 		else '其他'
-	end as sales_dept_new
+	end as sales_region_new
     ,c.province
     ,case
         when c.province in ("浙江省","安徽省","福建省","江苏省","山东省","湖南省") then "六省"
