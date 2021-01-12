@@ -20,6 +20,7 @@
 truncate table pdm.invoice_order_cw;
 insert into pdm.invoice_order_cw
 select a.db
+      ,a.isaleoutid
       ,case when a.db = 'UFDATA_111_2018' then '博圣' 
             when a.db = 'UFDATA_118_2018' then '卓恩'
             when a.db = 'UFDATA_123_2018' then '恩允'
@@ -63,10 +64,10 @@ select a.db
       ,round(ifnull(a.iquantity,0),2)
       ,round(ifnull(a.itaxunitprice,0),2)
       ,round(ifnull(a.itaxrate,0),2)
-      ,round(ifnull(b.iunitcost,0),2)
+      ,0
 --      ,case when a.itb = '1' and ifnull(a.tbquantity,0) < 0 then round(ifnull(b.iprice,0),2) * - 1 else round(ifnull(b.iprice,0),2) end as price
 --      ,case when a.itb = '1' and ifnull(a.tbquantity,0) < 0 then round(ifnull(d.iaoutprice,0),2) * - 1 else round(ifnull(d.iaoutprice,0),2) end as price1
-      ,round(ifnull(b.iprice,0),2) as price
+      ,0
       ,round(ifnull(d.iaoutprice,0),2) price1
       ,a.cdefine22
       ,a.cdefine23
@@ -76,9 +77,6 @@ select a.db
       ,a.cmemo
       ,a.cbdlcode
   from edw.invoice_order a
-  left join edw.outdepot_order b
-    on a.isaleoutid=b.autoid
-   and a.db = b.db
   left join edw.map_inventory c
     on a.bi_cinvcode = c.bi_cinvcode
   left join ufdata.ia_ensubsidiary d
@@ -88,3 +86,11 @@ select a.db
     on a.true_finnal_ccuscode = e.bi_cuscode
 ;
 
+
+update pdm.invoice_order_cw a
+ inner join edw.outdepot_order b
+    on a.isaleoutid=b.autoid
+   and a.db = b.db
+   set a.iunitcost = round(ifnull(b.iunitcost,0),2)
+      ,a.price = round(ifnull(b.iprice,0),2)
+;
