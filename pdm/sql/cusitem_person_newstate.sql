@@ -18,7 +18,7 @@
 -- 取 pdm.mid0_cusitem_person_newstate 中销售中心的数据 
 drop table if exists pdm.mid0_cusitem_person_newstate;
 create table if not exists pdm.mid0_cusitem_person_newstate
-select * from pdm.invoice_order where year(ddate) >= 2019 and if_xs is null and db not in ('jsc','HNAB'); -- 条件
+select * from pdm.invoice_order where year(ddate) >= 2019 and if_xs is null and db not in ('jsc','HNAB');
 alter table pdm.mid0_cusitem_person_newstate add index(cohr);
 alter table pdm.mid0_cusitem_person_newstate add index(finnal_ccuscode);
 alter table pdm.mid0_cusitem_person_newstate add index(item_code);
