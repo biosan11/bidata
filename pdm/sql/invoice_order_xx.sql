@@ -85,6 +85,7 @@ select a.sbvid
       ,a.isaleoutid
       ,null
       ,null
+	  ,null as if_xs
       ,localtimestamp()
   from edw.x_invoice_order_18 a
   left join (select * from pdm.invoice_order_item group by bi_cinvcode) b
