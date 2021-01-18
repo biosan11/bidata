@@ -197,7 +197,7 @@ select
 from report.bonus_base_person as a 
 left join edw.map_inventory as c 
 on a.cinvcode = c.bi_cinvcode 
-group by year_,month_,a.province,a.areadirector,a.cverifier,cinv_key_2020,c.screen_class,c.equipment;
+group by year_,month_,a.sales_region_new,a.province,a.areadirector,a.cverifier,cinv_key_2020,c.screen_class,c.equipment;
 alter table report.bonus_base_cal_ add index (areadirector),add index(cverifier);
 
 
